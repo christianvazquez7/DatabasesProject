@@ -42,15 +42,32 @@
     
     
     <style name="customTabText">
-    <item name="android:textSize">14sp</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#FFFFFF</item>
 	</style>     
     <style name="myTabs" parent="@android:style/TextAppearance.Widget.TabWidget" >
-	<item name="android:background">@drawable/wood</item>
-    <item name="android:textAppearance">@style/customTabText</item>
+        <item name="android:background">@drawable/wood</item>
+        <item name="android:textAppearance">@style/customTabText</item>
 	</style> 
-	 
+    <style name="LoginFormContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+	<style name="HomeMenuButton" parent="@android:style/Widget.Button">
+	    <item name="android:gravity">center_vertical|center_horizontal</item>
+	    <item name="android:textColor">#FFFFFFFF</item>
+	    <item name="android:shadowColor">#FF000000</item>
+	    <item name="android:shadowDx">0</item>
+	    <item name="android:shadowDy">-1</item>
+	    <item name="android:shadowRadius">5</item>
+	    <item name="android:textSize">16dip</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:background">@drawable/backrepeat</item>
+	    <item name="android:focusable">true</item>
+	    <item name="android:clickable">true</item>
+	</style>
 
 
 </resources>
