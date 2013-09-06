@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:id="@+id/full">
+
+ <FrameLayout
+     android:id="@+id/productContainer"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+      >
+
+    </FrameLayout>
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+         android:layout_weight="0.6"
+        android:layout_height="140dp" >
+
+     	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                style="@style/myTabs"
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="32dp" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/reviewFragmentContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+   				
+                  <!--   <FrameLayout 
+   					 android:id="@+id/reviewFragmentContainer"
+    				 android:layout_width="match_parent"
+   					 android:layout_height="match_parent"
+     				/>  -->
+                </LinearLayout>
+                
+                  <LinearLayout
+                     android:orientation="vertical"
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </LinearLayout>
+  
+   		 </FrameLayout>
+ 
+
+               
+
+        
+     
+                
+            
+        </LinearLayout>
+    </TabHost>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_weight="0.01"
+        android:background="@drawable/metal"
+        android:text="Add to Basket" />
+
+</LinearLayout>
