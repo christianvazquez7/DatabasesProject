@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/shelf3"
+    >
+
+    <TextView
+        android:id="@+id/forgotField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:text="Forgot account or password"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#00F" />
+
+    <TextView
+        android:id="@+id/createAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/forgotField"
+        android:layout_centerHorizontal="true"
+        android:text="Create Account"
+        android:textColor="#00F"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        style="@style/HomeMenuButton"
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_above="@+id/createAccount"
+        android:layout_alignLeft="@+id/createAccount"
+        android:layout_alignRight="@+id/createAccount"
+		android:background="@drawable/metal_button"
+        android:layout_marginBottom="42dp"
+        android:text="Login" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="160dp"
+        android:layout_height="24dp"
+        android:layout_above="@+id/editText2"
+        android:layout_alignLeft="@+id/forgotField"
+        android:layout_alignRight="@+id/forgotField"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_corners_edit_text"
+        android:ems="10"
+        android:paddingLeft="7dp"
+        android:hint="Username" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/basket_icon" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/round_corners_edit_text"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="7dp" >
+
+    </EditText>
+
+</RelativeLayout>
