@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 
     <application
@@ -23,32 +23,43 @@
         
         <activity
             android:name="com.example.basket.SignUpActivity"
+            android:label="@string/app_name"
              >
         </activity>
         <activity
+            android:label="@string/app_name"
             android:name="com.example.basket.ForgotFieldActivity"
              >
         </activity>
         <activity
+            android:label="@string/app_name"
             android:name="com.example.basket.FrontPageActivity"
             >
         </activity>
         <activity
+            android:label="@string/app_name"
             android:name="com.example.basket.PicknickActivity"
              >
         </activity>
         <activity
-            android:name="com.example.basket.SettingPopupActivity"
             
+            android:name="com.example.basket.SettingPopupActivity"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog">
             
         </activity>
-        <activity android:name="com.example.basket.ProductFragmentActivity" >
+        <activity 
+            android:name="com.example.basket.ProductFragmentActivity" 
+            android:label="@string/app_name">
             
         </activity>
         <activity
             android:name="com.example.basket.ProductPageActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.basket.ProductListFragment"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

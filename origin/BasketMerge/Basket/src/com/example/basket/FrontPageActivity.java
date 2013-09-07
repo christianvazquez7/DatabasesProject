@@ -29,7 +29,7 @@ public class FrontPageActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent pl = new Intent(FrontPageActivity.this,ProductListFragment.class);
+				Intent pl = new Intent(FrontPageActivity.this,ProductFragmentActivity.class);
 				startActivity(pl);
 				
 			}
