@@ -21,8 +21,8 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		sm.setSlidingEnabled(true);
 		setContentView(R.layout.activity_product_fragment);
-		FragmentManager fm = this.getSupportFragmentManager();
-		Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+		android.app.FragmentManager fm = this.getFragmentManager();
+		android.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 		
 		if (fragment == null)
 		{

@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/full"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:id="@+id/full">
+    android:orientation="vertical" >
 
- <FrameLayout
-     android:id="@+id/productContainer"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-      >
-
+    <FrameLayout
+        android:id="@+id/productContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
     </FrameLayout>
 
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="match_parent"
-         android:layout_weight="0.6"
-        android:layout_height="140dp" >
+        android:layout_height="140dp"
+        android:layout_weight="0.6" >
 
-     	<LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <TabWidget
-                style="@style/myTabs"
                 android:id="@android:id/tabs"
+                style="@style/myTabs"
                 android:layout_width="match_parent"
                 android:layout_height="32dp" >
             </TabWidget>
@@ -37,41 +35,34 @@
                 android:layout_height="match_parent" >
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:id="@+id/reviewFragmentContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-   				
-                  <!--   <FrameLayout 
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <!--
+                     <FrameLayout 
    					 android:id="@+id/reviewFragmentContainer"
     				 android:layout_width="match_parent"
    					 android:layout_height="match_parent"
-     				/>  -->
-                </LinearLayout>
-                
-                  <LinearLayout
-                     android:orientation="vertical"
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+     				/>
+                    -->
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/tab3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
                 </LinearLayout>
-  
-   		 </FrameLayout>
- 
-
-               
-
-        
-     
-                
-            
+            </FrameLayout>
         </LinearLayout>
     </TabHost>
 

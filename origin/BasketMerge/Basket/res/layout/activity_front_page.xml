@@ -31,4 +31,13 @@
         android:layout_marginTop="76dp"
         android:text="product list" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="22dp"
+        android:text="basket list" />
+
 </RelativeLayout>

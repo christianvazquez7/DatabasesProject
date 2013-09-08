@@ -24,14 +24,7 @@ public class ProductAdapter extends ArrayAdapter<Products>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view, null);
 			
 		}
-		Products currentProduct = this.getItem(pos);
-//		TextView productName = (TextView) convertView.findViewById(R.id.product);
-//		productName.setText(currentProduct.getName());
-//		
-//		TextView supplierName = (TextView) convertView.findViewById(R.id.supplier);
-//		productName.setText(currentProduct.getSupplier());
-//		
-		
+		Products currentProduct = this.getItem(pos);	
 		return convertView;
 		
 	}

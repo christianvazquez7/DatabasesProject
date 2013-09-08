@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class FrontPageActivity extends Activity {
-	Button mPicknickButton, mProductList;
+	Button mPicknickButton, mProductList, mBasketList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class FrontPageActivity extends Activity {
 				
 			}
 		});
+		
 	}
 
 

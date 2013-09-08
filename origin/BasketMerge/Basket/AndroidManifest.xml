@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
     <application
@@ -20,38 +20,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.example.basket.SignUpActivity"
-            android:label="@string/app_name"
-             >
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/app_name"
             android:name="com.example.basket.ForgotFieldActivity"
-             >
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/app_name"
             android:name="com.example.basket.FrontPageActivity"
-            >
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:label="@string/app_name"
             android:name="com.example.basket.PicknickActivity"
-             >
+            android:label="@string/app_name" >
         </activity>
         <activity
-            
-            android:name="com.example.basket.SettingPopupActivity"
+            android:name="com.example.basket.SettingPopupProfileActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog">
-            
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity 
-            android:name="com.example.basket.ProductFragmentActivity" 
-            android:label="@string/app_name">
-            
+        <activity
+            android:name="com.example.basket.BasketFragmentActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.example.basket.BasketInfoPageActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.example.basket.ProductFragmentActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.example.basket.ProductPageActivity"
@@ -60,6 +62,10 @@
         <activity
             android:name="com.example.basket.ProductListFragment"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.basket.FaqActivity"
+            android:label="@string/title_activity_faq" >
         </activity>
     </application>
 

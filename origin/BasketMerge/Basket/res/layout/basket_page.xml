@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/full"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/basketContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/productlistcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="290dp" >
+    </FrameLayout>
+
+   
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_weight="0.01"
+        android:background="@drawable/metal"
+        android:text="Add to Basket" />
+
+</LinearLayout>
