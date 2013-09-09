@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2FFFA500"
- >
+    android:background="#0AFFA500"
+>
 
     <TextView
+        android:textColor="#FFA500"
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,3 +43,5 @@
         android:text="A good bit of this film is a superhero-origins story, in which we follow Steve Rogers (Chris Evans), a plain-featured young man of about 20 years old who is a classic 90-pound weakling, as he tries five times to enlist in the Army during the early part of World War II..." />
 
 </RelativeLayout>
+<!--   android:textColor="#F1FFA500"
+ -->
