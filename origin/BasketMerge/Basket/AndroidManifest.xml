@@ -25,6 +25,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".FaqActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.example.basket.ForgotFieldActivity"
             android:label="@string/app_name" >
         </activity>
