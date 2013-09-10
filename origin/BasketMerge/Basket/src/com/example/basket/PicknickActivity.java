@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class PicknickActivity extends Activity {
 	private Button mProfile;
-	private Button mBasketList;
+	private Button mBasketList, mFaqButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,6 +33,15 @@ public class PicknickActivity extends Activity {
 				Intent pl = new Intent(PicknickActivity.this,BasketFragmentActivity.class);
 				startActivity(pl);
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
+			}
+		});
+		mFaqButton = (Button) findViewById(R.id.faqButton);
+		mFaqButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent faql = new Intent(PicknickActivity.this,MainActivity.class);
+				startActivity(faql);
 			}
 		});
 	}

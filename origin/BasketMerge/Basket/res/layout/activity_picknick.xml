@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"    
-    android:background="@drawable/backrepeat_basket"
+    android:background="#0AFFA500"
     
     >
     
@@ -27,14 +27,14 @@
 	        android:text="Profile" />
 	
 	    <Button
-	        android:id="@+id/Button04"
+	        android:id="@+id/faqButton"
 	        android:layout_width="106dp"
 	        android:layout_height="106dp"
 	        android:layout_column="1"
 	        android:layout_gravity="left|top"
 	        android:layout_row="1"
 	        android:background="#FFF"
-	        android:text="Button" />
+	        android:text="FAQs" />
 	
 	    <Button
 	        android:id="@+id/Button05"
