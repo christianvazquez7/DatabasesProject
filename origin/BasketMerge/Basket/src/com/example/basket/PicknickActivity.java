@@ -40,7 +40,7 @@ public class PicknickActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent faql = new Intent(PicknickActivity.this,MainActivity.class);
+				Intent faql = new Intent(PicknickActivity.this,FaqActivity.class);
 				startActivity(faql);
 			}
 		});
