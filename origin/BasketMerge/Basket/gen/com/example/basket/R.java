@@ -173,8 +173,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int plus_sign=0x7f02001b;
         public static final int product_box=0x7f02001c;
         public static final int red_diamond_patterned_blanket_close_up_texture=0x7f02001d;
-        public static final int round_corners_button=0x7f02001e;
-        public static final int round_corners_edit_text=0x7f02001f;
+        public static final int round_corners_black_border=0x7f02001e;
+        public static final int round_corners_button=0x7f02001f;
         public static final int roundcornerbox=0x7f020020;
         public static final int search=0x7f020021;
         public static final int shelf=0x7f020022;
@@ -216,6 +216,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int TextView02=0x7f05003b;
         public static final int TextView03=0x7f05003a;
         public static final int action_settings=0x7f050058;
+        public static final int ageTextView=0x7f05003e;
         public static final int answer=0x7f050049;
         public static final int available=0x7f050056;
         public static final int bHomePage=0x7f05000b;
@@ -277,7 +278,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textView3=0x7f050041;
         public static final int textView4=0x7f050036;
         public static final int textView5=0x7f050035;
-        public static final int titlebox1=0x7f05003e;
         public static final int totalText=0x7f050042;
         public static final int tvDeals=0x7f05000f;
         public static final int tvRecom=0x7f050014;
