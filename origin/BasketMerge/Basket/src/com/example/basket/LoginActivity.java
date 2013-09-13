@@ -32,8 +32,9 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent signup = new Intent(LoginActivity.this,SignUpActivity.class);
-				startActivity(signup);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				startActivity(signup);
+
 			}
 		});
 		//
@@ -41,7 +42,7 @@ public class LoginActivity extends Activity {
 		
 		mForgotAccountTextView.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			@Override 
 			public void onClick(View v) {
 				Intent forgot = new Intent(LoginActivity.this, ForgotFieldActivity.class);
 				startActivity(forgot);
