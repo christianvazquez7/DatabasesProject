@@ -5,6 +5,9 @@ public class UserAccount {
 		this.username = username;
 		this.password = password;
 	}
+	public UserAccount() {
+		// TODO Auto-generated constructor stub
+	}
 	private String username;
 	public String getUsername() {
 		return username;

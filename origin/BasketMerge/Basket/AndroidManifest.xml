@@ -67,6 +67,30 @@
             android:name="com.example.basket.FaqActivity"
             android:label="@string/title_activity_faq" >
         </activity>
+        <activity
+            android:name="com.example.basket.AdminPageActivity"
+            android:label="@string/title_activity_admin_page" >
+        </activity>
+        <activity
+            android:name="com.example.basket.SearchAccountActivity"
+            android:label="@string/title_activity_search_account" >
+        </activity>
+        <activity
+            android:name="com.example.basket.UserListFragmet"
+            android:label="@string/title_activity_user_list_fragmet" >
+        </activity>
+        <activity
+            android:name="com.example.basket.UserEditActivity"
+            android:label="@string/title_activity_user_edit" >
+        </activity>
+        <activity
+            android:name="com.example.basket.DateSaleActivity"
+            android:label="@string/title_activity_date_sale" >
+        </activity>
+        <activity
+            android:name="com.example.basket.AdminProductActivity"
+            android:label="@string/title_activity_admin_product" >
+        </activity>
     </application>
 
 </manifest>

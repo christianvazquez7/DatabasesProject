@@ -14,7 +14,7 @@ public class PicknickActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_picknick);
-		mProfile = (Button) findViewById(R.id.Button01);
+		mProfile = (Button) findViewById(R.id.button1);
 		mProfile.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -25,7 +25,7 @@ public class PicknickActivity extends Activity {
 			}
 		});
 		
-		mBasketList = (Button) findViewById(R.id.basketsButton);
+		mBasketList = (Button) findViewById(R.id.button2);
 		mBasketList.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
