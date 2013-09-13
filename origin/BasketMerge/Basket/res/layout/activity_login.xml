@@ -46,7 +46,7 @@
         android:layout_alignLeft="@+id/forgotField"
         android:layout_alignRight="@+id/forgotField"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/round_corners_edit_text"
+        android:background="@drawable/round_corners_black_border"
         android:ems="10"
         android:paddingLeft="7dp"
         android:hint="Username" />
@@ -67,7 +67,7 @@
         android:layout_alignLeft="@+id/editText1"
         android:layout_alignRight="@+id/imageView1"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/round_corners_edit_text"
+        android:background="@drawable/round_corners_black_border"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"

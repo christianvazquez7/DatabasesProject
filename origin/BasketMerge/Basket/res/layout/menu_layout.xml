@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
            
-            android:background="@drawable/round_corners_edit_text"
+            android:background="@drawable/round_corners_black_border"
             android:ems="10"
             android:paddingLeft="100dp"
             android:paddingRight="10dp" >

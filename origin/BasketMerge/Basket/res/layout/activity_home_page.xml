@@ -43,7 +43,7 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="5.33"
-                android:background="@drawable/round_corners_edit_text"
+                android:background="@drawable/round_corners_black_border"
                 android:inAnimation="@anim/left_to_right"
                 android:outAnimation="@anim/right_to_left"
                 android:padding="20dp" >
@@ -84,7 +84,7 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="5.33"
-                android:background="@drawable/round_corners_edit_text"
+                android:background="@drawable/round_corners_black_border"
                 android:inAnimation="@anim/left_to_right"
                 android:outAnimation="@anim/right_to_left"
                 android:padding="20dp" >
