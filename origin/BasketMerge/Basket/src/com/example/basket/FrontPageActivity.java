@@ -9,15 +9,14 @@ import android.widget.Button;
 
 public class FrontPageActivity extends Activity {
 
-	private mPicknickButton, mProductList, mBasketList,admin,, mHomePageButton;
-	
+	private Button mPicknickButton, mProductList, mBasketList,admin, mHomePageButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_front_page);
 		mPicknickButton = (Button) findViewById(R.id.button1);
 		mPicknickButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -27,35 +26,37 @@ public class FrontPageActivity extends Activity {
 		});
 		mProductList = (Button) findViewById(R.id.button2);
 		mProductList.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent pl = new Intent(FrontPageActivity.this,ProductFragmentActivity.class);
 				startActivity(pl);
-				
+
 			}
 		});
 
 		mHomePageButton = (Button) findViewById(R.id.bHomePage);
 		mHomePageButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent hpIntent = new Intent(FrontPageActivity.this,HomePageActivity.class);
 				startActivity(hpIntent);
 
-		admin=(Button) findViewById(R.id.button4);
+				
+
+			}
+		});
+		admin=(Button) findViewById(R.id.button2);
 		admin.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent pl = new Intent(FrontPageActivity.this,AdminPageActivity.class);
 				startActivity(pl);
-				
+
 			}
 		});
 		
 	}
-
-
 }
