@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class FrontPageActivity extends Activity {
-	Button mPicknickButton, mProductList, mBasketList, mHomePageButton;
+
+	private mPicknickButton, mProductList, mBasketList,admin,, mHomePageButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class FrontPageActivity extends Activity {
 				
 			}
 		});
+
 		mHomePageButton = (Button) findViewById(R.id.bHomePage);
 		mHomePageButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -41,6 +43,14 @@ public class FrontPageActivity extends Activity {
 			public void onClick(View v) {
 				Intent hpIntent = new Intent(FrontPageActivity.this,HomePageActivity.class);
 				startActivity(hpIntent);
+
+		admin=(Button) findViewById(R.id.button4);
+		admin.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent pl = new Intent(FrontPageActivity.this,AdminPageActivity.class);
+				startActivity(pl);
 				
 			}
 		});

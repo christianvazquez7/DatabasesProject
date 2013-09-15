@@ -39,13 +39,18 @@
         android:layout_below="@+id/button1"
         android:layout_marginTop="22dp"
         android:text="basket list" />
-
-    <Button
-        android:id="@+id/bHomePage"
-        android:layout_width="wrap_content"
+	<Button 
+		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button2"
         android:layout_centerHorizontal="true"
+		       android:layout_marginTop="31dp"
+        android:text="Admin" />
+    <Button
+        android:id="@+id/bHomePage"
+
+        android:id="@+id/button4"
+        
         android:layout_marginTop="18dp"
         android:text="Home Page" />
 

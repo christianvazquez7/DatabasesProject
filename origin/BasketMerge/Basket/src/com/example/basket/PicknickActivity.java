@@ -8,24 +8,25 @@ import android.view.View;
 import android.widget.Button;
 
 public class PicknickActivity extends Activity {
-	private Button mProfile;
+private Button mProfile;
 	private Button mBasketList, mFaqButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_picknick);
-		mProfile = (Button) findViewById(R.id.Button01);
+		mProfile = (Button) findViewById(R.id.button1);
 		mProfile.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(PicknickActivity.this,SettingPopupProfileActivity.class);
+				Intent i = new Intent(PicknickActivity.this,SettingPopupProfileActivity.class
+				);
 				startActivity(i);
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
 			}
 		});
 		
-		mBasketList = (Button) findViewById(R.id.basketsButton);
+		mBasketList = (Button) findViewById(R.id.button2);
 		mBasketList.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -35,17 +36,9 @@ public class PicknickActivity extends Activity {
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
 			}
 		});
-		mFaqButton = (Button) findViewById(R.id.faqButton);
-		mFaqButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent faql = new Intent(PicknickActivity.this,FaqActivity.class);
-				startActivity(faql);
-			}
-		});
 	}
 
 
 
 }
+
