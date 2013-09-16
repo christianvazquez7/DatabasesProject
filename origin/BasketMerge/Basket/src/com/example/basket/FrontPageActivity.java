@@ -24,7 +24,7 @@ public class FrontPageActivity extends Activity {
 				startActivity(myPicknickIntent);
 			}
 		});
-		mProductList = (Button) findViewById(R.id.button2);
+		mProductList = (Button) findViewById(R.id.productListButton);
 		mProductList.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -47,7 +47,7 @@ public class FrontPageActivity extends Activity {
 
 			}
 		});
-		admin=(Button) findViewById(R.id.button2);
+		admin=(Button) findViewById(R.id.AdminButton);
 		admin.setOnClickListener(new View.OnClickListener() {
 
 			@Override
