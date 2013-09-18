@@ -96,9 +96,8 @@
             android:label="@string/title_activity_admin_product" >
         </activity>
         <activity
-            android:name="com.example.basket.OrdersActivity"
-            android:label="@string/title_activity_orders" >
+            android:name="com.example.basket.ProductSales"
+            android:label="@string/title_activity_product_sales" >
         </activity>
     </application>
-
 </manifest>

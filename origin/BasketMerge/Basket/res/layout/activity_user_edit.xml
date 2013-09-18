@@ -9,15 +9,6 @@
     android:paddingTop="90dp"
     tools:context=".UserEditActivity" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/layer_gradient"
-        android:text="Delete Account"
-        android:textColor="#FFFFFF" />
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -134,5 +125,18 @@
         </LinearLayout>
       
     </ScrollView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/layer_gradient"
+      	android:gravity="center_vertical"
+		android:paddingLeft="80dp"
+        android:text="Delete Account"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

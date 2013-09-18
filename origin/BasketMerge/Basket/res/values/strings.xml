@@ -13,10 +13,13 @@
     <string name="title_activity_user_edit">UserEditActivity</string>
     <string name="title_activity_date_sale">DateSaleActivity</string>
     <string name="title_activity_admin_product">AdminProductActivity</string>
-    <string name="forgot_field_string">Please write the email used for signup:</string>
+    <string name="title_activity_product_sales">ProductSales</string>
+      <string name="forgot_field_string">Please write the email used for signup:</string>
     <string name="forgot_field_hint_string">Registered email</string>
     <string name="forgot_field_button_text">Send email with forgotten field</string>
     <string name="forgot_field_email_sent">Email sent with instructions on how to recover account</string>
     <string name="title_activity_orders">OrdersActivity</string>
+    
 
 </resources>
+
