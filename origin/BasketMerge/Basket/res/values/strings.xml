@@ -13,5 +13,6 @@
     <string name="title_activity_user_edit">UserEditActivity</string>
     <string name="title_activity_date_sale">DateSaleActivity</string>
     <string name="title_activity_admin_product">AdminProductActivity</string>
+    <string name="title_activity_product_sales">ProductSales</string>
 
 </resources>
