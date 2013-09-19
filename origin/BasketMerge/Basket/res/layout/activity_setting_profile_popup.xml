@@ -63,7 +63,7 @@
                 android:src="@drawable/monotone_arrow_right" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/tvCatTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView2"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView4"
                 android:layout_alignBottom="@+id/textView4"
-                android:layout_toLeftOf="@+id/imageView1"
+                android:layout_toLeftOf="@+id/ivCatPage"
                 android:text="aasdadasdsada\nkajjdsasd"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -129,12 +129,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/textView10"
-                android:layout_toLeftOf="@+id/imageView1"
+                android:layout_toLeftOf="@+id/ivCatPage"
                 android:text="aasdadasdsada\nkajjdsasd"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/ivCatPage"
                 android:layout_width="40dp"
                 android:layout_height="60dp"
                 android:layout_above="@+id/textView10"

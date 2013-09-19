@@ -73,6 +73,14 @@
             android:name="com.example.basket.HomePageActivity"
             android:label="@string/app_name" >
         </activity>
+         <activity
+            android:name="com.example.basket.CategoryListActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="com.example.basket.CategoryPageActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

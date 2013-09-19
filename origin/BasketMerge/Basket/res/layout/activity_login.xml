@@ -52,7 +52,7 @@
         android:hint="Username" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/ivCatPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/editText1"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
         android:layout_alignLeft="@+id/editText1"
-        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignRight="@+id/ivCatPage"
         android:layout_marginBottom="32dp"
         android:background="@drawable/round_corners_edit_text"
         android:ems="10"

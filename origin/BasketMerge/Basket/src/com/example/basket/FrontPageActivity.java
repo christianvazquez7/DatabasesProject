@@ -1,5 +1,6 @@
 package com.example.basket;
 
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class FrontPageActivity extends Activity {
-	Button mPicknickButton, mProductList, mBasketList, mHomePageButton;
+	Button mPicknickButton, mProductList, mBasketList, mHomePageButton, mCateListButton, mCatePageButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,26 @@ public class FrontPageActivity extends Activity {
 				
 			}
 		});
+//		mCateListButton = (Button) findViewById(R.id.bCateList);
+//		mCateListButton.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Intent clIntent = new Intent(FrontPageActivity.this,CategoryListActivity.class);
+//				startActivity(clIntent);
+//				
+//			}
+//		});
+//		mCatePageButton = (Button) findViewById(R.id.bCatePage);
+//		mCatePageButton.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Intent clIntent = new Intent(FrontPageActivity.this,CategoryPageActivity.class);
+//				startActivity(clIntent);
+//				
+//			}
+//		});
 		
 	}
 
