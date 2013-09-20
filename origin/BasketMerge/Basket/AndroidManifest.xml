@@ -12,6 +12,10 @@
         android:allowBackup="true"
         android:theme="@style/MyTheme" >
         <activity
+            android:name="com.application.settings.OrdersActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.example.basket.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -33,21 +37,21 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.PicknickActivity"
+            android:name="com.application.settings.PicknickActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.SettingPopupProfileActivity"
+            android:name="com.application.settings.SettingPopupProfileActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.basket.BasketFragmentActivity"
+            android:name="com.application.settings.BasketFragmentActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name="com.example.basket.BasketInfoPageActivity"
+            android:name="com.application.settings.BasketInfoPageActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
@@ -64,7 +68,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.FaqActivity"
+            android:name="com.application.settings.FaqActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -100,4 +104,5 @@
             android:label="@string/title_activity_product_sales" >
         </activity>
     </application>
+
 </manifest>

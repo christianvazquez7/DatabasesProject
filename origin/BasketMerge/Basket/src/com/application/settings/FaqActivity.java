@@ -1,8 +1,13 @@
-package com.example.basket;
+package com.application.settings;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.example.basket.R;
+import com.example.basket.R.id;
+import com.example.basket.R.layout;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;

@@ -8,29 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FrontPageActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp"
-        android:text="My Picknick" />
-    <Button
-        android:id="@+id/productListButton"
-        android:layout_below="@id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp"
-        android:text="product list" />
-
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
@@ -39,18 +16,48 @@
         android:layout_below="@+id/button1"
         android:layout_marginTop="22dp"
         android:text="basket list" />
-	<Button 
-		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    	 android:id="@+id/AdminButton"
-        android:layout_centerHorizontal="true"
-		       android:layout_marginTop="31dp"
-        android:text="Admin" />
     <Button
         android:id="@+id/bHomePage" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"       
         android:layout_marginTop="18dp"
         android:text="Home Page" />
+
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/AdminButton"
+	    android:layout_marginLeft="25dp"
+	    android:layout_marginTop="14dp"
+	    android:layout_toRightOf="@+id/orderlistbutton"
+	    android:text="My Picknick" />
+
+	<Button
+	    android:id="@+id/AdminButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/bHomePage"
+	    android:layout_alignBottom="@+id/bHomePage"
+	    android:layout_alignLeft="@+id/button3"
+	    android:layout_marginLeft="14dp"
+	    android:text="Admin" />
+
+	<Button
+	    android:id="@+id/productListButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/button3"
+	    android:layout_alignBottom="@+id/button3"
+	    android:layout_alignLeft="@+id/orderlistbutton"
+	    android:text="product list" />
+
+	<Button
+	    android:id="@+id/orderlistbutton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/button3"
+	    android:layout_alignRight="@+id/bHomePage"
+	    android:text="My Orders" />
 
 </RelativeLayout>
