@@ -55,7 +55,7 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if(try_login()==true){
-					Intent logon = new Intent(LoginActivity.this, FrontPageActivity.class);
+					Intent logon = new Intent(LoginActivity.this, HomePageActivity.class);
 					startActivity(logon);
 				}
 				

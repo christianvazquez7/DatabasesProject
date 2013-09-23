@@ -146,7 +146,7 @@
                 android:background="@android:color/darker_gray" />
 
             <EditText
-                android:id="@+id/editText1"
+                android:id="@+id/etCategoryPage"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textView2"
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/TextView03"
                 android:layout_alignBottom="@+id/TextView03"
-                android:layout_alignLeft="@+id/editText1"
+                android:layout_alignLeft="@+id/etCategoryPage"
                 android:background="@null"
                 android:ems="10"
                 android:hint="ammount" />

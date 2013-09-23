@@ -15,22 +15,22 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 	{
 		super.onCreate(savedInstanceState);
 		this.setBehindContentView(R.layout.menu_layout);
+		
 		SlidingMenu sm = this.getSlidingMenu();
 		sm.setBehindOffset(90);
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		sm.setSlidingEnabled(true);
+		
 		setContentView(R.layout.activity_product_fragment);
+		
 		android.app.FragmentManager fm = this.getFragmentManager();
 		android.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
-		
-		if (fragment == null)
-		{
-			
+		if (fragment == null){
 			fragment = new ProductListFragment();
 			fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
-			
 		}
+		
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 	}

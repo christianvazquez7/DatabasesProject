@@ -45,26 +45,16 @@ public class FrontPageActivity extends Activity {
 				
 			}
 		});
-//		mCateListButton = (Button) findViewById(R.id.bCateList);
-//		mCateListButton.setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Intent clIntent = new Intent(FrontPageActivity.this,CategoryListActivity.class);
-//				startActivity(clIntent);
-//				
-//			}
-//		});
-//		mCatePageButton = (Button) findViewById(R.id.bCatePage);
-//		mCatePageButton.setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Intent clIntent = new Intent(FrontPageActivity.this,CategoryPageActivity.class);
-//				startActivity(clIntent);
-//				
-//			}
-//		});
+		mCatePageButton = (Button) findViewById(R.id.bCatePage);
+		mCatePageButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent clIntent = new Intent(FrontPageActivity.this,CategoryPageActivity.class);
+				startActivity(clIntent);
+				
+			}
+		});
 		
 	}
 

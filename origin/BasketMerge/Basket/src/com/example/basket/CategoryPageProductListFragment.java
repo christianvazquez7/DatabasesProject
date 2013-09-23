@@ -19,7 +19,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-public class ProductListFragment extends android.app.ListFragment
+public class CategoryPageProductListFragment extends android.app.ListFragment
 {
 	private ArrayList<Products> foundProducts;
 	private Animator mCurrentAnimator;
@@ -45,7 +45,7 @@ public class ProductListFragment extends android.app.ListFragment
 		foundProducts.add(new Products());
 		foundProducts.add(new Products());
 		super.onCreate(savedInstance);
-		getActivity().setTitle("Product List");
+		getActivity().setTitle("Category Name Goes Here");
 		
 		ProductAdapter adapter = new ProductAdapter(this.getActivity(),foundProducts);
 		this.setListAdapter(adapter);
