@@ -60,4 +60,14 @@
 	    android:layout_alignRight="@+id/bHomePage"
 	    android:text="My Orders" />
 
+	<Button
+	    android:id="@+id/checkoutButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/productListButton"
+	    android:layout_below="@+id/productListButton"
+	    android:layout_marginLeft="14dp"
+	    android:layout_marginTop="36dp"
+	    android:text="Checkout" />
+
 </RelativeLayout>

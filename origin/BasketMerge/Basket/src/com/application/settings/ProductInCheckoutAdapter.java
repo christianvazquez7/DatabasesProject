@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import com.example.basket.R;
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ProductInOrderAdapter extends ArrayAdapter<Products>
+public class ProductInCheckoutAdapter extends ArrayAdapter<Products>
 {
 	private Context context;
-	public ProductInOrderAdapter(Context activity,ArrayList<Products> products)
+	public ProductInCheckoutAdapter(Context activity,ArrayList<Products> products)
 	{
 		super(activity,0,products);
 		context=activity;
@@ -23,7 +23,7 @@ public class ProductInOrderAdapter extends ArrayAdapter<Products>
 	{
 		if (convertView==null)
 		{
-			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view_orders, null);
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_orders, null);
 			
 		}
 		Products currentProduct = this.getItem(pos);	
