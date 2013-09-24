@@ -13,7 +13,7 @@ public class CarJsonSpringAndroidRequest extends SpringAndroidSpiceRequest<ListC
 	@Override
 	public ListCars loadDataFromNetwork() throws Exception {
 		Log.d( "request", "loading from network" );
-		return getRestTemplate().getForObject( "http://10.0.2.2:3412/ClassDemo3Srv/cars", ListCars.class );
+		return getRestTemplate().getForObject( "http://10.0.2.2:3412/ClassDemo3Srv/cars", ListCars.class);
 	}
 
 }

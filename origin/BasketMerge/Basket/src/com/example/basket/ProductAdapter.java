@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ProductAdapter extends ArrayAdapter<Products>
+public class ProductAdapter extends ArrayAdapter<BuyEvent>
 {
 	private Context context;
-	public ProductAdapter(Context activity,ArrayList<Products> products)
+	public ProductAdapter(Context activity,ArrayList<BuyEvent> products)
 	{
 		super(activity,0,products);
 		context=activity;
@@ -24,7 +24,10 @@ public class ProductAdapter extends ArrayAdapter<Products>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view, null);
 			
 		}
-		Products currentProduct = this.getItem(pos);	
+		BuyEvent currentProduct = this.getItem(pos);	
+		
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		//((TextView)convertView.findViewById(R.id.product))
 		return convertView;
 		
 	}

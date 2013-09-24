@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -21,7 +23,7 @@ import android.widget.RelativeLayout;
 
 public class ProductListFragment extends android.app.ListFragment
 {
-	private ArrayList<Products> foundProducts;
+	private ArrayList<BuyEvent> foundProducts;
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
@@ -34,14 +36,9 @@ public class ProductListFragment extends android.app.ListFragment
 
 	public void onCreate(Bundle savedInstance)
 	{
-		foundProducts= new ArrayList<Products>();
+		foundProducts= new ArrayList<BuyEvent>();
 
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());foundProducts.add(new Products());
-		foundProducts.add(new Products());foundProducts.add(new Products());
-		foundProducts.add(new Products());
+		
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Product List");
 		ProductAdapter adapter = new ProductAdapter(this.getActivity(),foundProducts);
@@ -51,12 +48,26 @@ public class ProductListFragment extends android.app.ListFragment
 				RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
 		this.getActivity().addContentView(layout, rlp);
 
-
+		
 
 
 	}
+	public void clear()
+	{
+		foundProducts.clear();
+		
+	}
+	public boolean addBuyEvent(BuyEvent buyEvent)
+	{
+		foundProducts.add(buyEvent);
+		return true;
+	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id )
 	{
+		if (((ProductFragmentActivity)this.getActivity()).isHandlingRequest())
+		{
+			((ProductFragmentActivity)this.getActivity()).stopSpice();
+		}
 		//this.zoomImageFromThumb(v, R.layout.zoom);
 		// parent container
 
@@ -287,5 +298,14 @@ public class ProductListFragment extends android.app.ListFragment
 		}
 
 	}
+	public void onResume() {
+		  //onResume happens after onStart and onActivityCreate
+		LayoutTransition l = new LayoutTransition();
+		l.enableTransitionType(LayoutTransition.CHANGING);
+		l.setDuration(500);
+		ViewGroup viewGroup = this.getListView();
+		viewGroup.setLayoutTransition(l);
+		  super.onResume() ; 
+		}
 
 }

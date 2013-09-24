@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		spiceManager.start(this);
+	
 		spiceManager.addListenerIfPending(ListCars.class, JSON_CACHE_KEY, new CarRequestListener());
 		spiceManager.getFromCache(ListCars.class, JSON_CACHE_KEY, DurationInMillis.ALWAYS_RETURNED, new CarRequestListener());
 	}
