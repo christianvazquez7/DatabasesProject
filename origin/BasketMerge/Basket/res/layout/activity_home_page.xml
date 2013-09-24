@@ -10,8 +10,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="10dp" >
+            android:orientation="vertical" >
 
             <EditText
                 android:id="@+id/etCategoryPage"
@@ -25,85 +24,101 @@
 
             <TextView
                 android:id="@+id/tvDeals"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shelf_bar"
                 android:padding="5dp"
                 android:text="Hot Deals of the Day"
                 android:textSize="20dp" />
 
-            <ViewFlipper
-                android:id="@+id/vfDeals"
-                android:layout_width="275dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_gravity="center"
                 android:layout_weight="5.33"
-                android:background="@drawable/round_corners_edit_text"
-                android:inAnimation="@anim/left_to_right"
-                android:outAnimation="@anim/right_to_left"
-                android:padding="20dp" >
+                android:background="@drawable/shelf" >
 
-                <ImageView
-                    android:id="@+id/iViewDeal_1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/book_image" />
+                <ViewFlipper
+                    android:id="@+id/vfDeals"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="5.33"
+                    android:background="@drawable/wood_stage"
+                    android:inAnimation="@anim/left_to_right"
+                    android:outAnimation="@anim/right_to_left"
+                    android:padding="20dp" >
 
-                <ImageView
-                    android:id="@+id/iViewDeal_2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/camera_image" />
+                    <ImageView
+                        android:id="@+id/iViewDeal_1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/book_image" />
 
-                <ImageView
-                    android:id="@+id/iViewDeal_3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/tennis_image" />
-            </ViewFlipper>
+                    <ImageView
+                        android:id="@+id/iViewDeal_2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/camera_image" />
+
+                    <ImageView
+                        android:id="@+id/iViewDeal_3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/tennis_image" />
+                </ViewFlipper>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvRecom"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shelf_bar"
                 android:padding="5dp"
                 android:text="Recommended for You!"
                 android:textSize="20dp" />
 
-            <ViewFlipper
-                android:id="@+id/vfRecom"
-                android:layout_width="275dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_gravity="center"
                 android:layout_weight="5.33"
-                android:background="@drawable/round_corners_edit_text"
-                android:inAnimation="@anim/left_to_right"
-                android:outAnimation="@anim/right_to_left"
-                android:padding="20dp" >
+                android:background="@drawable/shelf" >
 
-                <ImageView
-                    android:id="@+id/iViewRecom_1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/tv_image" />
+                <ViewFlipper
+                    android:id="@+id/vfRecom"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="5.33"
+                    android:background="@drawable/wood_stage"
+                    android:inAnimation="@anim/left_to_right"
+                    android:outAnimation="@anim/right_to_left"
+                    android:padding="20dp" >
 
-                <ImageView
-                    android:id="@+id/iViewRecom_2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/laptop_image" />
+                    <ImageView
+                        android:id="@+id/iViewRecom_2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/laptop_image" />
 
-                <ImageView
-                    android:id="@+id/iViewRecom_3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/tablet_image" />
-            </ViewFlipper>
+                    <ImageView
+                        android:id="@+id/iViewRecom_1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/tv_image" />
+
+                    <ImageView
+                        android:id="@+id/iViewRecom_3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/tablet_image" />
+                </ViewFlipper>
+
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
