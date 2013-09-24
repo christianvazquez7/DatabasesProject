@@ -14,23 +14,12 @@
                 android:src="@drawable/monotone_arrow_right" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/usrName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="14dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="Pepito327"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:text="Admin"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
     
 </RelativeLayout>
