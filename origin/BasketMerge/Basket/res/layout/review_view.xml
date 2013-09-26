@@ -40,10 +40,8 @@
         android:id="@+id/content"
         android:layout_width="270dp"
         android:layout_height="100dp"
-        android:layout_alignLeft="@+id/tvCatTitle"
         android:layout_alignTop="@+id/ivCatPage"
         android:layout_alignLeft="@+id/reviewT"
-        android:layout_alignTop="@+id/imageView1"
         android:text="A good bit of this film is a superhero-origins story, in which we follow Steve Rogers (Chris Evans), a plain-featured young man of about 20 years old who is a classic 90-pound weakling, as he tries five times to enlist in the Army during the early part of World War II..." />
 
 </RelativeLayout>
