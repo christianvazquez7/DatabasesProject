@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class Product 
 {
 	int ISBN;
+	
 	public int getISBN() {
 		return ISBN;
 	}
@@ -36,24 +37,19 @@ public class Product
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getFeatures() {
-		return features;
-	}
-	public void setFeatures(String features) {
-		this.features = features;
-	}
+	
 	int width;
 	int height;
 	int depth;
 	String name;
-	String description;
-	String features;
+	String manufacturer;
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
 	
 	
 }

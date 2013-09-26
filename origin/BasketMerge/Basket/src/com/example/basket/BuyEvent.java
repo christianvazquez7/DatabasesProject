@@ -1,11 +1,36 @@
 package com.example.basket;
 
+import java.util.ArrayList;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 
 public class BuyEvent 
 {
 	Product product;
+	
+	String description;
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getFeatures() {
+		return features;
+	}
+	public void setFeatures(String features) {
+		this.features = features;
+	}
+	public ArrayList<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(ArrayList<Review> reviews) {
+		this.reviews = reviews;
+	}
+	String features;
+	ArrayList<Review>reviews;
+	
 	double price;
 	int day;
 	int year;

@@ -7,6 +7,7 @@ public class AdminSession
 {
 	 
 	private static List<User> editUsers;
+	private static List<Product> searchProduct;
 
 	public static List<User> getEditUsers() 
 	{
@@ -19,7 +20,15 @@ public class AdminSession
 
 	public static void setEditUsers(List<User> editUser) 
 	{
+		if (editUsers!=null) editUsers.clear();
 		editUsers = editUser;
 	}
+	public static void setProducts(List<Product> productList)
+	{
+		if (searchProduct !=null) searchProduct.clear();
+		searchProduct=productList;
+		
+	}
 
+	
 }
