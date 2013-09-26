@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 
 public class CategoryPageProductListFragment extends android.app.ListFragment
 {
-	private ArrayList<Products> foundProducts;
+	private ArrayList<BuyEvent> foundProducts;
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
@@ -34,19 +34,11 @@ public class CategoryPageProductListFragment extends android.app.ListFragment
 
 	public void onCreate(Bundle savedInstance)
 	{
-		foundProducts= new ArrayList<Products>();
+		foundProducts= new ArrayList<BuyEvent>();
 
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
-		foundProducts.add(new Products());
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Category Name Goes Here");
-		
+
 		ProductAdapter adapter = new ProductAdapter(this.getActivity(),foundProducts);
 		this.setListAdapter(adapter);
 		layout= new RelativeLayout(this.getActivity());

@@ -10,21 +10,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class CategoryPageListFragment extends ListFragment {
-	private ArrayList<Products> mProducts;
+	private ArrayList<BuyEvent> mProducts;
 	
 	ListView mProductListView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		mProducts.add(new Products());
-		mProducts.add(new Products());
-		mProducts.add(new Products());
-		mProducts.add(new Products());
-		mProducts.add(new Products());
-		mProducts.add(new Products());
-		mProducts.add(new Products());
-		mProducts.add(new Products());
+		
 		
 		super.onCreate(savedInstanceState);
 		getActivity().setTitle("Category Title");

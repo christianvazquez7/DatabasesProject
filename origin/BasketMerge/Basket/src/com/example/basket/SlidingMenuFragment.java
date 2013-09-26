@@ -3,6 +3,8 @@ package com.example.basket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.application.settings.PicknickActivity;
+
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
