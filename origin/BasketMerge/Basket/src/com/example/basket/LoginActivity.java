@@ -123,12 +123,13 @@ public class LoginActivity extends Activity {
 		}
 
 		@Override
-		public void onRequestSuccess(User User) {
+		public void onRequestSuccess(User User) 
+		{
 			spiceManager.shouldStop();
 			Log.d("try",User.toString());
+			BasketSession.beginSession(User);
 			Intent intent = new Intent(LoginActivity.this,FrontPageActivity.class);
 			startActivity(intent);
-
 		}
 
 		@Override

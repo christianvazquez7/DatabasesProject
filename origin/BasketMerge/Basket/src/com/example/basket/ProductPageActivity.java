@@ -12,16 +12,20 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class ProductPageActivity extends FragmentActivity {
 	private ViewGroup viewGroup;
-
+	private BuyEvent currentEvent;
 	boolean tab = false;
 	Fragment product,fragment,harvest,detail;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		currentEvent=BasketSession.getProductSearch().get(this.getIntent().getIntExtra("selectedEvent", 0));
 		setContentView(R.layout.product_page);
 		LayoutTransition f = new LayoutTransition();
 		f.enableTransitionType(LayoutTransition.CHANGING);
@@ -47,7 +51,7 @@ public class ProductPageActivity extends FragmentActivity {
 		//       spec.setContent(R.id.fragmentContainer);
 		//       mTabHost.addTab(spec);
 		final FragmentManager fm = this.getSupportFragmentManager();
-		Fragment fragment = fm.findFragmentById(R.id.reviewFragmentContainer);
+	    fragment = fm.findFragmentById(R.id.reviewFragmentContainer);
 		product = fm.findFragmentById(R.id.productContainer);
 		harvest=fm.findFragmentById(R.id.tab2);
 		detail=fm.findFragmentById(R.id.tab3);
@@ -86,7 +90,9 @@ public class ProductPageActivity extends FragmentActivity {
 					tab=true;
 				}
 				else{
-					fm.beginTransaction().setCustomAnimations(R.anim.slide, R.anim.slide).replace(R.id.productContainer, new ProductFragment()).commit();
+					ProductFragment temp =new ProductFragment();
+					temp.setEvent(currentEvent);
+					fm.beginTransaction().setCustomAnimations(R.anim.slide, R.anim.slide).replace(R.id.productContainer, temp).commit();
 					tab=false;
 				}
 			}
@@ -96,6 +102,7 @@ public class ProductPageActivity extends FragmentActivity {
 		{
 
 			product = new ProductFragment();
+			((ProductFragment)product).setEvent(currentEvent);
 			//			
 			fm.beginTransaction().add(R.id.productContainer, product).commit();
 			////			((ReviewListFragment)fragment).getListView().setDivider(this.getResources().getDrawable(R.drawable.custom_divider));
@@ -106,6 +113,8 @@ public class ProductPageActivity extends FragmentActivity {
 		}
 		if (detail == null){
 			detail = new ProductDetailFragment();
+			ProductDetailFragment sp=(ProductDetailFragment)detail;
+			sp.setEvent(currentEvent);
 			fm.beginTransaction().add(R.id.tab3, detail).commit();
 
 		}
@@ -125,6 +134,20 @@ public class ProductPageActivity extends FragmentActivity {
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 
+		Button add =(Button)this.findViewById(R.id.addToBasket);
+		add.setOnClickListener(new OnClickListener(){
+
+			
+			public void onClick(View v) 
+			{
+				
+				BasketSession.getUser().getBaskets().get(0).getBuyEvents().add(currentEvent);
+				Toast.makeText(ProductPageActivity.this, "Product Added to Basket", Toast.LENGTH_SHORT).show();
+				finish();
+				
+			}
+			
+		});
 
 	}
 

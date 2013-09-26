@@ -24,6 +24,8 @@ var Basket = BasketJS.Basket;
 var buyEventJS= require("./buyEvent.js");
 var BuyEvent= buyEventJS.BuyEvent;
 
+var reportJS= require("./report.js");
+var Report = reportJS.Report;
 
 var creditCardList = new Array(
 		new CreditCard (0123,124567,05,2030,011,"Christian",new Adress("Urb. Catalana","casa #7","Barceloneta PR",00617)),
@@ -37,13 +39,18 @@ var billingList = new Array(
 		new Adress("P.O. Box 41","","Barceloneta PR",00617)
 );
 
-var exproduct = new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40,"The Alienware balababda asdasdasdasd sdaASD","-BLABLABLA -BLABLABLA");
+var exproduct = new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40);
 var buyEvents = new Array(
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false)
 );
-var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false);
+var reviews = new Array();
+var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
+		- 6 GB DDR3 \
+		- 17.3-Inch Screen \
+		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
+		,reviews);
 
 
 var bidEvents = new Array();
@@ -131,7 +138,9 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 			"month": event.month,
 			"hour": event.hour,
 			"minute": event.minute,
-			"finalized":event.finalized
+			"finalized":event.finalized,
+			"features": event.features,
+			"description": event.description
 	};
 	res.json(response);
 });
@@ -147,6 +156,33 @@ app.post('/Basket.js/create/:id', function(req,res)
 	userList.push(req.body);
 	res.json(true);
 		});
+var exReport = new Report(2,05,1992,"sales", 150,25000);
+app.get('/Basket.js/Report/:day/:month/:year/:type',function(req,res)
+	{
+	var response = 
+	{
+			"day": exReport.day ,
+			"month": exReport.month,
+			"year" : exReport.year,
+			"type": exReport.type,
+			"totalSales": exReport.totalSales,
+			"totalGross": exReport.totalGross
+	};
+	res.json(response);
+});
+var products = new Array(
+		 new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40),
+		 new product("Macbook", 1203323,"Apple Inc.",20,15,40)
+);
+
+app.get('Basket.js/Product/:searchQuery', function(req,res)
+{
+	var response =
+	{
+			"products":products
+	};
+	res.json(response);
+});
 app.get('/Basket.js/User/:id/:password', function(req, res) 
 		{
 	var email = req.params.id;
