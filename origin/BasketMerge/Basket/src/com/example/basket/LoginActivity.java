@@ -92,6 +92,7 @@ public class LoginActivity extends Activity {
 					String password =((TextView)findViewById(R.id.password)).getText().toString();
 					JsonSpringAndroidRequest = new UserRequest(email,password);
 					spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+
 				}
 			}
 		});

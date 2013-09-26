@@ -3,6 +3,8 @@ package com.example.basket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import java.util.UUID;
+
 /**
  * @author arios_000
  *
@@ -10,19 +12,31 @@ import java.util.LinkedList;
 public class Category {
 	//Variable Declaration.
 	private String name; 
+
+	private UUID mCategoryId;
 	private Category parent;
-	private LinkedList<Products> currentDeals;
+	private ArrayList<Products> currentDeals;
 	private ArrayList<Products> popularProducts;
 	private boolean mainCategory;
-	
 	
 	public Category(String name, Category parent){
 		this.name = name;
 		this.parent = parent;
+		mCategoryId = UUID.randomUUID();
+		if(parent == null) this.mainCategory = true;
+	}
+	public Category(){
+		this.name = "Generic Category";
+		this.parent = null;
+		mCategoryId = UUID.randomUUID();
 		if(parent == null) this.mainCategory = true;
 	}
 
-	public LinkedList<Products> getCurrentDeals() {
+	public UUID getCategoryId() {
+		return mCategoryId;
+	}
+
+	public ArrayList<Products> getCurrentDeals() {
 		return currentDeals;
 	}
 
