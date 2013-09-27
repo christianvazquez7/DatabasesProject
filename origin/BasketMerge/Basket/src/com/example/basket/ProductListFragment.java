@@ -37,10 +37,9 @@ public class ProductListFragment extends android.app.ListFragment
 	public void onCreate(Bundle savedInstance)
 	{
 		foundProducts= new ArrayList<BuyEvent>();
-
-		
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Product List");
+		
 		ProductAdapter adapter = new ProductAdapter(this.getActivity(),foundProducts);
 		BasketSession.setProducts(foundProducts);
 		this.setListAdapter(adapter);
