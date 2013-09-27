@@ -22,7 +22,7 @@ public class CreditCardButton extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(CreditCardButton.this.getActivity(), CreditCardSelectActivity.class);
-				startActivity(i);
+				startActivityForResult(i,1);
 			}
 		});
 		return view;

@@ -13,15 +13,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            <RelativeLayout
+                android:textColor="#FFFFFF"
                 android:id="@+id/dummyProfileButton"
                 android:layout_width="108dp"
                 android:layout_height="106dp"
                 android:layout_column="0"
                 android:layout_gravity="left|top"
                 android:layout_row="0"
-                android:background="@drawable/shelf"
-                android:text="Dummy" />
+                android:background="@drawable/layer_gradient"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/user" />
+
+            </RelativeLayout>
 
             <Button
                                 android:id="@+id/realProfileButton"
@@ -31,8 +42,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dummyProfileButton"
-                android:background="#2FFFA500"
-                android:text="My Profile" />
+                android:background="@drawable/wood2"
+                android:text="My Profile" 
+                />
         </RelativeLayout>
 
         <View
@@ -41,20 +53,30 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/custom_divider" />
+            android:background="#000000"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            <RelativeLayout
                 android:id="@+id/dummyBasketsButton"
                 android:layout_width="108dp"
                 android:layout_height="106dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/shelf"
-                android:text="Dummy" />
+                android:background="@drawable/layer_gradient"
+                android:text="Dummy" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/wbasket" />
+
+            </RelativeLayout>
 
             <Button
                                                 android:id="@+id/realBasketsButton"
@@ -64,7 +86,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/dummyBasketsButton"
-                android:background="#2FFFA500"
+                android:background="@drawable/wood2"
                 android:text="My Baskets" />
 
         </RelativeLayout>
@@ -75,20 +97,30 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/custom_divider" />
+              android:background="#000000" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            <RelativeLayout
                 android:id="@+id/dummyOrdersButton"
                 android:layout_width="108dp"
                 android:layout_height="106dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/shelf"
-                android:text="Dummy" />
+                android:background="@drawable/layer_gradient"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/order" />
+
+            </RelativeLayout>
 
             <Button
                                                 android:id="@+id/realOrdersButton"
@@ -98,7 +130,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dummyOrdersButton"
-                android:background="#2FFFA500"
+android:background="@drawable/wood2"
                 android:text="My Orders" />
         </RelativeLayout>
 
@@ -108,20 +140,30 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/custom_divider" />
+              android:background="#000000" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            <RelativeLayout
                 android:id="@+id/dummyMyShopButton"
                 android:layout_width="108dp"
                 android:layout_height="106dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/shelf"
-                android:text="Dummy" />
+                android:background="@drawable/layer_gradient"
+                 >
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/shop" />
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/realMyShopButton"
@@ -130,8 +172,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/dummyMyShopButton"
-                android:background="#2FFFA500"
-                android:text="My Shop" />
+android:background="@drawable/wood2"                android:text="My Shop" />
 
         </RelativeLayout>
 
@@ -142,20 +183,30 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/custom_divider" />
+               android:background="#000000" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <Button
+            <RelativeLayout
                 android:id="@+id/dummyFaqButton"
                 android:layout_width="108dp"
                 android:layout_height="106dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/shelf"
-                android:text="Dummy" />
+                android:background="@drawable/layer_gradient"
+                 >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/help" />
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/realFAQButton"
@@ -164,8 +215,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dummyFaqButton"
-                android:background="#2FFFA500"
-                android:text="Faq" />
+android:background="@drawable/wood2"                android:text="Faq" />
 
         </RelativeLayout>
     </LinearLayout>

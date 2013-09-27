@@ -22,7 +22,7 @@ public class SelectAddressButton extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(SelectAddressButton.this.getActivity(), ShippingAddressSelectActivity.class);
-				startActivity(i);
+				startActivityForResult(i,1);
 			}
 		});
 		return view;

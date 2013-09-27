@@ -24,6 +24,7 @@ public class CreditCardListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
 		CreditCardContainer.paymentSelection = creditcards.get(pos);
 		CheckoutActivity.changeCreditCard = true;
+		this.getActivity().finish();
 		
 	}
 }

@@ -4,11 +4,12 @@
     android:layout_height="wrap_content" >
 
     <Button
-        
         android:id="@+id/shippingAddressSelectButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:background="@drawable/wood2"
         android:text="Select shipping address..." >
+
     </Button>
 
 </LinearLayout>

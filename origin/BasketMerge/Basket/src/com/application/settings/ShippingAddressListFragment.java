@@ -24,6 +24,7 @@ public class ShippingAddressListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
 		AddressContainer.shippingSelection = availableaddresses.get(pos);
 		CheckoutActivity.changeShippingAddressCard = true;
+		this.getActivity().finish();
 		
 	}
 }
