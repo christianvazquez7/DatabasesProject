@@ -6,14 +6,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
     <application
-        android:icon="@drawable/ic_launcher"
         android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
         android:theme="@style/MyTheme" >
         <activity
             android:name="com.example.basket.LoginActivity"
@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.example.basket.SignUpActivity"
             android:label="@string/app_name" >
@@ -37,7 +36,6 @@
             android:name="com.example.basket.FrontPageActivity"
             android:label="@string/app_name" >
         </activity>
-
         <activity
             android:name="com.example.basket.ProductFragmentActivity"
             android:label="@string/app_name" >
@@ -50,7 +48,6 @@
             android:name="com.example.basket.ProductListFragment"
             android:label="@string/app_name" >
         </activity>
-
         <activity
             android:name="com.example.basket.HomePageActivity"
             android:label="@string/app_name" >
@@ -83,14 +80,15 @@
             android:name="com.example.basket.ProductSales"
             android:label="@string/title_activity_product_sales" >
         </activity>
+
         <service
             android:name=".CarJsonSpringAndroidSpiceService"
-            android:exported="false"/>
-			<activity
-            android:name="com.application.settings.CheckoutActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.basket.checkout.CheckoutActivity"
             android:label="@string/title_activity_checkout" >
         </activity>
-
         <activity
             android:name="com.application.settings.PicknickActivity"
             android:label="@string/app_name" >
@@ -114,25 +112,26 @@
             android:name="com.application.settings.CreditCardSelectActivity"
             android:label="@string/title_activity_credit_card_select" >
         </activity>
-         <activity
+        <activity
             android:name="com.application.settings.OrdersActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.application.settings.ShippingAddressSelectActivity"
+            android:name="com.basket.checkout.ShippingAddressSelectActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.application.settings.MyShopActivity"
+            android:name="com.basket.myshop.MyShopActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.application.settings.FaqActivity"
             android:label="@string/app_name" >
         </activity>
-		<activity
+        <activity
             android:name="com.example.basket.CategoryPageActivity"
             android:label="@string/app_name" >
         </activity>
     </application>
+
 </manifest>

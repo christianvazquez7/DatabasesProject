@@ -2,6 +2,7 @@ package com.application.settings;
 
 import java.util.ArrayList;
 
+import com.basket.adapters.ProductInOrderAdapter;
 import com.example.basket.R;
 
 import android.app.ListFragment;

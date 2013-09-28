@@ -2,7 +2,8 @@ package com.example.basket;
 
 import java.util.ArrayList;
 
-import Adapters.AdminProductAdapter;
+import com.basket.adapters.AdminProductAdapter;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

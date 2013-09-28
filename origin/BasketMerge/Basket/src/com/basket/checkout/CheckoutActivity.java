@@ -1,5 +1,7 @@
-package com.application.settings;
+package com.basket.checkout;
 
+import com.application.settings.CreditCardButton;
+import com.application.settings.Products_In_Checkout_List_View;
 import com.example.basket.R;
 import com.example.basket.R.layout;
 import com.example.basket.R.menu;
@@ -44,7 +46,7 @@ public class CheckoutActivity extends Activity {
 			this.changeCreditCardSelection();
 			changeCreditCard = false;
 		}
-		if(changeCreditCard){
+		if(changeShippingAddressCard){
 			this.changeShippingAddressSelection();
 			changeShippingAddressCard = false;
 		}

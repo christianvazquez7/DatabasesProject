@@ -1,4 +1,4 @@
-package com.application.settings;
+package com.basket.checkout;
 
 import com.example.basket.R;
 

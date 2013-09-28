@@ -1,5 +1,6 @@
 package com.application.settings;
 
+import com.basket.adapters.TabsAdapter;
 import com.example.basket.R;
 
 import android.os.Bundle;

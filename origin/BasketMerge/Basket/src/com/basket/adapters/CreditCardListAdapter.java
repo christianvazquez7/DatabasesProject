@@ -1,4 +1,4 @@
-package com.application.settings;
+package com.basket.adapters;
 
 import java.util.ArrayList;
 
@@ -8,24 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.application.settings.CreditCard;
 import com.example.basket.R;
 
-public class ShippingAddressListAdapter extends ArrayAdapter<Address>
+public class CreditCardListAdapter extends ArrayAdapter<CreditCard>
 {
 	private Context context;
-	public ShippingAddressListAdapter(Context activity,ArrayList<Address> shippingAddresses)
+	public CreditCardListAdapter(Context activity,ArrayList<CreditCard> creditCards)
 	{
-		super(activity,0,shippingAddresses);
+		super(activity,0,creditCards);
 		context=activity;
 	}
 	public View getView(int pos,View convertView, ViewGroup parent)
 	{
 		if (convertView==null)
 		{
-			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.shippingaddress_view, null);
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.creditcard_view, null);
 			
 		}
-		//CreditCard currentCC = this.getItem(pos);	
+		CreditCard currentCC = this.getItem(pos);	
 		return convertView;
 		
 	}

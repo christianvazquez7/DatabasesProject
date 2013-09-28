@@ -1,4 +1,4 @@
-package com.application.settings;
+package com.basket.checkout;
 
 import java.util.ArrayList;
 import java.util.HashMap;

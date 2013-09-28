@@ -1,4 +1,4 @@
-package Adapters;
+package com.basket.adapters;
 
 import java.util.ArrayList;
 

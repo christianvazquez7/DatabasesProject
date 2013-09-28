@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.basket.adapters.ProductInMyShopAdapter;
+import com.basket.myshop.MyShop;
 import com.example.basket.R;
 
 public class BiddingItemsListView extends ListFragment{

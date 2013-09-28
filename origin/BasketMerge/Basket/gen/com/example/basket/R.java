@@ -246,7 +246,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int accountSearch=0x7f050005;
         public static final int accountSearchbtn=0x7f050006;
         public static final int account_manage=0x7f050061;
-        public static final int action_settings=0x7f0500bc;
+        public static final int action_settings=0x7f0500bb;
         public static final int addToBasket=0x7f0500a6;
         public static final int ageTextView=0x7f05005f;
         public static final int answer=0x7f050076;
@@ -256,7 +256,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bHomePage=0x7f05001e;
         public static final int basketContainer=0x7f050072;
         public static final int basketName=0x7f050070;
-        public static final int basket_icon=0x7f0500bd;
+        public static final int basket_icon=0x7f0500bc;
         public static final int bid_info=0x7f05004d;
         public static final int billingAddressTextView=0x7f05007c;
         public static final int billingAddressTextView2=0x7f050082;
@@ -385,14 +385,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int shippingAddressSelectListContainer=0x7f050058;
         public static final int shippingAddressTextView=0x7f0500b3;
         public static final int shippingaddressfieldplaceholder=0x7f050011;
-        public static final int shippingaddresslist=0x7f0500b4;
         public static final int signUp=0x7f050060;
-        public static final int slidingmenu=0x7f0500b5;
-        public static final int slidingmenu_section_title=0x7f0500b9;
-        public static final int slidingmenu_sectionitem_icon=0x7f0500b7;
-        public static final int slidingmenu_sectionitem_label=0x7f0500b8;
-        public static final int slidingmenu_view=0x7f0500b6;
-        public static final int slidingmenumain=0x7f0500ba;
+        public static final int slidingmenu=0x7f0500b4;
+        public static final int slidingmenu_section_title=0x7f0500b8;
+        public static final int slidingmenu_sectionitem_icon=0x7f0500b6;
+        public static final int slidingmenu_sectionitem_label=0x7f0500b7;
+        public static final int slidingmenu_view=0x7f0500b5;
+        public static final int slidingmenumain=0x7f0500b9;
         public static final int supplier=0x7f0500a9;
         public static final int tab2=0x7f0500a4;
         public static final int tab3=0x7f0500a5;
@@ -412,7 +411,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tvDeals=0x7f050029;
         public static final int tvRecom=0x7f05002e;
         public static final int userNameSignUp=0x7f05005a;
-        public static final int usrName=0x7f0500bb;
+        public static final int usrName=0x7f0500ba;
         public static final int usrUpdate=0x7f050064;
         public static final int usrnm=0x7f050062;
         public static final int verifyPassword=0x7f05005d;

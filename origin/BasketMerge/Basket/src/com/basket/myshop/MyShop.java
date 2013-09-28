@@ -1,6 +1,8 @@
-package com.application.settings;
+package com.basket.myshop;
 
 import java.util.ArrayList;
+
+import com.application.settings.Products;
 
 public class MyShop {
 	public ArrayList<Products> productsinbid, productsinsell;

@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.application.settings.CheckoutActivity;
 import com.application.settings.PicknickActivity;
+import com.basket.checkout.CheckoutActivity;
 
 public class FrontPageActivity extends Activity {
 

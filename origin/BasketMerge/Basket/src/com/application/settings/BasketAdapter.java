@@ -2,6 +2,7 @@ package com.application.settings;
 
 import java.util.ArrayList;
 
+import com.basket.adapters.BasketContainer;
 import com.example.basket.R;
 import com.example.basket.R.layout;
 

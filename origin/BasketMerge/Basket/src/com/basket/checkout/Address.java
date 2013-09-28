@@ -1,4 +1,4 @@
-package com.application.settings;
+package com.basket.checkout;
 
 public class Address {
 	private String shippingAddress;

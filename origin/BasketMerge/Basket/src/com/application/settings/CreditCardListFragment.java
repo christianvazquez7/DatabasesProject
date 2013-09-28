@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.basket.adapters.CreditCardListAdapter;
+import com.basket.checkout.CheckoutActivity;
 import com.example.basket.R;
 
 public class CreditCardListFragment extends ListFragment {

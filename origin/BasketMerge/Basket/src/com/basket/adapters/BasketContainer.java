@@ -1,4 +1,4 @@
-package com.application.settings;
+package com.basket.adapters;
 
 import java.util.ArrayList;
 

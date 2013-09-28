@@ -1,6 +1,5 @@
 package com.example.basket;
 
-import RestRequest.AdminProductRequest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basket.restrequest.AdminProductRequest;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.octo.android.robospice.SpiceManager;

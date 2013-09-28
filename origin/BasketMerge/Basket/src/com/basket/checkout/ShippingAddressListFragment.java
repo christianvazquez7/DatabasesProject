@@ -1,4 +1,4 @@
-package com.application.settings;
+package com.basket.checkout;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.basket.adapters.ShippingAddressListAdapter;
 import com.example.basket.R;
 
 public class ShippingAddressListFragment extends ListFragment {
