@@ -175,7 +175,7 @@ var products = new Array(
 		 new product("Macbook", 1203323,"Apple Inc.",20,15,40)
 );
 
-app.get('Basket.js/Product/:searchQuery', function(req,res)
+app.get('/Basket.js/Product/:searchQuery', function(req,res)
 {
 	var response =
 	{
