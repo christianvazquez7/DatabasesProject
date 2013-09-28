@@ -1,7 +1,7 @@
 package com.basket.restrequest;
 import android.util.Log;
 
-import com.example.basket.ProductList;
+import com.basket.general.ProductList;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 public class AdminProductRequest extends SpringAndroidSpiceRequest<ProductList> 

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.application.settings.Products;
+import com.basket.general.Products;
 import com.example.basket.R;
 
 public class ProductInMyShopAdapter extends ArrayAdapter<Products>

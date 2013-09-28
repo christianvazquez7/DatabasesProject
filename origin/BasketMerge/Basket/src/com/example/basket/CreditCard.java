@@ -1,6 +1,6 @@
 package com.example.basket;
 
-import android.location.Address;
+import com.basket.general.Adress;
 
 public class CreditCard 
 {

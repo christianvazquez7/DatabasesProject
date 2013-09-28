@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.basket.BuyEvent;
-import com.example.basket.Product;
+import com.basket.general.BuyEvent;
+import com.basket.general.Product;
 import com.example.basket.R;
 
 public class AdminProductAdapter extends ArrayAdapter<Product>

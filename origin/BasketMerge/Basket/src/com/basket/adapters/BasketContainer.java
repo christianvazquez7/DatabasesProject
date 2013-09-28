@@ -2,7 +2,7 @@ package com.basket.adapters;
 
 import java.util.ArrayList;
 
-import com.example.basket.Products;
+import com.basket.general.Products;
 
 public class BasketContainer {
 	private ArrayList<Products> mBasketItems;
