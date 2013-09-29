@@ -21,5 +21,7 @@
     <string name="title_activity_orders">OrdersActivity</string>
     <string name="title_activity_checkout">CheckoutActivity</string>
     <string name="title_activity_credit_card_select">CreditCardSelectActivity</string>
+    <string name="title_activity_user_baskets">UserBasketsActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

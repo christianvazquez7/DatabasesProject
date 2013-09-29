@@ -2,7 +2,7 @@ package RestRequest;
 
 import android.util.Log;
 
-import com.application.settings.Report;
+import com.basket.general.Report;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 public class ProductReportRequest extends SpringAndroidSpiceRequest<Report> 

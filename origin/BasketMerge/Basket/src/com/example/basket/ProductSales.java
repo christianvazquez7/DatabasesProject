@@ -1,6 +1,5 @@
 package com.example.basket;
 
-import RestRequest.AdminProductRequest;
 import RestRequest.ProductReportRequest;
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,13 +7,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.settings.Report;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.Report;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;
