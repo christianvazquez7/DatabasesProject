@@ -2,15 +2,13 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.app.ListFragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.basket.adapters.BidsInSellingProductAdapter;
-import com.basket.adapters.ProductInOrderAdapter;
-import com.basket.containers.OrderContainer;
 import com.basket.general.Bid;
 import com.example.basket.R;
 

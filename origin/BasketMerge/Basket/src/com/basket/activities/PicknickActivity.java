@@ -15,17 +15,17 @@ public class PicknickActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_picknick);
-		mProfile = (Button) findViewById(R.id.realProfileButton);
-		mProfile.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(PicknickActivity.this,SettingPopupProfileActivity.class
-						);
-				startActivity(i);
-				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
-			}
-		});
+//		mProfile = (Button) findViewById(R.id.realProfileButton);
+//		mProfile.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				Intent i = new Intent(PicknickActivity.this,SettingPopupProfileActivity.class
+//						);
+//				startActivity(i);
+//				//overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
+//			}
+//		});
 		mOrders = (Button) findViewById(R.id.realOrdersButton);
 		mOrders.setOnClickListener(new View.OnClickListener() {
 
@@ -65,7 +65,7 @@ public class PicknickActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent pl = new Intent(PicknickActivity.this,BasketFragmentActivity.class);
+				Intent pl = new Intent(PicknickActivity.this,BasketActivity.class);
 				startActivity(pl);
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
 			}

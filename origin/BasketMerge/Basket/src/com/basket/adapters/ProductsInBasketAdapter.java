@@ -2,20 +2,19 @@ package com.basket.adapters;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.basket.general.BuyEvent;
-import com.basket.general.Products;
 import com.example.basket.R;
 
-public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
+public class ProductsInBasketAdapter extends ArrayAdapter<BuyEvent>
 {
 	private Context context;
-	public ProductInOrderAdapter(Context activity,ArrayList<BuyEvent> products)
+	public ProductsInBasketAdapter(Context activity,ArrayList<BuyEvent> products)
 	{
 		super(activity,0,products);
 		context=activity;
@@ -24,10 +23,10 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 	{
 		if (convertView==null)
 		{
-			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view_orders, null);
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_mybasket, null);
 			
 		}
-		//Products currentProduct = this.getItem(pos);	
+		BuyEvent currentProduct = this.getItem(pos);	
 		return convertView;
 		
 	}

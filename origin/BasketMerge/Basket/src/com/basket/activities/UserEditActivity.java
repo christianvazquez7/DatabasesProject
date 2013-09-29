@@ -30,8 +30,6 @@ import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class UserEditActivity extends Activity {
-
-	
 	
 	private User theUser;
 	private int user;

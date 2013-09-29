@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.basket.adapters.ProductInOrderAdapter;
-import com.basket.containers.OrderContainer;
+import com.basket.adapters.ProductInCheckoutAdapter;
+import com.basket.containers.BasketSession;
+import com.basket.general.BuyEvent;
 import com.basket.general.Products;
 import com.example.basket.R;
 
@@ -18,8 +19,10 @@ public class Products_In_Checkout_List_View extends ListFragment{
 	private ArrayList<Products> products;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.orders_list, container, false);
-			products = OrderContainer.getOrdersInUserSession().userOrders.get(1).productsinorder;
-			setListAdapter(new ProductInOrderAdapter(getActivity(), products));
+			//products = OrderContainer.getOrdersInUserSession().userOrders.get(1).productsinorder;
+			int number = this.getActivity().getIntent().getIntExtra("CurrentListItem", -1);
+			ArrayList<BuyEvent> products2 = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
+			setListAdapter(new ProductInCheckoutAdapter(getActivity(), products2));
 		
 		
 		

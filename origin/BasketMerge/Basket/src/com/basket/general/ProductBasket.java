@@ -3,9 +3,21 @@ package com.basket.general;
 import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductBasket
 {
+	public String name;
+	public ArrayList<BuyEvent> buyEvents;
+	public ArrayList<BidEvent> bidEvents;
+	
+	public ProductBasket() {};
+
+	public ProductBasket(String name) {
+		this.name = name;
+		this.buyEvents = new ArrayList<BuyEvent>();
+		this.bidEvents = new ArrayList<BidEvent>();
+	}
 	public String getName() {
 		return name;
 	}
@@ -24,8 +36,6 @@ public class ProductBasket
 	public void setBidEvents(ArrayList<BidEvent> bidEvents) {
 		this.bidEvents = bidEvents;
 	}
-	String name;
-	ArrayList<BuyEvent> buyEvents;
-	ArrayList<BidEvent> bidEvents;
+	
 	
 }

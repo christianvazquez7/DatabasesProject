@@ -1,12 +1,10 @@
 package com.basket.activities;
 
-import com.basket.lists.BasketListFragment;
-import com.basket.lists.BidsListView;
-import com.example.basket.R;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
+
+import com.basket.lists.BidsListView;
+import com.example.basket.R;
 
 public class BidsOnProductActivity extends Activity {
 	@Override

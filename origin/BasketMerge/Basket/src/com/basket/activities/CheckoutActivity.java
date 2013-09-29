@@ -1,28 +1,37 @@
 package com.basket.activities;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+
 import com.basket.fragments.CreditCardButton;
 import com.basket.fragments.SelectAddressButton;
 import com.basket.general.SelectedCreditCard;
 import com.basket.general.SelectedShippingAddress;
 import com.basket.lists.Products_In_Checkout_List_View;
 import com.example.basket.R;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.view.Menu;
 
 public class CheckoutActivity extends Activity {
 	public static boolean changeCreditCard =false;
 	public static boolean changeShippingAddressCard = false;
-
+	private Button checkoutButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
+		checkoutButton = (Button) findViewById(R.id.CheckOut);
+		checkoutButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		FragmentManager fragMan = this.getFragmentManager();
 		Fragment pickCardButtonFrag = fragMan.findFragmentById(R.id.creditcardfieldplaceholder);
 		if(pickCardButtonFrag==null){

@@ -4,26 +4,37 @@ import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User 
 {
-	
+
 	private String email,username,password;
+	private ArrayList<Adress> billingAdress, shippingAdress;
+	private ArrayList<ProductBasket> baskets;
+	private ArrayList<BidEvent> currentlyBiddingOn;
+	private ArrayList<BidEvent> currentlySellingOnBid;
+	private ArrayList<BuyEvent> currentlySellingOnBuy;
+	private ArrayList<CreditCard> creditCards;
+	private ArrayList<Order> userOrders = new ArrayList<Order>();
+
 	public User(){}
 	public User(String n,String e, String p){
 		username=n;
 		email=e;
 		password=p;
-	 billingAdress= new ArrayList<Adress>();
-	 shippingAdress= new ArrayList<Adress>();
-	 baskets=new ArrayList<ProductBasket>();
-	 
-	currentlyBiddingOn= new ArrayList<BidEvent> ();
-	currentlySellingOnBid= new ArrayList<BidEvent> ();
-		 currentlySellingOnBuy= new ArrayList<BuyEvent>();
-		 creditCards=new ArrayList<CreditCard>();
+		
+		billingAdress= new ArrayList<Adress>();
+		shippingAdress= new ArrayList<Adress>();
+		baskets=new ArrayList<ProductBasket>();
+		currentlyBiddingOn= new ArrayList<BidEvent> ();
+		currentlySellingOnBid= new ArrayList<BidEvent> ();
+		currentlySellingOnBuy= new ArrayList<BuyEvent>();
+		creditCards=new ArrayList<CreditCard>();
+		userOrders = new ArrayList<Order>();
+		
+		Order newOrder = new Order();
+		
+		userOrders.add(newOrder);
 	}
 	public ArrayList<Adress> getBillingAdress() {
 		return billingAdress;
@@ -92,15 +103,6 @@ public class User
 		this.creditCards = creditCards;
 	}
 
-	private ArrayList<Adress> billingAdress, shippingAdress;
-	private ArrayList<ProductBasket> baskets;
-	private ArrayList<BidEvent> currentlyBiddingOn;
-	private ArrayList<BidEvent> currentlySellingOnBid;
-	private ArrayList<BuyEvent> currentlySellingOnBuy;
-	private ArrayList<CreditCard> creditCards;
-	
-	
-
 	public String getEmail() {
 		return email;
 	}
@@ -124,6 +126,12 @@ public class User
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public ArrayList<Order> getUserOrders() {
+		return userOrders;
+	}
+	public void setUserOrders(ArrayList<Order> userOrders) {
+		this.userOrders = userOrders;
+	}
+
 
 }
