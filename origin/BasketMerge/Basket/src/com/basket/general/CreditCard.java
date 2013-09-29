@@ -8,8 +8,10 @@ public class CreditCard
 	private long cardNum;
 	private String name;
 	private Adress billing;
+
 	
 	public CreditCard(){};
+
 	public CreditCard(String nameOnCard, Adress billingAddress, long cardNumber,
 			int expYear, int expDate) {
 		this.name = nameOnCard;
