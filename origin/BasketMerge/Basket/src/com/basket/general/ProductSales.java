@@ -46,7 +46,6 @@ public class ProductSales extends Activity {
 				{
 				
 				spiceManager.start(ProductSales.this);
-				String searchQuery = ((TextView)findViewById(R.id.searchBar)).getText().toString();
 				DatePicker date = (DatePicker) findViewById(R.id.datePicker1);
 				ProductReportRequest JsonSpringAndroidRequest = new ProductReportRequest(date.getDayOfMonth(),date.getMonth(),date.getYear(),"Year");
 				spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductReportListener());

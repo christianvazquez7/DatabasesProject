@@ -245,8 +245,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int accountSearchbtn=0x7f050006;
         public static final int account_manage=0x7f050059;
         public static final int action_settings=0x7f0500be;
-        public static final int addToBasket=0x7f0500a6;
-        public static final int adminProductName=0x7f0500a8;
+        public static final int addToBasket=0x7f0500a8;
+        public static final int adminProductName=0x7f0500a9;
         public static final int ageTextView=0x7f050057;
         public static final int answer=0x7f050070;
         public static final int available=0x7f0500af;
@@ -334,7 +334,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int listView1=0x7f050010;
         public static final int lvCategoryPage=0x7f050083;
         public static final int margin=0x7f050002;
-        public static final int metal=0x7f0500a2;
+        public static final int metal=0x7f0500a4;
         public static final int nameOnCardTextView=0x7f050071;
         public static final int nameOnCardTextView2=0x7f050077;
         public static final int name_filter=0x7f050095;
@@ -356,7 +356,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int price=0x7f0500ae;
         public static final int price_filter=0x7f050093;
         public static final int product=0x7f0500ad;
-        public static final int productContainer=0x7f0500a1;
+        public static final int productContainer=0x7f0500a3;
         public static final int productListButton=0x7f050024;
         public static final int productfield=0x7f050016;
         public static final int productlistcontainer=0x7f05006c;
@@ -374,7 +374,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int realOrdersButton=0x7f050048;
         public static final int realProfileButton=0x7f050043;
         public static final int relativeLayout1=0x7f050051;
-        public static final int reviewFragmentContainer=0x7f0500a3;
+        public static final int reviewFragmentContainer=0x7f0500a5;
         public static final int reviewT=0x7f0500b1;
         public static final int reviewer=0x7f0500b3;
         public static final int right=0x7f050001;
@@ -395,8 +395,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int slidingmenu_view=0x7f0500b8;
         public static final int slidingmenumain=0x7f0500bc;
         public static final int supplier=0x7f0500ac;
-        public static final int tab2=0x7f0500a4;
-        public static final int tab3=0x7f0500a5;
+        public static final int tab2=0x7f0500a6;
+        public static final int tab3=0x7f0500a7;
         public static final int textView1=0x7f05005b;
         public static final int textView2=0x7f05005d;
         public static final int textView3=0x7f050067;
@@ -404,14 +404,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textView5=0x7f050089;
         public static final int thumb=0x7f0500b0;
         public static final int totalText=0x7f050068;
-        public static final int total_gross_view=0x7f0500a9;
-        public static final int total_sale_text=0x7f0500a0;
+        public static final int total_gross_view=0x7f0500a2;
+        public static final int total_sale_text=0x7f0500a1;
         public static final int total_sales=0x7f050063;
         public static final int totaltextview=0x7f050018;
         public static final int tvCatTitle=0x7f050026;
         public static final int tvDeals=0x7f05002c;
         public static final int tvRecom=0x7f050031;
-        public static final int update=0x7f0500a7;
+        public static final int update=0x7f0500a0;
         public static final int userNameSignUp=0x7f050052;
         public static final int usrName=0x7f0500bd;
         public static final int usrUpdate=0x7f05005c;

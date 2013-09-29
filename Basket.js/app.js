@@ -183,6 +183,16 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 	};
 	res.json(response);
 });
+app.get('/Basket.js/ProductReport/:day/:month/:year/:type', function(req,res)
+		{
+			var response =
+			{
+					"totalSales": 3200000,
+					"totalGross":12300030
+					
+			};
+			res.json(response);
+		});
 app.get('/Basket.js/User/:id/:password', function(req, res) 
 		{
 	var email = req.params.id;
