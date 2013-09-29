@@ -1,6 +1,5 @@
 package com.basket.general;
 
-import RestRequest.ProductReportRequest;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.AdminSession;
+import com.basket.restrequest.ProductReportRequest;
 import com.example.basket.R;
 import com.example.basket.R.id;
 import com.example.basket.R.layout;
