@@ -3,11 +3,11 @@
  */
 
 module.exports = {
-		CreditCard: function(cardId,cardNo,expDay,expYear,secCode,name,billing)
+		CreditCard: function(cardId,cardNum,expMonth,expYear,secCode,name,billing)
 		{
 			this.cardId=cardId;
-			this.cardNo=cardNo;
-			this.expDay=expDay;
+			this.cardNum=cardNum;
+			this.expMonth=expMonth;
 			this.expYear=expYear;
 			this.secCode=secCode;
 			this.name=name;
