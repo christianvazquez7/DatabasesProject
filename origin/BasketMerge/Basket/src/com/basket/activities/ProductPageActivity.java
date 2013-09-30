@@ -1,19 +1,8 @@
 package com.basket.activities;
 
 
-import com.basket.containers.BasketSession;
-import com.basket.fragments.HarvestFragment;
-import com.basket.fragments.ProductDetailFragment;
-import com.basket.fragments.ProductFragment;
-import com.basket.general.BuyEvent;
-import com.basket.lists.ReviewListFragment;
-import com.example.basket.R;
-import com.example.basket.R.anim;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
-
 import android.animation.LayoutTransition;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +16,14 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.Toast;
+
+import com.basket.containers.BasketSession;
+import com.basket.fragments.HarvestFragment;
+import com.basket.fragments.ProductDetailFragment;
+import com.basket.fragments.ProductFragment;
+import com.basket.general.BuyEvent;
+import com.basket.lists.ReviewListFragment;
+import com.example.basket.R;
 
 public class ProductPageActivity extends FragmentActivity {
 	private ViewGroup viewGroup;
@@ -153,8 +150,10 @@ public class ProductPageActivity extends FragmentActivity {
 			public void onClick(View v) 
 			{
 				
-				BasketSession.getUser().getBaskets().get(0).getBuyEvents().add(currentEvent);
-				Toast.makeText(ProductPageActivity.this, "Product Added to Basket", Toast.LENGTH_SHORT).show();
+				//BasketSession.getUser().getBaskets().get(0).getBuyEvents().add(currentEvent);
+				Intent chooseBasket = new Intent(ProductPageActivity.this,BasketFragmentActivity.class);
+				chooseBasket.putExtra("selected", getIntent().getIntExtra("selectedEvent", 0));
+				startActivityForResult(chooseBasket,0);
 				finish();
 				
 			}

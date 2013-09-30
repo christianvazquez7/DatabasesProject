@@ -127,6 +127,13 @@ app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 	buffUser.email=req.params.email;
 	res.json(true);
 });
+app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
+	console.log("here");
+	var u =users["lukesionkira@hotmail.com"];
+	u.baskets[req.params.pos].buyEvents=req.body.buyEvents;
+	console.log(req.body.buyEvents);
+	res.json(true);
+});
 app.get('/Basket.js/search/:searchQuery',function(req,res)
 {
 	var response =
@@ -154,6 +161,12 @@ app.post('/Basket.js/create/:id', function(req,res)
 		{
 	console.log("hind");
 	userList.push(req.body);
+	res.json(true);
+		});
+app.post('/Basket.js/NewBasket', function(req,res)
+		{
+	var u =users["lukesionkira@hotmail.com"];
+	u.baskets.push(req.body);
 	res.json(true);
 		});
 var exReport = new Report(2,05,1992,"sales", 150,25000);
