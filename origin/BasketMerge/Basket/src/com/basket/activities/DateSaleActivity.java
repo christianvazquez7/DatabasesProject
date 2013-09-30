@@ -60,7 +60,8 @@ public class DateSaleActivity extends Activity
 	private class ProductReportListener implements RequestListener<Report>, RequestProgressListener {
 
 		@Override
-		public void onRequestFailure(SpiceException arg0) {
+		public void onRequestFailure(SpiceException arg0) 
+		{
 			
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
