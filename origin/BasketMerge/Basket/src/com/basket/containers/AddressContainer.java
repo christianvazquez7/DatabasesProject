@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.basket.general.Address;
+import com.basket.general.Adress;
 
 public class AddressContainer {
 	
-	public static Address shippingSelection;
+	public static Adress shippingSelection;
 	private static AddressContainer sessionAddressContainer;
-	public static ArrayList<Address> userAddresses;
+	public static ArrayList<Adress> userAddresses;
 	private AddressContainer(){
-		userAddresses=new ArrayList<Address>();
-		userAddresses.add(new Address("123 cat avenue"));
+		userAddresses=new ArrayList<Adress>();
+		Adress tmp = new Adress();
+		tmp.setCountry("PR");
+		tmp.setLine1("123 cat avenue");
+		tmp.setLine2("Barceloneta");
+		tmp.setZipCode(00617);
+		userAddresses.add(tmp);
 		shippingSelection = null;
 	}
 	public static AddressContainer getAddressContainer(){

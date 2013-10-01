@@ -16,12 +16,15 @@ import com.example.basket.R;
 
 public class Products_In_Checkout_List_View extends ListFragment{
 	//private String[] list_items;
-	private ArrayList<Products> products;
+	private ArrayList<BuyEvent> products2;
+	public ArrayList<BuyEvent> getProducts2() {
+		return products2;
+	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.orders_list, container, false);
 			//products = OrderContainer.getOrdersInUserSession().userOrders.get(1).productsinorder;
 			int number = this.getActivity().getIntent().getIntExtra("CurrentListItem", -1);
-			ArrayList<BuyEvent> products2 = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
+			 products2 = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
 			setListAdapter(new ProductInCheckoutAdapter(getActivity(), products2));
 		
 		

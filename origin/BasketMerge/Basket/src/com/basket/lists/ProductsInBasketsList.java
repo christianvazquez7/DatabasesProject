@@ -26,6 +26,7 @@ public class ProductsInBasketsList extends ListFragment{
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(ProductsInBasketsList.this.getActivity(), CheckoutActivity.class);
+				i.putExtra("basketNum", getArguments().getInt("pos"));
 				i.putExtra("CurrentListItem", BasketActivity.currentPagePager.getCurrentItem());
 				i.putExtra("BuyEvent", true);
 				//i.putExtra("BidEvent",true);

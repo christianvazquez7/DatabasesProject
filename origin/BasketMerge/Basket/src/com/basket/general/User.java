@@ -15,7 +15,7 @@ public class User
 	private ArrayList<BidEvent> currentlySellingOnBid;
 	private ArrayList<BuyEvent> currentlySellingOnBuy;
 	private ArrayList<CreditCard> creditCards;
-	private ArrayList<Order> userOrders = new ArrayList<Order>();
+	private ArrayList<Order> userOrders;
 
 	public User(){}
 	public User(String n,String e, String p){

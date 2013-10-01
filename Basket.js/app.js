@@ -9,6 +9,9 @@ var app = express();
 var roduct = require("./Product.js");
 var product = roduct.product;
 
+var orderJS= require("./order.js");
+var Order =  orderJS.Order;
+
 var userJS = require("./user.js");
 var User= userJS.User;
 
@@ -61,7 +64,8 @@ var baskets= new Array(
 );
 
 var users = {};
-users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList);
+var orderList= new Array();
+users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList);
 
 
 var allowCrossDomain = function(req, res, next) 
@@ -105,9 +109,9 @@ console.log("server listening");
 //
 //		});
 var userList = new Array(
-		new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList),
-		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList),
-		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList)
+		new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
+		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
+		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList)
 		);
 app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
 {
@@ -161,6 +165,13 @@ app.post('/Basket.js/create/:id', function(req,res)
 		{
 	console.log("hind");
 	userList.push(req.body);
+	res.json(true);
+		});
+app.post('/Basket.js/PlaceOrder/:username', function(req,res)
+		{
+	console.log("hind");
+	var us = users["lukesionkira@hotmail.com"];
+	us.userOrders.push(req.body);
 	res.json(true);
 		});
 app.post('/Basket.js/NewBasket', function(req,res)
@@ -240,7 +251,8 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 							"ceditCards":userAccount.creditCards,
 							"currentlyBiddingOn":userAccount.currentlyBiddingOn,
 							"currentlySellingOnBid":userAccount.currentlySellingOnBid,
-							"currentlySellingOnBuy":userAccount.currentlySellingOnBuy};
+							"currentlySellingOnBuy":userAccount.currentlySellingOnBuy,
+							"userOrders":userAccount.userOrders};
 			res.json(response);		
 		}
 		else {

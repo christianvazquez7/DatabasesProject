@@ -20,7 +20,7 @@ public class Products_List_View extends ListFragment{
 	private ArrayList<BuyEvent> products;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.orders_list, container, false);
-		products = BasketSession.getUser().getUserOrders().get(ordernum).getProductsinorder();
+		products = BasketSession.getUser().getUserOrders().get(ordernum).getBuyEvents();
 		setListAdapter(new ProductInOrderAdapter(getActivity(), products));
 
 
