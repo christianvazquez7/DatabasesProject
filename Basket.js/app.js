@@ -27,6 +27,12 @@ var Basket = BasketJS.Basket;
 var buyEventJS= require("./buyEvent.js");
 var BuyEvent= buyEventJS.BuyEvent;
 
+var bidEventJS = require ("./bidEvent.js");
+var BidEvent = bidEventJS.BidEvent;
+
+var bidJS = require("./bid.js");
+var Bid = bidJS.Bid;
+
 var reportJS= require("./report.js");
 var Report = reportJS.Report;
 
@@ -43,18 +49,33 @@ var billingList = new Array(
 );
 
 var exproduct = new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40);
+var exbproduct = new product("Macbook Pro", 1204054932,"Dell Inc.",20,15,40);
 var buyEvents = new Array(
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false)
 );
+var users = {};
+users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList);
+
 var reviews = new Array();
 var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
 		- 6 GB DDR3 \
 		- 17.3-Inch Screen \
 		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
 		,reviews);
+var buylist = new Array();
+buylist.push(event);
+var bid = new Bid(users["lukesionkira@hotmail.com"], 2,5,2011,12,50, 300);
+ var bids = new Array();
+var bidlist = new Array();
 
+var biddy = new BidEvent(exbproduct,300,1,2011,5,9,35,21,2011,6,5,20,"- Intel Core i7 3610QM \
+		- 6 GB DDR3 \
+		- 17.3-Inch Screen \
+		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end.",
+		reviews,bids,bid,users["lukesionkira@hotmail.com"],30);
+bidlist.push(biddy);
 
 var bidEvents = new Array();
 
@@ -63,9 +84,8 @@ var baskets= new Array(
 		new Basket("basket example 2",buyEvents,buyEvents)
 );
 
-var users = {};
+
 var orderList= new Array();
-users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList);
 
 
 var allowCrossDomain = function(req, res, next) 
@@ -142,16 +162,8 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 {
 	var response =
 	{
-			"product": event.product,
-			"price": event.price,
-			"day": event.day,
-			"year": event.year,
-			"month": event.month,
-			"hour": event.hour,
-			"minute": event.minute,
-			"finalized":event.finalized,
-			"features": event.features,
-			"description": event.description
+			"buyEvents":buylist,
+			"bidEvents":bidlist
 	};
 	res.json(response);
 });

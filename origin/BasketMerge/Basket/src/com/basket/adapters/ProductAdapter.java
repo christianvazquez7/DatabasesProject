@@ -33,7 +33,7 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			BidEvent currentProduct = (BidEvent) this.getItem(pos);	
 
 			((TextView)convertView.findViewById(R.id.bidproduct)).setText(currentProduct.getProduct().getName());
-			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getPrice()));
+			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinning().getAmmount()));
 			((TextView)convertView.findViewById(R.id.bidsupplier)).setText(currentProduct.getProduct().getManufacturer());
 		}
 		else{
