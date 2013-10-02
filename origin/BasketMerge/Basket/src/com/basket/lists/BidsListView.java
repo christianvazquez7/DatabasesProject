@@ -12,6 +12,9 @@ import com.basket.adapters.BidsInSellingProductAdapter;
 import com.basket.general.Bid;
 import com.example.basket.R;
 
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
+
 public class BidsListView extends ListFragment{
 	//private String[] list_items;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -29,20 +32,33 @@ public class BidsListView extends ListFragment{
 		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
 		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
 		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
+	
+		
 		
 		int itemClicked = (Integer) this.getActivity().getIntent().getExtras().get("itemClicked");
-		//logica dce buscar producto
 		setListAdapter(new BidsInSellingProductAdapter(getActivity(), bidsOnProduct));
+		
+		final PullToRefreshListView listView = (PullToRefreshListView) rootView.findViewById(R.id.pull_to_refresh_listview);
+		listView.setShowLastUpdatedText(true);
+		listView.setOnRefreshListener(new OnRefreshListener() 
+		{
+
+		    @Override
+		    public void onRefresh() 
+		    {
+		        // Your code to refresh the list contents
+
+		        // ...
+
+		        // Make sure you call listView.onRefreshComplete()
+		        // when the loading is done. This can be done from here or any
+		        // other place, like on a broadcast receive from your loading
+		        // service or the onPostExecute of your AsyncTask.
+
+		        listView.onRefreshComplete();
+		    }
+		});
+
 
 
 		return rootView;
