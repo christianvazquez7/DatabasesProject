@@ -53,6 +53,7 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 		android.app.FragmentManager fm = this.getFragmentManager();
 		android.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 		
+		
 		spiceManager.addListenerIfPending(BuyEvent.class, "products_search", new ProductSearchListener());
 		
 		if (fragment == null)
@@ -62,6 +63,8 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 
 			fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
 		}
+		
+		
 		((Button)this.findViewById(R.id.searchButton)).setOnClickListener(new OnClickListener(){
 
 			
@@ -222,7 +225,7 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 			
 			Log.d("buyevent",BuyEvent.toString());
 			for(int i =0;i<3;i++)
-			productList.addBuyEvent(BuyEvent);
+			productList.addEvent(BuyEvent);
 			((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
 			spiceManager.shouldStop();
 				

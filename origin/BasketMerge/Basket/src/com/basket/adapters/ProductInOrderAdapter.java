@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.basket.general.BuyEvent;
-import com.basket.general.Products;
+import com.basket.general.Event;
 import com.example.basket.R;
+
 
 public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 {

@@ -2,18 +2,17 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
-import com.basket.adapters.ProductAdapter;
-import com.basket.general.BuyEvent;
-
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.basket.adapters.ProductAdapter;
+import com.basket.general.Event;
+
 public class CategoryPageListFragment extends ListFragment {
-	private ArrayList<BuyEvent> mProducts;
+	private ArrayList<Event> mProducts;
 	
 	ListView mProductListView;
 

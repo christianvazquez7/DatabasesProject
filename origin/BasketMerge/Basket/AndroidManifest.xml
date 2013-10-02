@@ -45,6 +45,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.basket.activities.BuyEventPageActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.basket.activities.BasketActivity"
             android:label="@string/app_name" >
         </activity>
@@ -53,7 +57,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.basket.activities.ProductPageActivity"
+            android:name="com.basket.activities.BidEventPageActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

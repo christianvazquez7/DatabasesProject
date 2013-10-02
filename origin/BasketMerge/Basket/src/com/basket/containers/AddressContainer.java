@@ -1,9 +1,7 @@
 package com.basket.containers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import com.basket.general.Address;
 import com.basket.general.Adress;
 
 public class AddressContainer {

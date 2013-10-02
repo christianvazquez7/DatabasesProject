@@ -15,26 +15,28 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
 import com.basket.fragments.HarvestFragment;
 import com.basket.fragments.ProductDetailFragment;
 import com.basket.fragments.ProductFragment;
-import com.basket.general.BuyEvent;
+import com.basket.general.BidEvent;
 import com.basket.lists.ReviewListFragment;
 import com.example.basket.R;
 
-public class ProductPageActivity extends FragmentActivity {
+public class BidEventPageActivity extends FragmentActivity {
 	private ViewGroup viewGroup;
-	private BuyEvent currentEvent;
+	private BidEvent currentEvent;
 	boolean tab = false;
 	Fragment product,fragment,harvest,detail;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		currentEvent=BasketSession.getProductSearch().get(this.getIntent().getIntExtra("selectedEvent", 0));
+		
+		currentEvent=(BidEvent) BasketSession.getProductSearch().get(this.getIntent().getIntExtra("selectedEvent", 0));
+		
+		
 		setContentView(R.layout.product_page);
 		LayoutTransition f = new LayoutTransition();
 		f.enableTransitionType(LayoutTransition.CHANGING);
@@ -59,20 +61,29 @@ public class ProductPageActivity extends FragmentActivity {
 		//       //spec.setIndicator(mTabHost.);
 		//       spec.setContent(R.id.fragmentContainer);
 		//       mTabHost.addTab(spec);
+		
+		
 		final FragmentManager fm = this.getSupportFragmentManager();
 	    fragment = fm.findFragmentById(R.id.reviewFragmentContainer);
 		product = fm.findFragmentById(R.id.productContainer);
 		harvest=fm.findFragmentById(R.id.tab2);
 		detail=fm.findFragmentById(R.id.tab3);
+		
+		
+		//Tab 2
 		TabHost.TabSpec doubletab = mTabHost.newTabSpec("tab2");
 		doubletab.setContent(R.id.tab2);
 		doubletab.setIndicator("Harvest");
 		mTabHost.addTab(doubletab);
+		
+		//Animacion
 		final Animation  outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
 				Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
 				Animation.RELATIVE_TO_SELF, -1f);
 		outAni.setDuration(100);
 		outAni.setFillAfter(true);
+		
+		//Subir y bajar la ventana
 		this.findViewById(R.id.metal).setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -85,8 +96,8 @@ public class ProductPageActivity extends FragmentActivity {
 			}
 
 		});
+		//Mas de subir y bajar la ventana
 		this.findViewById(R.id.productContainer).setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) 
 			{
@@ -107,19 +118,20 @@ public class ProductPageActivity extends FragmentActivity {
 			}
 
 		});
+		//View of product
 		if (product == null)
 		{
-
 			product = new ProductFragment();
 			((ProductFragment)product).setEvent(currentEvent);
-			//			
 			fm.beginTransaction().add(R.id.productContainer, product).commit();
 			////			((ReviewListFragment)fragment).getListView().setDivider(this.getResources().getDrawable(R.drawable.custom_divider));
 		}
+		//Harvest option in tab
 		if (harvest == null){
 			harvest = new HarvestFragment();
 			fm.beginTransaction().add(R.id.tab2, harvest).commit();
 		}
+		//Prdouct details in tab
 		if (detail == null){
 			detail = new ProductDetailFragment();
 			ProductDetailFragment sp=(ProductDetailFragment)detail;
@@ -127,7 +139,7 @@ public class ProductPageActivity extends FragmentActivity {
 			fm.beginTransaction().add(R.id.tab3, detail).commit();
 
 		}
-
+		//Info Tab
 		TabHost.TabSpec Infotab = mTabHost.newTabSpec("tab3");
 		Infotab.setContent(R.id.tab3);
 		Infotab.setIndicator("Info");
@@ -142,7 +154,7 @@ public class ProductPageActivity extends FragmentActivity {
 		}
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
-
+		//Add to basket button
 		Button add =(Button)this.findViewById(R.id.addToBasket);
 		add.setOnClickListener(new OnClickListener(){
 
@@ -151,7 +163,7 @@ public class ProductPageActivity extends FragmentActivity {
 			{
 				
 				//BasketSession.getUser().getBaskets().get(0).getBuyEvents().add(currentEvent);
-				Intent chooseBasket = new Intent(ProductPageActivity.this,BasketFragmentActivity.class);
+				Intent chooseBasket = new Intent(BidEventPageActivity.this,BasketFragmentActivity.class);
 				chooseBasket.putExtra("selected", getIntent().getIntExtra("selectedEvent", 0));
 				startActivityForResult(chooseBasket,0);
 				finish();

@@ -11,10 +11,11 @@ import android.widget.Button;
 import com.basket.activities.BasketActivity;
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.ProductAdapter;
+import com.basket.adapters.ProductBuyAdapter;
 import com.basket.containers.BasketSession;
 import com.example.basket.R;
 
-public class ProductsInBasketsList extends ListFragment{
+public class ProductsInBuyBasketsList extends ListFragment{
 	public static int basketnum =0;
 	private Button mButton;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -25,7 +26,7 @@ public class ProductsInBasketsList extends ListFragment{
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(ProductsInBasketsList.this.getActivity(), CheckoutActivity.class);
+				Intent i = new Intent(ProductsInBuyBasketsList.this.getActivity(), CheckoutActivity.class);
 				i.putExtra("basketNum", getArguments().getInt("pos"));
 				i.putExtra("CurrentListItem", BasketActivity.currentPagePager.getCurrentItem());
 				i.putExtra("BuyEvent", true);
@@ -36,7 +37,7 @@ public class ProductsInBasketsList extends ListFragment{
 		});
 		
 		//list_items = getResources().getStringArray(R.array.list);
-		setListAdapter(new ProductAdapter(getActivity(), BasketSession.getUser().getBaskets().get(this.getArguments().getInt("pos")).getBuyEvents()));
+		setListAdapter(new ProductBuyAdapter(getActivity(), BasketSession.getUser().getBaskets().get(this.getArguments().getInt("pos")).getBuyEvents()));
 		//setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_items));
 		
 		return rootView;
