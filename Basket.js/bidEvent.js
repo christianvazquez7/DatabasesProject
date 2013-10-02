@@ -3,8 +3,9 @@
  */
 module.exports =
 {
-		BidEvent: function(product,startingBid,sday,syear,smonth,shour,sminute,fday,fyear,fmonth,fhour,fminute,features,description,reviews,bids,winning,creator,minBid)
+		BidEvent: function(product,startingBid,sday,syear,smonth,shour,sminute,fday,fyear,fmonth,fhour,fminute,features,description,reviews,bids,winning,creator,minBid,id)
 		{
+			this.id=id;
 			this.product=product;
 			this.startingBid= startingBid;
 			

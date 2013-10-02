@@ -56,36 +56,44 @@ var buyEvents = new Array(
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false)
 );
 var users = {};
-users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList);
-
-var reviews = new Array();
-var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
-		- 6 GB DDR3 \
-		- 17.3-Inch Screen \
-		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
-		,reviews);
 var buylist = new Array();
-buylist.push(event);
-var bid = new Bid(users["lukesionkira@hotmail.com"], 2,5,2011,12,50, 300);
- var bids = new Array();
+var bids = new Array();
 var bidlist = new Array();
-
-var biddy = new BidEvent(exbproduct,300,1,2011,5,9,35,21,2011,6,5,20,"- Intel Core i7 3610QM \
-		- 6 GB DDR3 \
-		- 17.3-Inch Screen \
-		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end.",
-		reviews,bids,bid,users["lukesionkira@hotmail.com"],30);
-bidlist.push(biddy);
-
 var bidEvents = new Array();
+var orderList= new Array();
+var withbid= new Array();
 
 var baskets= new Array(
 		new Basket("basket example",buyEvents,buyEvents),
 		new Basket("basket example 2",buyEvents,buyEvents)
 );
+var bidEvents2=new Array();
+var userList = new Array(
+		new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents2,buyEvents, creditCardList,orderList),
+		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
+		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList)
+		);
+users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,withbid,bidEvents,buyEvents, creditCardList,orderList);
+var  randId=1000;
+var reviews = new Array();
+var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
+		- 6 GB DDR3 \
+		- 17.3-Inch Screen \
+		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
+		,reviews,0);
+
+buylist.push(event);
+var bid = new Bid(users["lukesionkira@hotmail.com"], 2,5,2011,12,50, 300);
+ 
+
+var biddy = new BidEvent(exbproduct,300,1,2011,5,9,35,21,2011,6,5,20,"- Intel Core i7 3610QM \
+		- 6 GB DDR3 \
+		- 17.3-Inch Screen \
+		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end.",
+		reviews,bids,bid,userList[1],30,1);
+bidlist.push(biddy);
 
 
-var orderList= new Array();
 
 
 var allowCrossDomain = function(req, res, next) 
@@ -128,11 +136,8 @@ console.log("server listening");
 //	res.json(response);		
 //
 //		});
-var userList = new Array(
-		new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
-		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
-		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList)
-		);
+
+
 app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
 {
 
@@ -156,6 +161,22 @@ app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
 	var u =users["lukesionkira@hotmail.com"];
 	u.baskets[req.params.pos].buyEvents=req.body.buyEvents;
 	console.log(req.body.buyEvents);
+	res.json(true);
+});
+
+app.put('/Basket.js/addBid/:id',function(req,res){
+	console.log("here");
+	var u =userList[1];
+	var target;
+	   for(var i=0; i<bidlist.length; i++) {
+	        if (bidlist[i].id == req.params.id) target=bidlist[i];
+	    }
+	   console.log(req.body);
+	   console.log(target);
+	   target.bids.push(req.body);
+	   
+	  // u.currentlyBiddingOn.push(target);
+	
 	res.json(true);
 });
 app.get('/Basket.js/search/:searchQuery',function(req,res)
@@ -240,10 +261,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		res.send("Fields missing");
 		return;
 	}
-	console.log(email);
-	console.log(password);
-	console.log(userAccount.password);
-	console.log(userAccount.email);
+	
 
 	if (userAccount==null)
 	{

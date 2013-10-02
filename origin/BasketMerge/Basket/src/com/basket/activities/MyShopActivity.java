@@ -17,7 +17,6 @@ public class MyShopActivity extends FragmentActivity {
 	
 	private ViewPager pager;
 	private TabsAdapter mTabsAdapter;
-	private MyShop shopContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class MyShopActivity extends FragmentActivity {
 		pager = new ViewPager(this);
 		pager.setId(R.id.pager);
 		setContentView(pager);
-		shopContainer = MyShop.getShopInUserSession();
 		
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

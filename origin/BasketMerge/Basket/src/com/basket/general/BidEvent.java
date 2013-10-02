@@ -22,7 +22,14 @@ public class BidEvent implements Event
 	int smonth;
 	int shour;
 	int sminute;
+	int id;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	int fday;
 	int fyear;
 	int fmonth;
