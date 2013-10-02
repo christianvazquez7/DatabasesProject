@@ -69,6 +69,7 @@ public class CheckoutActivity extends Activity {
 			items = new Products_In_Checkout_List_View();
 			fragMan.beginTransaction().add(R.id.productsForCheckoutPlaceholder, items).commit();
 		}
+		
 		Button checkOut = (Button) findViewById(R.id.CheckOut);
 		checkOut.setOnClickListener(new OnClickListener()
 		{
@@ -80,7 +81,8 @@ public class CheckoutActivity extends Activity {
 				if (CreditCardContainer.paymentSelection==null || AddressContainer.shippingSelection==null || list.getProducts2().size()==0)
 				{
 					
-				}else
+				}
+				else
 				{
 					if(!spiceManager.isStarted())
 					{

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Basket {
 	private String name;
-	public ArrayList<BuyEvent> productsinbasket;
+	public ArrayList<Event> productsinbasket;
 	public String getName() {
 		return name;
 	}
@@ -13,6 +13,6 @@ public class Basket {
 	}
 	public Basket(String name){
 		this.name = name;
-		this.productsinbasket = new ArrayList<BuyEvent>();
+		this.productsinbasket = new ArrayList<Event>();
 	}
 }

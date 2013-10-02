@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
-public class BuyEvent 
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class BuyEvent implements Event
 {
+	
 	Product product;
 	
 	String description;
@@ -93,6 +94,10 @@ public class BuyEvent
 	}
 	public void setFinalized(boolean finalized) {
 		this.finalized = finalized;
+	}
+	@Override
+	public boolean isBid() {
+		return false;
 	}
 
 }

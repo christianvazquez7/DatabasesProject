@@ -18,7 +18,7 @@ import com.basket.adapters.TabsAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
-import com.basket.lists.ProductsInBasketsList;
+import com.basket.lists.ProductsInBuyBasketsList;
 import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
 import com.example.basket.R;
@@ -56,10 +56,10 @@ public class BasketActivity extends FragmentActivity {
 		//Set up baskets
 		for(int i =0;i<listofbaskets.size();i++)
 		{
-			ProductsInBasketsList.basketnum=i;
+			ProductsInBuyBasketsList.basketnum=i;
 			Bundle args = new Bundle();
 			args.putInt("pos", i);
-			mTabsAdapter.addTab(bar.newTab().setText(listofbaskets.get(i).getName()), ProductsInBasketsList.class, args);
+			mTabsAdapter.addTab(bar.newTab().setText(listofbaskets.get(i).getName()), ProductsInBuyBasketsList.class, args);
 		}
 		currentPagePager = pager;
 	}
@@ -85,13 +85,13 @@ public class BasketActivity extends FragmentActivity {
 					}
 				
 					Bundle args = new Bundle();
-					ProductsInBasketsList.basketnum++;
-					args.putInt("pos", ProductsInBasketsList.basketnum);
+					ProductsInBuyBasketsList.basketnum++;
+					args.putInt("pos", ProductsInBuyBasketsList.basketnum);
 					
 					final ActionBar bar = getActionBar();
 					ProductBasket newBasket=new ProductBasket(name);
 					BasketSession.getUser().getBaskets().add(new ProductBasket(name));
-					mTabsAdapter.addTab(bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName()), ProductsInBasketsList.class, args);
+					mTabsAdapter.addTab(bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName()), ProductsInBuyBasketsList.class, args);
 					spiceManager.start(BasketActivity.this);					
 					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket);
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.basket.adapters.BasketAdapter;
 import com.basket.containers.BasketSession;
+import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
 import com.basket.restrequest.ProductSearchRequest;
@@ -41,20 +42,17 @@ public class BasketListFragment extends android.app.ListFragment
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
-	private MyRenderer selectedRenderer;
-	private boolean out = false;
-	private View previousView;
-	private MyRenderer prev;
-	private boolean remove;
-	private Animation centerAni;
+//	private MyRenderer selectedRenderer;
+//	private boolean out = false;
+//	private View previousView;
+//	private MyRenderer prev;
+//	private boolean remove;
+//	private Animation centerAni;
 	private int currentPos=0;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	public void onCreate(Bundle savedInstance)
 	{
-		foundBaskets= BasketSession.getUser().getBaskets();
-
-		
-		
+		foundBaskets= BasketSession.getUser().getBaskets();		
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Basket List");
 		BasketAdapter adapter = new BasketAdapter(this.getActivity(),foundBaskets);
@@ -68,7 +66,7 @@ public class BasketListFragment extends android.app.ListFragment
 	{
 		spiceManager.start(getActivity());
 		currentPos=pos;
-		BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add(BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+		BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
 		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));
 		spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BasketUpdateListener());
 		
