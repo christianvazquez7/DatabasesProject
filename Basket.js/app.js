@@ -200,11 +200,14 @@ app.post('/Basket.js/create/:id', function(req,res)
 	userList.push(req.body);
 	res.json(true);
 		});
-app.post('/Basket.js/PlaceOrder/:username', function(req,res)
+app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
 		{
 	console.log("hind");
 	var us = users["lukesionkira@hotmail.com"];
 	us.userOrders.push(req.body);
+	
+	us.baskets.splice(req.params.pos,1);
+
 	res.json(true);
 		});
 app.post('/Basket.js/NewBasket', function(req,res)

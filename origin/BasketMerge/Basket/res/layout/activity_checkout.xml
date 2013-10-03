@@ -46,10 +46,11 @@
             android:text="Your items:" />
 
         <FrameLayout
-            android:background="@drawable/wood2"
             android:id="@+id/productsForCheckoutPlaceholder"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="334dp"
+            android:background="@drawable/wood4" >
+
         </FrameLayout>
 
         <LinearLayout

@@ -1,5 +1,6 @@
 package com.basket.restrequest;
 
+import com.basket.general.Basket;
 import com.basket.general.Order;
 import com.basket.general.User;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
@@ -8,13 +9,15 @@ public class PlaceOrderRequest extends SpringAndroidSpiceRequest<Boolean> {
 	
 	private Order newO;
 	private User theUser;
-	private String url="http://10.0.2.2:3412/Basket.js/PlaceOrder/temp";
-	public PlaceOrderRequest(Order o, User user) 
+	private String bPos;
+	private String url="http://10.0.2.2:3412/Basket.js/PlaceOrder/temp/";
+	public PlaceOrderRequest(Order o, User user,int p) 
 	{
 		super(Boolean.class);
 		newO=o;
 		theUser=user;
-		
+		bPos=Integer.toString(p);
+		url+=bPos;
 	}
 
 	@Override

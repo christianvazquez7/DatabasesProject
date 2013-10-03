@@ -2,9 +2,13 @@ package com.basket.activities;
 
 import java.util.ArrayList;
 
+import android.R.color;
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -20,7 +24,6 @@ import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
 import com.basket.lists.ProductsInBuyBasketsList;
 import com.basket.restrequest.NewBasketRequest;
-import com.basket.restrequest.UpdateBasketRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -49,8 +52,10 @@ public class BasketActivity extends FragmentActivity {
 		
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+	
 		mTabsAdapter = new TabsAdapter(this, pager);
+		
+		
 		ArrayList<ProductBasket> listofbaskets = BasketSession.getUser().getBaskets();
 
 		//Set up baskets
@@ -59,7 +64,13 @@ public class BasketActivity extends FragmentActivity {
 			ProductsInBuyBasketsList.basketnum=i;
 			Bundle args = new Bundle();
 			args.putInt("pos", i);
-			mTabsAdapter.addTab(bar.newTab().setText(listofbaskets.get(i).getName()), ProductsInBuyBasketsList.class, args);
+			
+			Tab newTab =bar.newTab().setText(listofbaskets.get(i).getName());
+			
+			//newTab.getCustomView().setBackgroundColor(Color.BLACK);
+			mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
+			
+			
 		}
 		currentPagePager = pager;
 	}
@@ -89,9 +100,13 @@ public class BasketActivity extends FragmentActivity {
 					args.putInt("pos", ProductsInBuyBasketsList.basketnum);
 					
 					final ActionBar bar = getActionBar();
+					//bar.setBackgroundDrawable(Resources.getSystem().getDrawable(R.drawable.layer_gradient));
 					ProductBasket newBasket=new ProductBasket(name);
 					BasketSession.getUser().getBaskets().add(new ProductBasket(name));
-					mTabsAdapter.addTab(bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName()), ProductsInBuyBasketsList.class, args);
+					Tab newTab =bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName());
+					//newTab.getCustomView().setBackgroundColor(color.black);
+					
+					mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
 					spiceManager.start(BasketActivity.this);					
 					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket);
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());

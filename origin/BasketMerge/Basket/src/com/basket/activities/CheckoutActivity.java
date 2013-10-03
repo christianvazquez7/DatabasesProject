@@ -95,7 +95,7 @@ public class CheckoutActivity extends Activity {
 						orderToPlace.setYear(2005);
 						orderToPlace.setShipAdress(AddressContainer.shippingSelection);
 						spiceManager.start(CheckoutActivity.this);
-						spiceManager.execute(new PlaceOrderRequest(orderToPlace,BasketSession.getUser()), new PlaceOrderListener());
+						spiceManager.execute(new PlaceOrderRequest(orderToPlace,BasketSession.getUser(),getIntent().getIntExtra("basketNum", 0)), new PlaceOrderListener());
 					}
 				}
 			}
