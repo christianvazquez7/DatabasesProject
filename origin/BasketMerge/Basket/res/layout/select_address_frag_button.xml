@@ -7,7 +7,7 @@
         android:id="@+id/shippingAddressSelectButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/wood2"
+        android:background="@drawable/wood4"
         android:text="Select shipping address..." >
 
     </Button>
