@@ -110,4 +110,5 @@ public class MyShopActivity extends FragmentActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 }

@@ -28,7 +28,7 @@
 
     <Button
         style="@style/HomeMenuButton"
-        android:id="@+id/button1"
+        android:id="@+id/bEditCreditCards"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_above="@+id/createAccount"
@@ -63,10 +63,9 @@
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/bEditCreditCards"
         android:layout_alignLeft="@+id/email"
         android:layout_alignRight="@+id/email"
-
         android:layout_marginBottom="32dp"
         android:background="@drawable/round_corners_black_border"
         android:ems="10"

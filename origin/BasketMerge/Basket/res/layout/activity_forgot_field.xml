@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
+
         android:layout_centerVertical="true"
         android:ems="10"
         android:hint="@string/forgot_field_hint_string"

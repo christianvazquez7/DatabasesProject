@@ -1,14 +1,16 @@
 package com.basket.general;
 
 import java.util.ArrayList;
-
+import java.util.Calendar;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User 
 {
 
-	private String email,username,password;
+
+	private String email, username, password, firstName, lastName;
+	private int age, bdDay, bdMonth, bdYear;
 	private ArrayList<Adress> billingAdress, shippingAdress;
 	private ArrayList<ProductBasket> baskets;
 	private ArrayList<BidEvent> currentlyBiddingOn;
@@ -22,6 +24,29 @@ public class User
 		username=n;
 		email=e;
 		password=p;
+		
+		billingAdress = new ArrayList<Adress>();
+		shippingAdress = new ArrayList<Adress>();
+		baskets = new ArrayList<ProductBasket>();
+		currentlyBiddingOn = new ArrayList<BidEvent> ();
+		currentlySellingOnBid = new ArrayList<BidEvent> ();
+		currentlySellingOnBuy = new ArrayList<BuyEvent>();
+		creditCards = new ArrayList<CreditCard>();
+		userOrders = new ArrayList<Order>();
+		
+		Order newOrder = new Order();
+		
+		userOrders.add(newOrder);
+	}
+	public User(String n, String e, String p, String fn, String ln, int bdDay, int bdMonth, int bdYear){
+		username=n;
+		email=e;
+		password=p;
+		firstName = fn;
+		lastName= ln;
+		this.bdDay = bdDay;
+		this.bdMonth = bdMonth;
+		this.bdYear = bdYear;
 		
 		billingAdress= new ArrayList<Adress>();
 		shippingAdress= new ArrayList<Adress>();
@@ -131,6 +156,51 @@ public class User
 	}
 	public void setUserOrders(ArrayList<Order> userOrders) {
 		this.userOrders = userOrders;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public int getAge() {
+		Calendar c = Calendar.getInstance();
+		age = c.get(Calendar.YEAR) - this.bdYear;
+		if(c.get(Calendar.MONTH)<this.bdMonth){
+			age--;
+		}
+		else if(c.get(Calendar.MONTH) < this.bdMonth){
+			if(c.get(Calendar.DAY_OF_MONTH)<this.bdDay)
+				age--;
+		}
+			return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getBdDay() {
+		return bdDay;
+	}
+	public void setBdDay(int bdDay) {
+		this.bdDay = bdDay;
+	}
+	public int getBdMonth() {
+		return bdMonth;
+	}
+	public void setBdMonth(int bdMonth) {
+		this.bdMonth = bdMonth;
+	}
+	public int getBdYear() {
+		return bdYear;
+	}
+	public void setBdYear(int bdYear) {
+		this.bdYear = bdYear;
 	}
 
 

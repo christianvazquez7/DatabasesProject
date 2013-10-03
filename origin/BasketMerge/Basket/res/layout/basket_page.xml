@@ -20,7 +20,7 @@
    
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/bEditCreditCards"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_weight="0.01"

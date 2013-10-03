@@ -134,6 +134,26 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.example.basket.EditCreditCardsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.basket.EditSAddressesActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.basket.EditUserActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.basket.EditSingleCCActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.basket.EditSingleSAActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.basket.activities.ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>

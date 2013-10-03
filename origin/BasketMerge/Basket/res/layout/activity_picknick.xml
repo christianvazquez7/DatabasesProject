@@ -35,8 +35,7 @@
             </RelativeLayout>
 
             <Button
-                                android:id="@+id/realProfileButton"
-                
+                android:id="@+id/realProfileButton"
                 android:layout_width="108dp"
                 android:layout_height="106dp"
                 android:layout_alignParentRight="true"
@@ -45,6 +44,7 @@
                 android:background="@drawable/wood4"
                 android:text="My Profile" 
                 />
+
         </RelativeLayout>
 
         <View

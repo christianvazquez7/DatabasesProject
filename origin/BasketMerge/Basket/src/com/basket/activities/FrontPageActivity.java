@@ -18,7 +18,11 @@ public class FrontPageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_front_page);
 
+//<<<<<<< HEAD:origin/BasketMerge/Basket/src/com/basket/activities/FrontPageActivity.java
 		mPicknickButton = (Button) findViewById(R.id.button1);
+//=======
+//		mPicknickButton = (Button) findViewById(R.id.bEditCreditCards);
+//>>>>>>> myMaster:origin/BasketMerge/Basket/src/com/basket/activities/FrontPageActivity.java
 		mPicknickButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override

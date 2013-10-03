@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.basket.adapters.ProductInMyShopBidAdapter;
 
+
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.example.basket.R;
@@ -21,6 +22,7 @@ public class BiddingItemsListView extends ListFragment{
 
 		bidItems = BasketSession.getUser().getCurrentlyBiddingOn();
 		setListAdapter(new ProductInMyShopBidAdapter(getActivity(), bidItems));
+
 
 
 

@@ -1,5 +1,6 @@
 package com.basket.general;
 
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -18,7 +19,7 @@ public class Category {
 	private ArrayList<Products> currentDeals;
 	private ArrayList<Products> popularProducts;
 	private boolean mainCategory;
-	
+
 	public Category(String name, Category parent){
 		this.name = name;
 		this.parent = parent;
@@ -59,7 +60,7 @@ public class Category {
 	public Category getParent() {
 		return parent;
 	}
-	
+
 	public boolean isMainCategory(){
 		return this.mainCategory;
 	}

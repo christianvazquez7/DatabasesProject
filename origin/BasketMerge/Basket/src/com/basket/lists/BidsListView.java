@@ -1,4 +1,4 @@
-package com.basket.lists;
+mpackage com.basket.lists;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,7 @@ import com.example.basket.R;
 
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
+
 
 public class BidsListView extends ListFragment{
 	//private String[] list_items;
