@@ -98,7 +98,7 @@
                     android:src="@drawable/monotone_arrow_right" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/Seller"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/textView5"
+                    android:layout_alignTop="@+id/Seller"
                     android:layout_marginLeft="14dp"
                     android:text="Seller"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -190,7 +190,7 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/harvest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.10"

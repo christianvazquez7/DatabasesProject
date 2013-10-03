@@ -136,6 +136,25 @@
                 android:ems="10"
                 android:hint="Last Name"
                 android:paddingLeft="30dp" />
+            
+             <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+             
+             <EditText
+                android:id="@+id/etAgeSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Age"
+                android:paddingLeft="30dp" />
+             
         </LinearLayout>
 
         <Button

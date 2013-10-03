@@ -1,22 +1,26 @@
 package com.basket.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
+import android.util.Log;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.basket.general.BuyEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.lists.BasketListFragment;
 import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class BasketFragmentActivity extends SlidingFragmentActivity {
-
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -36,5 +40,8 @@ public class BasketFragmentActivity extends SlidingFragmentActivity {
 		}
 	}
 
+
+
+	
 
 }

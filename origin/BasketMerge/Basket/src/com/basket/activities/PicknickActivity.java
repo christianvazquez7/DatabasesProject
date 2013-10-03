@@ -20,7 +20,7 @@ public class PicknickActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(PicknickActivity.this,SettingPopupProfileActivity.class
+				Intent i = new Intent(PicknickActivity.this,EditUserActivity.class
 						);
 				startActivity(i);
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
@@ -56,7 +56,6 @@ public class PicknickActivity extends Activity {
 				Intent i = new Intent(PicknickActivity.this,MyShopActivity.class);
 				startActivity(i);
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
-
 			}
 		});
 
@@ -65,7 +64,7 @@ public class PicknickActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent pl = new Intent(PicknickActivity.this,BasketFragmentActivity.class);
+				Intent pl = new Intent(PicknickActivity.this,BasketActivity.class);
 				startActivity(pl);
 				overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
 			}

@@ -12,11 +12,11 @@ import android.widget.ListView;
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.ShippingAddressListAdapter;
 import com.basket.containers.AddressContainer;
-import com.basket.general.Address;
+import com.basket.general.Adress;
 import com.example.basket.R;
 
 public class ShippingAddressListFragment extends ListFragment {
-	private ArrayList<Address> availableaddresses;
+	private ArrayList<Adress> availableaddresses;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.shippingaddresslist_list, container, false);
 		availableaddresses = AddressContainer.userAddresses;

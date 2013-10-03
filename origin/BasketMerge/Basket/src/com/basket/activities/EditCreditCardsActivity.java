@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,36 +39,37 @@ public class EditCreditCardsActivity extends Activity {
 		user = this.getIntent().getIntExtra("selectedUser", 0);
 		theUser = AdminSession.getEditUsers().get(user);
 
-		creditCards = (theUser.getCreditCards() == null) ? new ArrayList<CreditCard>()
-				: theUser.getCreditCards();
+		creditCards = theUser.getCreditCards();
 
 		mCCListView = (ListView) findViewById(R.id.lvCCEditList);
+		
 		final StableArrayAdapter adapter = new StableArrayAdapter(this,
 				R.layout.creditcard_view, creditCards);
 		mCCListView.setAdapter(adapter);
+		
 		mCCListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 				final CreditCard item = (CreditCard) parent.getItemAtPosition(position);
+				final int selectedCC = position;
 				view.animate().setDuration(2000).alpha(0).withEndAction(new Runnable() {
 					@Override
 					public void run() {
-						creditCards.remove(item);
-						adapter.notifyDataSetChanged();
-						view.setAlpha(1);
+						Intent newIntent = new Intent(EditCreditCardsActivity.this, EditSingleCCActivity.class);
+						newIntent.putExtra("selectedUser", user);
+						newIntent.putExtra("selectedCreditCard", selectedCC);
+						startActivity(newIntent);
 					}
 				});
 			}
-
 		});
 
 		mCCSaveButton = (Button) findViewById(R.id.bCCEditSave);
 		mCCSaveButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				theUser.setCreditCards(creditCards);
 
 			}
 		});

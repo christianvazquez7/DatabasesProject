@@ -1,5 +1,7 @@
 package com.basket.activities;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -7,8 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.fragments.DatePickerFragment;
@@ -29,12 +31,12 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 public class SignUpActivity extends Activity {
 	
 	//ET is for EditText, CC for Credit Card, SA & BA for Shipping and Billing Address, B is for button
-	private EditText mETFName, mETLName, mETPassword, mETEmail, mETUserName,
+	private EditText mETFName, mETLName, mETPassword, mETEmail, mETUserName, mETAge,
 		mETCCName, mETCCNum, mETCCSecCode,
 		mETSALine1, mETSALine2, mETSACity, mETSAState, mETSACountry, mETSAZipCode,
 		mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
 		
-	private Button mBBdaySelect, mBCCExpdateSelect;
+	private DatePicker mBBdaySelect, mBCCExpdateSelect;
 	private User newUser;
 	private Adress shippingAddress;
 	private Adress billingAddress;
@@ -47,7 +49,9 @@ public class SignUpActivity extends Activity {
 	
 	private long ccNumber;
 	private int ccExpMonth, ccExpYear, ccSecCode,
-		saZipCode, baZipCode;
+		saZipCode, baZipCode,
+		bdDay, bdMonth, bdYear, age,
+		currDay, currMonth, currYear;
 	
 	private SpiceManager spiceManager  = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	
@@ -55,7 +59,8 @@ public class SignUpActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
-		mBBdaySelect = (Button) findViewById(R.id.bBDaySelect);
+		
+		mBBdaySelect = (DatePicker) findViewById(R.id.bBDaySelect);
 		mBBdaySelect.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -66,7 +71,7 @@ public class SignUpActivity extends Activity {
 			}
 		});
 		
-		mBCCExpdateSelect = (Button) findViewById(R.id.bCCExpdateSelect);
+		mBCCExpdateSelect = (DatePicker) findViewById(R.id.bCCExpdateSelect);
 		mBCCExpdateSelect.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -104,9 +109,13 @@ public class SignUpActivity extends Activity {
 		this.email = mETEmail.getText().toString();
 		mETUserName = (EditText) findViewById(R.id.userNameSignUp);
 		this.userName = mETUserName.getText().toString();
+		mETAge = (EditText) findViewById(R.id.etAgeSignUp);
+		this.age = Integer.parseInt(mETAge.getText().toString());
 		// TODO get date from date picker
-//		mBBdaySelect = (Button) findViewById(R.id.bBDaySelect);
-//		this.bDay=mBBdaySelect.get
+		mBBdaySelect = (DatePicker) findViewById(R.id.bBDaySelect);
+		this.bdDay = mBBdaySelect.getDayOfMonth();
+		this.bdMonth = mBBdaySelect.getMonth();
+		this.bdYear = mBBdaySelect.getYear();
 		
 		mETCCName = (EditText) findViewById(R.id.etCCNameSignUp);
 		this.ccName = mETCCName.getText().toString();
@@ -115,10 +124,8 @@ public class SignUpActivity extends Activity {
 		mETCCSecCode = (EditText) findViewById(R.id.etCCSecCodeSignUp);
 		this.ccSecCode = Integer.parseInt(mETCCSecCode.getText().toString());
 		// TODO Get date from date picker
-//		this.mBCCExpdateSelect
-		this.ccExpMonth = 5;
-//		mETCCExpYear = (EditText) findViewById(R.id.);
-		this.ccExpYear = 2020;
+		this.ccExpMonth = this.mBCCExpdateSelect.getMonth();
+		this.ccExpYear = this.mBCCExpdateSelect.getYear();
 		
 		mETSALine1 = (EditText) findViewById(R.id.etSALine1SignUp);
 		this.saLine1 = mETSALine1.getText().toString();
@@ -149,11 +156,13 @@ public class SignUpActivity extends Activity {
 		this.shippingAddress = new Adress(saLine1, saLine2, saCity, saState, saZipCode, saCountry);
 		this.billingAddress = new Adress(baLine1, baLine2, baCity, baState, baZipCode, baCountry);
 		this.creditCard = new CreditCard(ccName, billingAddress, ccNumber, ccExpMonth, ccExpYear);
+		this.creditCard.setBilling(billingAddress);
 		
-		this.newUser = new User(this.userName, this.email,this.password, this.fName, this.lName, 18);
-		this.newUser.addBillingAdress(billingAddress);
-		this.newUser.addShippingAdress(shippingAddress);
-		this.newUser.addCreditCard(creditCard);
+		this.newUser = new User(this.userName, this.email,this.password, 
+				this.fName, this.lName, this.bdDay, this.bdMonth, this.bdYear);
+		
+		this.newUser.getShippingAdress().add(shippingAddress);
+		this.newUser.getCreditCards().add(creditCard);
 		
 		return true;
 	}

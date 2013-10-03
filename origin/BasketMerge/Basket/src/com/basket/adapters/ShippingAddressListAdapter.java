@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.basket.general.Address;
+import com.basket.general.Adress;
 import com.example.basket.R;
 
-public class ShippingAddressListAdapter extends ArrayAdapter<Address>
+public class ShippingAddressListAdapter extends ArrayAdapter<Adress>
 {
 	private Context context;
-	public ShippingAddressListAdapter(Context activity,ArrayList<Address> shippingAddresses)
+	public ShippingAddressListAdapter(Context activity,ArrayList<Adress> shippingAddresses)
 	{
 		super(activity,0,shippingAddresses);
 		context=activity;

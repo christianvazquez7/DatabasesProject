@@ -2,9 +2,10 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
-import com.basket.activities.ProductPageActivity;
+import com.basket.activities.BidEventPageActivity;
 import com.basket.adapters.ProductAdapter;
 import com.basket.general.BuyEvent;
+import com.basket.general.Event;
 import com.example.basket.R;
 import com.example.basket.R.layout;
 
@@ -27,7 +28,7 @@ import android.widget.RelativeLayout;
 
 public class CategoryPageProductListFragment extends android.app.ListFragment
 {
-	private ArrayList<BuyEvent> foundProducts;
+	private ArrayList<Event> foundProducts;
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
@@ -40,7 +41,7 @@ public class CategoryPageProductListFragment extends android.app.ListFragment
 
 	public void onCreate(Bundle savedInstance)
 	{
-		foundProducts= new ArrayList<BuyEvent>();
+		foundProducts= new ArrayList<Event>();
 
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Category Name Goes Here");
@@ -142,7 +143,7 @@ public class CategoryPageProductListFragment extends android.app.ListFragment
 
 			}
 		});
-		Intent productPage = new Intent(this.getActivity(),ProductPageActivity.class);
+		Intent productPage = new Intent(this.getActivity(),BidEventPageActivity.class);
 		this.startActivity(productPage);
 	}
 

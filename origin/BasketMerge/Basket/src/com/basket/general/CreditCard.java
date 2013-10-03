@@ -1,66 +1,67 @@
 package com.basket.general;
 
-public class CreditCard {
-	private String nameOnCard;
-	private Adress billingAddress;
-	private int expYear, expMonth, secNum;
-	private long cardNumber;
 
-	public CreditCard(String nameOnCard, Adress billingAddress,
-			long cardNumber, int expYear, int expDate) {
-		this.nameOnCard = nameOnCard;
-		this.billingAddress = billingAddress;
-		this.cardNumber = cardNumber;
+public class CreditCard 
+{
+
+	private int cardId,expMonth,expYear,secCode;
+	private long cardNum;
+	private String name;
+	private Adress billing;
+
+	
+	public CreditCard(){};
+
+	public CreditCard(String nameOnCard, Adress billingAddress, long cardNumber,
+			int expYear, int expDate) {
+		this.name = nameOnCard;
+		this.billing = billingAddress;
+		this.cardNum = cardNumber;
 		this.expYear = expYear;
 		this.expMonth = expDate;
 	}
 
-	public String getNameOnCard() {
-		return nameOnCard;
+	public int getCardId() {
+		return cardId;
 	}
-
-	public void setNameOnCard(String nameOnCard) {
-		this.nameOnCard = nameOnCard;
+	public void setCardId(int cardId) {
+		this.cardId = cardId;
 	}
-
-	public long getCardNumber() {
-		return cardNumber;
+	public long getCardNum() {
+		return cardNum;
 	}
-
-	public void setCardNumber(long cardNumber) {
-		this.cardNumber = cardNumber;
+	public void setCardNum(long cardNum) {
+		this.cardNum = cardNum;
 	}
-
-	public int getExpYear() {
-		return expYear;
-	}
-
-	public void setExpYear(int expYear) {
-		this.expYear = expYear;
-	}
-
 	public int getExpMonth() {
 		return expMonth;
 	}
-
-	public void setExpMonth(int expDate) {
-		this.expMonth = expDate;
+	public void setExpDay(int expMonth) {
+		this.expMonth = expMonth;
 	}
-
-	public int getSecNum() {
-		return secNum;
+	public int getExpYear() {
+		return expYear;
 	}
-
-	public void setSecNum(int secNum) {
-		this.secNum = secNum;
+	public void setExpYear(int expYear) {
+		this.expYear = expYear;
 	}
-
-	public void setBillingAddress(Adress billingAddress) {
-		this.billingAddress = billingAddress;
+	public int getSecCode() {
+		return secCode;
 	}
-
-	public Adress getBillingAddress() {
-		return billingAddress;
+	public void setSecCode(int secCode) {
+		this.secCode = secCode;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Adress getBilling() {
+		return billing;
+	}
+	public void setBilling(Adress billing) {
+		this.billing = billing;
 	}
 
 }

@@ -3,7 +3,7 @@ package com.basket.lists;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.basket.activities.EditUserActivity;
+import com.basket.activities.UserEditActivity;
 import com.basket.adapters.UserListAdapter;
 import com.basket.containers.AdminSession;
 import com.basket.general.User;
@@ -31,7 +31,7 @@ public class UserListFragmet extends ListFragment {
 
 	public void onListItemClick(ListView l, View v, int pos ,  long id )
 	{
-		Intent userAccountEdit = new Intent(this.getActivity(),EditUserActivity.class);
+		Intent userAccountEdit = new Intent(this.getActivity(),UserEditActivity.class);
 		userAccountEdit.putExtra("selectedUser", pos);
 		this.getActivity().startActivityForResult(userAccountEdit, 1);
 	}

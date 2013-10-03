@@ -13,7 +13,12 @@ public class CreditCardContainer {
 	public static ArrayList<CreditCard> userCreditCards;
 	private CreditCardContainer(){
 		userCreditCards=new ArrayList<CreditCard>();
-		userCreditCards.add(new CreditCard("Bob", new Adress("Hello Street", "World Sector", "This City", "this STate", 85263, "USA"), 4334450005928377L, 2016, 05));
+		Adress billing =new Adress();
+		billing.setCountry("US");
+		billing.setLine1("123 Jump St.");
+		billing.setLine2("");
+		billing.setZipCode(97229);
+		userCreditCards.add(new CreditCard("Bob",billing, 4334450005928377L, 2016, 05));
 		paymentSelection = null;
 	}
 	public static CreditCardContainer getCreditCardContainer(){

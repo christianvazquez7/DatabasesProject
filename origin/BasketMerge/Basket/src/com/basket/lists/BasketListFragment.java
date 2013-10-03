@@ -1,62 +1,58 @@
 package com.basket.lists;
 
-import java.util.ArrayList;
 
-import com.basket.activities.BasketInfoPageActivity;
-import com.basket.adapters.BasketAdapter;
-import com.basket.adapters.BasketContainer;
-import com.example.basket.R;
-import com.example.basket.R.layout;
+
+import java.util.ArrayList;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.basket.adapters.BasketAdapter;
+import com.basket.containers.BasketSession;
+import com.basket.general.BuyEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.ProductBasket;
+import com.basket.restrequest.ProductSearchRequest;
+import com.basket.restrequest.UpdateBasketRequest;
+import com.example.basket.R;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class BasketListFragment extends android.app.ListFragment
 {
-	private ArrayList<BasketContainer> foundBaskets;
+	private ArrayList<ProductBasket> foundBaskets;
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
-	private MyRenderer selectedRenderer;
-	private boolean out = false;
-	private View previousView;
-	private MyRenderer prev;
-	private boolean remove;
-	private Animation centerAni;
-
+//	private MyRenderer selectedRenderer;
+//	private boolean out = false;
+//	private View previousView;
+//	private MyRenderer prev;
+//	private boolean remove;
+//	private Animation centerAni;
+	private int currentPos=0;
+	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	public void onCreate(Bundle savedInstance)
 	{
-		foundBaskets= new ArrayList<BasketContainer>();
-
-		foundBaskets.add(new BasketContainer("Basket1"));
-		foundBaskets.add(new BasketContainer("Basket2"));
-		foundBaskets.add(new BasketContainer("Basket3"));
-		foundBaskets.add(new BasketContainer("Basket4"));
-		foundBaskets.add(new BasketContainer("Basket5"));
-		foundBaskets.add(new BasketContainer("Basket6"));
-		foundBaskets.add(new BasketContainer("Basket7"));
-		foundBaskets.add(new BasketContainer("Basket8"));
-		foundBaskets.add(new BasketContainer("Basket9"));
-		foundBaskets.add(new BasketContainer("Basket10"));
-		foundBaskets.add(new BasketContainer("Basket11"));
-		foundBaskets.add(new BasketContainer("Basket12"));
-		foundBaskets.add(new BasketContainer("Basket13"));
-		
-		
+		foundBaskets= BasketSession.getUser().getBaskets();		
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Basket List");
 		BasketAdapter adapter = new BasketAdapter(this.getActivity(),foundBaskets);
@@ -68,81 +64,12 @@ public class BasketListFragment extends android.app.ListFragment
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id )
 	{
-		//this.zoomImageFromThumb(v, R.layout.zoom);
-		// parent container
-
-		int t = v.getTop() + l.getTop();
-		int ls = v.getLeft() + l.getLeft();
-
-		// create a copy of the listview and add it to the parent
-		// container
-		// at the same location it was in the listview
-		if(!out){
-			selectedRenderer = new MyRenderer(v.getContext());
-			prev=selectedRenderer;
-
-			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(v.getWidth(),l.getHeight() );
-			rlp.topMargin = t;
-			rlp.leftMargin = ls;
-			layout.addView(selectedRenderer, rlp);
-			v.setVisibility(View.INVISIBLE);
-		}
-
-		// animate out the listView
-		Animation outAni;
-		if (!out){
-
-			centerAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,
-					Animation.RELATIVE_TO_SELF,0f,Animation.ABSOLUTE,-t);
-			centerAni.setZAdjustment(Animation.ZORDER_TOP);
-			centerAni.setFillAfter(true);
-			centerAni.setDuration(500);
-			previousView=v;
-			outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
-					Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0f,
-					Animation.RELATIVE_TO_SELF, 0f);
-			out=true;
-			outAni.setDuration(500);
-			outAni.setFillAfter(true);
-			l.startAnimation(outAni);
-			selectedRenderer.startAnimation(centerAni);
-
-		}
-		else{
-
-			outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f,
-					Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
-					Animation.RELATIVE_TO_SELF, 0f);
-			if (previousView!=null)
-				previousView.setVisibility(View.VISIBLE);
-			out=false;
-			outAni.setDuration(500);
-			outAni.setFillAfter(true);
-			l.startAnimation(outAni);
-
-
-		}
-		//        outAni.setDuration(500);
-		//        outAni.setFillAfter(true);
-		outAni.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-
-				if(!out)
-					layout.removeView(prev);
-
-			}
-		});
-		Intent productPage = new Intent(this.getActivity(),BasketInfoPageActivity.class);
-		this.startActivity(productPage);
+		spiceManager.start(getActivity());
+		currentPos=pos;
+		BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));
+		spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BasketUpdateListener());
+		
 	}
 
 	private void zoomImageFromThumb(final View thumbView, int imageResId) {
@@ -284,5 +211,37 @@ public class BasketListFragment extends android.app.ListFragment
 		}
 
 	}
+	private class BasketUpdateListener implements RequestListener<Boolean>, RequestProgressListener {
 
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+			
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+				
+				Toast.makeText(getActivity(), "Item could not be added", Toast.LENGTH_SHORT).show();
+			}
+			Toast.makeText(getActivity(), "Item could not be added", Toast.LENGTH_SHORT).show();
+			BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().remove(BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bool) 
+		{
+
+			
+			spiceManager.shouldStop();
+			Toast.makeText(getActivity(), "Product Added to Basket", Toast.LENGTH_SHORT).show();
+			getActivity().finish();
+				
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+		
+		}
+	}
 }

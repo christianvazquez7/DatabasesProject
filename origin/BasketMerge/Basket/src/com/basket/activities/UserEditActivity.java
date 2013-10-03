@@ -118,7 +118,6 @@ public class UserEditActivity extends Activity {
 			}
 			
 		});
-		
 	}
 
 	@Override

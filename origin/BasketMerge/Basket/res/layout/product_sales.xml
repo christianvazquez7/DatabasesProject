@@ -16,7 +16,6 @@
         android:gravity="bottom|end" >
 
         <DatePicker
-            
             android:id="@+id/datePicker1"
             android:layout_width="258dp"
             android:layout_height="128dp"
@@ -65,7 +64,7 @@
     </LinearLayout>
 
        <Button
-           android:id="@+id/button1"
+           android:id="@+id/update"
            android:layout_width="match_parent"
            android:layout_height="30dp"
            android:layout_alignParentBottom="true"
@@ -91,7 +90,7 @@
              >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/adminProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -126,6 +125,7 @@
 
             <TextView
                 android:id="@+id/total_sale_text"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView1"
@@ -160,7 +160,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:visibility="invisible"
+                android:id="@+id/total_gross_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView1"

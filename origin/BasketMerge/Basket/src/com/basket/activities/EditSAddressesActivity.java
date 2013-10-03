@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +26,6 @@ import com.example.basket.R;
 public class EditSAddressesActivity extends Activity {
 
 	private ListView mSAListView;
-	
 
 	private Button mSASaveButton;
 	private User theUser;
@@ -55,12 +55,14 @@ public class EditSAddressesActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 				final Adress item = (Adress) parent.getItemAtPosition(position);
+				final int selectedAdd = position;
 				view.animate().setDuration(2000).alpha(0).withEndAction(new Runnable() {
 					@Override
 					public void run() {
-						shipAddresses.remove(item);
-						adapter.notifyDataSetChanged();
-						view.setAlpha(1);
+						Intent newIntent = new Intent(EditSAddressesActivity.this, EditSingleSAActivity.class);
+						newIntent.putExtra("selectedUser", user);
+						newIntent.putExtra("selectedShipAdd", selectedAdd);
+						startActivity(newIntent);
 					}
 				});
 			}
@@ -73,7 +75,7 @@ public class EditSAddressesActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+				theUser.setShippingAdress(shipAddresses);
 			}
 		});
 	}
@@ -90,7 +92,7 @@ public class EditSAddressesActivity extends Activity {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
 	        case R.id.add_icon:
-	            this.shipAddresses.add(new Adress("", "", "", "", 0, ""));
+	            this.shipAddresses.add(new Adress());
 	            return true;
 	        case R.id.action_settings:
 	            

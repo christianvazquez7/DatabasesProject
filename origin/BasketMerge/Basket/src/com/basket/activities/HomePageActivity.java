@@ -42,7 +42,7 @@ public class HomePageActivity extends Activity {
         slidingMenu.setFadeDegree(0.35f);
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(R.layout.slidingmenu);
-        
+        slidingMenu.setShadowWidth(3);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		/*mIVDeal[0] = (ImageView) findViewById(R.id.iViewDeal_1);
@@ -69,8 +69,8 @@ public class HomePageActivity extends Activity {
 		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
 		mVFlipper2 = (ViewFlipper) findViewById(R.id.vfRecom);
 		
-		mVFlipper1.setFlipInterval(3000);
-		mVFlipper2.setFlipInterval(3000);
+		mVFlipper1.setFlipInterval(6000);
+		mVFlipper2.setFlipInterval(6000);
 		
 		mVFlipper1.startFlipping();
 		mVFlipper2.startFlipping();

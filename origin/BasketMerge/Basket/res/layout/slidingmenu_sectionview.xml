@@ -3,14 +3,14 @@
    android:layout_width="fill_parent"
    android:layout_height="wrap_content"
    android:orientation="vertical"
-   android:background="@color/black">
+   android:background="#FFA500">
    
     <TextView
         android:id="@+id/slidingmenu_section_title"
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@drawable/stainless_steel01"
+        android:background="#FFA500"
         android:paddingBottom="7dp"
         android:paddingTop="7dp"
         android:text="Section"

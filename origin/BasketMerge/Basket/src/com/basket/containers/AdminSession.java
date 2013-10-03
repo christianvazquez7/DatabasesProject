@@ -32,6 +32,13 @@ public class AdminSession
 		searchProduct=productList;
 		
 	}
+	public static List<Product> getProducts()
+	{
+		return searchProduct;
+		
+	}
 
 	
 }
+
+

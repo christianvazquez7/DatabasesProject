@@ -2,10 +2,12 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
-import com.basket.activities.ProductPageActivity;
+import com.basket.activities.BidEventPageActivity;
+import com.basket.activities.BuyEventPageActivity;
 import com.basket.adapters.ProductAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BuyEvent;
+import com.basket.general.Event;
 import com.example.basket.R;
 import com.example.basket.R.layout;
 
@@ -30,20 +32,20 @@ import android.widget.RelativeLayout;
 
 public class ProductListFragment extends android.app.ListFragment
 {
-	private ArrayList<BuyEvent> foundProducts;
-	private Animator mCurrentAnimator;
-	private int mShortAnimationDuration;
+	private ArrayList<Event> foundProducts;
+//	private Animator mCurrentAnimator;
+//	private int mShortAnimationDuration;
 	private RelativeLayout layout;
-	private MyRenderer selectedRenderer;
-	private boolean out = false;
-	private View previousView;
-	private MyRenderer prev;
-	private boolean remove;
-	private Animation centerAni;
+//	private MyRenderer selectedRenderer;
+//	private boolean out = false;
+//	private View previousView;
+//	private MyRenderer prev;
+//	private boolean remove;
+//	private Animation centerAni;
 
 	public void onCreate(Bundle savedInstance)
 	{
-		foundProducts= new ArrayList<BuyEvent>();
+		foundProducts= new ArrayList<Event>();
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Product List");
 		
@@ -64,9 +66,9 @@ public class ProductListFragment extends android.app.ListFragment
 		foundProducts.clear();
 		
 	}
-	public boolean addBuyEvent(BuyEvent buyEvent)
+	public boolean addEvent(Event event)
 	{
-		foundProducts.add(buyEvent);
+		foundProducts.add(event);
 		return true;
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id )
@@ -159,9 +161,18 @@ public class ProductListFragment extends android.app.ListFragment
 //
 //			}
 //		});
-		Intent productPage = new Intent(this.getActivity(),ProductPageActivity.class);
-		productPage.putExtra("selectedEvent",pos);
-		this.startActivityForResult(productPage, 0);
+		
+		if(this.foundProducts.get(pos).isBid()){
+			Intent productPage = new Intent(this.getActivity(),BidEventPageActivity.class);
+			productPage.putExtra("selectedEvent",pos);
+			this.startActivityForResult(productPage, 0);
+		}
+		else{
+			Intent productPage = new Intent(this.getActivity(),BuyEventPageActivity.class);
+			productPage.putExtra("selectedEvent",pos);
+			this.startActivityForResult(productPage, 0);
+		}
+		
 	}
 
 	

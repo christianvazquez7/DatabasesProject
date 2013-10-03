@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 public class SelectedCreditCard extends Fragment {
 	private TextView billingAddress, ccNumber, secNum, expMonth, expYear, ccName;
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
+	{
 		View view = inflater.inflate(R.layout.creditcard_view,container, false);
 		
 		

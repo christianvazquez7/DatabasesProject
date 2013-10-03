@@ -1,53 +1,65 @@
 package com.basket.general;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User 
 {
 
+	private String email, username, password, firstName, lastName;
+	private int age, bdDay, bdMonth, bdYear;
 	private ArrayList<Adress> billingAdress, shippingAdress;
 	private ArrayList<ProductBasket> baskets;
 	private ArrayList<BidEvent> currentlyBiddingOn;
 	private ArrayList<BidEvent> currentlySellingOnBid;
 	private ArrayList<BuyEvent> currentlySellingOnBuy;
 	private ArrayList<CreditCard> creditCards;
+	private ArrayList<Order> userOrders;
 
-	private String email,username,password, fName, lName;
-	private int age;
-	
 	public User(){}
-	
 	public User(String n,String e, String p){
 		username=n;
 		email=e;
 		password=p;
-		billingAdress= new ArrayList<Adress>();
-		shippingAdress= new ArrayList<Adress>();
-		baskets=new ArrayList<ProductBasket>();
-
-		currentlyBiddingOn= new ArrayList<BidEvent> ();
-		currentlySellingOnBid= new ArrayList<BidEvent> ();
-		currentlySellingOnBuy= new ArrayList<BuyEvent>();
-		creditCards=new ArrayList<CreditCard>();
+		
+		billingAdress = new ArrayList<Adress>();
+		shippingAdress = new ArrayList<Adress>();
+		baskets = new ArrayList<ProductBasket>();
+		currentlyBiddingOn = new ArrayList<BidEvent> ();
+		currentlySellingOnBid = new ArrayList<BidEvent> ();
+		currentlySellingOnBuy = new ArrayList<BuyEvent>();
+		creditCards = new ArrayList<CreditCard>();
+		userOrders = new ArrayList<Order>();
+		
+		Order newOrder = new Order();
+		
+		userOrders.add(newOrder);
 	}
-	
-	public User(String n,String e, String p, String fn, String ln, int a){
+	public User(String n, String e, String p, String fn, String ln, int bdDay, int bdMonth, int bdYear){
 		username=n;
 		email=e;
 		password=p;
+		firstName = fn;
+		lastName= ln;
+		this.bdDay = bdDay;
+		this.bdMonth = bdMonth;
+		this.bdYear = bdYear;
+		
 		billingAdress= new ArrayList<Adress>();
 		shippingAdress= new ArrayList<Adress>();
 		baskets=new ArrayList<ProductBasket>();
-
 		currentlyBiddingOn= new ArrayList<BidEvent> ();
 		currentlySellingOnBid= new ArrayList<BidEvent> ();
 		currentlySellingOnBuy= new ArrayList<BuyEvent>();
 		creditCards=new ArrayList<CreditCard>();
+		userOrders = new ArrayList<Order>();
+		
+		Order newOrder = new Order();
+		
+		userOrders.add(newOrder);
 	}
 	public ArrayList<Adress> getBillingAdress() {
 		return billingAdress;
@@ -55,10 +67,6 @@ public class User
 
 	public void setBillingAdress(ArrayList<Adress> billingAdress) {
 		this.billingAdress = billingAdress;
-	}
-	
-	public void addBillingAdress(Adress newBillingAdress){
-		this.billingAdress.add(newBillingAdress);
 	}
 
 	public ArrayList<Adress> getShippingAdress() {
@@ -69,10 +77,17 @@ public class User
 		this.shippingAdress = shippingAdress;
 	}
 
-	public void addShippingAdress(Adress newShippingAdress){
-		this.shippingAdress.add(newShippingAdress);
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", username=" + username
+				+ ", password=" + password + ", billingAdress=" + billingAdress
+				+ ", shippingAdress=" + shippingAdress + ", baskets=" + baskets
+				+ ", currentlyBiddingOn=" + currentlyBiddingOn
+				+ ", currentlySellingOnBid=" + currentlySellingOnBid
+				+ ", currentlySellingOnBuy=" + currentlySellingOnBuy
+				+ ", creditCards=" + creditCards + "]";
 	}
-	
+
 	public ArrayList<ProductBasket> getBaskets() {
 		return baskets;
 	}
@@ -112,10 +127,6 @@ public class User
 	public void setCreditCards(ArrayList<CreditCard> creditCards) {
 		this.creditCards = creditCards;
 	}
-	
-	public void addCreditCard(CreditCard newCC){
-		this.creditCards.add(newCC);
-	}
 
 	public String getEmail() {
 		return email;
@@ -140,39 +151,57 @@ public class User
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getfName() {
-		return fName;
+	public ArrayList<Order> getUserOrders() {
+		return userOrders;
 	}
-
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setUserOrders(ArrayList<Order> userOrders) {
+		this.userOrders = userOrders;
 	}
-
-	public String getlName() {
-		return lName;
+	public String getFirstName() {
+		return firstName;
 	}
-
-	public void setlName(String lName) {
-		this.lName = lName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	public int getAge() {
-		return age;
+		Calendar c = Calendar.getInstance();
+		age = c.get(Calendar.YEAR) - this.bdYear;
+		if(c.get(Calendar.MONTH)<this.bdMonth){
+			age--;
+		}
+		else if(c.get(Calendar.MONTH) < this.bdMonth){
+			if(c.get(Calendar.DAY_OF_MONTH)<this.bdDay)
+				age--;
+		}
+			return age;
 	}
-
 	public void setAge(int age) {
 		this.age = age;
 	}
+	public int getBdDay() {
+		return bdDay;
+	}
+	public void setBdDay(int bdDay) {
+		this.bdDay = bdDay;
+	}
+	public int getBdMonth() {
+		return bdMonth;
+	}
+	public void setBdMonth(int bdMonth) {
+		this.bdMonth = bdMonth;
+	}
+	public int getBdYear() {
+		return bdYear;
+	}
+	public void setBdYear(int bdYear) {
+		this.bdYear = bdYear;
+	}
 
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", username=" + username
-				+ ", password=" + password + ", billingAdress=" + billingAdress
-				+ ", shippingAdress=" + shippingAdress + ", baskets=" + baskets
-				+ ", currentlyBiddingOn=" + currentlyBiddingOn
-				+ ", currentlySellingOnBid=" + currentlySellingOnBid
-				+ ", currentlySellingOnBuy=" + currentlySellingOnBuy
-				+ ", creditCards=" + creditCards + "]";
-	}	
+
 }
