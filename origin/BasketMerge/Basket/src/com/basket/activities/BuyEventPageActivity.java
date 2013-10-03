@@ -56,9 +56,9 @@ public class BuyEventPageActivity extends FragmentActivity {
 		mTabHost.setup();
 		
 		TabHost.TabSpec calculatorTab = mTabHost.newTabSpec("tab1");
-		calculatorTab.setContent(R.id.reviewFragmentContainer);
+		calculatorTab.setContent(R.id.reviews);
 		calculatorTab.setIndicator("Reviews");
-		mTabHost.addTab(calculatorTab);
+	
 		//	   TabSpec spec = mTabHost.newTabSpec("tab1");
 		//       //spec.setIndicator(mTabHost.);
 		//       spec.setContent(R.id.fragmentContainer);
@@ -129,6 +129,7 @@ public class BuyEventPageActivity extends FragmentActivity {
 		Infotab.setContent(R.id.tab3);
 		Infotab.setIndicator("Info");
 		mTabHost.addTab(Infotab);
+		mTabHost.addTab(calculatorTab);
 		if (fragment == null)
 		{
 
@@ -137,6 +138,7 @@ public class BuyEventPageActivity extends FragmentActivity {
 			fm.beginTransaction().add(R.id.reviewFragmentContainer, fragment).commit();
 			////			((ReviewListFragment)fragment).getListView().setDivider(this.getResources().getDrawable(R.drawable.custom_divider));
 		}
+		
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 

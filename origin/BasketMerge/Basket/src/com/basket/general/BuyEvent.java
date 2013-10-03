@@ -39,6 +39,13 @@ public class BuyEvent implements Event
 	int hour;
 	int minute;
 	boolean finalized;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	private int id;
 	
 	public Product getProduct() {
 		return product;

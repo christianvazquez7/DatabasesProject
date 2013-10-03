@@ -110,13 +110,6 @@
         android:layout_centerVertical="true"
         android:background="@drawable/custom_divider" />
 
-    <Button
-        android:id="@+id/addToBasket"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_weight="0.01"
-        android:background="#FFA500"
-        android:text="Add to Basket"
-        android:textColor="#FFFFFF" />
+    
 
 </LinearLayout>

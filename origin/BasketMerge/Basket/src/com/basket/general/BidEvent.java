@@ -1,6 +1,7 @@
 package com.basket.general;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -10,6 +11,45 @@ public class BidEvent implements Event
 	Product product;
 
 	String description;
+
+	String features;
+	ArrayList<Review>reviews;
+	
+	
+	double startingBid;
+	int sday;
+	int syear;
+	int smonth;
+	int shour;
+	int sminute;
+	int id;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	int fday;
+	int fyear;
+	int fmonth;
+	int fhour;
+	int fminute;
+	private List<Bid> bids;
+	private double minBid;
+	
+	public double getMinBid() {
+		return minBid;
+	}
+	public void setMinBid(double minBid) {
+		this.minBid = minBid;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -28,80 +68,100 @@ public class BidEvent implements Event
 	public void setReviews(ArrayList<Review> reviews) {
 		this.reviews = reviews;
 	}
-	String features;
-	ArrayList<Review>reviews;
-
-	double price;
-	int day;
-	int year;
-	int month;
-	int hour;
-	int minute;
-	boolean finalized;
-
-	public Product getProduct() {
-		return product;
+	public double getStartingBid() {
+		return startingBid;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setStartingBid(double startingBid) {
+		this.startingBid = startingBid;
 	}
+	public int getSday() {
+		return sday;
+	}
+	public void setSday(int sday) {
+		this.sday = sday;
+	}
+	public int getSyear() {
+		return syear;
+	}
+	public void setSyear(int syear) {
+		this.syear = syear;
+	}
+	public int getSmonth() {
+		return smonth;
+	}
+	public void setSmonth(int smonth) {
+		this.smonth = smonth;
+	}
+	public int getShour() {
+		return shour;
+	}
+	public void setShour(int shour) {
+		this.shour = shour;
+	}
+	public int getSminute() {
+		return sminute;
+	}
+	public void setSminute(int sminute) {
+		this.sminute = sminute;
+	}
+	public int getFday() {
+		return fday;
+	}
+	public void setFday(int fday) {
+		this.fday = fday;
+	}
+	public int getFyear() {
+		return fyear;
+	}
+	public void setFyear(int fyear) {
+		this.fyear = fyear;
+	}
+	public int getFmonth() {
+		return fmonth;
+	}
+	public void setFmonth(int fmonth) {
+		this.fmonth = fmonth;
+	}
+	public int getFhour() {
+		return fhour;
+	}
+	public void setFhour(int fhour) {
+		this.fhour = fhour;
+	}
+	public int getFminute() {
+		return fminute;
+	}
+	public void setFminute(int fminute) {
+		this.fminute = fminute;
+	}
+	public List<Bid> getBids() {
+		return bids;
+	}
+	public void setBids(List<Bid> bids) {
+		this.bids = bids;
+	}
+	public User getCreator() {
+		return creator;
+	}
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+	public Bid getWinning() {
+		return winning;
+	}
+	public void setWinning(Bid winning) {
+		this.winning = winning;
+	}
+	private User creator;
+	private Bid winning;
 	@Override
-	public String toString() {
-		return "BuyEvent [product=" + product + ", price=" + price + ", day="
-				+ day + ", year=" + year + ", month=" + month + ", hour="
-				+ hour + ", minute=" + minute + ", finalized=" + finalized
-				+ "]";
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	public int getDay() {
-		return day;
-	}
-	public void setDay(int day) {
-		this.day = day;
-	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public int getMonth() {
-		return month;
-	}
-	public void setMonth(int month) {
-		this.month = month;
-	}
-	public int getHour() {
-		return hour;
-	}
-	public void setHour(int hour) {
-		this.hour = hour;
-	}
-	public int getMinute() {
-		return minute;
-	}
-	public void setMinute(int minute) {
-		this.minute = minute;
-	}
-	public boolean isFinalized() {
-		return finalized;
-	}
-	public void setFinalized(boolean finalized) {
-		this.finalized = finalized;
-	}
-	public ArrayList<Bid> bids;
-	public BidEvent() {
-		bids = new ArrayList<Bid>();
-	}
-	@Override
+	
 	public boolean isBid() {
+		// TODO Auto-generated method stub
 		return true;
 	}
+
+
 
 
 

@@ -37,7 +37,7 @@ public class BidEventPageActivity extends FragmentActivity {
 		currentEvent=(BidEvent) BasketSession.getProductSearch().get(this.getIntent().getIntExtra("selectedEvent", 0));
 		
 		
-		setContentView(R.layout.product_page);
+		setContentView(R.layout.product_page2);
 		LayoutTransition f = new LayoutTransition();
 		f.enableTransitionType(LayoutTransition.CHANGING);
 		f.setDuration(20);
@@ -54,9 +54,9 @@ public class BidEventPageActivity extends FragmentActivity {
 		mTabHost.setup();
 
 		TabHost.TabSpec calculatorTab = mTabHost.newTabSpec("tab1");
-		calculatorTab.setContent(R.id.reviewFragmentContainer);
+		calculatorTab.setContent(R.id.reviews);
 		calculatorTab.setIndicator("Reviews");
-		mTabHost.addTab(calculatorTab);
+		
 		//	   TabSpec spec = mTabHost.newTabSpec("tab1");
 		//       //spec.setIndicator(mTabHost.);
 		//       spec.setContent(R.id.fragmentContainer);
@@ -144,6 +144,7 @@ public class BidEventPageActivity extends FragmentActivity {
 		Infotab.setContent(R.id.tab3);
 		Infotab.setIndicator("Info");
 		mTabHost.addTab(Infotab);
+		mTabHost.addTab(calculatorTab);
 		if (fragment == null)
 		{
 
@@ -155,22 +156,7 @@ public class BidEventPageActivity extends FragmentActivity {
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 		//Add to basket button
-		Button add =(Button)this.findViewById(R.id.addToBasket);
-		add.setOnClickListener(new OnClickListener(){
-
-			
-			public void onClick(View v) 
-			{
-				
-				//BasketSession.getUser().getBaskets().get(0).getBuyEvents().add(currentEvent);
-				Intent chooseBasket = new Intent(BidEventPageActivity.this,BasketFragmentActivity.class);
-				chooseBasket.putExtra("selected", getIntent().getIntExtra("selectedEvent", 0));
-				startActivityForResult(chooseBasket,0);
-				finish();
-				
-			}
-			
-		});
+		
 
 	}
 

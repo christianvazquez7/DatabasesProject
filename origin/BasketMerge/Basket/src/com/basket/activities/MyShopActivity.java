@@ -28,6 +28,7 @@ public class MyShopActivity extends FragmentActivity {
 	private PopupWindow mpopup;
 	private Button createBid, createBuy;
 	private AlertDialog alert;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

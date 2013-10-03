@@ -28,7 +28,7 @@ public class ProductFragment extends Fragment
 			View view = inflater.inflate(R.layout.bidproduct_view2,
 					container, false);
 			((TextView)view.findViewById(R.id.bidproduct)).setText(((BidEvent) theEvent).getProduct().getName());
-			((TextView)view.findViewById(R.id.bidprice)).setText("$"+Double.toString(((BidEvent) theEvent).getPrice()));
+			((TextView)view.findViewById(R.id.bidprice)).setText("$"+Double.toString(((BidEvent) theEvent).getWinning().getAmmount()));
 			((TextView)view.findViewById(R.id.bidsupplier)).setText(((BidEvent) theEvent).getProduct().getManufacturer());
 			return view;
 		}

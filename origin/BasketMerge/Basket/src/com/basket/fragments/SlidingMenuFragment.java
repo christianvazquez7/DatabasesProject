@@ -3,6 +3,7 @@ package com.basket.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.basket.activities.BasketActivity;
 import com.basket.activities.CategoryPageActivity;
 import com.basket.activities.PicknickActivity;
 import com.basket.activities.ProductFragmentActivity;
@@ -38,12 +39,13 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 	                R.anim.slide_down); 
 		
 		List<Section> sectionList = createMenu();
-
+		
 		View view = inflater.inflate(R.layout.slidingmenu_fragment, container, false);
 		this.sectionListView = (ExpandableListView) view.findViewById(R.id.slidingmenu_view);
 		this.sectionListView.setGroupIndicator(null);
 
 		SectionListAdapter sectionListAdapter = new SectionListAdapter(this.getActivity(), sectionList);
+		
 		this.sectionListView.setAdapter(sectionListAdapter); 
 
 //		this.sectionListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -70,7 +72,9 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 
 		Section oGeneralSection = new Section("General");
 		oGeneralSection.addSectionItem(701, "Picknick", "monotone_arrow_right");
-		oGeneralSection.addSectionItem(702, "Product List", "monotone_arrow_right");
+		oGeneralSection.addSectionItem(702, "Search Products", "monotone_arrow_right");
+		oGeneralSection.addSectionItem(703, "My Basket", "monotone_arrow_right");
+
 		
 		Section oCategoriesSection = new Section("Categories");
 		oCategoriesSection.setBold(true);
@@ -108,6 +112,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 		oBooksSection.addSectionItem(504, "Business", "monotone_arrow_right");
 		
 		Section oShoesSection = new Section("Shoes");
+	
 		oShoesSection.addSectionItem(601, "Children", "monotone_arrow_right");
 		oShoesSection.addSectionItem(602, "Women", "monotone_arrow_right");
 		oShoesSection.addSectionItem(603, "Men", "monotone_arrow_right");
@@ -146,6 +151,11 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 			//TODO
 			Intent pl = new Intent(getActivity(),ProductFragmentActivity.class);
 			startActivity(pl);
+			break;
+		case 703:
+			//TODO
+			Intent b = new Intent(getActivity(),BasketActivity.class);
+			startActivity(b);
 			break;
 		case 103:
 			//TODO

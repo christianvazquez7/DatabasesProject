@@ -42,7 +42,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dummyProfileButton"
-                android:background="@drawable/wood2"
+                android:background="@drawable/wood4"
                 android:text="My Profile" 
                 />
         </RelativeLayout>
@@ -86,7 +86,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/dummyBasketsButton"
-                android:background="@drawable/wood2"
+                android:background="@drawable/wood4"
                 android:text="My Baskets" />
 
         </RelativeLayout>
@@ -130,7 +130,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dummyOrdersButton"
-android:background="@drawable/wood2"
+android:background="@drawable/wood4"
                 android:text="My Orders" />
         </RelativeLayout>
 
@@ -172,7 +172,7 @@ android:background="@drawable/wood2"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/dummyMyShopButton"
-android:background="@drawable/wood2"                android:text="My Shop" />
+android:background="@drawable/wood4"                android:text="My Shop" />
 
         </RelativeLayout>
 
@@ -215,7 +215,7 @@ android:background="@drawable/wood2"                android:text="My Shop" />
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/dummyFaqButton"
-android:background="@drawable/wood2"                android:text="Faq" />
+android:background="@drawable/wood4"                android:text="Faq" />
 
         </RelativeLayout>
     </LinearLayout>

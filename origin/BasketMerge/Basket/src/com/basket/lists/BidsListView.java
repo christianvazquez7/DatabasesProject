@@ -20,19 +20,7 @@ public class BidsListView extends ListFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.bids_list, container, false);
 		ArrayList<Bid> bidsOnProduct = new ArrayList<Bid>();
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-		bidsOnProduct.add(new Bid(12.02f, "12/12/13", "Bob"));
-	
+		
 		
 		
 		int itemClicked = (Integer) this.getActivity().getIntent().getExtras().get("itemClicked");

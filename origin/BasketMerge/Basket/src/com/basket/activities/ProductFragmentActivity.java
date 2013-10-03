@@ -1,6 +1,7 @@
 package com.basket.activities;
 
-import android.animation.LayoutTransition;
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,14 +15,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basket.containers.BasketSession;
+import com.basket.containers.EventList;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.Event;
 import com.basket.lists.ProductListFragment;
 import com.basket.restrequest.ProductSearchRequest;
 import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.octo.android.robospice.SpiceManager;
@@ -54,7 +55,7 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 		android.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 		
 		
-		spiceManager.addListenerIfPending(BuyEvent.class, "products_search", new ProductSearchListener());
+		spiceManager.addListenerIfPending(EventList.class, "products_search", new ProductSearchListener());
 		
 		if (fragment == null)
 		{
@@ -206,7 +207,7 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 		getMenuInflater().inflate(R.menu.product, menu);
 		return true;
 	}
-	private class ProductSearchListener implements RequestListener<BuyEvent>, RequestProgressListener {
+	private class ProductSearchListener implements RequestListener<EventList>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -219,13 +220,14 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 			spiceManager.shouldStop();
 		}
 
-		@Override
-		public void onRequestSuccess(BuyEvent BuyEvent) {
+		public void onRequestSuccess(EventList events) {
 
 			
-			Log.d("buyevent",BuyEvent.toString());
-			for(int i =0;i<3;i++)
-			productList.addEvent(BuyEvent);
+			BasketSession.getProductSearch().clear();
+			for(Event e: events.getBuyEvents())
+			BasketSession.getProductSearch().add(e);
+			for (Event e:events.getBidEvents())
+			BasketSession.getProductSearch().add(e);
 			((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
 			spiceManager.shouldStop();
 				
