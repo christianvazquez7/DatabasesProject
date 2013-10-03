@@ -47,8 +47,8 @@ public class SignUpActivity extends Activity {
 		mETCCName, mETCCNum, mETCCSecCode,
 		mETSALine1, mETSALine2, mETSACity, mETSAState, mETSACountry, mETSAZipCode,
 		mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
-		
-	private DatePicker mBBdaySelect, mBCCExpdateSelect;
+		private Button mBBdaySelect;
+	private DatePicker  mBCCExpdateSelect;
 	private User newUser;
 	private Adress shippingAddress;
 	private Adress billingAddress;
@@ -73,7 +73,7 @@ public class SignUpActivity extends Activity {
 		setContentView(R.layout.activity_sign_up);
 
 		
-		mBBdaySelect = (DatePicker) findViewById(R.id.bBDaySelect);
+		mBBdaySelect = (Button) findViewById(R.id.bBDaySelect);
 		mBBdaySelect.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
