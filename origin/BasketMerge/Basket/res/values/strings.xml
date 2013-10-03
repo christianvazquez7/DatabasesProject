@@ -23,5 +23,11 @@
     <string name="title_activity_credit_card_select">CreditCardSelectActivity</string>
     <string name="title_activity_user_baskets">UserBasketsActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="ptr_pull_to_refresh">Pull to refresh</string>
+    <string name="ptr_release_to_refresh">Release to refresh</string>
+    <string name="ptr_refreshing">Refreshing…</string>
+    <string name="ptr_last_updated">Updated: %1$s</string>
+    <string name="title_activity_create_bid">CreateBidActivity</string>
+    <string name="title_activity_create_buy">CreateBuyActivity</string>
 
 </resources>
