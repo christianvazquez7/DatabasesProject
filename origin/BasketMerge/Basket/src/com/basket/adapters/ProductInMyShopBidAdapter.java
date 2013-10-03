@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.basket.general.BidEvent;
 import com.basket.general.Products;
 import com.example.basket.R;
 
-public class ProductInMyShopAdapter extends ArrayAdapter<Products>
+public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 {
 	private Context context;
-	public ProductInMyShopAdapter(Context activity,ArrayList<Products> products)
+	public ProductInMyShopBidAdapter(Context activity,ArrayList<BidEvent> products)
 	{
 		super(activity,0,products);
 		context=activity;
@@ -26,7 +27,7 @@ public class ProductInMyShopAdapter extends ArrayAdapter<Products>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_myshop, null);
 			
 		}
-		Products currentProduct = this.getItem(pos);	
+		//Products currentProduct = this.getItem(pos);	
 		return convertView;
 		
 	}

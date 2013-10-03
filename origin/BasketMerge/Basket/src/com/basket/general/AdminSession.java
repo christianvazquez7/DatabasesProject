@@ -1,10 +1,7 @@
-package com.example.basket;
+package com.basket.general;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.basket.general.Product;
-import com.basket.general.User;
 
 public class AdminSession
 {

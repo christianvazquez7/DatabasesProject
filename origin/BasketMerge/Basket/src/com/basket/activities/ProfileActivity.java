@@ -1,4 +1,8 @@
-package com.example.basket;
+package com.basket.activities;
+
+import com.example.basket.R;
+import com.example.basket.R.layout;
+import com.example.basket.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;

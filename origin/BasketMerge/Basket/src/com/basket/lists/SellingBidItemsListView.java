@@ -11,17 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.basket.activities.BidsOnProductActivity;
-import com.basket.adapters.ProductInMyShopAdapter;
-import com.basket.containers.MyShop;
-import com.basket.general.Products;
+import com.basket.adapters.ProductInMyShopBidAdapter;
+import com.basket.containers.BasketSession;
+import com.basket.general.BidEvent;
 import com.example.basket.R;
 
-public class SellingItemsListView extends ListFragment{
-	private ArrayList<Products> sellingItems;
+public class SellingBidItemsListView extends ListFragment{
+	private ArrayList<BidEvent> sellingItems;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.myshop_list, container, false);
-			sellingItems = MyShop.getShopInUserSession().productsinsell;
-			setListAdapter(new ProductInMyShopAdapter(getActivity(), sellingItems));
+			sellingItems = BasketSession.getUser().getCurrentlySellingOnBid();
+			setListAdapter(new ProductInMyShopBidAdapter(getActivity(), sellingItems));
 		
 		
 		return rootView;
