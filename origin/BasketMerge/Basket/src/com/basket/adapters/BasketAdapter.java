@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.basket.general.Basket;
 import com.basket.general.ProductBasket;
 import com.example.basket.R;
 
@@ -26,12 +25,12 @@ public class BasketAdapter extends ArrayAdapter<ProductBasket>
 		if (convertView==null)
 		{
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.basket_overview, null);
-			
+
 		}
 		ProductBasket currentBasket = this.getItem(pos);
 		TextView name =(TextView) convertView.findViewById(R.id.basketName);
 		name.setText(currentBasket.getName());
 		return convertView;
-		
+
 	}
 }

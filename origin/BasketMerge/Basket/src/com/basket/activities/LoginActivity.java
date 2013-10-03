@@ -88,7 +88,7 @@ public class LoginActivity extends Activity {
 			}
 		});
 		//
-		mLoginButton = (Button)findViewById(R.id.button1);
+		mLoginButton = (Button)findViewById(R.id.bEditCreditCards);
 		mLoginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override

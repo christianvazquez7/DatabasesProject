@@ -1,4 +1,4 @@
-mpackage com.basket.lists;
+package com.basket.lists;
 
 import java.util.ArrayList;
 

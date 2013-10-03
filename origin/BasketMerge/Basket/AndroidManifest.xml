@@ -134,23 +134,23 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.EditCreditCardsActivity"
+            android:name="com.basket.activities.EditCreditCardsActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.EditSAddressesActivity"
+            android:name="com.basket.activities.EditSAddressesActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.EditUserActivity"
+            android:name="com.basket.activities.EditUserActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.EditSingleCCActivity"
+            android:name="com.basket.activities.EditSingleCCActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.basket.EditSingleSAActivity"
+            android:name="com.basket.activities.EditSingleSAActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
