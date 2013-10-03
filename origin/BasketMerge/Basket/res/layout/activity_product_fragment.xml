@@ -1,5 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+	<RelativeLayout
+	    android:background="@drawable/layer_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+       >
+
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_corners_edit_text2"
+            android:ems="10"
+            android:hint="Account Name"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/searchButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/searchBar"
+            android:layout_alignBottom="@+id/searchBar"
+            android:layout_alignRight="@+id/searchBar"
+            android:background="@drawable/search_icon"
+            />
+
+    </RelativeLayout>
+	<FrameLayout 
     android:id="@+id/fragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,3 +45,4 @@
     </FrameLayout>
  
 
+</LinearLayout>

@@ -1,192 +1,223 @@
-<ScrollView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"    
-    android:background="#0AFFA500"
-    
-    >
-    
-    <GridLayout 
- 	    android:layout_width="fill_parent"
-  		android:layout_height="fill_parent"
-	    android:columnCount="3"
-	    android:rowCount="20" >
-	
-	    <Space
-	        android:layout_width="1dp"
-	        android:layout_height="15dp" />
-	
-	    <Button
-	        android:id="@+id/Button01"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="0"
-	        android:layout_gravity="left|top"
-	        android:layout_row="0"
-	        android:background="#FFF"
-	        android:text="Profile" />
-	
-	    <Button
-	        android:id="@+id/faqButton"
-	        android:layout_width="106dp"
-	        android:layout_height="106dp"
-	        android:layout_column="1"
-	        android:layout_gravity="left|top"
-	        android:layout_row="1"
-	        android:background="#FFF"
-	        android:text="FAQs" />
-	
-	    <Button
-	        android:id="@+id/Button05"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="0"
-	        android:layout_gravity="left|top"
-	        android:layout_row="2"
-	        android:background="#FFF"
-	        android:text="Button" />
-	
-	    <Button
-	        android:id="@+id/Button03"
-	        android:layout_width="106dp"
-	        android:layout_height="106dp"
-	        android:layout_column="2"
-	        android:layout_gravity="left|top"
-	        android:layout_row="2"
-	        android:background="#FFF"
-	        android:text="Button" />
+    android:layout_height="match_parent" >
 
-	    <Button
-	        android:id="@+id/Button13"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="1"
-	        android:layout_gravity="left|top"
-	        android:layout_row="3"
-	        android:background="#FFF"
-	        android:text="Button" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnCount="2"
+        android:orientation="vertical"
+        android:rowCount="20" >
 
-	    <Button
-	        android:id="@+id/Button07"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="0"
-	        android:layout_gravity="left|top"
-	        android:layout_row="4"
-	        android:background="#FFF"
-	        android:text="Button" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-	    <Button
-	        android:id="@+id/basketsButton"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="2"
-	        android:layout_gravity="left|top"
-	        android:layout_row="0"
-	        android:background="#FFF"
-	        android:text="Baskets" />
+            <RelativeLayout
+                android:textColor="#FFFFFF"
+                android:id="@+id/dummyProfileButton"
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_column="0"
+                android:layout_gravity="left|top"
+                android:layout_row="0"
+                android:background="@drawable/layer_gradient"
+                >
 
-	    <Button
-	        android:id="@+id/Button02"
-	        android:layout_width="106dp"
-	        android:layout_height="106dp"
-	        android:layout_column="2"
-	        android:layout_gravity="left|top"
-	        android:layout_row="4"
-	        android:background="#FFF"
-	        android:text="Button" />
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/user" />
 
-	    <Button
-	        android:id="@+id/Button09"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="2"
-	        android:layout_gravity="left|top"
-	        android:layout_row="8"
-	        android:background="#FFF"
-	        android:text="Button" />
+            </RelativeLayout>
 
-	    <Button
-	        android:id="@+id/Button17"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="0"
-	        android:layout_gravity="left|top"
-	        android:layout_row="8"
-	        android:background="#FFF"
-	        android:text="Button" />
+            <Button
+                                android:id="@+id/realProfileButton"
+                
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/dummyProfileButton"
+                android:background="@drawable/wood2"
+                android:text="My Profile" 
+                />
+        </RelativeLayout>
 
-	    <Button
-	        android:id="@+id/Button15"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="1"
-	        android:layout_gravity="left|top"
-	        android:layout_row="5"
-	        android:background="#FFF"
-	        android:text="Button" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="#000000"/>
 
-	    <Button
-	        android:id="@+id/Button10"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="1"
-	        android:layout_gravity="left|top"
-	        android:layout_row="9"
-	        android:background="#FFF"
-	        android:text="Button" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-	    <Button
-	        android:id="@+id/Button11"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="0"
-	        android:layout_gravity="left|top"
-	        android:layout_row="10"
-	        android:background="#FFF"
-	        android:text="Button" />
+            <RelativeLayout
+                android:id="@+id/dummyBasketsButton"
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/layer_gradient"
+                android:text="Dummy" >
 
-	    <Button
-	        android:id="@+id/Button12"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="2"
-	        android:layout_gravity="left|top"
-	        android:layout_row="10"
-	        android:background="#FFF"
-	        android:text="Button" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/wbasket" />
 
-	    <Button
-	        android:id="@+id/Button14"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="1"
-	        android:layout_gravity="left|top"
-	        android:layout_row="11"
-	        android:background="#FFF"
-	        android:text="Button" />
+            </RelativeLayout>
 
-	    <Button
-	        android:id="@+id/Button16"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="2"
-	        android:layout_gravity="left|top"
-	        android:layout_row="12"
-	        android:background="#FFF"
-	        android:text="Button" />
+            <Button
+                                                android:id="@+id/realBasketsButton"
+                
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/dummyBasketsButton"
+                android:background="@drawable/wood2"
+                android:text="My Baskets" />
 
-	    <Button
-	        android:id="@+id/Button18"
-	        android:layout_width="108dp"
-	        android:layout_height="106dp"
-	        android:layout_column="0"
-	        android:layout_gravity="left|top"
-	        android:layout_row="12"
-	        android:background="#FFF"
-	        android:text="Button" />
+        </RelativeLayout>
 
-	</GridLayout>
-    
-    
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+              android:background="#000000" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/dummyOrdersButton"
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/layer_gradient"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/order" />
+
+            </RelativeLayout>
+
+            <Button
+                                                android:id="@+id/realOrdersButton"
+                
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/dummyOrdersButton"
+android:background="@drawable/wood2"
+                android:text="My Orders" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+              android:background="#000000" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/dummyMyShopButton"
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/layer_gradient"
+                 >
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/shop" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/realMyShopButton"
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/dummyMyShopButton"
+android:background="@drawable/wood2"                android:text="My Shop" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+               android:background="#000000" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/dummyFaqButton"
+                android:layout_width="108dp"
+                android:layout_height="106dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/layer_gradient"
+                 >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/help" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/realFAQButton"
+                android:layout_width="200dp"
+                android:layout_height="106dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/dummyFaqButton"
+android:background="@drawable/wood2"                android:text="Faq" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </ScrollView>

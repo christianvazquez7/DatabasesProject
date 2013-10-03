@@ -1,95 +1,469 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/wood2" >
 
-<ScrollView 
-    android:id="@+id/scrollView1" 
-    android:layout_width="match_parent" 
-    android:layout_height="1000dp" 
-    android:background="@drawable/wood"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:paddingTop="40dp" >
-"
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout1"
-            android:layout_width="306dp"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            
-            android:background="@drawable/roundcornerbox"
-            
-            >
-
-            <EditText
-                android:id="@+id/etCategoryPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:ems="10" 
-                android:hint="Username">
-
-                <requestFocus />
-            </EditText>
-
-        </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
 
         <TextView
-            android:id="@+id/titlebox1"
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/relativeLayout1"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="16dp"
-            android:text="User Information" />
-
-    </RelativeLayout>
-        
-		<!-- <LinearLayout 
-		    android:orientation="vertical"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content">
-		    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-                <requestFocus />
-            </EditText>
-        </LinearLayout>
+            android:text="Account Information"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
+            android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password" />
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_corners_edit_text"
+            android:orientation="vertical" >
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-		</LinearLayout> -->
-        
+                android:id="@+id/userNameSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Username"
+                android:paddingLeft="30dp" />
 
-        
-    </ScrollView>
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/emailSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Email Address"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/passwordSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Password"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/verifyPasswordSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Verify Password"
+                android:paddingLeft="30dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal Information"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/round_corners_black_border"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/etFNameSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="First Name"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etLNameSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Last Name"
+                android:paddingLeft="30dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bBDaySelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/round_corners_black_border"
+            android:ems="10"
+            android:text="Select Day of Birth" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shipping Address"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_corners_black_border"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/etSALine1SignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Address Line 1"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etSALine2SignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Address Line 2"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etSACitySignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="City"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etSAStateSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="State"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etSAZipcodeSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Zip Code"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etSACountrySignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Country"
+                android:paddingLeft="30dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Billing Address"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_corners_black_border"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/etBALine1SignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Address Line 1"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etBALine2SignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Address Line 2"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etBACitySignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="City"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etBAStateSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="State"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etBAZipcodeSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Zip Code"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etBACountrySignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Country"
+                android:paddingLeft="30dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit Card Information"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/round_corners_black_border"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/etCCNameSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Cardholder Name\n(exactly as shown on card)"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etCCNumSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Card Number"
+                android:paddingLeft="30dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <EditText
+                android:id="@+id/etCCSecCodeSignUp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:ems="10"
+                android:hint="Security Code"
+                android:paddingLeft="30dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bCCExpdateSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/round_corners_black_border"
+            android:ems="10"
+            android:text="Select Expiration Date" />
+
+        <Button
+            android:id="@+id/signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#0F0"
+            android:text="Create Account" />
+    </LinearLayout>
+
+</ScrollView>

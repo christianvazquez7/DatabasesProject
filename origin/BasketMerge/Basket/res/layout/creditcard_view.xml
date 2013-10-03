@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_corners_black_border"
+    android:orientation="vertical"
+    android:paddingLeft="10dp" 
+    android:padding="7dp"
+    android:layout_margin="10dp">
+
+    <EditText
+        android:id="@+id/nameOnCardTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:background="@null"
+        android:text="Pedro Colon Hernandez"
+        android:textSize="23dp" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/creditCardNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameOnCardTextView"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="7dp"
+        android:background="@null"
+        android:text="4334 4500 0592 8377"
+        android:textSize="17dp" />
+
+    <EditText
+        android:id="@+id/billingAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/creditCardNumberTextView"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="7dp"
+        android:background="@null"
+        android:text="123 Super Street"
+        android:textSize="17dp" />
+
+    <EditText
+        android:id="@+id/creditCardSecNumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expDateLayout"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="7dp"
+        android:background="@null"
+        android:text="123"
+        android:textSize="17dp" />
+
+    <LinearLayout
+        android:id="@+id/expDateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/billingAddressTextView" >
+
+        <EditText
+            android:id="@+id/creditCardExpMonthTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="7dp"
+            android:background="@null"
+            android:text="05"
+            android:textSize="17dp" />
+
+        <EditText
+            android:id="@+id/creditCardExpYearTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
+            android:background="@null"
+            android:text="2016"
+            android:textSize="17dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/Button01"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/billingAddressTextView"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/close_icon1" />
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/Button01"
+        android:layout_alignTop="@+id/creditCardNumberTextView"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/edit"
+        android:padding="10dp" />
+
+</RelativeLayout>
