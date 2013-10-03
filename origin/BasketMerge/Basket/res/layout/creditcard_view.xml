@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/nameOnCardTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedro Colon Hernandez" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/creditCardExpYearTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/creditCardExpMonthTextView"
+        android:layout_alignBottom="@+id/creditCardExpMonthTextView"
+        android:layout_alignParentRight="true"
+        android:text="2016" />
+
+    <TextView
+        android:id="@+id/creditCardExpMonthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/creditCardSecNumTextView"
+        android:layout_alignBottom="@+id/creditCardSecNumTextView"
+        android:layout_toRightOf="@+id/creditCardNumberTextView"
+        android:text="05" />
+
+    <TextView
+        android:id="@+id/creditCardSecNumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/creditCardNumberTextView"
+        android:text="123" />
+
+    <TextView
+        android:id="@+id/creditCardNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nameOnCardTextView"
+        android:text="4334450005928377" />
+
+    <TextView
+        android:id="@+id/billingAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/creditCardExpYearTextView"
+        android:text="123 PENIS STREEET" />
+
+</RelativeLayout>

@@ -39,10 +39,10 @@
         android:text="Login" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/email"
         android:layout_width="160dp"
         android:layout_height="24dp"
-        android:layout_above="@+id/editText2"
+        android:layout_above="@+id/password"
         android:layout_alignLeft="@+id/forgotField"
         android:layout_alignRight="@+id/forgotField"
         android:layout_marginBottom="20dp"
@@ -52,20 +52,21 @@
         android:hint="Username" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/ivCatPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
+        android:layout_above="@+id/email"
         android:layout_centerHorizontal="true"
         android:src="@drawable/basket_icon" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignLeft="@+id/email"
+        android:layout_alignRight="@+id/email"
+
         android:layout_marginBottom="32dp"
         android:background="@drawable/round_corners_black_border"
         android:ems="10"

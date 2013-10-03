@@ -7,43 +7,29 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent" >
 
-        <ImageView
-            android:id="@+id/left_side"
-            android:layout_width="7dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/stainless_steel" />
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="10dp" >
-
-            <EditText
-                android:id="@+id/editText1"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@drawable/stainless_steel01"
-                android:hint="Search"
-                android:paddingLeft="15dp"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#CCCCCC" />
+          >
 
             <TextView
                 android:id="@+id/tvDeals"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/black"
                 android:padding="5dp"
                 android:text="Hot Deals of the Day"
-                android:textSize="20dp" />
+                android:textColor="#FFFFFF"
+                android:textSize="15dp" />
 
             <ViewFlipper
+                android:background="@drawable/wood_light2"
                 android:id="@+id/vfDeals"
-                android:layout_width="275dp"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="5.33"
-                android:background="@drawable/round_corners_black_border"
                 android:inAnimation="@anim/left_to_right"
                 android:outAnimation="@anim/right_to_left"
                 android:padding="20dp" >
@@ -71,20 +57,22 @@
             </ViewFlipper>
 
             <TextView
+                android:textColor="#FFFFFF"
+                android:background="@color/black"
                 android:id="@+id/tvRecom"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Recommended for You!"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
 
             <ViewFlipper
+                android:background="@drawable/wood_light2"
                 android:id="@+id/vfRecom"
-                android:layout_width="275dp"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="5.33"
-                android:background="@drawable/round_corners_black_border"
                 android:inAnimation="@anim/left_to_right"
                 android:outAnimation="@anim/right_to_left"
                 android:padding="20dp" >

@@ -7,10 +7,13 @@
     android:background="@drawable/wood_light" >
 
     <LinearLayout
+        
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_alignParentRight="true"
-        android1:background="@drawable/round_corners_edit_text" >
+        android1:layout_gravity="bottom"
+        android1:background="@drawable/shelfbkg"
+        android1:gravity="bottom|end" >
 
         <DatePicker
             android1:id="@+id/datePicker1"
@@ -59,8 +62,23 @@
         
 
     </LinearLayout>
-    <LinearLayout 
-        android1:layout_marginTop="20dp"
+
+       <Button
+           android:id="@+id/update"
+           android:layout_width="match_parent"
+           android:layout_height="30dp"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+      
+           android:background="@drawable/wood"
+           android:gravity="center_vertical"
+           android:paddingLeft="130dp"
+           android:text="Update"
+           android:textColor="#FFFFFF" />
+     <LinearLayout 
+        android1:paddingLeft="10dp"
+        android1:paddingRight="10dp"
+        android1:layout_marginTop="50dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,14 +89,6 @@
             android:layout_height="50dp"
              >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/monotone_arrow_right" />
-
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
@@ -86,8 +96,19 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="26dp"
-                android:text="Manage Accounts"
+                android:text="Total Sales"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:visibility="invisible"
+                android1:id="@+id/total_sale_text"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:layout_alignBottom="@+id/textView1"
+                android1:layout_alignParentRight="true"
+                android1:layout_marginRight="28dp"
+                android1:text="4,325,456"
+                android1:textAppearance="?android:attr/textAppearanceSmall" />
 
         </RelativeLayout>
         
@@ -104,14 +125,6 @@
             android:layout_height="50dp" 
                 android:id="@+id/total_sales">
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/monotone_arrow_right" />
-
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
@@ -119,10 +132,22 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="26dp"
-                android:text="Total Sales"
+                android:text="Total Revenue"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:visibility="invisible"
+                android1:id="@+id/total_gross_view"
+                android1:layout_width="wrap_content"
+                android1:layout_height="wrap_content"
+                android1:layout_alignBottom="@+id/textView1"
+                android1:layout_alignParentRight="true"
+                android1:layout_marginRight="24dp"
+                android1:text="$1,000,325.00"
+                android1:textAppearance="?android:attr/textAppearanceSmall" />
 
         </RelativeLayout>
         </LinearLayout>
+
 
 </LinearLayout>

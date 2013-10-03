@@ -9,15 +9,6 @@
     android:paddingTop="90dp"
     tools:context=".UserEditActivity" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/layer_gradient"
-        android:text="Delete Account"
-        android:textColor="#FFFFFF" />
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -42,7 +33,7 @@
                     android:layout_height="55dp" >
 
                     <EditText
-                        android:id="@+id/editText1"
+                        android:id="@+id/usrnm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -50,6 +41,7 @@
                         android:background="@null"
                         android:ems="10"
                         android:hint="Pepito125"
+                        android:textSize="15dp"
                         android:paddingLeft="30dp" />
 
                     <TextView
@@ -61,6 +53,16 @@
                         android:layout_marginLeft="16dp"
                         android:text="Username:"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Button
+                        android:id="@+id/usrUpdate"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/check2" />
+
                 </RelativeLayout>
 
                 <View
@@ -88,7 +90,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/EditText01"
+                        android:id="@+id/editPassword"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/textView2"
@@ -96,8 +98,18 @@
                         android:layout_toRightOf="@+id/textView2"
                         android:background="@null"
                         android:ems="10"
+                        android:textSize="13dp"
                         android:hint="Pr3254"
                         android:paddingLeft="30dp" />
+
+                    <Button
+                        android:id="@+id/passUpdate"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/check2" />
 
                 </RelativeLayout>
                  <View
@@ -110,22 +122,30 @@
                  <RelativeLayout android:id="@+id/account_manage" android:layout_width="match_parent" android:layout_height="55dp">
                      <TextView android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_centerVertical="true" android:layout_marginLeft="20dp" android:layout_toRightOf="@id/textView2" android:text="Email:" android:textAppearance="?android:attr/textAppearanceMedium"/>
 
+                     <Button
+                         android:id="@+id/emailUpdate"
+                         android:layout_width="15dp"
+                         android:layout_height="15dp"
+                         android:layout_alignParentRight="true"
+                         android:layout_centerVertical="true"
+                         android:layout_marginRight="15dp"
+                         android:background="@drawable/check2" />
+
                      <EditText
-                         android:id="@+id/EditText01"
+                         android:id="@+id/editMail"
                          android:layout_width="200dp"
                          android:layout_height="wrap_content"
                          android:layout_alignBaseline="@+id/textView2"
                          android:layout_alignBottom="@+id/textView2"
-                         android:layout_alignParentRight="true"
+                         android:layout_toLeftOf="@+id/emailUpdate"
                          android:background="@null"
                          android:ems="10"
                          android:hint="Pepi@upr.edu"
-                         android:paddingLeft="30dp" >
+                         android:paddingLeft="30dp"
+                         android:textSize="13dp" >
 
                          <requestFocus />
                      </EditText>
-
-                     
 
                  </RelativeLayout>
                  
@@ -134,5 +154,18 @@
         </LinearLayout>
       
     </ScrollView>
+
+    <Button
+        android:id="@+id/delete_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/layer_gradient"
+      	android:gravity="center_vertical"
+		android:paddingLeft="80dp"
+        android:text="Delete Account"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>
