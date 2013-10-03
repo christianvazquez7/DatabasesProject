@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
@@ -25,10 +26,14 @@ public class ProductsInMyShopBuyAdapter extends ArrayAdapter<BuyEvent>
 	{
 		if (convertView==null)
 		{
-			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_myshop, null);
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view, null);
 			
 		}
-		//Products currentProduct = this.getItem(pos);	
+		BuyEvent currentProduct = this.getItem(pos);
+		
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
+		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
 		return convertView;
 		
 	}

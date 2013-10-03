@@ -24,6 +24,7 @@ public class OrdersActivity extends FragmentActivity {
 		
 		pager = new ViewPager(this);
 		pager.setId(R.id.pager);
+		pager.setBackground(this.getResources().getDrawable(R.drawable.wood_light2));
 		setContentView(pager);
 		ArrayList<Order> orders = BasketSession.getUser().getUserOrders();
 		//orders = OrderContainer.getOrdersInUserSession();
