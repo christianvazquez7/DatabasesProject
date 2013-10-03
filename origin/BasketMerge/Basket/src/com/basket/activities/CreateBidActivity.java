@@ -51,7 +51,7 @@ public class CreateBidActivity extends Activity {
 				newBidEvent.setProduct(prod);
 				newBidEvent.setDescription(prodDescription.getText().toString());
 				newBidEvent.setFeatures(prodFeat.getText().toString());
-				newBidEvent.setPrice(Double.parseDouble(prodPrice.getText().toString()));
+				newBidEvent.setMinBid(Double.parseDouble(prodPrice.getText().toString()));
 				
 				
 				BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);

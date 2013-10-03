@@ -50,6 +50,7 @@ public class MyShopActivity extends FragmentActivity {
 	protected void onResume(){
 		super.onResume();
 		this.mTabsAdapter.notifyDataSetChanged();
+		
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
