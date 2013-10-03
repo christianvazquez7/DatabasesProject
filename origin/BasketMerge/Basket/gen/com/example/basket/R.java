@@ -536,7 +536,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int slidingmenu_sectionview=0x7f03004e;
         public static final int slidingmenu_sectionview2=0x7f03004f;
         public static final int slidingmenumain=0x7f030050;
-        public static final int user_account_list_view=0x7f030051;
+        public static final int tabpager=0x7f030051;
+        public static final int user_account_list_view=0x7f030052;
     }
     public static final class menu {
         public static final int admin_page=0x7f0a0000;

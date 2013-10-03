@@ -11,13 +11,23 @@
         >
 
     </ListView>
-
     <Button
+        android:background="#FFA500"
+        android:textColor="#FFFFFF"
+        
         android:id="@+id/basketCheckoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" 
         android:text="Checkout"/>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/basketCheckoutButton"
+        android:background="@drawable/custom_divider" />
 
 </RelativeLayout>
