@@ -43,12 +43,12 @@ public class SignUpActivity extends Activity {
 
 	//ET is for EditText, CC for Credit Card, SA & BA for Shipping and Billing Address, B is for button
 	//A is for awesome -Pedro
-	private EditText mETFName, mETLName, mETPassword, mETEmail, mETUserName, mETAge,
-		mETCCName, mETCCNum, mETCCSecCode,
+
+	private EditText mETFName, mETLName, mETPassword, mETEmail, mETUserName, mETBDayDay, mETBDayMonth, mETBDayYear,
+		mETCCName, mETCCNum, mETCCSecCode, mETCCExpMonth, mETCCExpYear,
 		mETSALine1, mETSALine2, mETSACity, mETSAState, mETSACountry, mETSAZipCode,
 		mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
-		private Button mBBdaySelect;
-	private DatePicker  mBCCExpdateSelect;
+		
 	private User newUser;
 	private Adress shippingAddress;
 	private Adress billingAddress;
@@ -72,28 +72,6 @@ public class SignUpActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
 
-		
-		mBBdaySelect = (Button) findViewById(R.id.bBDaySelect);
-		mBBdaySelect.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				DialogFragment newFragment = new DatePickerFragment();
-			    newFragment.show(getFragmentManager(), "datePicker");
-				
-			}
-		});
-		
-		mBCCExpdateSelect = (DatePicker) findViewById(R.id.bCCExpdateSelect);
-		mBCCExpdateSelect.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				DialogFragment newFragment = new DatePickerFragment();
-			    newFragment.show(getFragmentManager(), "datePicker");
-				
-			}
-		});
 		
 		Button signUp = (Button) this.findViewById(R.id.signUp);
 		signUp.setOnClickListener(new OnClickListener(){
@@ -122,13 +100,15 @@ public class SignUpActivity extends Activity {
 		this.email = mETEmail.getText().toString();
 		mETUserName = (EditText) findViewById(R.id.userNameSignUp);
 		this.userName = mETUserName.getText().toString();
-		mETAge = (EditText) findViewById(R.id.etAgeSignUp);
-		this.age = Integer.parseInt(mETAge.getText().toString());
-		// TODO get date from date picker
-		mBBdaySelect = (DatePicker) findViewById(R.id.bBDaySelect);
-		this.bdDay = mBBdaySelect.getDayOfMonth();
-		this.bdMonth = mBBdaySelect.getMonth();
-		this.bdYear = mBBdaySelect.getYear();
+
+		
+		mETBDayDay = (EditText) findViewById(R.id.etBDayDay);
+		mETBDayMonth = (EditText) findViewById(R.id.etBDayMonth);
+		mETBDayYear = (EditText) findViewById(R.id.etBDayYear);
+		this.bdDay = Integer.parseInt(mETBDayDay.getText().toString());
+		this.bdMonth = Integer.parseInt(mETBDayMonth.getText().toString());
+		this.bdYear = Integer.parseInt(mETBDayYear.getText().toString());
+
 		
 		mETCCName = (EditText) findViewById(R.id.etCCNameSignUp);
 		this.ccName = mETCCName.getText().toString();
@@ -136,9 +116,13 @@ public class SignUpActivity extends Activity {
 		this.ccNumber = Long.parseLong(mETCCNum.getText().toString());
 		mETCCSecCode = (EditText) findViewById(R.id.etCCSecCodeSignUp);
 		this.ccSecCode = Integer.parseInt(mETCCSecCode.getText().toString());
-		// TODO Get date from date picker
-		this.ccExpMonth = this.mBCCExpdateSelect.getMonth();
-		this.ccExpYear = this.mBCCExpdateSelect.getYear();
+
+		
+		mETCCExpMonth = (EditText) findViewById(R.id.etCCExpMonth);
+		mETCCExpYear = (EditText) findViewById(R.id.etCCExpYear);
+		
+		this.ccExpMonth = Integer.parseInt(mETCCExpMonth.getText().toString());
+		this.ccExpYear = Integer.parseInt(mETCCExpYear.getText().toString());
 		
 		mETSALine1 = (EditText) findViewById(R.id.etSALine1SignUp);
 		this.saLine1 = mETSALine1.getText().toString();
