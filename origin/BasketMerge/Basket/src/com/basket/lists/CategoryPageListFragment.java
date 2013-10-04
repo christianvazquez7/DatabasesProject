@@ -22,7 +22,7 @@ public class CategoryPageListFragment extends ListFragment {
 		
 		
 		super.onCreate(savedInstanceState);
-		getActivity().setTitle("Category Title");
+		getActivity().setTitle(getActivity().getIntent().getExtras().getString("categoryName"));
 		
 		ProductAdapter adapter = new ProductAdapter(this.getActivity(),mProducts);
 		setListAdapter(adapter);
