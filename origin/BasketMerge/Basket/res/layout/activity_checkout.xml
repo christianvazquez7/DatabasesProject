@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    >
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment method" 
+            android:textColor="#FFFFFF"
+            android:background="@drawable/layer_gradient"/>
+
+        <FrameLayout
+            android:id="@+id/creditcardfieldplaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+
+        <TextView
+             android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/layer_gradient"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Where to ship" />
+
+        <FrameLayout
+            
+            android:id="@+id/shippingaddressfieldplaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+
+        <TextView
+                android:gravity="center_vertical"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/layer_gradient"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Your items:" />
+
+        <FrameLayout
+            android:id="@+id/productsForCheckoutPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="334dp"
+            android:background="@drawable/wood4" >
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/productfield"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+ 
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/CheckOut"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="0.01"
+            android:background="#FFA500"
+            android:text="Checkout"
+            android:textColor="#FFFFFF" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/CheckOut"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/layer_gradient"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Total:"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/totaltextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="$0.00"
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+
+</RelativeLayout>

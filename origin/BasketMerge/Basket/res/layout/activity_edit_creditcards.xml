@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wood2"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/lvCCEditList"
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:layout_weight="1" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/bCCEditSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lvCCEditList"
+        android:text="Add New Credit Card" />
+
+</LinearLayout>

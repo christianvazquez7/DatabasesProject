@@ -28,7 +28,7 @@
         android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/supplier"
@@ -40,8 +40,8 @@
         android:id="@+id/available"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/price"
+        android:layout_below="@+id/price"
         android:text="21 New &amp; Used"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000"
@@ -59,14 +59,15 @@
         android:id="@+id/product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ivCatPage"
-        android:layout_toRightOf="@+id/ivCatPage"
+        android:layout_alignTop="@+id/thumb"
+        android:layout_toRightOf="@+id/thumb"
         android:text="Medium Text of Product"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
 
     <ImageView
-        android:id="@+id/ivCatPage"
+
+        android:id="@+id/thumb"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"

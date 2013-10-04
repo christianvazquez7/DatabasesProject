@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wood_light"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+       >
+
+        <EditText
+            android:id="@+id/accountSearch"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_corners_edit_text"
+            android:ems="10"
+            android:hint="Account Name"
+            android:paddingLeft="10dp" />
+
+        <Button
+            android:id="@+id/accountSearchbtn"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/accountSearch"
+            android:layout_alignBottom="@+id/accountSearch"
+            android:layout_alignRight="@+id/accountSearch"
+            android:background="@drawable/search_icon" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/accountListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+</LinearLayout>
