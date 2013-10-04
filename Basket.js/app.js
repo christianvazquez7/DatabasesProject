@@ -243,6 +243,13 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 	};
 	res.json(response);
 });
+app.get('/Basket.js/UpdateBidSeller', function(req,res)
+		{
+			var response={
+				"dum":1
+			};
+			res.json(response);
+		});
 app.get('/Basket.js/ProductReport/:day/:month/:year/:type', function(req,res)
 		{
 			var response =

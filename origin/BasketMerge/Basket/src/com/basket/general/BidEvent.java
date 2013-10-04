@@ -23,7 +23,14 @@ public class BidEvent implements Event
 	int shour;
 	int sminute;
 	int id;
+	boolean finalized;
 	
+	public boolean isFinalized() {
+		return finalized;
+	}
+	public void setFinalized(boolean finalized) {
+		this.finalized = finalized;
+	}
 	public int getId() {
 		return id;
 	}
