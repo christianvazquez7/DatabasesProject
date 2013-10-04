@@ -4,7 +4,6 @@
  */
 
 var express = require('express');
-
 var app = express();
 var roduct = require("./Product.js");
 var product = roduct.product;
@@ -50,11 +49,13 @@ var billingList = new Array(
 
 var exproduct = new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40);
 var exbproduct = new product("Macbook Pro", 1204054932,"Dell Inc.",20,15,40);
+
 var buyEvents = new Array(
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
 		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false)
 );
+
 var users = {};
 var buylist = new Array();
 var bids = new Array();
@@ -72,10 +73,13 @@ var userList = new Array(
 		new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,buyEvents,bidEvents2,buyEvents, creditCardList,orderList),
 		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
 		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList)
-		);
+);
+
 users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,withbid,bidEvents,buyEvents, creditCardList,orderList);
+
 var  randId=1000;
 var reviews = new Array();
+
 var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
 		- 6 GB DDR3 \
 		- 17.3-Inch Screen \
@@ -83,6 +87,7 @@ var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 
 		,reviews,0);
 
 buylist.push(event);
+
 var bid = new Bid(users["lukesionkira@hotmail.com"], 2,5,2011,12,50, 300);
  
 
@@ -140,30 +145,30 @@ console.log("server listening");
 
 app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
 {
-
 	var response =
-		{
-			"users": userList
-		};
+	{
+		"users": userList
+	};
 	res.json(response);
-	
 });
+//Edit a user
 app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
-	console.log("here");
+	console.log("Editing user");
 	var buffUser =userList[req.params.id];
 	buffUser.username=req.params.usr;
 	buffUser.password=req.params.pass;
 	buffUser.email=req.params.email;
 	res.json(true);
 });
+//Update a basket
 app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
-	console.log("here");
+	console.log("Updating basket");
 	var u =users["lukesionkira@hotmail.com"];
 	u.baskets[req.params.pos].buyEvents=req.body.buyEvents;
 	console.log(req.body.buyEvents);
 	res.json(true);
 });
-
+//Add a bid
 app.put('/Basket.js/addBid/:id',function(req,res){
 	console.log("here");
 	var u =userList[1];
@@ -179,6 +184,7 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 	
 	res.json(true);
 });
+
 app.get('/Basket.js/search/:searchQuery',function(req,res)
 {
 	var response =
@@ -194,12 +200,14 @@ app.del('/Basket.js/UserDelete/:id', function(req,res)
 			userList.splice(target,1);
 			res.json(true);
 		});
+//Create a user
 app.post('/Basket.js/create/:id', function(req,res)
-		{
-	console.log("hind");
+{
+	console.log("Creating user");
 	userList.push(req.body);
 	res.json(true);
-		});
+});
+//Place an order
 app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
 		{
 	console.log("hind");
@@ -210,23 +218,28 @@ app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
 
 	res.json(true);
 		});
+//Create a basket
 app.post('/Basket.js/NewBasket', function(req,res)
-		{
+{
 	var u =users["lukesionkira@hotmail.com"];
 	u.baskets.push(req.body);
 	res.json(true);
-		});
+});
+
+//Example report
 var exReport = new Report(2,05,1992,"sales", 150,25000);
+
+
 app.get('/Basket.js/Report/:day/:month/:year/:type',function(req,res)
 	{
 	var response = 
 	{
-			"day": exReport.day ,
-			"month": exReport.month,
-			"year" : exReport.year,
-			"type": exReport.type,
-			"totalSales": exReport.totalSales,
-			"totalGross": exReport.totalGross
+		"day": exReport.day ,
+		"month": exReport.month,
+		"year" : exReport.year,
+		"type": exReport.type,
+		"totalSales": exReport.totalSales,
+		"totalGross": exReport.totalGross
 	};
 	res.json(response);
 });
@@ -234,27 +247,30 @@ var products = new Array(
 		 new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40),
 		 new product("Macbook", 1203323,"Apple Inc.",20,15,40)
 );
-
+//Search for product
 app.get('/Basket.js/Product/:searchQuery', function(req,res)
 {
 	var response =
 	{
-			"products":products
+		"products":products
 	};
 	res.json(response);
 });
+//Get product report
 app.get('/Basket.js/ProductReport/:day/:month/:year/:type', function(req,res)
+	{
+		var response =
 		{
-			var response =
-			{
-					"totalSales": 3200000,
-					"totalGross":12300030
-					
-			};
-			res.json(response);
-		});
+				"totalSales": 3200000,
+				"totalGross":12300030
+				
+		};
+		res.json(response);
+});
+
+//Get a user	
 app.get('/Basket.js/User/:id/:password', function(req, res) 
-		{
+{
 	var email = req.params.id;
 	var userAccount = users[email];
 	var password= req.params.password;
@@ -264,8 +280,6 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		res.send("Fields missing");
 		return;
 	}
-	
-
 	if (userAccount==null)
 	{
 		res.statusCode = 404;
@@ -293,5 +307,4 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 			res.send("User or Password mismatch");
 		}	
 	}
-
-		});
+});

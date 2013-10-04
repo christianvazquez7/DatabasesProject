@@ -5,9 +5,6 @@
 module.exports =  { 
 	User : function (email,username, password,billingAdress,shippingAdress,baskets,currentlyBiddingOn,currentlySellingOnBid,currentlySellingOnBuy, creditCards,userOrders)
 	{
-		
-
-		
 		this.billingAdress=billingAdress;
 		this.shippingAdress=shippingAdress;
 		this.baskets= baskets;
@@ -19,6 +16,5 @@ module.exports =  {
 		this.password=password;
 		this.creditCards=creditCards;
 		this.userOrders=userOrders;
-		
 	}
 }

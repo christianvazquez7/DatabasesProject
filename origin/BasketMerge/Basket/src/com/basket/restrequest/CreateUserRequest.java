@@ -17,8 +17,6 @@ public class CreateUserRequest extends SpringAndroidSpiceRequest<Boolean> {
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception 
 	{
-		
-		
 		getRestTemplate().postForObject("http://10.0.2.2:3412/Basket.js/create/1", newU, Boolean.class);
 		return true;
 	}

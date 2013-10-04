@@ -1,30 +1,15 @@
 package com.basket.activities;
 
 
-import java.util.Calendar;
-
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.basket.fragments.DatePickerFragment;
-import com.basket.general.CarJsonSpringAndroidSpiceService;
-import com.basket.general.User;
-import com.basket.restrequest.CreateUserRequest;
-import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.basket.fragments.DatePickerFragment;
 import com.basket.general.Adress;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.CreditCard;
@@ -78,7 +63,6 @@ public class SignUpActivity extends Activity {
 			@Override
 			public void onClick(View arg0) 
 			{
-				// TODO Auto-generated method stub
 				if (!spiceManager.isStarted())
 				{
 					spiceManager.start(SignUpActivity.this);
