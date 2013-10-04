@@ -22,7 +22,6 @@ public class CreateBidActivity extends Activity {
 		setContentView(R.layout.activity_create_bid);
 		prodName = (EditText) findViewById(R.id.buyEventProductNameET);
 		prodPrice= (EditText) findViewById(R.id.buyEventProductPrice);
-		stopDate = (EditText) findViewById(R.id.buyEventProductEndDate);
 		prodFeat = (EditText) findViewById(R.id.buyEventProductFeatures);
 		prodDescription = (EditText) findViewById(R.id.buyEventProductDescription);
 		prodW = (EditText) findViewById(R.id.buyEventProductWidth);

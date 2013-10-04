@@ -10,5 +10,6 @@
     <color name="gray_light">#999999</color>
     <color name="gray_dark">#333333</color>
     <color name="black">#000000</color>
-    
+    <color name="orange">#FFA500</color>
+        <color name="pressed_mytab">#CC33B5E5</color>
 </resources>

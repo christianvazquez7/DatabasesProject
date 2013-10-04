@@ -2,9 +2,12 @@ package com.basket.activities;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -28,14 +31,20 @@ public class MyShopActivity extends FragmentActivity {
 	private PopupWindow mpopup;
 	private Button createBid, createBuy;
 	private AlertDialog alert;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		pager = new ViewPager(this);
+		//FragmentPagerAdapter a = new FragmentPagerAdapter();
+	
+		
 		pager.setId(R.id.pager);
 		setContentView(pager);
+		pager.setBackground(this.getResources().getDrawable(R.drawable.wood_light2));
+		
 
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -110,5 +119,4 @@ public class MyShopActivity extends FragmentActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
 }

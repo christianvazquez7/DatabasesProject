@@ -24,7 +24,11 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 	{
 		if (convertView==null)
 		{
-			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_myshop, null);
+			BidEvent currentProduct = this.getItem(pos);	
+			
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view3, null);
+			if (currentProduct.isFinalized())
+				convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view4, null);			
 			
 		}
 		//Products currentProduct = this.getItem(pos);	

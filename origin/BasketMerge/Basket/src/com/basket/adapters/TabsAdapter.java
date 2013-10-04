@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v13.app.FragmentPagerAdapter;
+
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
+
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -34,7 +36,7 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 	
 
 	public TabsAdapter(FragmentActivity activity, ViewPager pager) {
-		super(activity.getSupportFragmentManager());
+		super(activity.getFragmentManager());
 		mContext = activity;
 		mActionBar = activity.getActionBar();
 		mViewPager = pager;

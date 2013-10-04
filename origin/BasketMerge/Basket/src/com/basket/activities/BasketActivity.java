@@ -49,7 +49,7 @@ public class BasketActivity extends FragmentActivity {
 		pager = new ViewPager(this);
 		pager.setId(R.id.basketspager);
 		setContentView(pager);
-		
+		pager.setBackground(this.getResources().getDrawable(R.drawable.wood_light2));
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.basket.general.BuyEvent;
 import com.basket.general.Event;
@@ -28,7 +29,12 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view_orders, null);
 			
 		}
-		//Products currentProduct = this.getItem(pos);	
+		BuyEvent currentProduct = this.getItem(pos);	
+		
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
+		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+
 		return convertView;
 		
 	}
