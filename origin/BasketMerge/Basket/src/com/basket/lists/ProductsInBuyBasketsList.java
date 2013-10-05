@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.basket.activities.BasketActivity;
@@ -41,6 +42,19 @@ public class ProductsInBuyBasketsList extends ListFragment{
 		//setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_items));
 		
 		return rootView;
+	}
+	public void onResume()
+	{
+		super.onResume();
+		
+
+		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
+		if (a!=null)
+		a.notifyDataSetChanged();
+		
+		
+	
+
 	}
 
 }

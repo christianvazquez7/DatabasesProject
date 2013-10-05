@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.ShippingAddressListAdapter;
 import com.basket.containers.AddressContainer;
+import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
 import com.example.basket.R;
 
@@ -19,14 +20,13 @@ public class ShippingAddressListFragment extends ListFragment {
 	private ArrayList<Adress> availableaddresses;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.shippingaddresslist_list, container, false);
-		availableaddresses = AddressContainer.userAddresses;
-		setListAdapter(new ShippingAddressListAdapter(getActivity(), availableaddresses));
+		setListAdapter(new ShippingAddressListAdapter(getActivity(), BasketSession.getUser().getShippingAdress()));
 
 
 		return rootView;
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
-		AddressContainer.shippingSelection = availableaddresses.get(pos);
+		AddressContainer.shippingSelection = BasketSession.getUser().getShippingAdress().get(pos);
 		CheckoutActivity.changeShippingAddressCard = true;
 		this.getActivity().finish();
 		

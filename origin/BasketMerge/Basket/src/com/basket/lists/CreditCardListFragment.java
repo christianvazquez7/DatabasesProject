@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.CreditCardListAdapter;
+import com.basket.containers.BasketSession;
 import com.basket.containers.CreditCardContainer;
 import com.basket.general.CreditCard;
 import com.example.basket.R;
@@ -19,14 +20,14 @@ public class CreditCardListFragment extends ListFragment {
 	private ArrayList<CreditCard> creditcards;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.creditcard_list, container, false);
-		creditcards = CreditCardContainer.userCreditCards;
+		creditcards = BasketSession.getUser().getCreditCards();
 		setListAdapter(new CreditCardListAdapter(getActivity(), creditcards));
 
 
 		return rootView;
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
-		CreditCardContainer.paymentSelection = creditcards.get(pos);
+		CreditCardContainer.paymentSelection = BasketSession.getUser().getCreditCards().get(pos);
 		CheckoutActivity.changeCreditCard = true;
 		this.getActivity().finish();
 		

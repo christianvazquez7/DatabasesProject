@@ -176,7 +176,8 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 	            return findViewById(resId);
 	        }
 	        public void destroyItem(ViewGroup viewPager, int position, Object object) {
-	            viewPager.removeView((View) object);
+	        	
+	            this.notifyDataSetChanged();
 	        }
 	        @Override
 	        public int getCount() 

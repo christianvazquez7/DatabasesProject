@@ -3,6 +3,7 @@ package com.basket.lists;
 import java.util.ArrayList;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.basket.activities.BidEventPageActivity;
+import com.basket.activities.BuyEventPageActivity;
 import com.basket.adapters.ProductInMyShopBidAdapter;
 import com.basket.containers.AddressContainer;
 import com.basket.containers.BasketSession;
@@ -78,6 +81,8 @@ public class BiddingItemsListView extends ListFragment{
 //		BasketSession.getUser().getUserOrders().add(orderToPlace);
 //		BasketSession.getUser().getCurrentlyBiddingOn().remove(position);
 //		}
+		
+
 
 	}
 	private class UpdateBidSellerListener implements RequestListener<BidList>, RequestProgressListener {
@@ -97,10 +102,10 @@ public class BiddingItemsListView extends ListFragment{
 		public void onRequestSuccess(BidList User) 
 		{
 			spiceManager.shouldStop();
-			for (int i =0 ; i<BasketSession.getUser().getCurrentlyBiddingOn().size();i++)
+			for (int i =1 ; i<BasketSession.getUser().getCurrentlyBiddingOn().size()+1;i++)
 			{	
 				listView.getChildAt(i).findViewById(R.id.won).setVisibility(View.VISIBLE);
-				BasketSession.getUser().getCurrentlyBiddingOn().get(i).setFinalized(true);
+				BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).setFinalized(true);
 				
 			}
 			

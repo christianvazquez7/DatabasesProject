@@ -1,12 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/wood4"
     >
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+<View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
         <TextView
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
@@ -15,6 +22,13 @@
             android:text="Payment method" 
             android:textColor="#FFFFFF"
             android:background="@drawable/layer_gradient"/>
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
 
         <FrameLayout
             android:id="@+id/creditcardfieldplaceholder"
@@ -29,6 +43,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Where to ship" />
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
 
         <FrameLayout
             
@@ -44,11 +65,18 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Your items:" />
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
 
         <FrameLayout
             android:id="@+id/productsForCheckoutPlaceholder"
             android:layout_width="match_parent"
-            android:layout_height="334dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/wood4" >
 
         </FrameLayout>
@@ -74,6 +102,7 @@
             android:text="Checkout"
             android:textColor="#FFFFFF" />
 
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,6 +111,7 @@
             android:background="@drawable/layer_gradient"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
+        
 
             <TextView
                 android:layout_width="wrap_content"

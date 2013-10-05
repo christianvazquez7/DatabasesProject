@@ -73,6 +73,8 @@ var userList = new Array(
 		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
 		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList)
 		);
+users["admin"]=new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
+
 users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,withbid,bidEvents,buyEvents, creditCardList,orderList);
 var  randId=1000;
 var reviews = new Array();
@@ -288,7 +290,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 							"billingAdress":userAccount.billingAdress,
 							"shippingAdress":userAccount.shippingAdress,
 							"baskets": userAccount.baskets,
-							"ceditCards":userAccount.creditCards,
+							"creditCards":userAccount.creditCards,
 							"currentlyBiddingOn":userAccount.currentlyBiddingOn,
 							"currentlySellingOnBid":userAccount.currentlySellingOnBid,
 							"currentlySellingOnBuy":userAccount.currentlySellingOnBuy,

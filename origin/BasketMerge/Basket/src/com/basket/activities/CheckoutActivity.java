@@ -120,6 +120,8 @@ public class CheckoutActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.checkout, menu);
 		return true;
+		
+		
 	}
 
 	public void changeCreditCardSelection() {

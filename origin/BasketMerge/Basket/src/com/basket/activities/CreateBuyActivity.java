@@ -60,7 +60,6 @@ public class CreateBuyActivity extends Activity {
 				}
 
 				BasketSession.getUser().getCurrentlySellingOnBuy().add(newBuyEvent);
-				Toast.makeText(CreateBuyActivity.this, "Added to sell", Toast.LENGTH_LONG).show();;
 				
 				CreateBuyActivity.this.finish();
 			}

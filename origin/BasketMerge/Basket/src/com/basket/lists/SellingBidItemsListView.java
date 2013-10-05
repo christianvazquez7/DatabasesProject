@@ -59,6 +59,8 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 			      
 			    }
 			});
+			
+
 
 		
 		return rootView;
@@ -91,10 +93,17 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		public void onRequestSuccess(BidList User) 
 		{
 			spiceManager.shouldStop();
+			int i =1;
 			for (BidEvent b :BasketSession.getUser().getCurrentlySellingOnBid())
 			{
 				b.setFinalized(true);
+				listView.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.orange));
+				i++;
 			}
+			
+			ArrayAdapter a =((ArrayAdapter)getListAdapter());
+			if (a!=null)
+			a.notifyDataSetChanged();
 			
 			listView.refreshDrawableState();
 			listView.onRefreshComplete();
@@ -107,6 +116,19 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 
 		}
 
+
+	}
+	public void onResume()
+	{
+		super.onResume();
+		
+
+		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
+		if (a!=null)
+		a.notifyDataSetChanged();
+		
+		
+	
 
 	}
 }
