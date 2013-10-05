@@ -30,5 +30,6 @@
     <string name="title_activity_create_bid">CreateBidActivity</string>
     <string name="title_activity_create_buy">CreateBuyActivity</string>
     <string name="title_activity_selling_bid">SellingBid</string>
+    <string name="title_activity_bid_win">BidWinActivity</string>
 
 </resources>

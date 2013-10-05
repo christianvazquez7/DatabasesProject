@@ -18,6 +18,7 @@ import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.restrequest.UpdateBidRequest;
+import com.example.basket.BidWinActivity;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -63,7 +64,12 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		return rootView;
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
-		Intent i = new Intent(this.getActivity(),BidsOnProductActivity.class);
+		BidEvent e =BasketSession.getUser().getCurrentlySellingOnBid().get(pos);
+		Intent i;
+		if (e.isFinalized())
+			i = new Intent(this.getActivity(),BidWinActivity.class);
+		else
+		i = new Intent(this.getActivity(),BidsOnProductActivity.class);
 		i.putExtra("itemClicked", pos);
 		startActivity(i);
 	}
@@ -89,7 +95,10 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 			{
 				b.setFinalized(true);
 			}
+			
+			listView.refreshDrawableState();
 			listView.onRefreshComplete();
+		
 		}
 
 		@Override

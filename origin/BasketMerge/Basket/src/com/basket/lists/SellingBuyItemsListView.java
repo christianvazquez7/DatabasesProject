@@ -19,7 +19,7 @@ import com.example.basket.R;
 public class SellingBuyItemsListView extends ListFragment{
 	private ArrayList<BuyEvent> sellingItems;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		View rootView = inflater.inflate(R.layout.myshop_list, container, false);
+		View rootView = inflater.inflate(R.layout.myshop_list2, container, false);
 			sellingItems = BasketSession.getUser().getCurrentlySellingOnBuy();
 			setListAdapter(new ProductsInMyShopBuyAdapter(getActivity(), sellingItems));
 		

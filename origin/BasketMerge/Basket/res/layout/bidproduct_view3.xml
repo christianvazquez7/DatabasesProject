@@ -72,5 +72,16 @@
         android:layout_alignBottom="@+id/bidthumb"
         android:layout_alignLeft="@+id/bidprice"
         android:layout_marginBottom="14dp" />
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/won"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bidnumOfRatings"
+        android:layout_alignRight="@+id/bidproduct"
+        android:text="Won!"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp" />
    
 </RelativeLayout>

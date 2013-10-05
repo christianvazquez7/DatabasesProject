@@ -149,6 +149,10 @@
             android:name="com.example.basket.SellingBid"
             android:label="@string/title_activity_selling_bid" >
         </activity>
+        <activity
+            android:name="com.example.basket.BidWinActivity"
+            android:label="@string/title_activity_bid_win" >
+        </activity>
     </application>
 
 </manifest>
