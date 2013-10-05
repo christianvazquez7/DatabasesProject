@@ -1,17 +1,16 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-	<RelativeLayout
-	    android:background="@drawable/layer_gradient"
+    android:orientation="vertical" >
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingRight="10dp"
+        android:background="@drawable/layer_gradient"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-       >
+        android:paddingRight="10dp"
+        android:paddingTop="10dp" >
 
         <EditText
             android:id="@+id/searchBar"
@@ -31,18 +30,14 @@
             android:layout_alignBaseline="@+id/searchBar"
             android:layout_alignBottom="@+id/searchBar"
             android:layout_alignRight="@+id/searchBar"
-            android:background="@drawable/search_icon"
-            />
-
+            android:background="@drawable/search_icon" />
     </RelativeLayout>
-	<FrameLayout 
-    android:id="@+id/fragmentContainer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/shelfbkg"
-     >
-  
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shelfbkg" >
     </FrameLayout>
- 
 
 </LinearLayout>

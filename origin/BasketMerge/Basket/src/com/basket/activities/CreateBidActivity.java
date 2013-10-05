@@ -10,12 +10,16 @@ import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Product;
 import com.example.basket.R;
+import com.octo.android.robospice.SpiceManager;
 
 public class CreateBidActivity extends Activity {
 	private EditText prodName, prodPrice, stopDate, prodFeat, prodDescription, prodW, prodH, prodD, prodMan;
 	private Button mCreateBuyEventButton;
+	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
