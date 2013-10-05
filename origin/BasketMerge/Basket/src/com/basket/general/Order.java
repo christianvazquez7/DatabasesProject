@@ -2,9 +2,19 @@ package com.basket.general;
 
 import java.util.ArrayList;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Order 
 {
 	public CreditCard creditCard;
+	public BidEvent getBidEvent() {
+		return bidEvent;
+	}
+	public void setBidEvent(BidEvent bidEvent) {
+		this.bidEvent = bidEvent;
+	}
+	public BidEvent bidEvent;
 	public CreditCard getCreditCard() 
 	{
 		return creditCard;

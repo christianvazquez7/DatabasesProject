@@ -182,6 +182,10 @@
         </activity>
         
 
+		<activity
+            android:name="com.example.basket.BidWinActivity"
+            android:label="@string/title_activity_bid_win" >
+        </activity>
     </application>
 
 </manifest>

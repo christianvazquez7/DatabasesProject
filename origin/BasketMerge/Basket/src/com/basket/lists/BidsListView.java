@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.basket.adapters.BidsInSellingProductAdapter;
+import com.basket.containers.BasketSession;
 import com.basket.general.Bid;
 import com.example.basket.R;
 
@@ -22,6 +23,16 @@ public class BidsListView extends ListFragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.bids_list, container, false);
 		ArrayList<Bid> bidsOnProduct = new ArrayList<Bid>();
+		Bid bid = new Bid ();
+		bid.setAmmount(400);
+		bid.setBidder(BasketSession.getUser());
+		bid.setDay(1);
+		bid.setHour(5);
+		bid.setMinute(56);
+		bid.setMonth(5);
+		bid.setYear(2013);
+		bidsOnProduct.add(bid);
+		bidsOnProduct.add(bid);
 		
 		
 		
