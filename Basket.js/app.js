@@ -225,7 +225,31 @@ app.post('/Basket.js/NewBasket', function(req,res)
 	u.baskets.push(req.body);
 	res.json(true);
 });
-
+//Remove a basket
+app.post('/Basket.js/RemoveBasket', function(req,res)
+{
+	console.log("Here");
+	var u =users["lukesionkira@hotmail.com"];
+	var index = u.baskets.indexOf(req.body);
+	u.baskets.splice(index, 1);
+	res.json(true);
+});
+//Create a sell bid event
+app.post('/Basket.js/NewBidSell', function(req,res)
+{
+	console.log("Created buy event");
+	var u =users["lukesionkira@hotmail.com"];
+	u.currentlySellingOnBid.push(req.body);
+	res.json(true);
+});
+//Create a sell buy event
+app.post('/Basket.js/NewBuySell', function(req,res)
+{
+	console.log("Created bid event");
+	var u =users["lukesionkira@hotmail.com"];
+	u.currentlySellingOnBuy.push(req.body);
+	res.json(true);
+});
 //Example report
 var exReport = new Report(2,05,1992,"sales", 150,25000);
 
@@ -302,7 +326,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 							"billingAdress":userAccount.billingAdress,
 							"shippingAdress":userAccount.shippingAdress,
 							"baskets": userAccount.baskets,
-							"ceditCards":userAccount.creditCards,
+							"creditCards":userAccount.creditCards,
 							"currentlyBiddingOn":userAccount.currentlyBiddingOn,
 							"currentlySellingOnBid":userAccount.currentlySellingOnBid,
 							"currentlySellingOnBuy":userAccount.currentlySellingOnBuy,

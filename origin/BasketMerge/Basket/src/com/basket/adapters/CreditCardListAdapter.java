@@ -26,7 +26,7 @@ public class CreditCardListAdapter extends ArrayAdapter<CreditCard>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.creditcard_view, null);
 			
 		}
-		CreditCard currentCC = this.getItem(pos);	
+		//CreditCard currentCC = this.getItem(pos);	
 		return convertView;
 		
 	}

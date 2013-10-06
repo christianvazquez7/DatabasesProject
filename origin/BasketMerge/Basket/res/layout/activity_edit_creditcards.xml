@@ -3,22 +3,21 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wood2"
+    android:background="@drawable/wood4"
     android:orientation="vertical" >
-
-    <ListView
-        android:id="@+id/lvCCEditList"
+	
+    <FrameLayout 
+        android:id="@+id/lvCCEditListContainer"
         android:layout_width="match_parent"
-        android:layout_height="178dp"
-        android:layout_weight="1" >
+        android:layout_height="0dp"
+        android:layout_weight="1" ></FrameLayout>
 
-    </ListView>
 
     <Button
         android:id="@+id/bCCEditSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/lvCCEditList"
+        android:layout_above="@id/lvCCEditListContainer"
         android:text="Add New Credit Card" />
 
 </LinearLayout>

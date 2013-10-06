@@ -52,32 +52,32 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
         TextView item = (TextView) convertView.findViewById(R.id.laptop);
  
-        ImageView delete = (ImageView) convertView.findViewById(R.id.delete);
-        delete.setOnClickListener(new OnClickListener() {
- 
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to remove?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                List<String> child =
-                                    laptopCollections.get(laptops.get(groupPosition));
-                                child.remove(childPosition);
-                                notifyDataSetChanged();
-                            }
-                        });
-                builder.setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
+//        ImageView delete = (ImageView) convertView.findViewById(R.id.delete);
+//        delete.setOnClickListener(new OnClickListener() {
+// 
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                builder.setMessage("Do you want to remove?");
+//                builder.setCancelable(false);
+//                builder.setPositiveButton("Yes",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                List<String> child =
+//                                    laptopCollections.get(laptops.get(groupPosition));
+//                                child.remove(childPosition);
+//                                notifyDataSetChanged();
+//                            }
+//                        });
+//                builder.setNegativeButton("No",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//                AlertDialog alertDialog = builder.create();
+//                alertDialog.show();
+//            }
+//        });
  
         item.setText(laptop);
         return convertView;

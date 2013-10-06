@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.basket.containers.AdminSession;
+import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
 import com.basket.general.CreditCard;
 import com.basket.general.User;
@@ -32,11 +33,11 @@ public class EditSingleCCActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		//TODO layout
-		setContentView(R.layout.activity_edit_single_sa);
+		setContentView(R.layout.activity_edit_single_cc);
 		selectedUser = this.getIntent().getIntExtra("selectedUser", 0);
 		selectedCreditCard = this.getIntent().getIntExtra("selectedCreditCard", 0);
 		
-		theUser = AdminSession.getEditUsers().get(selectedUser);
+		theUser = BasketSession.getUser();
 		theCreditCard = theUser.getCreditCards().get(selectedCreditCard);
 		theAddress = theCreditCard.getBilling();
 		
@@ -64,7 +65,7 @@ public class EditSingleCCActivity extends Activity {
 		mCountry = (EditText) findViewById(R.id.etCountrySingleBA);
 		mCountry.setText(theAddress.getCountry());
 		
-		mSaveButton = (Button) findViewById(R.id.bSaveSingleSA);
+		mSaveButton = (Button) findViewById(R.id.bSaveSingleCC);
 		mSaveButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -85,16 +86,17 @@ public class EditSingleCCActivity extends Activity {
 				theCreditCard.setExpYear(Integer.parseInt(mCCExpYear.getText().toString()));
 				
 				theUser.getCreditCards().set(selectedCreditCard, theCreditCard);
+				finish();
 			}
 		});
 		
-		mCancelButton =  (Button) findViewById(R.id.bCancelSingleSA);
+		mCancelButton =  (Button) findViewById(R.id.bCancelSingleCC);
 		mCancelButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO go to previous activity
-				
+				EditSingleCCActivity.this.finish();
 			}
 		});
 		

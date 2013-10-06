@@ -24,6 +24,7 @@ import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
 import com.basket.lists.ProductsInBuyBasketsList;
 import com.basket.restrequest.NewBasketRequest;
+import com.basket.restrequest.RemoveBasketRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -41,6 +42,8 @@ public class BasketActivity extends FragmentActivity {
 	public static ViewPager currentPagePager;
 	private final int addId = Menu.FIRST;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	private ProductBasket temp;
+	private int currentItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,15 @@ public class BasketActivity extends FragmentActivity {
 			alert.show();
 
 			return true;
+		case addId+1:
+			currentItem = pager.getCurrentItem();
+			temp = 	BasketSession.getUser().getBaskets().get(currentItem);
+			BasketSession.getUser().getBaskets().remove(currentItem);
+			spiceManager.start(BasketActivity.this);					
+			RemoveBasketRequest JsonSpringAndroidRequest = new RemoveBasketRequest(temp);
+			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
+			pager.getAdapter().notifyDataSetChanged();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -131,6 +143,7 @@ public class BasketActivity extends FragmentActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 
 		menu.add(group1Id, addId, addId, "Add Basket").setIcon(R.drawable.plus_sign);
+		menu.add(group1Id, addId+1,addId+1, "Delete Basket").setIcon(R.drawable.red_x_clipped_rev_1);
 		getMenuInflater().inflate(R.menu.user_baskets, menu);
 		return super.onCreateOptionsMenu(menu); 
 	}
@@ -145,6 +158,36 @@ public class BasketActivity extends FragmentActivity {
 				Toast.makeText(BasketActivity.this, "Basket could not be created", Toast.LENGTH_SHORT).show();
 			}
 			BasketSession.getUser().getBaskets().remove(BasketSession.getUser().getBaskets().size()-1);
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bool) 
+		{
+
+			
+			spiceManager.shouldStop();
+			Toast.makeText(BasketActivity.this, "Basket Created", Toast.LENGTH_SHORT).show();
+				
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+		
+		}
+	}
+	private class DeleteBasketListener implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+			
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+				
+				Toast.makeText(BasketActivity.this, "Basket could not be removed", Toast.LENGTH_SHORT).show();
+			}
+			BasketSession.getUser().getBaskets().add(currentItem, temp);
 			spiceManager.shouldStop();
 		}
 

@@ -12,8 +12,7 @@ public class CreditCard
 	
 	public CreditCard(){};
 
-	public CreditCard(String nameOnCard, Adress billingAddress, long cardNumber,
-			int expYear, int expDate) {
+	public CreditCard(String nameOnCard, Adress billingAddress, long cardNumber, int expYear, int expDate) {
 		this.name = nameOnCard;
 		this.billing = billingAddress;
 		this.cardNum = cardNumber;

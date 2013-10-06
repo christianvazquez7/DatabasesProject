@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,11 +21,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.basket.containers.AdminSession;
+import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
 import com.basket.general.User;
+import com.basket.lists.EditShippingAddressListFragment;
+import com.basket.lists.ShippingAddressListFragment;
 import com.example.basket.R;
 
-public class EditSAddressesActivity extends Activity {
+public class EditSAddressesActivity extends FragmentActivity {
 
 	private ListView mSAListView;
 
@@ -38,37 +43,22 @@ public class EditSAddressesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_creditcards);
+		setContentView(R.layout.activity_edit_saddresses);
 
 		user = this.getIntent().getIntExtra("selectedUser", 0);
-		theUser = AdminSession.getEditUsers().get(user);
+		theUser = BasketSession.getUser();
+		
+		
+		shipAddresses = (theUser.getShippingAdress() == null) ? new ArrayList<Adress>(): theUser.getShippingAdress();
 
-		shipAddresses = (theUser.getShippingAdress() == null) ? new ArrayList<Adress>()
-				: theUser.getShippingAdress();
-
-		mSAListView = (ListView) findViewById(R.id.lvCCEditList);
-		final StableArrayAdapter adapter = new StableArrayAdapter(this,
-				R.layout.shippingaddress_view, shipAddresses);
-		mSAListView.setAdapter(adapter);
-		mSAListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-				final Adress item = (Adress) parent.getItemAtPosition(position);
-				final int selectedAdd = position;
-				view.animate().setDuration(2000).alpha(0).withEndAction(new Runnable() {
-					@Override
-					public void run() {
-						Intent newIntent = new Intent(EditSAddressesActivity.this, EditSingleSAActivity.class);
-						newIntent.putExtra("selectedUser", user);
-						newIntent.putExtra("selectedShipAdd", selectedAdd);
-						startActivity(newIntent);
-					}
-				});
-			}
-
-		});
-		//TODO change id to bSAEditSave
+		FragmentManager fm = this.getSupportFragmentManager();
+		EditShippingAddressListFragment lf = (EditShippingAddressListFragment) fm.findFragmentById(R.id.lvSAEditList);
+		if(lf == null){
+			lf = new EditShippingAddressListFragment();
+			fm.beginTransaction().add(R.id.lvSAEditList, lf).commit();
+		}
+		
+		
 		mSASaveButton = (Button) findViewById(R.id.bSAEditSave);
 		mSASaveButton.setOnClickListener(new OnClickListener() {
 
@@ -101,28 +91,5 @@ public class EditSAddressesActivity extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	private class StableArrayAdapter extends ArrayAdapter<Adress> {
-
-		HashMap<Adress, Integer> mIdMap = new HashMap<Adress, Integer>();
-
-		public StableArrayAdapter(Context context, int textViewResourceId,
-				List<Adress> objects) {
-			super(context, textViewResourceId, objects);
-			for (int i = 0; i < objects.size(); ++i) {
-				mIdMap.put(objects.get(i), i);
-			}
-		}
-
-		@Override
-		public long getItemId(int position) {
-			Adress item = getItem(position);
-			return mIdMap.get(item);
-		}
-
-		@Override
-		public boolean hasStableIds() {
-			return true;
-		}
-
-	}
+	
 }

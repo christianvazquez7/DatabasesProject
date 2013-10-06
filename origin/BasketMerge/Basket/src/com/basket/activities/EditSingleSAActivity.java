@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.basket.containers.AdminSession;
+import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
 import com.basket.general.User;
 import com.example.basket.R;
@@ -33,7 +34,7 @@ public class EditSingleSAActivity extends Activity {
 		selectedUser = this.getIntent().getIntExtra("selectedUser", 0);
 		selectedShipAdd = this.getIntent().getIntExtra("selectedShipAdd", 0);
 		
-		theUser = AdminSession.getEditUsers().get(selectedUser);
+		theUser = BasketSession.getUser();
 		theAddress = theUser.getShippingAdress().get(selectedShipAdd);
 		
 		mLine1 = (EditText) findViewById(R.id.etLine1SingleSA);
@@ -71,7 +72,7 @@ public class EditSingleSAActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO go to previous activity
-				
+				finish();
 			}
 		});
 		

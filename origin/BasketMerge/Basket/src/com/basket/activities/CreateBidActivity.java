@@ -2,6 +2,7 @@ package com.basket.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +13,15 @@ import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Product;
+import com.basket.restrequest.NewBidSellEventRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class CreateBidActivity extends Activity {
 	private EditText prodName, prodPrice, stopDate, prodFeat, prodDescription, prodW, prodH, prodD, prodMan;
@@ -32,20 +40,20 @@ public class CreateBidActivity extends Activity {
 		prodH = (EditText) findViewById(R.id.buyEventProductHeight);
 		prodD = (EditText) findViewById(R.id.buyEventProductDepth);
 		prodMan = (EditText) findViewById(R.id.buyEventProductManufacturer);
-		
+
 		final BidEvent newBidEvent = new BidEvent();
 		final Product prod = new Product();
-		
+
 		mCreateBuyEventButton= (Button) findViewById(R.id.createBuyEvent);
 		mCreateBuyEventButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				prod.setManufacturer(prodMan.getText().toString());
 				try{
-				prod.setDepth(Integer.parseInt(prodD.getText().toString()));
-				prod.setWidth(Integer.parseInt(prodW.getText().toString()));
-				prod.setHeight(Integer.parseInt(prodH.getText().toString()));
+					prod.setDepth(Integer.parseInt(prodD.getText().toString()));
+					prod.setWidth(Integer.parseInt(prodW.getText().toString()));
+					prod.setHeight(Integer.parseInt(prodH.getText().toString()));
 				}
 				catch (NumberFormatException e){
 					Toast.makeText(CreateBidActivity.this, "Wrong input on dimensions make sure its a number", Toast.LENGTH_LONG);
@@ -55,15 +63,19 @@ public class CreateBidActivity extends Activity {
 				newBidEvent.setDescription(prodDescription.getText().toString());
 				newBidEvent.setFeatures(prodFeat.getText().toString());
 				newBidEvent.setMinBid(Double.parseDouble(prodPrice.getText().toString()));
-				
-				
+
+
 				BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);
 				Toast.makeText(CreateBidActivity.this, "Added to sell", Toast.LENGTH_LONG);
-				CreateBidActivity.this.finish();
+
+				spiceManager.start(CreateBidActivity.this);					
+				NewBidSellEventRequest JsonSpringAndroidRequest = new NewBidSellEventRequest(newBidEvent);
+				spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBidEventSellListner());
+				
 			}
 		});
-		
-		
+
+
 	}
 
 	@Override
@@ -72,5 +84,34 @@ public class CreateBidActivity extends Activity {
 		getMenuInflater().inflate(R.menu.create_bid, menu);
 		return true;
 	}
+	private class NewBidEventSellListner implements RequestListener<Boolean>, RequestProgressListener {
 
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(CreateBidActivity.this, "Could not put item to bid sale", Toast.LENGTH_SHORT).show();
+			}
+			BasketSession.getUser().getCurrentlySellingOnBid().remove(BasketSession.getUser().getCurrentlySellingOnBid().size()-1);
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bool) 
+		{
+
+
+			spiceManager.shouldStop();
+			Toast.makeText(CreateBidActivity.this, "Successfully created bid sale", Toast.LENGTH_SHORT).show();
+
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+	}
 }

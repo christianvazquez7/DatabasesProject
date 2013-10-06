@@ -55,39 +55,32 @@ public class FaqActivity extends Activity {
 
 	private void createGroupList() {
 		groupList = new ArrayList<String>();
-		groupList.add("HP");
-		groupList.add("Dell");
-		groupList.add("Lenovo");
-		groupList.add("Sony");
-		groupList.add("HCL");
-		groupList.add("Samsung");
+		groupList.add("How to checkout");
+		groupList.add("How to make a new basket");
+		groupList.add("How to view categories");
+		groupList.add("How to add to basket");
+		groupList.add("How to access admin settings");
 	}
 
 	private void createCollection() {
 		// preparing laptops collection(child)
-		String[] hpModels = { "HP Pavilion G6-2014TX", "ProBook HP 4540",
-		"HP Envy 4-1025TX" };
-		String[] hclModels = { "HCL S2101", "HCL L2102", "HCL V2002" };
-		String[] lenovoModels = { "IdeaPad Z Series", "Essential G Series",
-				"ThinkPad X Series", "Ideapad Z Series" };
-		String[] sonyModels = { "VAIO E Series", "VAIO Z Series",
-				"VAIO S Series", "VAIO YB Series" };
-		String[] dellModels = { "Inspiron", "Vostro", "XPS" };
-		String[] samsungModels = { "NP Series", "Series 5", "SF Series" };
+		String[] hpModels = { "In your basket press checkout and then the checkout button." };
+		String[] hclModels = { "Admin settings are only available to administrators" };
+		String[] lenovoModels = { "On the home page swipe left" };
+		String[] sonyModels = { "In the baskets page press the menu button" };
+		String[] dellModels = { "Press add to basket in product page" };
 
 		laptopCollection = new LinkedHashMap<String, List<String>>();
 
 		for (String laptop : groupList) {
-			if (laptop.equals("HP")) {
+			if (laptop.equals("How to checkout")) {
 				loadChild(hpModels);
-			} else if (laptop.equals("Dell"))
+			} else if (laptop.equals("How to add to basket"))
 				loadChild(dellModels);
-			else if (laptop.equals("Sony"))
+			else if (laptop.equals("How to make a new basket"))
 				loadChild(sonyModels);
-			else if (laptop.equals("HCL"))
+			else if (laptop.equals("How to access admin settings"))
 				loadChild(hclModels);
-			else if (laptop.equals("Samsung"))
-				loadChild(samsungModels);
 			else
 				loadChild(lenovoModels);
 

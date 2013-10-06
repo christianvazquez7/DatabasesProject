@@ -12,13 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.basket.activities.BidWinActivity;
 import com.basket.activities.BidsOnProductActivity;
 import com.basket.adapters.ProductInMyShopBidAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.restrequest.UpdateBidRequest;
-import com.example.basket.BidWinActivity;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;

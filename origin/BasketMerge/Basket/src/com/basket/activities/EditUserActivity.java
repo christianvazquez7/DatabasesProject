@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.AdminSession;
+import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
 import com.basket.restrequest.DeleteUserRequest;
@@ -40,7 +41,7 @@ public class EditUserActivity extends Activity {
 		setContentView(R.layout.activity_user_edit);
 		
 		user = this.getIntent().getIntExtra("selectedUser", 0);
-		theUser = AdminSession.getEditUsers().get(user);
+		theUser = BasketSession.getUser();
 		
 		buffPass = theUser.getPassword();
 		buffEmail = theUser.getEmail();

@@ -58,6 +58,8 @@ public class MyShopActivity extends FragmentActivity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		
+		//Error aqui
 		this.mTabsAdapter.notifyDataSetChanged();
 		
 	}
