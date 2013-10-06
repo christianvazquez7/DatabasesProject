@@ -77,10 +77,10 @@
 
     <ImageView
         android:id="@+id/removeButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/ratingBar1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/price"
         android:src="@drawable/red_x_clipped_rev_1" />
    
 </RelativeLayout>
