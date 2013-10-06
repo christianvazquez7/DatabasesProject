@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import android.util.Log;
 
+import com.basket.general.BasketConstants;
 import com.basket.general.User;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
@@ -17,7 +18,7 @@ public class UserRequest extends SpringAndroidSpiceRequest<User> {
 	@Override
 	public User loadDataFromNetwork() throws Exception {
 		
-		String url = "http://10.0.2.2:3412/Basket.js/User/";
+		String url = BasketConstants.externalIp+"/Basket.js/User/";
 		url+=em+"/"+pas;
 		
 		Log.d( "request", "loading from network" );

@@ -53,16 +53,25 @@ public class EditCreditCardsActivity extends FragmentActivity {
 			supportMan.beginTransaction().add(R.id.lvCCEditListContainer, cclist).commit();
 		}
 
-		mCCSaveButton = (Button) findViewById(R.id.bCCEditSave);
+		mCCSaveButton = (Button) findViewById(R.id.addCreditCardButton);
 		mCCSaveButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				theUser.setCreditCards(creditCards);
-
+				creditCards.add(new CreditCard());
+				Intent newIntent = new Intent(EditCreditCardsActivity.this, EditSingleCCActivity.class);
+				newIntent.putExtra("selectedUser", EditCreditCardsActivity.this.getIntent().getIntExtra("selectedUser", 0));
+				newIntent.putExtra("selectedCreditCard", creditCards.size()-1);
+				newIntent.putExtra("createdNewCard", true);
+				startActivity(newIntent);
 			}
 		});
 	}
-
 	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		if(cclist != null){
+			((ArrayAdapter<CreditCard>)cclist.getListAdapter()).notifyDataSetChanged();
+		}
+	}
 }

@@ -38,7 +38,7 @@ public class EditUserActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_user_edit);
+		setContentView(R.layout.activity_edit_profile);
 		
 		user = this.getIntent().getIntExtra("selectedUser", 0);
 		theUser = BasketSession.getUser();
@@ -126,20 +126,14 @@ public class EditUserActivity extends Activity {
 			}
 		});
 		
-		Button deleteAccount = (Button) this.findViewById(R.id.delete_account);
+		Button deleteAccount = (Button) this.findViewById(R.id.doneButton);
 		deleteAccount.setOnClickListener(new OnClickListener()
 		{
 
 
 			public void onClick(View arg0) 
 			{
-				if (!spiceManager.isStarted())
-				{
-					spiceManager.start(EditUserActivity.this);
-					DeleteUserRequest JsonSpringAndroidRequest = new DeleteUserRequest(user);
-					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserDeleteListener());
-				}
-
+				finish();
 			}
 
 		});
@@ -190,35 +184,5 @@ public class EditUserActivity extends Activity {
 		}
 	}
 
-	private class UserDeleteListener implements RequestListener<Boolean>, RequestProgressListener {
-
-		@Override
-		public void onRequestFailure(SpiceException arg0) {
-
-			Log.d("error",arg0.getMessage());
-			if (!(arg0 instanceof RequestCancelledException)) {
-
-				Toast.makeText(EditUserActivity.this, "Delete Unsuccesful", Toast.LENGTH_SHORT).show();
-			}
-			spiceManager.shouldStop();
-		}
-
-		@Override
-		public void onRequestSuccess(Boolean edit) {
-			spiceManager.shouldStop();
-			AdminSession.getEditUsers().remove(user);
-			//				Intent back = new Intent(UserEditActivity.this,SearchAccountActivity.class);
-			//				startActivity(back);
-			finish();
-		}
-
-		@Override
-		public void onRequestProgressUpdate(RequestProgress arg0) 
-		{
-
-		}
-
-
-
-	}
+	
 }

@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import java.util.List;
 
+import com.basket.general.BasketConstants;
 import com.basket.general.UserList;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
@@ -16,7 +17,7 @@ public class AccountRequestForAdmin extends SpringAndroidSpiceRequest<UserList> 
 	@Override
 	public UserList loadDataFromNetwork() throws Exception {
 		
-		String url = "http://10.0.2.2:3412/Basket.js/AdminSearch/beta";
+		String url = BasketConstants.externalIp+"/Basket.js/AdminSearch/beta";
 		url+=un;
 		return getRestTemplate().getForObject(url, UserList.class);
 	}
