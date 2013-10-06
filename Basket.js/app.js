@@ -340,7 +340,6 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 //Push things
 
 var gcm = require('node-gcm');
-
 // or with object values
 var message = new gcm.Message({
     collapseKey: 'demo',
