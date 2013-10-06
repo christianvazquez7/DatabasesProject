@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import android.util.Log;
 
+import com.basket.general.BasketConstants;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.ProductBasket;
@@ -23,7 +24,7 @@ public class NewBuySellEventRequest extends SpringAndroidSpiceRequest<Boolean> {
 	public Boolean loadDataFromNetwork() throws Exception 
 	{
 		
-		String url = "http://10.0.2.2:3412/Basket.js/NewBuySell";
+		String url = BasketConstants.externalIp+"/Basket.js/NewBuySell";
 		
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().postForObject(url,buySellProduct,Boolean.class);

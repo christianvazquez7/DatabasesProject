@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import android.util.Log;
 
+import com.basket.general.BasketConstants;
 import com.basket.general.ProductBasket;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
@@ -21,7 +22,7 @@ public class UpdateBasketRequest extends SpringAndroidSpiceRequest<Boolean> {
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception {
 		
-		String url = "http://10.0.2.2:3412/Basket.js/UpdateBasket/";
+		String url = BasketConstants.externalIp+"/Basket.js/UpdateBasket/";
 		url+=position;
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().put(url, basket);

@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import android.util.Log;
 
+import com.basket.general.BasketConstants;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 public class DeleteUserRequest extends SpringAndroidSpiceRequest<Boolean> {
@@ -17,7 +18,7 @@ public class DeleteUserRequest extends SpringAndroidSpiceRequest<Boolean> {
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception {
 		
-		String url = "http://10.0.2.2:3412/Basket.js/UserDelete/";
+		String url = BasketConstants.externalIp+"/Basket.js/UserDelete/";
 		url+=loc;
 		
 		Log.d( "request", "loading from network" );

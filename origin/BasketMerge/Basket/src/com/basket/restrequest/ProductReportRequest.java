@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import android.util.Log;
 
+import com.basket.general.BasketConstants;
 import com.basket.general.Report;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
@@ -25,7 +26,7 @@ public class ProductReportRequest extends SpringAndroidSpiceRequest<Report>
 	public Report loadDataFromNetwork() throws Exception 
 	{
 		
-		String url = "http://10.0.2.2:3412/Basket.js/ProductReport/";
+		String url = BasketConstants.externalIp+"/Basket.js/ProductReport/";
 		url+=day+"/"+month+"/"+ year+"/"+type;
 		Log.d( "request", "loading from network" );
 		return getRestTemplate().getForObject(url, Report.class);
