@@ -2,12 +2,9 @@ package com.basket.activities;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -15,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
@@ -31,6 +29,9 @@ public class MyShopActivity extends FragmentActivity {
 	private PopupWindow mpopup;
 	private Button createBid, createBuy;
 	private AlertDialog alert;
+	private SellingBuyItemsListView sellingBuy;
+	private SellingBidItemsListView sellingBid;
+	private BiddingItemsListView bidding;
 	
 
 	@Override
@@ -53,15 +54,33 @@ public class MyShopActivity extends FragmentActivity {
 		mTabsAdapter.addTab(bar.newTab().setText("Bidding Items"), BiddingItemsListView.class, null);
 		mTabsAdapter.addTab(bar.newTab().setText("Selling Bid Items"), SellingBidItemsListView.class, null);
 		mTabsAdapter.addTab(bar.newTab().setText("Selling Buy Now Items"), SellingBuyItemsListView.class, null);
+		bidding =(BiddingItemsListView) mTabsAdapter.getItem(0);
+		sellingBid =(SellingBidItemsListView) mTabsAdapter.getItem(1);
+		sellingBuy =(SellingBuyItemsListView) mTabsAdapter.getItem(2);
+
 
 	}
 	@Override
-	protected void onResume(){
+	protected void onResume()
+	{
 		super.onResume();
+
+		bidding =(BiddingItemsListView) mTabsAdapter.getItem(0);
+		sellingBid =(SellingBidItemsListView) mTabsAdapter.getItem(1);
+		sellingBuy =(SellingBuyItemsListView) mTabsAdapter.getItem(2);
+
+		ArrayAdapter a =((ArrayAdapter)sellingBid.getListAdapter());
+		if (a!=null)
+		a.notifyDataSetChanged();
+		ArrayAdapter b =((ArrayAdapter)sellingBuy.getListAdapter());
+		if (b!=null)
+			b.notifyDataSetChanged();
+		ArrayAdapter c =((ArrayAdapter)bidding.getListAdapter());
+		if (c!=null)
+		c.notifyDataSetChanged();
 		
-		//Error aqui
-		this.mTabsAdapter.notifyDataSetChanged();
-		
+		mTabsAdapter.notifyDataSetChanged();
+
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,6 +117,9 @@ public class MyShopActivity extends FragmentActivity {
 				public void onClick(View v) {
 					Intent i = new Intent(MyShopActivity.this,CreateBuyActivity.class);
 					startActivityForResult(i, 1);
+					ArrayAdapter b =((ArrayAdapter)sellingBuy.getListAdapter());
+					if (b!=null)
+						b.notifyDataSetChanged();
 					alert.dismiss();
 
 

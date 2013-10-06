@@ -8,6 +8,7 @@ import android.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.basket.activities.BidsOnProductActivity;
@@ -30,6 +31,19 @@ public class SellingBuyItemsListView extends ListFragment{
 //		Intent i = new Intent(this.getActivity(),BidsOnProductActivity.class);
 //		i.putExtra("itemClicked", pos);
 //		startActivity(i);
+	}
+	public void onResume()
+	{
+		super.onResume();
+		
+
+		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
+		if (a!=null)
+		a.notifyDataSetChanged();
+		
+		
+	
+
 	}
 
 }

@@ -1,9 +1,8 @@
-
 /**
  * Module dependencies.
  */
-
 var express = require('express');
+
 var app = express();
 var roduct = require("./Product.js");
 var product = roduct.product;
@@ -74,12 +73,12 @@ var userList = new Array(
 		new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
 		new User ("Wu@hotmail.com","Wuuu","Wuuuuuu",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList)
 );
+users["admin"]=new User ("pedro.colon4@upr.edu","blabla","potatoes",billingList,shippingList,baskets,buyEvents,bidEvents,buyEvents, creditCardList,orderList),
 
 users["lukesionkira@hotmail.com"]= new User ("lukesionkira@hotmail.com","chris","qwerty",billingList,shippingList,baskets,withbid,bidEvents,buyEvents, creditCardList,orderList);
 
 var  randId=1000;
 var reviews = new Array();
-
 var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
 		- 6 GB DDR3 \
 		- 17.3-Inch Screen \
@@ -252,8 +251,6 @@ app.post('/Basket.js/NewBuySell', function(req,res)
 });
 //Example report
 var exReport = new Report(2,05,1992,"sales", 150,25000);
-
-
 app.get('/Basket.js/Report/:day/:month/:year/:type',function(req,res)
 	{
 	var response = 
@@ -339,3 +336,4 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		}	
 	}
 });
+

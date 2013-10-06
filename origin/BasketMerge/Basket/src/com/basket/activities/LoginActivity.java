@@ -139,7 +139,10 @@ public class LoginActivity extends Activity {
 			spiceManager.shouldStop();
 			Log.d("try",User.toString());
 			BasketSession.beginSession(User);
-			Intent intent = new Intent(LoginActivity.this,FrontPageActivity.class);
+			Intent intent;
+			intent = new Intent(LoginActivity.this,HomePageActivity.class);
+			if (User.getUsername().equals("blabla"))
+				intent = new Intent(LoginActivity.this,AdminPageActivity.class);
 			startActivity(intent);
 		}
 

@@ -78,6 +78,8 @@ public class CreateBuyActivity extends Activity {
 				NewBuySellEventRequest JsonSpringAndroidRequest = new NewBuySellEventRequest(newBuyEvent);
 				spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBuyEventSellListner());
 
+				
+				CreateBuyActivity.this.finish();
 			}
 		});
 	}
