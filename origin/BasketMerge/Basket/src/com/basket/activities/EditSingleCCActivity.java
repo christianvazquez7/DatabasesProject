@@ -40,6 +40,7 @@ public class EditSingleCCActivity extends Activity {
 
 		theUser = BasketSession.getUser();
 		theCreditCard = theUser.getCreditCards().get(selectedCreditCard);
+		
 		theAddress = theCreditCard.getBilling();
 		if(EditSingleCCActivity.this.getIntent().getBooleanExtra("createdNewCard", false)){
 			theAddress = new Adress();
@@ -86,33 +87,26 @@ public class EditSingleCCActivity extends Activity {
 		mSaveButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				// TODO Go to previous activity
-				
+			public void onClick(View v) {				
 				try{
 					theAddress.setLine1(mLine1.getText().toString());
 					theAddress.setLine2(mLine2.getText().toString());
 					theAddress.setCity(mCity.getText().toString());
 					theAddress.setState(mState.getText().toString());
 					theAddress.setZipCode(Integer.parseInt(mZipcode.getText().toString()));
-
-
-
 					theAddress.setCountry(mCountry.getText().toString());
-
 					theCreditCard.setName(mCCName.getText().toString());
-
 					theCreditCard.setCardNum(Long.parseLong(mCCNumber.getText().toString()));
-
 					theCreditCard.setSecCode(Integer.parseInt(mCCSecCode.getText().toString()));
 					theCreditCard.setExpDay(Integer.parseInt(mCCExpMonth.getText().toString()));
 					theCreditCard.setExpYear(Integer.parseInt(mCCExpYear.getText().toString()));
 					theCreditCard.setBilling(theAddress);
 					theUser.getCreditCards().set(selectedCreditCard, theCreditCard);
+					Toast.makeText(EditSingleCCActivity.this, "Added credit card", Toast.LENGTH_SHORT).show();
 					finish();
 				}
 				catch(NumberFormatException e){
-					Toast.makeText(EditSingleCCActivity.this, "Problem with seccode or exp month or exp year or cardnum", Toast.LENGTH_SHORT);
+					Toast.makeText(EditSingleCCActivity.this, "Problem with seccode or exp month or exp year or cardnum", Toast.LENGTH_SHORT).show();;
 				}
 
 			}

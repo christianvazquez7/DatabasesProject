@@ -1,29 +1,19 @@
 package com.basket.activities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
-import com.basket.adapters.CreditCardListAdapter;
-import com.basket.containers.AdminSession;
 import com.basket.containers.BasketSession;
 import com.basket.general.CreditCard;
 import com.basket.general.User;
-import com.basket.lists.CreditCardListFragment;
 import com.basket.lists.EditCreditCardListFragment;
 import com.example.basket.R;
 
@@ -32,18 +22,14 @@ public class EditCreditCardsActivity extends FragmentActivity {
 	private EditCreditCardListFragment cclist;
 	private Button mCCSaveButton;
 	private User theUser;
-
 	private ArrayList<CreditCard> creditCards;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_creditcards);
 
 		theUser = BasketSession.getUser();
-
 		creditCards = theUser.getCreditCards();
 
 		FragmentManager supportMan = this.getSupportFragmentManager();
