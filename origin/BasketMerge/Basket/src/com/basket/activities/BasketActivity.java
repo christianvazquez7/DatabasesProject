@@ -3,6 +3,7 @@ package com.basket.activities;
 import java.util.ArrayList;
 
 import android.R.color;
+import android.animation.LayoutTransition;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog.Builder;
@@ -15,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -75,6 +77,7 @@ public class BasketActivity extends FragmentActivity {
 			
 			
 		}
+		
 		currentPagePager = pager;
 	}
 	@Override
