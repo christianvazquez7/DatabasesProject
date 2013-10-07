@@ -4,7 +4,7 @@
 var express = require('express');
 
 var app = express();
-var roduct = require("./Product.js");
+var roduct = require("./product.js");
 var product = roduct.product;
 
 var orderJS= require("./order.js");
