@@ -118,6 +118,9 @@ public class HomePageActivity extends Activity {
 		if (checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
+            spiceManager.start(HomePageActivity.this);
+    		RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
+    		spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
 
             if (regid.length() == 0) {
                 registerInBackground();

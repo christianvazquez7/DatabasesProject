@@ -162,17 +162,17 @@ app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 //Register Device
 app.put('/Basket.js/RegisterDevice/:id',function(req,res){
 	console.log("Registering device");
-	console.log(id);
+	console.log(req.params.id);
 	var found = false;
 	for (var i=0; i<registrationIds.length; i++) {
-		console.log(registrationIds[i].localeCompare(id));
-		if(registrationIds[i].localeCompare(id)){
+		console.log(registrationIds[i].localeCompare(req.params.id));
+		if(registrationIds[i].localeCompare(req.params.id)){
 			console.log("Found");
 			found = true;
 		}
 	}
 	if(!found){
-		registrationIds.push('APA91bEs805ooHsghZIjy8a9QwjgvsNIBkoXQNMh3IuCEBJAJ6GgparizHQlOO2RUWfPkg7tBkmTkYg2KeuRSJHCmPKAxGm08VeFhCa9gscOgbVmC8NQR47p09yge5Ie-nnqR_sxyxR2Xke9aSQai7PAC15sUod77Q');
+		registrationIds.push(req.params.id);
 	}
 	res.json(true);
 });
