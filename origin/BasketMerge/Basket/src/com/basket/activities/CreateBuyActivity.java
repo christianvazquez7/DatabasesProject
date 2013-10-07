@@ -72,7 +72,6 @@ public class CreateBuyActivity extends Activity {
 				}
 
 				BasketSession.getUser().getCurrentlySellingOnBuy().add(newBuyEvent);
-				Toast.makeText(CreateBuyActivity.this, "Added to sell", Toast.LENGTH_LONG).show();;
 
 				spiceManager.start(CreateBuyActivity.this);					
 				NewBuySellEventRequest JsonSpringAndroidRequest = new NewBuySellEventRequest(newBuyEvent);
@@ -103,7 +102,7 @@ public class CreateBuyActivity extends Activity {
 
 
 			spiceManager.shouldStop();
-			Toast.makeText(CreateBuyActivity.this, "Successfully created bid sale", Toast.LENGTH_SHORT).show();
+			Toast.makeText(CreateBuyActivity.this, "Successfully put product on sale", Toast.LENGTH_SHORT).show();
 
 		}
 

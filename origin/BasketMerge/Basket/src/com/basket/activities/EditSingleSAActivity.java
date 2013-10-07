@@ -70,7 +70,7 @@ public class EditSingleSAActivity extends Activity {
 					theAddress.setZipCode(Integer.parseInt(mZipcode.getText().toString()));
 					theAddress.setCountry(mCountry.getText().toString());
 					theUser.getShippingAdress().set(selectedShipAdd, theAddress);
-					Toast.makeText(EditSingleSAActivity.this, "Added address", Toast.LENGTH_SHORT).show();;
+					//Toast.makeText(EditSingleSAActivity.this, "Added address", Toast.LENGTH_SHORT).show();;
 					finish();
 				}
 				catch(NumberFormatException e){
@@ -86,7 +86,7 @@ public class EditSingleSAActivity extends Activity {
 			public void onClick(View v) {
 				if(EditSingleSAActivity.this.getIntent().getBooleanExtra("createdNewAddress", false));
 				{
-					BasketSession.getUser().getShippingAdress().remove(selectedShipAdd);
+					BasketSession.getUser().getShippingAdress().remove(theAddress);
 				}
 				EditSingleSAActivity.this.finish();
 			}

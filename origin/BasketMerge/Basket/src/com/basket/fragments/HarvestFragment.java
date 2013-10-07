@@ -34,60 +34,64 @@ public class HarvestFragment extends Fragment
 	Bid newBid;
 	private BidEvent event;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-		      Bundle savedInstanceState) {
-		     view = inflater.inflate(R.layout.harvest_layout,
-		        container, false);
-		    
-		    
-		  event = (BidEvent) BasketSession.getProductSearch().get(this.getActivity().getIntent().getIntExtra("selectedEvent", 0));
-		    TextView seller =(TextView)view.findViewById(R.id.Seller);
-		    seller.setText(event.getCreator().getUsername());
-		    
-		    TextView winningBid =(TextView)view.findViewById(R.id.tvCatTitle);
-		    winningBid.setText(Double.toString(event.getWinning().getAmmount()));
-		    
-		    TextView nextBid =(TextView)view.findViewById(R.id.TextView02);
-		    nextBid.setText(Double.toString(event.getWinning().getAmmount()+event.getMinBid()));
-		    
-		    Button harvest = (Button) view.findViewById(R.id.harvest);
-		    harvest.setOnClickListener(new OnClickListener()
-		    {
+			Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.harvest_layout,
+				container, false);
 
-				
-				public void onClick(View arg0) 
-				{
-					TextView ammountT = (TextView)view.findViewById(R.id.etCategoryPage);
-					double ammount =Double.parseDouble(ammountT.getText().toString());
-					Calendar c = Calendar.getInstance(); 
-					int minute = c.get(Calendar.MINUTE);
-					int hour = c.get(Calendar.HOUR);
-					int day = c.get(Calendar.DAY_OF_MONTH);
-					int month= c.get(Calendar.MONTH);
-					int year = c.get(Calendar.YEAR);
-					 newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser());
-					
+
+		event = (BidEvent) BasketSession.getProductSearch().get(this.getActivity().getIntent().getIntExtra("selectedEvent", 0));
+		TextView seller =(TextView)view.findViewById(R.id.Seller);
+		seller.setText(event.getCreator().getUsername());
+
+		TextView winningBid =(TextView)view.findViewById(R.id.tvCatTitle);
+		winningBid.setText(Double.toString(event.getWinning().getAmmount()));
+
+		TextView nextBid =(TextView)view.findViewById(R.id.TextView02);
+		nextBid.setText(Double.toString(event.getWinning().getAmmount()+event.getMinBid()));
+
+		Button harvest = (Button) view.findViewById(R.id.harvest);
+		harvest.setOnClickListener(new OnClickListener()
+		{
+
+
+			public void onClick(View arg0) 
+			{
+				TextView ammountT = (TextView)view.findViewById(R.id.etCategoryPage);
+				double ammount =Double.parseDouble(ammountT.getText().toString());
+				Calendar c = Calendar.getInstance(); 
+				int minute = c.get(Calendar.MINUTE);
+				int hour = c.get(Calendar.HOUR);
+				int day = c.get(Calendar.DAY_OF_MONTH);
+				int month= c.get(Calendar.MONTH);
+				int year = c.get(Calendar.YEAR);
+				if(ammount<=event.getMinBid()){
+					Toast.makeText(HarvestFragment.this.getActivity(), "Bid needs to be higher than minumum or current", Toast.LENGTH_LONG).show();
+				}
+				else{
+					newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser());
+
 					if (!spiceManager.isStarted())
 					{
 						spiceManager.start(getActivity());
 						BidRequest JsonSpringAndroidRequest = new BidRequest(newBid,event);
 						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BidListener());
 					}
-					
-					
 				}
-		    	
-		    	
-		    });
-		    return view;
-		  }
+
+			}
+
+
+		});
+		return view;
+	}
 	private class BidListener implements RequestListener<Boolean>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
 			}
 			Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
@@ -102,13 +106,13 @@ public class HarvestFragment extends Fragment
 			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
 			spiceManager.shouldStop();
 			Toast.makeText(getActivity(), "Bid Posted", Toast.LENGTH_SHORT).show();
-				
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 	}
 }

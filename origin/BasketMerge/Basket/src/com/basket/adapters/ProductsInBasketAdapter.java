@@ -27,7 +27,11 @@ public class ProductsInBasketAdapter extends ArrayAdapter<BuyEvent>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_mybasket, null);
 			
 		}
-		BuyEvent currentProduct = this.getItem(pos);	
+		BuyEvent currentProduct = this.getItem(pos);
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.supplier)).setText("From "+currentProduct.getProduct().getManufacturer());
+		((TextView)convertView.findViewById(R.id.pricemybasket)).setText(Double.toString(currentProduct.getPrice()));
+		((TextView)convertView.findViewById(R.id.numOfRatings)).setText("("+Integer.toString(currentProduct.getReviews().size())+")");
 		return convertView;
 		
 	}

@@ -70,10 +70,12 @@ public class EditCreditCardsActivity extends FragmentActivity {
 		super.onResume();
 		if(cclist != null){
 			((ArrayAdapter<CreditCard>)cclist.getListAdapter()).notifyDataSetChanged();
+			if(!spiceManager.isStarted())
+			spiceManager.start(EditCreditCardsActivity.this);
+			UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
+			spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
 		}
-		spiceManager.start(EditCreditCardsActivity.this);
-		UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
-		spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
+		
 	}
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
@@ -95,7 +97,7 @@ public class EditCreditCardsActivity extends FragmentActivity {
 		@Override
 		public void onRequestSuccess(Boolean edit) {
 			spiceManager.shouldStop();
-			//Toast.makeText(EditSingleCCActivity.this, "Successfully updated addresses", Toast.LENGTH_SHORT).show();
+			Toast.makeText(EditCreditCardsActivity.this, "Successfully updated credit cards", Toast.LENGTH_SHORT).show();
 
 		}
 

@@ -57,10 +57,10 @@ public class BasketActivity extends FragmentActivity {
 		pager.setBackground(this.getResources().getDrawable(R.drawable.wood_light2));
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-	
+
 		mTabsAdapter = new TabsAdapter(this, pager);
-		
-		
+
+
 		ArrayList<ProductBasket> listofbaskets = BasketSession.getUser().getBaskets();
 
 		//Set up baskets
@@ -69,15 +69,15 @@ public class BasketActivity extends FragmentActivity {
 			ProductsInBuyBasketsList.basketnum=i;
 			Bundle args = new Bundle();
 			args.putInt("pos", i);
-			
+
 			Tab newTab =bar.newTab().setText(listofbaskets.get(i).getName());
-			
+
 			//newTab.getCustomView().setBackgroundColor(Color.BLACK);
 			mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
-			
-			
+
+
 		}
-		
+
 		currentPagePager = pager;
 	}
 	@Override
@@ -100,18 +100,18 @@ public class BasketActivity extends FragmentActivity {
 					{
 						name = "Basket "+mTabsAdapter.getCount();
 					}
-				
+
 					Bundle args = new Bundle();
 					ProductsInBuyBasketsList.basketnum++;
 					args.putInt("pos", ProductsInBuyBasketsList.basketnum);
-					
+
 					final ActionBar bar = getActionBar();
 					//bar.setBackgroundDrawable(Resources.getSystem().getDrawable(R.drawable.layer_gradient));
 					ProductBasket newBasket=new ProductBasket(name);
 					BasketSession.getUser().getBaskets().add(new ProductBasket(name));
 					Tab newTab =bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName());
 					//newTab.getCustomView().setBackgroundColor(color.black);
-					
+
 					mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
 					spiceManager.start(BasketActivity.this);					
 					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket);
@@ -128,14 +128,16 @@ public class BasketActivity extends FragmentActivity {
 
 			return true;
 		case addId+1:
-			currentItem = pager.getCurrentItem();
-			temp = 	BasketSession.getUser().getBaskets().get(currentItem);
-			BasketSession.getUser().getBaskets().remove(currentItem);
-			spiceManager.start(BasketActivity.this);					
-			RemoveBasketRequest JsonSpringAndroidRequest = new RemoveBasketRequest(temp);
-			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
-			pager.getAdapter().notifyDataSetChanged();
-			return true;
+			if(BasketSession.getUser().getBaskets().size()>0){
+				currentItem = pager.getCurrentItem();
+				temp = 	BasketSession.getUser().getBaskets().get(currentItem);
+				BasketSession.getUser().getBaskets().remove(currentItem);
+				spiceManager.start(BasketActivity.this);					
+				RemoveBasketRequest JsonSpringAndroidRequest = new RemoveBasketRequest(temp);
+				spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
+				pager.getAdapter().notifyDataSetChanged();
+			}
+		return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -154,10 +156,10 @@ public class BasketActivity extends FragmentActivity {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(BasketActivity.this, "Basket could not be created", Toast.LENGTH_SHORT).show();
 			}
 			BasketSession.getUser().getBaskets().remove(BasketSession.getUser().getBaskets().size()-1);
@@ -168,26 +170,26 @@ public class BasketActivity extends FragmentActivity {
 		public void onRequestSuccess(Boolean bool) 
 		{
 
-			
+
 			spiceManager.shouldStop();
 			Toast.makeText(BasketActivity.this, "Basket Created", Toast.LENGTH_SHORT).show();
-				
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 	}
 	private class DeleteBasketListener implements RequestListener<Boolean>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(BasketActivity.this, "Basket could not be removed", Toast.LENGTH_SHORT).show();
 			}
 			BasketSession.getUser().getBaskets().add(currentItem, temp);
@@ -198,16 +200,16 @@ public class BasketActivity extends FragmentActivity {
 		public void onRequestSuccess(Boolean bool) 
 		{
 
-			
+
 			spiceManager.shouldStop();
-			Toast.makeText(BasketActivity.this, "Basket Created", Toast.LENGTH_SHORT).show();
-				
+			Toast.makeText(BasketActivity.this, "Basket Deleted", Toast.LENGTH_SHORT).show();
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 	}
 

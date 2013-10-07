@@ -52,7 +52,7 @@
                 android:layout_marginLeft="30dp"
                 android:background="@null"
                 android:ems="10"
-                android:hint="Line 2" />
+                android:hint="Card Number" />
 
             <View
                 android:id="@+id/view1"

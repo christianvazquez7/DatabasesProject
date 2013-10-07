@@ -14,7 +14,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -22,10 +21,11 @@ import android.widget.Toast;
 
 import com.basket.adapters.BasketAdapter;
 import com.basket.containers.BasketSession;
+import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
-import com.basket.restrequest.ProductSearchRequest;
+import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -50,10 +50,26 @@ public class BasketListFragment extends android.app.ListFragment
 //	private Animation centerAni;
 	private int currentPos=0;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	ProductBasket defaultPB;
+	private boolean test = true;
 	public void onCreate(Bundle savedInstance)
 	{
-		foundBaskets= BasketSession.getUser().getBaskets();		
+		foundBaskets= BasketSession.getUser().getBaskets();	
+		if(foundBaskets.size()==0){
+			defaultPB = new ProductBasket();
+			defaultPB.setBidEvents(new ArrayList<BidEvent>());
+			defaultPB.setBuyEvents(new ArrayList<BuyEvent>());
+			defaultPB.setName("Default");
+			if(!spiceManager.isStarted())
+				spiceManager.start(getActivity());					
+			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB);
+			BasketSession.getUser().getBaskets().add(defaultPB);
+			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
+			
+		}
 		super.onCreate(savedInstance);
+		foundBaskets= BasketSession.getUser().getBaskets();	
+
 		getActivity().setTitle("Basket List");
 		BasketAdapter adapter = new BasketAdapter(this.getActivity(),foundBaskets);
 		this.setListAdapter(adapter);
@@ -234,6 +250,7 @@ public class BasketListFragment extends android.app.ListFragment
 			
 			spiceManager.shouldStop();
 			Toast.makeText(getActivity(), "Product Added to Basket", Toast.LENGTH_SHORT).show();
+			
 			getActivity().finish();
 				
 		}
@@ -242,6 +259,37 @@ public class BasketListFragment extends android.app.ListFragment
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
 		
+		}
+	}
+	private class NewBasketListener implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(getActivity(), "Basket could not be created", Toast.LENGTH_SHORT).show();
+			}
+			BasketSession.getUser().getBaskets().remove(BasketSession.getUser().getBaskets().size()-1);
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bool) 
+		{
+
+
+			spiceManager.shouldStop();
+			//BasketSession.getUser().getBaskets().add(defaultPB);
+			Toast.makeText(getActivity(), "Basket Created", Toast.LENGTH_SHORT).show();
+			test = false;
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
 		}
 	}
 }

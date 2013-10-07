@@ -54,23 +54,21 @@ public class CreateBidActivity extends Activity {
 					prod.setDepth(Integer.parseInt(prodD.getText().toString()));
 					prod.setWidth(Integer.parseInt(prodW.getText().toString()));
 					prod.setHeight(Integer.parseInt(prodH.getText().toString()));
+					prod.setName(prodName.getText().toString());
+					newBidEvent.setProduct(prod);
+					newBidEvent.setDescription(prodDescription.getText().toString());
+					newBidEvent.setFeatures(prodFeat.getText().toString());
+					newBidEvent.setMinBid(Double.parseDouble(prodPrice.getText().toString()));
+					
+					BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);
+					
+					spiceManager.start(CreateBidActivity.this);					
+					NewBidSellEventRequest JsonSpringAndroidRequest = new NewBidSellEventRequest(newBidEvent);
+					spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBidEventSellListner());
 				}
 				catch (NumberFormatException e){
-					Toast.makeText(CreateBidActivity.this, "Wrong input on dimensions make sure its a number", Toast.LENGTH_LONG);
+					Toast.makeText(CreateBidActivity.this, "Wrong input on dimensions or in price.  Make sure its a number", Toast.LENGTH_LONG);
 				}
-				prod.setName(prodName.getText().toString());
-				newBidEvent.setProduct(prod);
-				newBidEvent.setDescription(prodDescription.getText().toString());
-				newBidEvent.setFeatures(prodFeat.getText().toString());
-				newBidEvent.setMinBid(Double.parseDouble(prodPrice.getText().toString()));
-
-
-				BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);
-				Toast.makeText(CreateBidActivity.this, "Added to sell", Toast.LENGTH_LONG);
-
-				spiceManager.start(CreateBidActivity.this);					
-				NewBidSellEventRequest JsonSpringAndroidRequest = new NewBidSellEventRequest(newBidEvent);
-				spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBidEventSellListner());
 				
 			}
 		});
@@ -105,7 +103,7 @@ public class CreateBidActivity extends Activity {
 
 			spiceManager.shouldStop();
 			Toast.makeText(CreateBidActivity.this, "Successfully created bid sale", Toast.LENGTH_SHORT).show();
-
+			CreateBidActivity.this.finish();
 		}
 
 		@Override

@@ -17,7 +17,7 @@
         android:textColor="#800080" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/pricemybasket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/itemNumberTotal"
@@ -30,7 +30,7 @@
         android:id="@+id/totalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignLeft="@+id/pricemybasket"
         android:layout_below="@+id/itemNumberTotal"
         android:text="Total:"
         android:textAppearance="?android:attr/textAppearanceSmall"

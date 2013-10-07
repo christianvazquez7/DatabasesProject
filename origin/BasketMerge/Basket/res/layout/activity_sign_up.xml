@@ -155,7 +155,7 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/pricemybasket"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
@@ -420,7 +420,7 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/pricemybasket"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"

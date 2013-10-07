@@ -8,7 +8,7 @@
 
     <TextView
         android:textColor="#FFFFFF"
-        android:id="@+id/textView1"
+        android:id="@+id/bidderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="bidder name"
@@ -17,22 +17,22 @@
     <TextView
                 android:textColor="#FFFFFF"
         
-        android:id="@+id/textView2"
+        android:id="@+id/bidDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/bidderName"
         android:text="Bid date"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
                 android:textColor="#FFFFFF"
         
-        android:id="@+id/textView3"
+        android:id="@+id/bidamount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/bidDate"
+        android:layout_alignBottom="@+id/bidDate"
         android:layout_alignParentRight="true"
         android:text="bid amount"
         android:textAppearance="?android:attr/textAppearanceMedium" />

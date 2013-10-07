@@ -32,7 +32,7 @@ public class MyShopActivity extends FragmentActivity {
 	private SellingBuyItemsListView sellingBuy;
 	private SellingBidItemsListView sellingBid;
 	private BiddingItemsListView bidding;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,12 @@ public class MyShopActivity extends FragmentActivity {
 
 		pager = new ViewPager(this);
 		//FragmentPagerAdapter a = new FragmentPagerAdapter();
-	
-		
+
+
 		pager.setId(R.id.pager);
 		setContentView(pager);
 		pager.setBackground(this.getResources().getDrawable(R.drawable.wood_light2));
-		
+
 
 		final ActionBar bar = getActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -64,21 +64,20 @@ public class MyShopActivity extends FragmentActivity {
 	protected void onResume()
 	{
 		super.onResume();
-
 		bidding =(BiddingItemsListView) mTabsAdapter.getItem(0);
 		sellingBid =(SellingBidItemsListView) mTabsAdapter.getItem(1);
 		sellingBuy =(SellingBuyItemsListView) mTabsAdapter.getItem(2);
 
 		ArrayAdapter a =((ArrayAdapter)sellingBid.getListAdapter());
 		if (a!=null)
-		a.notifyDataSetChanged();
+			a.notifyDataSetChanged();
 		ArrayAdapter b =((ArrayAdapter)sellingBuy.getListAdapter());
 		if (b!=null)
 			b.notifyDataSetChanged();
 		ArrayAdapter c =((ArrayAdapter)bidding.getListAdapter());
 		if (c!=null)
-		c.notifyDataSetChanged();
-		
+			c.notifyDataSetChanged();
+
 		mTabsAdapter.notifyDataSetChanged();
 
 	}

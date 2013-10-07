@@ -8,7 +8,7 @@ public class CreditCard
 	private long cardNum;
 	private String name;
 	private Adress billing;
-
+//	private String bankName;
 	
 	public CreditCard(){};
 

@@ -167,5 +167,5 @@ public class BidEventPageActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.product, menu);
 		return true;
 	}
-
+	
 }

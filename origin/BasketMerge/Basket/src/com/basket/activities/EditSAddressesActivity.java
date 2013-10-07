@@ -73,10 +73,13 @@ public class EditSAddressesActivity extends FragmentActivity {
 		super.onResume();
 		if(lf!=null){
 			((ArrayAdapter<Adress>)lf.getListAdapter()).notifyDataSetChanged();
+			if(!spiceManager.isStarted())
+
+			spiceManager.start(EditSAddressesActivity.this);
+			UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
+			spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
+
 		}
-		spiceManager.start(EditSAddressesActivity.this);
-		UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
-		spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
 	}
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
@@ -98,7 +101,7 @@ public class EditSAddressesActivity extends FragmentActivity {
 		@Override
 		public void onRequestSuccess(Boolean edit) {
 			spiceManager.shouldStop();
-			//Toast.makeText(EditSingleCCActivity.this, "Successfully updated addresses", Toast.LENGTH_SHORT).show();
+			Toast.makeText(EditSAddressesActivity.this, "Successfully updated addresses", Toast.LENGTH_SHORT).show();
 
 		}
 

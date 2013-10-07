@@ -135,7 +135,7 @@
                     android:textColor="#FFA500" />
 
                                 <TextView
-                                    android:id="@+id/textView3"
+                                    android:id="@+id/pricemybasket"
                                     android:layout_width="270dp"
                                     android:layout_height="20dp"
                                     android:layout_alignParentBottom="true"

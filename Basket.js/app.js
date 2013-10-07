@@ -220,6 +220,15 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 	res.json(response);
 });
 
+//Delete bidevent
+app.del('/Basket.js/remBid/:id', function(req,res)
+{
+	console.log("Removing item");
+	var target = req.params.id;
+	users["lukesionkira@hotmail.com"].currentlySellingOnBid.splice(target,1);
+	res.json(true);
+});
+
 //Delete user
 app.del('/Basket.js/UserDelete/:id', function(req,res)
 		{

@@ -164,8 +164,8 @@ public class HomePageActivity extends Activity {
 	@Override
     protected void onResume() {
         super.onResume();
-        // Check device for Play Services APK.
-        checkPlayServices();
+        // Check device for Play Services APK. Se deberia hacer pero enfogona....
+        //checkPlayServices();
     }
 	/**
      * Check the device to make sure it has the Google Play Services APK. If

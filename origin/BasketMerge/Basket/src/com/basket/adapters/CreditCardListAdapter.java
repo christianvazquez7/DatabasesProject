@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.basket.general.CreditCard;
 import com.example.basket.R;
@@ -26,7 +27,14 @@ public class CreditCardListAdapter extends ArrayAdapter<CreditCard>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.creditcard_view, null);
 			
 		}
-		//CreditCard currentCC = this.getItem(pos);	
+		CreditCard currentCC = this.getItem(pos);	
+		((TextView)convertView.findViewById(R.id.nameOnCardTextView)).setText(currentCC.getName());
+		((TextView)convertView.findViewById(R.id.creditCardNumberTextView)).setText(Long.toString(currentCC.getCardNum()));
+		((TextView)convertView.findViewById(R.id.creditCardExpYearTextView)).setText(Integer.toString(currentCC.getExpYear()));
+		((TextView)convertView.findViewById(R.id.creditCardExpMonthTextView)).setText(Integer.toString(currentCC.getExpMonth()));
+
+
+
 		return convertView;
 		
 	}

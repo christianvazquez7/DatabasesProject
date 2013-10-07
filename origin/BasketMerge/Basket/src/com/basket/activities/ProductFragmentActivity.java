@@ -131,7 +131,8 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 	        }
 	        @Override
 	        public void destroyItem(View collection, int position, Object view) {
-	             ((ViewPager) collection).removeView((View) view);
+	            // ((ViewPager) collection).removeView((View) view);
+	             notifyDataSetChanged();
 	        }
 	        @Override
 	        public boolean isViewFromObject(View arg0, Object arg1) 

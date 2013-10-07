@@ -37,32 +37,32 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 	private  PullToRefreshListView listView;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.myshop_bids, container, false);
-			sellingItems = BasketSession.getUser().getCurrentlySellingOnBid();
-			setListAdapter(new ProductInMyShopBidAdapter(getActivity(), sellingItems));
-		
-			
-		 listView = (PullToRefreshListView) rootView.findViewById(R.id.pull_to_refresh_listview);
-			listView.setShowLastUpdatedText(true);
-			listView.setOnRefreshListener(new OnRefreshListener() 
+		sellingItems = BasketSession.getUser().getCurrentlySellingOnBid();
+		setListAdapter(new ProductInMyShopBidAdapter(getActivity(), sellingItems));
+
+
+		listView = (PullToRefreshListView) rootView.findViewById(R.id.pull_to_refresh_listview);
+		listView.setShowLastUpdatedText(true);
+		listView.setOnRefreshListener(new OnRefreshListener() 
+		{
+
+			@Override
+			public void onRefresh() 
 			{
+				if(!spiceManager.isStarted()){
+					spiceManager.start(getActivity());
 
-			    @Override
-			    public void onRefresh() 
-			    {
-			    	if(!spiceManager.isStarted()){
-						spiceManager.start(getActivity());
-						
-						 UpdateBidRequest JsonSpringAndroidRequest = new UpdateBidRequest();
-						spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new UpdateBidSellerListener());
-			    	}
-
-			      
-			    }
-			});
-			
+					UpdateBidRequest JsonSpringAndroidRequest = new UpdateBidRequest();
+					spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new UpdateBidSellerListener());
+				}
 
 
-		
+			}
+		});
+
+
+
+
 		return rootView;
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
@@ -70,8 +70,9 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		Intent i;
 		if (e.isFinalized())
 			i = new Intent(this.getActivity(),BidWinActivity.class);
+
 		else
-		i = new Intent(this.getActivity(),BidsOnProductActivity.class);
+			i = new Intent(this.getActivity(),BidsOnProductActivity.class);
 		i.putExtra("itemClicked", pos);
 		startActivity(i);
 	}
@@ -100,14 +101,14 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 				listView.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.orange));
 				i++;
 			}
-			
+
 			ArrayAdapter a =((ArrayAdapter)getListAdapter());
 			if (a!=null)
-			a.notifyDataSetChanged();
-			
+				a.notifyDataSetChanged();
+
 			listView.refreshDrawableState();
 			listView.onRefreshComplete();
-		
+
 		}
 
 		@Override
@@ -121,14 +122,14 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 	public void onResume()
 	{
 		super.onResume();
-		
+
 
 		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
 		if (a!=null)
-		a.notifyDataSetChanged();
-		
-		
-	
+			a.notifyDataSetChanged();
+
+
+
 
 	}
 }

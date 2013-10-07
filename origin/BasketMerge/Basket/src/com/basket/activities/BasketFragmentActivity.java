@@ -33,10 +33,8 @@ public class BasketFragmentActivity extends SlidingFragmentActivity {
 		
 		if (fragment == null)
 		{
-			
 			fragment = new BasketListFragment();
 			fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
-			
 		}
 	}
 
