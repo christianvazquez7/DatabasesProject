@@ -49,8 +49,8 @@ public class CreateBidActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				prod.setManufacturer(prodMan.getText().toString());
 				try{
+					prod.setManufacturer(prodMan.getText().toString());
 					prod.setDepth(Integer.parseInt(prodD.getText().toString()));
 					prod.setWidth(Integer.parseInt(prodW.getText().toString()));
 					prod.setHeight(Integer.parseInt(prodH.getText().toString()));
