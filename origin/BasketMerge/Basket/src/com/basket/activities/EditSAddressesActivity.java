@@ -60,7 +60,7 @@ public class EditSAddressesActivity extends FragmentActivity {
 				Intent newIntent = new Intent(EditSAddressesActivity.this, EditSingleSAActivity.class);
 				newIntent.putExtra("selectedUser", EditSAddressesActivity.this.getIntent().getIntExtra("selectedUser", 0));
 				newIntent.putExtra("selectedShipAdd", shipAddresses.size()-1);
-				newIntent.putExtra("createdNewAddress", true);
+				newIntent.putExtra("createdNewAddress", "yes");
 				startActivity(newIntent);
 			}
 		});

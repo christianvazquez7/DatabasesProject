@@ -21,10 +21,10 @@ public class ProductsInBuyBasketsList extends ListFragment{
 	private Button mButton;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.basketproductlist, container, false);
-		
+
 		mButton = (Button) rootView.findViewById(R.id.basketCheckoutButton);
 		mButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(ProductsInBuyBasketsList.this.getActivity(), CheckoutActivity.class);
@@ -33,16 +33,16 @@ public class ProductsInBuyBasketsList extends ListFragment{
 				i.putExtra("BuyEvent", true);
 				//i.putExtra("BidEvent",true);
 				startActivity(i);
-				
+
 			}
 		});
-		
-		
-		
+
+
+
 		//list_items = getResources().getStringArray(R.array.list);
 		setListAdapter(new ProductBuyAdapter(getActivity(), BasketSession.getUser().getBaskets().get(this.getArguments().getInt("pos")).getBuyEvents(),BasketSession.getUser().getBaskets().get(this.getArguments().getInt("pos")),this.getArguments().getInt("pos") ));
 		//setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_items));
-		
+
 		return rootView;
 	}
 	public void onResume()
@@ -56,10 +56,10 @@ public class ProductsInBuyBasketsList extends ListFragment{
 
 		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
 		if (a!=null)
-		a.notifyDataSetChanged();
-		
-		
-	
+			a.notifyDataSetChanged();
+
+
+
 
 	}
 

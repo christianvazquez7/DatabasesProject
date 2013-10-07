@@ -84,9 +84,12 @@ public class EditSingleSAActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				if(EditSingleSAActivity.this.getIntent().getBooleanExtra("createdNewAddress", false));
-				{
-					BasketSession.getUser().getShippingAdress().remove(theAddress);
+				if(EditSingleSAActivity.this.getIntent().getStringExtra("createdNewAddress")!=null){
+
+					if(EditSingleSAActivity.this.getIntent().getStringExtra("createdNewAddress").equals("true"));
+					{
+						BasketSession.getUser().getShippingAdress().remove(selectedShipAdd);
+					}
 				}
 				EditSingleSAActivity.this.finish();
 			}
@@ -95,5 +98,14 @@ public class EditSingleSAActivity extends Activity {
 
 
 	}
-
+	@Override
+	public void onBackPressed(){
+		if(EditSingleSAActivity.this.getIntent().getStringExtra("createdNewAddress")!=null){
+			if(EditSingleSAActivity.this.getIntent().getStringExtra("createdNewAddress").equals("true"));
+			{
+				BasketSession.getUser().getShippingAdress().remove(selectedShipAdd);
+			}
+		}
+		super.onBackPressed();
+	}
 }

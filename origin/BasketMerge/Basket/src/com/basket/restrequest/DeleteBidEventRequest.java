@@ -18,11 +18,10 @@ public class DeleteBidEventRequest extends SpringAndroidSpiceRequest<Boolean> {
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception 
 	{
-		
 		String url = BasketConstants.externalIp+"/Basket.js/remBid/";
-		url+=pos;
+		url+=Integer.toString(pos);
 		Log.d( "request", "loading from network" );	
-		getRestTemplate().put(url, null);
+		getRestTemplate().delete(url);
 		return true;
 	}
 }

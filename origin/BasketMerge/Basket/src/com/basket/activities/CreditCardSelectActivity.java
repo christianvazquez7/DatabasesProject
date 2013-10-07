@@ -20,6 +20,7 @@ public class CreditCardSelectActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_credit_card_select);
 		CreditCardContainer.getCreditCardContainer();
+		
 		FragmentManager fragMan = getSupportFragmentManager();
 		Fragment creditCardListFragment = fragMan.findFragmentById(R.id.creditCardSelectListContainer);
 		if(creditCardListFragment == null){

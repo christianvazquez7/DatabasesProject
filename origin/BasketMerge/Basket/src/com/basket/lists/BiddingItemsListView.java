@@ -107,7 +107,7 @@ public class BiddingItemsListView extends ListFragment{
 			for (int i =1 ; i<BasketSession.getUser().getCurrentlyBiddingOn().size()+1;i++)
 			{	
 				listView.getChildAt(i).findViewById(R.id.won).setVisibility(View.VISIBLE);
-				BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).setFinalized(true);
+				//BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).setFinalized(true);
 				
 			}
 			

@@ -138,6 +138,12 @@ public class EditSingleCCActivity extends Activity {
 
 
 	}
-	
+	@Override
+	public void onBackPressed(){
+		if(EditSingleCCActivity.this.getIntent().getBooleanExtra("createdNewCard", false)){
+			BasketSession.getUser().getCreditCards().remove(selectedCreditCard);
+		}
+		super.onBackPressed();
+	}
 
 }

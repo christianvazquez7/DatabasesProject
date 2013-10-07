@@ -127,6 +127,7 @@ public class CheckoutActivity extends Activity {
 	public void changeCreditCardSelection() {
 		FragmentManager fragMan = this.getFragmentManager();
 		selCardFrag = new SelectedCreditCard();
+
 		fragMan.beginTransaction().replace(R.id.creditcardfieldplaceholder, selCardFrag).commit();
 	}
 
@@ -156,6 +157,7 @@ public class CheckoutActivity extends Activity {
 			BasketSession.getUser().getUserOrders().add(orderToPlace);
 			BasketSession.getUser().getBaskets().remove(getIntent().getIntExtra("basketNum", 0));
 			Toast.makeText(CheckoutActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+			CheckoutActivity.this.finish();
 		}
 
 		@Override

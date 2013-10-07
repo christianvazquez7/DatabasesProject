@@ -113,6 +113,9 @@ public class BasketActivity extends FragmentActivity {
 					//newTab.getCustomView().setBackgroundColor(color.black);
 
 					mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
+					
+					mTabsAdapter.notifyDataSetChanged();
+					pager.getAdapter().notifyDataSetChanged();
 					spiceManager.start(BasketActivity.this);					
 					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket);
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
@@ -130,13 +133,17 @@ public class BasketActivity extends FragmentActivity {
 		case addId+1:
 			if(BasketSession.getUser().getBaskets().size()>0){
 				currentItem = pager.getCurrentItem();
+				
 				temp = 	BasketSession.getUser().getBaskets().get(currentItem);
 				BasketSession.getUser().getBaskets().remove(currentItem);
+				pager.getAdapter().notifyDataSetChanged();
+				mTabsAdapter.notifyDataSetChanged();
 				spiceManager.start(BasketActivity.this);					
 				RemoveBasketRequest JsonSpringAndroidRequest = new RemoveBasketRequest(temp);
 				spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 				pager.getAdapter().notifyDataSetChanged();
 			}
+			pager.getAdapter().notifyDataSetChanged();
 		return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -213,4 +220,9 @@ public class BasketActivity extends FragmentActivity {
 		}
 	}
 
+	protected void onResume(){
+		super.onResume();
+		if(mTabsAdapter!=null)
+		mTabsAdapter.notifyDataSetChanged();
+	}
 }
