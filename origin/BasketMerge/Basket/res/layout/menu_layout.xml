@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent" 
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -21,7 +21,6 @@
             android:text="Filter By"
             android:textColor="#FFFFFF" />
     </LinearLayout>
-      
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -33,286 +32,161 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
+
             <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="27dp"
-        android:background="@drawable/layer_gradient2"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="Category"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-
-           <RelativeLayout
-               android:layout_width="fill_parent"
-               android:layout_height="100dp"
-               >
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" 
-                android:background="#1BFFA500"
-                
-                >
-
-                <LinearLayout
-                    android:id="@+id/page_one"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" 
-                    >
-
-                    <TextView
-                        android:layout_gravity="center_vertical"
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="All"
-                        android:textColor="#000000"
-                        android:textSize="24dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/page_two"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_gravity="center_vertical"
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Computers"
-                        android:textColor="#000000"
-                        android:textSize="24dp" />
-                </LinearLayout>
-            </android.support.v4.view.ViewPager>
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/arrow_left" />
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/monotone_arrow_right" />
-
-	</RelativeLayout>
-	   <View
-                android:id="@+id/view1"
+                android:id="@+id/linearLayout1"
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/custom_divider" />
-	   <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="27dp"
-        android:background="@drawable/layer_gradient2"
-        android:gravity="center"
-        android:orientation="horizontal" >
+                android:layout_height="27dp"
+                android:background="@drawable/layer_gradient2"
+                android:gravity="center"
+                android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="Sub-Category"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-	     <RelativeLayout
-               android:layout_width="fill_parent"
-               android:layout_height="80dp"
-               >
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" 
-                android:background="#1BFFA500"
-                
-                >
-
-                <LinearLayout
-                    android:id="@+id/page_one"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" 
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:gravity="center"
-                    >
+                    android:text="Category"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_gravity="center_vertical"
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="All"
-                        android:textColor="#000000"
-                        android:textSize="24dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:id="@+id/page_two"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_gravity="center_vertical"
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Computers"
-                        android:textColor="#000000"
-                        android:textSize="24dp" />
-                </LinearLayout>
-            </android.support.v4.view.ViewPager>
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/arrow_left" />
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/monotone_arrow_right" />
-
-	</RelativeLayout>
-	   <View
-                android:id="@+id/view1"
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/custom_divider" />
-	   <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="27dp"
-        android:background="@drawable/layer_gradient2"
-        android:gravity="center"
-        android:orientation="horizontal" >
+                android:layout_height="100dp" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="Sorted By"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-	   <RelativeLayout
-               android:layout_width="fill_parent"
-               android:layout_height="80dp"
-               >
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" 
-                android:background="#1BFFA500"
-                
-                >
-
-                <LinearLayout
-                    android:id="@+id/price_filter"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical" 
-                    android:gravity="center"
-                    >
+                    android:background="#1BFFA500" >
 
-                    <TextView
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Price"
-                        android:textColor="#000000"
-                        android:textSize="20dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:id="@+id/brand_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <TextView
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Brand"
-                        android:textColor="#000000"
-                        android:textSize="20dp" />
-                     
-                </LinearLayout>
                     <LinearLayout
-                    android:gravity="center"
-                    android:id="@+id/name_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <TextView
-            			android:gravity="center"
+                        android:id="@+id/page_one"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Product Name"
-                        android:textColor="#000000"
-                        android:textSize="20dp" />
-                     
-                </LinearLayout>
-            </android.support.v4.view.ViewPager>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/arrow_left" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="All"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/monotone_arrow_right" />
+                    <LinearLayout
+                        android:id="@+id/page_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
 
-	</RelativeLayout>
-	   <View
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Computers"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/page_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Books"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/page_four"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Electronics"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/page_five"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Clothing"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/page_six"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Shoes"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/page_seven"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Sports"
+                            android:textColor="#000000"
+                            android:textSize="24dp" />
+                    </LinearLayout>
+                </android.support.v4.view.ViewPager>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/arrow_left" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/monotone_arrow_right" />
+            </RelativeLayout>
+
+            <View
                 android:id="@+id/view1"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
@@ -320,107 +194,215 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/custom_divider" />
-	   <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="27dp"
-        android:background="@drawable/layer_gradient2"
-        android:gravity="center"
-        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="Order"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-      <RelativeLayout
-               android:layout_width="fill_parent"
-               android:layout_height="60dp"
-               >
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/custom_divider" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager4"
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="27dp"
+                android:background="@drawable/layer_gradient2"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="Sorted By"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="80dp" >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#1BFFA500" >
+
+                    <LinearLayout
+                        android:id="@+id/price_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Price"
+                            android:textColor="#000000"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/brand_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Brand"
+                            android:textColor="#000000"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/name_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Product Name"
+                            android:textColor="#000000"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+                </android.support.v4.view.ViewPager>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/arrow_left" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/monotone_arrow_right" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/custom_divider" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="27dp"
+                android:background="@drawable/layer_gradient2"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="Order"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp" >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#1BFFA500" >
+
+                    <LinearLayout
+                        android:id="@+id/increasing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Decreasing"
+                            android:textColor="#000000"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/decreasing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="Increasing"
+                            android:textColor="#000000"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+                </android.support.v4.view.ViewPager>
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/arrow_left" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/monotone_arrow_right" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/custom_divider" />
+
+            <Button
+                android:id="@+id/bEditCreditCards"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" 
-                android:background="#1BFFA500"
-                
-                >
-
-                <LinearLayout
-                    android:id="@+id/increasing"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" 
-                    android:gravity="center"
-                    >
-
-                    <TextView
-                        android:layout_gravity="center_vertical"
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Decreasing"
-                        android:textColor="#000000"
-                        android:textSize="15dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:id="@+id/decreasing"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_gravity="center_vertical"
-            			android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Increasing"
-                        android:textColor="#000000"
-                        android:textSize="15dp" />
-                </LinearLayout>
-            </android.support.v4.view.ViewPager>
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/arrow_left" />
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/monotone_arrow_right" />
-
-	</RelativeLayout>
-	 <View
-                android:id="@+id/view1"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/custom_divider" />
-	   <Button
-        
-
-        android:id="@+id/bEditCreditCards"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_weight="0.01"
-        android:background="#FFA500"
-          android:textColor="#FFFFFF"
-        android:text="Update" />
+                android:layout_height="86dp"
+                android:background="#FFA500"
+                android:text="Update"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
 

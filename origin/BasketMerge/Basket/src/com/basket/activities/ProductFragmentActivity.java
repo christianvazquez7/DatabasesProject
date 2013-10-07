@@ -101,6 +101,25 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 	            case 1:
 	                resId = R.id.page_two;
 	                break;
+	            case 2:
+	                resId = R.id.page_two;
+	                break;
+	            case 3:
+	                resId = R.id.page_three;
+	                break;
+	            case 4:
+	                resId = R.id.page_four;
+	                break;
+	            case 5:
+	                resId = R.id.page_five;
+	                break;
+	            case 6:
+	                resId = R.id.page_six;
+	                break;
+	            case 7:
+	                resId = R.id.page_seven;
+	                break;
+	            
 	            }
 	            return findViewById(resId);
 	        }
@@ -108,14 +127,20 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 	        @Override
 	        public int getCount() 
 	        {
-	            return 2;
+	            return 7;
 	        }
-
+	        @Override
+	        public void destroyItem(View collection, int position, Object view) {
+	             ((ViewPager) collection).removeView((View) view);
+	        }
 	        @Override
 	        public boolean isViewFromObject(View arg0, Object arg1) 
 	        {
 	            return arg0 == ((View) arg1);
 	        }
+//	        public int getItemPosition(Object object) {
+//	            return POSITION_NONE;
+//	        }
 	    }
 
 

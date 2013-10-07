@@ -133,7 +133,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
 
-		if((int)id == 302 || (int)id == 303 || (int)id == 402){
+		if((int)id == 302 || (int)id == 303 || (int)id == 401){
 			//TODO
 			if((int)id == 302){
 				ArrayList<String> menClothSubCatList = new ArrayList<String>();
@@ -153,7 +153,7 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 				i.putStringArrayListExtra("subcategoryList", womenClothSubCatList);
 				startActivity(i);
 			}
-			else if((int)id == 402){
+			else if((int)id == 401){
 				ArrayList<String> bicyclesSubCatList = new ArrayList<String>();
 				bicyclesSubCatList.add("Frames");
 				bicyclesSubCatList.add("Wheels");

@@ -19,6 +19,18 @@ public class AdminPageActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.admin_page);
+		this.findViewById(R.id.create_account).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) 
+			{
+				// TODO Auto-generated method stub
+				Intent accountCreate = new Intent(arg0.getContext(),SignUpActivity.class);
+				startActivity(accountCreate);
+			}
+			
+		});
+		
 		this.findViewById(R.id.account_manage).setOnClickListener(new OnClickListener(){
 
 			@Override

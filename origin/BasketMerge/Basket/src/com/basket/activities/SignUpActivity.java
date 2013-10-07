@@ -30,34 +30,34 @@ public class SignUpActivity extends Activity {
 	//A is for awesome -Pedro
 
 	private EditText mETFName, mETLName, mETPassword, mETEmail, mETUserName, mETBDayDay, mETBDayMonth, mETBDayYear,
-		mETCCName, mETCCNum, mETCCSecCode, mETCCExpMonth, mETCCExpYear,
-		mETSALine1, mETSALine2, mETSACity, mETSAState, mETSACountry, mETSAZipCode,
-		mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
-		
+	mETCCName, mETCCNum, mETCCSecCode, mETCCExpMonth, mETCCExpYear,
+	mETSALine1, mETSALine2, mETSACity, mETSAState, mETSACountry, mETSAZipCode,
+	mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
+
 	private User newUser;
 	private Adress shippingAddress;
 	private Adress billingAddress;
 	private CreditCard creditCard;
-	
+
 	private String userName, email, password, fName, lName, bDay,
-		ccName, ccAddrs,
-		saLine1, saLine2, saCity, saState, saCountry,
-		baLine1, baLine2, baCity, baState, baCountry;
-	
+	ccName, ccAddrs,
+	saLine1, saLine2, saCity, saState, saCountry,
+	baLine1, baLine2, baCity, baState, baCountry;
+
 	private long ccNumber;
 	private int ccExpMonth, ccExpYear, ccSecCode,
-		saZipCode, baZipCode,
-		bdDay, bdMonth, bdYear, age,
-		currDay, currMonth, currYear;
-	
+	saZipCode, baZipCode,
+	bdDay, bdMonth, bdYear, age,
+	currDay, currMonth, currYear;
+
 	private SpiceManager spiceManager  = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
 
-		
+
 		Button signUp = (Button) this.findViewById(R.id.signUp);
 		signUp.setOnClickListener(new OnClickListener(){
 			@Override
@@ -72,7 +72,7 @@ public class SignUpActivity extends Activity {
 			}
 		});
 	}
-	
+
 	private boolean initializeUserFields(){
 		mETFName = (EditText) findViewById(R.id.etFNameSignUp); 
 		this.fName = mETFName.getText().toString();
@@ -85,7 +85,7 @@ public class SignUpActivity extends Activity {
 		mETUserName = (EditText) findViewById(R.id.userNameSignUp);
 		this.userName = mETUserName.getText().toString();
 
-		
+
 		mETBDayDay = (EditText) findViewById(R.id.etBDayDay);
 		mETBDayMonth = (EditText) findViewById(R.id.etBDayMonth);
 		mETBDayYear = (EditText) findViewById(R.id.etBDayYear);
@@ -93,7 +93,7 @@ public class SignUpActivity extends Activity {
 		this.bdMonth = Integer.parseInt(mETBDayMonth.getText().toString());
 		this.bdYear = Integer.parseInt(mETBDayYear.getText().toString());
 
-		
+
 		mETCCName = (EditText) findViewById(R.id.etCCNameSignUp);
 		this.ccName = mETCCName.getText().toString();
 		mETCCNum = (EditText) findViewById(R.id.etCCNumSignUp);
@@ -101,13 +101,13 @@ public class SignUpActivity extends Activity {
 		mETCCSecCode = (EditText) findViewById(R.id.etCCSecCodeSignUp);
 		this.ccSecCode = Integer.parseInt(mETCCSecCode.getText().toString());
 
-		
+
 		mETCCExpMonth = (EditText) findViewById(R.id.etCCExpMonth);
 		mETCCExpYear = (EditText) findViewById(R.id.etCCExpYear);
-		
+
 		this.ccExpMonth = Integer.parseInt(mETCCExpMonth.getText().toString());
 		this.ccExpYear = Integer.parseInt(mETCCExpYear.getText().toString());
-		
+
 		mETSALine1 = (EditText) findViewById(R.id.etSALine1SignUp);
 		this.saLine1 = mETSALine1.getText().toString();
 		mETSALine2 = (EditText) findViewById(R.id.etSALine2SignUp);
@@ -120,7 +120,7 @@ public class SignUpActivity extends Activity {
 		this.saCountry = mETSACountry.getText().toString();
 		mETSAZipCode = (EditText) findViewById(R.id.etSAZipcodeSignUp);
 		this.saZipCode = Integer.parseInt(mETSAZipCode.getText().toString());
-		
+
 		mETBALine1 = (EditText) findViewById(R.id.etBALine1SignUp);
 		this.baLine1 = mETBALine1.getText().toString();
 		mETBALine2 = (EditText) findViewById(R.id.etBALine2SignUp);
@@ -133,18 +133,18 @@ public class SignUpActivity extends Activity {
 		this.baCountry = mETBACountry.getText().toString();
 		mETBAZipCode = (EditText) findViewById(R.id.etBAZipcodeSignUp);
 		this.baZipCode = Integer.parseInt(mETBAZipCode.getText().toString());
-		
+
 		this.shippingAddress = new Adress(saLine1, saLine2, saCity, saState, saZipCode, saCountry);
 		this.billingAddress = new Adress(baLine1, baLine2, baCity, baState, baZipCode, baCountry);
 		this.creditCard = new CreditCard(ccName, billingAddress, ccNumber, ccExpMonth, ccExpYear);
 		this.creditCard.setBilling(billingAddress);
-		
+
 		this.newUser = new User(this.userName, this.email,this.password, 
 				this.fName, this.lName, this.bdDay, this.bdMonth, this.bdYear);
-		
+
 		this.newUser.getShippingAdress().add(shippingAddress);
 		this.newUser.getCreditCards().add(creditCard);
-		
+
 		return true;
 	}
 	private class CreateAccountListener implements RequestListener<Boolean>, RequestProgressListener {
@@ -166,7 +166,7 @@ public class SignUpActivity extends Activity {
 		{
 			Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
 			spiceManager.shouldStop();
-			
+			SignUpActivity.this.finish();
 		}
 
 		@Override
