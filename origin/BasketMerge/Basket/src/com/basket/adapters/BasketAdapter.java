@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.basket.general.BuyEvent;
 import com.basket.general.ProductBasket;
 import com.example.basket.R;
 
@@ -29,6 +30,18 @@ public class BasketAdapter extends ArrayAdapter<ProductBasket>
 		}
 		ProductBasket currentBasket = this.getItem(pos);
 		TextView name =(TextView) convertView.findViewById(R.id.basketName);
+		TextView count =(TextView) convertView.findViewById(R.id.numOfItems);
+		count.setText(Integer.toString(currentBasket.getBuyEvents().size()));
+		TextView total =(TextView) convertView.findViewById(R.id.pricemybasket);
+		double totalA =0;
+		for(BuyEvent e : currentBasket.getBuyEvents())
+		{
+			totalA+=e.getPrice();
+		}
+		total.setText(Double.toString(totalA));
+		
+
+
 		name.setText(currentBasket.getName());
 		return convertView;
 

@@ -64,24 +64,41 @@
         android:contentDescription="TODO"
         android:src="@drawable/ic_launcher" />
 
+    <TextView
+        android:textColor="#FFFFFF"
+        android:id="@+id/won"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bidnumOfRatings"
+        android:layout_alignParentRight="true"
+        android:text="Won!"
+        android:textSize="30dp"
+        android:visibility="invisible" />
+      <TextView
+          android:textColor="#FFFFFF"
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bidprice"
+        android:layout_below="@+id/bidprice"
+        android:text="Ending:" />
+
     <RatingBar
         android:id="@+id/bidratingBar1"
         style="@style/orangeBar"
         android:layout_width="75dp"
         android:layout_height="15dp"
-        android:layout_alignBottom="@+id/bidthumb"
-        android:layout_alignLeft="@+id/bidprice"
-        android:layout_marginBottom="14dp" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1" />
 
     <TextView
-        android:visibility="invisible"
-        android:id="@+id/won"
+        android:id="@+id/endDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bidnumOfRatings"
-        android:layout_alignRight="@+id/bidproduct"
-        android:text="Won!"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp" />
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="5/7/2010"
+        android:textColor="#FFFFFF" />
    
 </RelativeLayout>

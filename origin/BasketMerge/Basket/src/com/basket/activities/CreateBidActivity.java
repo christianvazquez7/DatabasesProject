@@ -24,9 +24,10 @@ import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class CreateBidActivity extends Activity {
-	private EditText prodName, prodPrice, stopDate, prodFeat, prodDescription, prodW, prodH, prodD, prodMan;
+	private EditText prodName, prodPrice, stopDate, prodFeat, prodDescription, prodW, prodH, prodD, prodMan, eM,eD,eY;
 	private Button mCreateBuyEventButton;
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	private int M, D ,Y;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,12 @@ public class CreateBidActivity extends Activity {
 		prodH = (EditText) findViewById(R.id.buyEventProductHeight);
 		prodD = (EditText) findViewById(R.id.buyEventProductDepth);
 		prodMan = (EditText) findViewById(R.id.buyEventProductManufacturer);
+		eM= (EditText) findViewById(R.id.endMonth);
+		eD= (EditText) findViewById(R.id.endDay);
+		eY= (EditText) findViewById(R.id.endYear);
+
+		
+		
 
 		final BidEvent newBidEvent = new BidEvent();
 		final Product prod = new Product();
@@ -50,6 +57,13 @@ public class CreateBidActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try{
+						M = Integer.parseInt(eM.getText().toString());
+						
+						Y = Integer.parseInt(eY.getText().toString());
+						
+						D = Integer.parseInt(eD.getText().toString());
+
+
 					prod.setManufacturer(prodMan.getText().toString());
 					prod.setDepth(Integer.parseInt(prodD.getText().toString()));
 					prod.setWidth(Integer.parseInt(prodW.getText().toString()));
@@ -59,7 +73,9 @@ public class CreateBidActivity extends Activity {
 					newBidEvent.setDescription(prodDescription.getText().toString());
 					newBidEvent.setFeatures(prodFeat.getText().toString());
 					newBidEvent.setMinBid(Double.parseDouble(prodPrice.getText().toString()));
-					
+					newBidEvent.setFmonth(M);
+					newBidEvent.setFday(D);
+					newBidEvent.setFyear(Y);
 					BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);
 					
 					spiceManager.start(CreateBidActivity.this);					

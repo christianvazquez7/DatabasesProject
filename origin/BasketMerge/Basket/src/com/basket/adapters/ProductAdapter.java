@@ -35,6 +35,8 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			((TextView)convertView.findViewById(R.id.bidproduct)).setText(currentProduct.getProduct().getName());
 			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinning().getAmmount()));
 			((TextView)convertView.findViewById(R.id.bidsupplier)).setText(currentProduct.getProduct().getManufacturer());
+			((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getFday()+"/"+currentProduct.getFmonth()+"/"+currentProduct.getFyear());
+
 		}
 		else{
 			if (convertView==null)

@@ -58,12 +58,13 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 			public void onClick(View v) 
 			{
 				//Remove product
-				if (!spiceManager.isStarted())
+				if (!spiceManager.isStarted()){
 				spiceManager.start(context);
 				ProductBuyAdapter.this.content.remove(pos2);
 				UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
 				spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 				ProductBuyAdapter.this.notifyDataSetChanged();
+				}
 				
 				
 			}

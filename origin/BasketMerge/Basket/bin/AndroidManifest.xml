@@ -204,6 +204,10 @@
             android:name="com.basket.activities.BidWinActivity"
             android:label="@string/title_activity_bid_win" >
         </activity>
+         <activity
+            android:name="com.basket.activities.AdminSignUp"
+            android:label="@string/title_activity_admin_sign_up" >
+        </activity>
 
         <receiver
             android:name="com.basket.notifications.GcmBroadcastReceiver"
@@ -218,6 +222,8 @@
         </receiver>
 
         <service android:name="com.basket.notifications.GcmIntentService" />
+
+       
     </application>
 
 </manifest>
