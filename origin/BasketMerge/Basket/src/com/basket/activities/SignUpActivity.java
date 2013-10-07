@@ -71,7 +71,7 @@ public class SignUpActivity extends Activity {
 						spiceManager.execute(new CreateUserRequest(newUser), new CreateAccountListener());
 					}
 					catch(NumberFormatException e){
-						Toast.makeText(SignUpActivity.this, "Please fix number fields", Toast.LENGTH_LONG);
+						Toast.makeText(SignUpActivity.this, "Please fix number fields", Toast.LENGTH_LONG).show();;
 					}
 				}
 			}

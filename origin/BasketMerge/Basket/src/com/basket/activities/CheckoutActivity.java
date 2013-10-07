@@ -43,15 +43,7 @@ public class CheckoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		checkoutButton = (Button) findViewById(R.id.CheckOut);
-		checkoutButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		
 		FragmentManager fragMan = this.getFragmentManager();
 		Fragment pickCardButtonFrag = fragMan.findFragmentById(R.id.creditcardfieldplaceholder);
 		if(pickCardButtonFrag==null){
@@ -127,7 +119,6 @@ public class CheckoutActivity extends Activity {
 	public void changeCreditCardSelection() {
 		FragmentManager fragMan = this.getFragmentManager();
 		selCardFrag = new SelectedCreditCard();
-
 		fragMan.beginTransaction().replace(R.id.creditcardfieldplaceholder, selCardFrag).commit();
 	}
 

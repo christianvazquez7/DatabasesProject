@@ -74,6 +74,7 @@ public class BasketActivity extends FragmentActivity {
 
 			//newTab.getCustomView().setBackgroundColor(Color.BLACK);
 			mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
+			mTabsAdapter.notifyDataSetChanged();
 
 
 		}

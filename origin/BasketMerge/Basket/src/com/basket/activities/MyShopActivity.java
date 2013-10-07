@@ -106,6 +106,9 @@ public class MyShopActivity extends FragmentActivity {
 				public void onClick(View v) {
 					Intent i = new Intent(MyShopActivity.this,CreateBidActivity.class);
 					startActivityForResult(i, 1);
+					ArrayAdapter b =((ArrayAdapter)sellingBid.getListAdapter());
+					if (b!=null)
+						b.notifyDataSetChanged();
 					alert.dismiss();
 				}
 			});

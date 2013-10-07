@@ -57,6 +57,7 @@ public class ProductsInBuyBasketsList extends ListFragment{
 		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
 		if (a!=null)
 			a.notifyDataSetChanged();
+			BasketActivity.currentPagePager.getAdapter().notifyDataSetChanged();
 
 
 

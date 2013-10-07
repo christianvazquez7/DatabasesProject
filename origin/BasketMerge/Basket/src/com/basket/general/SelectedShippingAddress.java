@@ -1,5 +1,6 @@
 package com.basket.general;
 
+import com.basket.containers.AddressContainer;
 import com.example.basket.R;
 
 import android.app.Fragment;
@@ -16,7 +17,8 @@ public class SelectedShippingAddress extends Fragment {
 //	private TextView billingAddress, ccNumber, secNum, expMonth, expYear, ccName;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.shippingaddress_view,container, false);
-		
+		((TextView)view.findViewById(R.id.shippingAddressLine1)).setText(AddressContainer.shippingSelection.getLine1());
+//		((TextView)view.findViewById(R.id.shippingAddressZipCode)).setText(AddressContainer.shippingSelection.getZipCode());
 		return view;
 	}
 }
