@@ -384,7 +384,7 @@ var registrationIds = [];
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-var myVar=setInterval(function(){myTimer()},3000);
+var myVar=setInterval(function(){myTimer()},30000);
 
 function myTimer()
 {
