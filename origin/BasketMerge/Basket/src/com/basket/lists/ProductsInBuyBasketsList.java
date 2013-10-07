@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.basket.activities.BasketActivity;
 import com.basket.activities.CheckoutActivity;
@@ -27,12 +28,17 @@ public class ProductsInBuyBasketsList extends ListFragment{
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(ProductsInBuyBasketsList.this.getActivity(), CheckoutActivity.class);
-				i.putExtra("basketNum", getArguments().getInt("pos"));
-				i.putExtra("CurrentListItem", BasketActivity.currentPagePager.getCurrentItem());
-				i.putExtra("BuyEvent", true);
-				//i.putExtra("BidEvent",true);
-				startActivity(i);
+				if(BasketSession.getUser().getBaskets().get(ProductsInBuyBasketsList.this.getArguments().getInt("pos")).getBuyEvents().size()==0){
+					Toast.makeText(ProductsInBuyBasketsList.this.getActivity(), "Empty basket", Toast.LENGTH_LONG).show();
+				}
+				else{
+					Intent i = new Intent(ProductsInBuyBasketsList.this.getActivity(), CheckoutActivity.class);
+					i.putExtra("basketNum", getArguments().getInt("pos"));
+					i.putExtra("CurrentListItem", BasketActivity.currentPagePager.getCurrentItem());
+					i.putExtra("BuyEvent", true);
+					//i.putExtra("BidEvent",true);
+					startActivity(i);
+				}
 
 			}
 		});
@@ -57,7 +63,7 @@ public class ProductsInBuyBasketsList extends ListFragment{
 		ArrayAdapter a =((ArrayAdapter)this.getListAdapter());
 		if (a!=null)
 			a.notifyDataSetChanged();
-			BasketActivity.currentPagePager.getAdapter().notifyDataSetChanged();
+		BasketActivity.currentPagePager.getAdapter().notifyDataSetChanged();
 
 
 
