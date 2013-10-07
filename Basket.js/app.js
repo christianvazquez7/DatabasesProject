@@ -381,10 +381,10 @@ var message = new gcm.Message({
 var sender = new gcm.Sender('AIzaSyCTFn1fBSl-7jcUgWIDb6SE17qiaoFpr6o');
 var registrationIds = [];
 // At least one required
-
+setInterval(sender.send(message, registrationIds, 4, function (err, result) {
+    console.log(result);
+}),15000);
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-sender.send(message, registrationIds, 4, function (err, result) {
-    console.log(result);
-});
+
