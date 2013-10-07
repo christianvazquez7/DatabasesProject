@@ -65,15 +65,21 @@ public class SignUpActivity extends Activity {
 			{
 				if (!spiceManager.isStarted())
 				{
-					spiceManager.start(SignUpActivity.this);
-					initializeUserFields();
-					spiceManager.execute(new CreateUserRequest(newUser), new CreateAccountListener());
+					try{
+						spiceManager.start(SignUpActivity.this);
+						initializeUserFields();
+						spiceManager.execute(new CreateUserRequest(newUser), new CreateAccountListener());
+					}
+					catch(NumberFormatException e){
+						Toast.makeText(SignUpActivity.this, "Please fix number fields", Toast.LENGTH_LONG);
+					}
 				}
 			}
 		});
 	}
 
 	private boolean initializeUserFields(){
+
 		mETFName = (EditText) findViewById(R.id.etFNameSignUp); 
 		this.fName = mETFName.getText().toString();
 		mETLName = (EditText) findViewById(R.id.etLNameSignUp); 
@@ -89,6 +95,7 @@ public class SignUpActivity extends Activity {
 		mETBDayDay = (EditText) findViewById(R.id.etBDayDay);
 		mETBDayMonth = (EditText) findViewById(R.id.etBDayMonth);
 		mETBDayYear = (EditText) findViewById(R.id.etBDayYear);
+
 		this.bdDay = Integer.parseInt(mETBDayDay.getText().toString());
 		this.bdMonth = Integer.parseInt(mETBDayMonth.getText().toString());
 		this.bdYear = Integer.parseInt(mETBDayYear.getText().toString());
@@ -146,6 +153,8 @@ public class SignUpActivity extends Activity {
 		this.newUser.getCreditCards().add(creditCard);
 
 		return true;
+
+
 	}
 	private class CreateAccountListener implements RequestListener<Boolean>, RequestProgressListener {
 
