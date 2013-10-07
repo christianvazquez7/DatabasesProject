@@ -118,7 +118,8 @@ public class HomePageActivity extends Activity {
 		if (checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
-            spiceManager.start(HomePageActivity.this);
+            if(!spiceManager.isStarted())
+            	spiceManager.start(HomePageActivity.this);
     		RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
     		spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
 
@@ -259,7 +260,8 @@ public class HomePageActivity extends Activity {
                     // 'from' address in the message.
 
                     // Persist the regID - no need to register again.
-            		spiceManager.start(HomePageActivity.this);
+            		if(!spiceManager.isStarted())
+            			spiceManager.start(HomePageActivity.this);
             		RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
             		spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
 
