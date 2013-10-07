@@ -141,7 +141,7 @@ console.log("server listening");
 //
 //		});
 
-
+//Search for users
 app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
 {
 	var response =
@@ -158,6 +158,32 @@ app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 	buffUser.password=req.params.pass;
 	buffUser.email=req.params.email;
 	res.json(true);
+});
+//Register Device
+app.put('/Basket.js/RegisterDevice/:id',function(req,res){
+	console.log("Registering device");
+	console.log(id);
+	var found = false;
+	for (var i=0; i<registrationIds.length; i++) {
+		console.log(registrationIds[i].localeCompare(id));
+		if(registrationIds[i].localeCompare(id)){
+			console.log("Found");
+			found = true;
+		}
+	}
+	if(!found){
+		registrationIds.push('APA91bEs805ooHsghZIjy8a9QwjgvsNIBkoXQNMh3IuCEBJAJ6GgparizHQlOO2RUWfPkg7tBkmTkYg2KeuRSJHCmPKAxGm08VeFhCa9gscOgbVmC8NQR47p09yge5Ie-nnqR_sxyxR2Xke9aSQai7PAC15sUod77Q');
+	}
+	res.json(true);
+});
+//Update user shipping adresses
+app.put('/Basket.js/UpdateUser/',function(req,res){
+	console.log("Updating user");
+	var u =users["lukesionkira@hotmail.com"];
+	u.shippingAdress=req.body.shippingAdress;
+	u.creditCards=req.body.creditCards;
+	console.log(req.body.shippingAdress);
+	res.json(true)
 });
 //Update a basket
 app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
@@ -183,7 +209,7 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 	
 	res.json(true);
 });
-
+//Search for something
 app.get('/Basket.js/search/:searchQuery',function(req,res)
 {
 	var response =
@@ -193,6 +219,8 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 	};
 	res.json(response);
 });
+
+//Delete user
 app.del('/Basket.js/UserDelete/:id', function(req,res)
 		{
 			var target = req.params.id;
@@ -353,7 +381,7 @@ var message = new gcm.Message({
 var sender = new gcm.Sender('AIzaSyCTFn1fBSl-7jcUgWIDb6SE17qiaoFpr6o');
 var registrationIds = [];
 // At least one required
-registrationIds.push('APA91bEs805ooHsghZIjy8a9QwjgvsNIBkoXQNMh3IuCEBJAJ6GgparizHQlOO2RUWfPkg7tBkmTkYg2KeuRSJHCmPKAxGm08VeFhCa9gscOgbVmC8NQR47p09yge5Ie-nnqR_sxyxR2Xke9aSQai7PAC15sUod77Q');
+
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */

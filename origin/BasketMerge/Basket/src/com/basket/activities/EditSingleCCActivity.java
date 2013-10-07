@@ -2,18 +2,27 @@ package com.basket.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.basket.containers.AdminSession;
 import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.CreditCard;
 import com.basket.general.User;
+import com.basket.restrequest.UpdateUserRequest;
 import com.example.basket.R;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class EditSingleCCActivity extends Activity {
 	private int selectedUser, selectedCreditCard;
@@ -29,6 +38,8 @@ public class EditSingleCCActivity extends Activity {
 	private EditText mLine1, mLine2, mCity, mState, mZipcode, mCountry, 
 	mCCName, mCCNumber, mCCExpMonth, mCCExpYear, mCCSecCode;
 
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -127,4 +138,6 @@ public class EditSingleCCActivity extends Activity {
 
 
 	}
+	
+
 }

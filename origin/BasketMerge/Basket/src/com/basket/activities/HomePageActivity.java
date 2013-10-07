@@ -18,11 +18,20 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
 
+import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.restrequest.RegisterDeviceRequest;
 import com.example.basket.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class HomePageActivity extends Activity {
 	///////////////////////////////////////////////////////////////////////////
@@ -43,6 +52,7 @@ public class HomePageActivity extends Activity {
     AtomicInteger msgId = new AtomicInteger();
     Context context;
     String regid;
+	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
     ////////////////////////////////////////////////////////////////////////////
 	
@@ -104,6 +114,7 @@ public class HomePageActivity extends Activity {
 		
 		
 		context = getApplicationContext();
+		
 		if (checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
@@ -111,6 +122,8 @@ public class HomePageActivity extends Activity {
             if (regid.length() == 0) {
                 registerInBackground();
             }
+            
+            
         } else {
             Log.i("No play services", "No valid Google Play Services APK found.");
         }
@@ -243,6 +256,10 @@ public class HomePageActivity extends Activity {
                     // 'from' address in the message.
 
                     // Persist the regID - no need to register again.
+            		spiceManager.start(HomePageActivity.this);
+            		RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
+            		spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
+
                     storeRegistrationId(context, regid);
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
@@ -290,5 +307,32 @@ public class HomePageActivity extends Activity {
 //    private void sendRegistrationIdToBackend() {
 //      // Your implementation here.
 //    }
+    
+    private class RegDevListener implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				//Toast.makeText(HomePageActivity.this, "Failed to register Unsuccesful", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean edit) {
+			spiceManager.shouldStop();
+			//Toast.makeText(EditSingleCCActivity.this, "Successfully updated addresses", Toast.LENGTH_SHORT).show();
+
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+	}
 }
 
