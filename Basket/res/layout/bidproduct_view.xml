@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dip"
+    android:background="@drawable/shelf3"
+    
+     >
+
+    <TextView
+        android:id="@+id/bidnumOfRatings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bidratingBar1"
+        android:layout_toRightOf="@+id/bidratingBar1"
+        android:text="(150)"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#800080" />
+
+    <TextView
+        android:id="@+id/bidsupplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bidproduct"
+        android:layout_below="@+id/bidproduct"
+        android:text="From Apple Inc."
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/bidprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bidsupplier"
+        android:layout_below="@+id/bidsupplier"
+        android:text="$1,200.00"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/bidproduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/bidthumb"
+        android:layout_toRightOf="@+id/bidthumb"
+        android:text="Medium Text of Product"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
+
+    <ImageView
+
+        android:id="@+id/bidthumb"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bidprice"
+        android:layout_below="@+id/bidprice"
+        android:text="Ending:" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bidprice"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="5/7/2010" />
+
+    <RatingBar
+        android:id="@+id/bidratingBar1"
+        style="@style/orangeBar"
+        android:layout_width="75dp"
+        android:layout_height="15dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1" />
+   
+</RelativeLayout>

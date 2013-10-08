@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/orange"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/nameOnCardTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedro Colon Hernandez"
+        android:textColor="#FFFFFF" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/creditCardNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/nameOnCardTextView"
+        android:text="4334450005928377"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/creditCardExpMonthTextView"
+        android:layout_alignBottom="@+id/creditCardExpMonthTextView"
+        android:layout_toRightOf="@+id/creditCardExpMonthTextView"
+        android:text="/"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/creditCardExpYearTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="2016"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/creditCardExpMonthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/creditCardNumberTextView"
+        android:text="05"
+        android:textColor="#FFFFFF" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/black" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/bankName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Bank of America"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>

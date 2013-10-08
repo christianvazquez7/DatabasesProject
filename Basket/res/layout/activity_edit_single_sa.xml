@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wood4"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corners_black_border"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/etLine1SingleSA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Line 1" >
+
+            <requestFocus />
+        </EditText>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/etLine2SingleSA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Line 2" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/etCitySingleSA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="City" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/etStateSingleSA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="State" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/etZipcodeSingleSA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Zipcode" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/etCountrySingleSA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Country" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bSaveSingleSA"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_corners_black_border"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/bCancelSingleSA"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_corners_black_border"
+        android:text="Cancel" />
+
+</LinearLayout>

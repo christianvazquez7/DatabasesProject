@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <color name="purple_light">#a276eb</color>
+    <color name="purple_middle">#8658ce</color>
+    <color name="purple_dark">#6a3ab2</color>
+    <color name="white">#ffffff</color>
+    <color name="grey_light">#999999</color>
+    <color name="grey_dark">#333333</color>
+    <color name="gray_light">#999999</color>
+    <color name="gray_dark">#333333</color>
+    <color name="black">#000000</color>
+    <color name="orange">#FFA500</color>
+        <color name="pressed_mytab">#CC33B5E5</color>
+        <color name="wine">#610000</color>
+</resources>

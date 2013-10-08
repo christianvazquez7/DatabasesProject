@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+          >
+
+            <TextView
+                android:id="@+id/tvDeals"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:padding="5dp"
+                android:text="Hot Deals of the Day"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp" />
+
+            <ViewFlipper
+                android:background="@drawable/wood_light2"
+                android:id="@+id/vfDeals"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="5.33"
+                android:inAnimation="@anim/left_to_right"
+                android:outAnimation="@anim/right_to_left"
+                android:padding="20dp" >
+
+                <ImageView
+                    android:id="@+id/iViewDeal_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/book_image" />
+
+                <ImageView
+                    android:id="@+id/iViewDeal_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/camera_image" />
+
+                <ImageView
+                    android:id="@+id/iViewDeal_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/tennis_image" />
+            </ViewFlipper>
+
+            <TextView
+                android:textColor="#FFFFFF"
+                android:background="@color/black"
+                android:id="@+id/tvRecom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Recommended for You!"
+                android:textSize="15dp" />
+
+            <ViewFlipper
+                android:background="@drawable/wood_light2"
+                android:id="@+id/vfRecom"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="5.33"
+                android:inAnimation="@anim/left_to_right"
+                android:outAnimation="@anim/right_to_left"
+                android:padding="20dp" >
+
+                <ImageView
+                    android:id="@+id/iViewRecom_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/tv_image" />
+
+                <ImageView
+                    android:id="@+id/iViewRecom_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/laptop_image" />
+
+                <ImageView
+                    android:id="@+id/iViewRecom_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/tablet_image" />
+            </ViewFlipper>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

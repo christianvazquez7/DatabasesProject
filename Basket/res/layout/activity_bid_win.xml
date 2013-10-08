@@ -1,0 +1,171 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wood_light2"
+    tools:context=".BidWinActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/layer_gradient"
+        android:gravity="center_vertical"
+        android:paddingLeft="125dp"
+        android:text="Bid Winner!"
+        android:textColor="#FFFFFF" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:background="@drawable/shelfbkg"
+        android:padding="6dip" >
+
+        <TextView
+            android:id="@+id/bidnumOfRatings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/bidratingBar1"
+            android:layout_toRightOf="@+id/bidratingBar1"
+            android:text="(150)"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#800080" />
+
+        <TextView
+            android:id="@+id/bidsupplier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bidproduct"
+            android:layout_below="@+id/bidproduct"
+            android:text="From Apple Inc."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/bidprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bidsupplier"
+            android:layout_below="@+id/bidsupplier"
+            android:text="$1,200.00"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/bidproduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bidthumb"
+            android:layout_toRightOf="@+id/bidthumb"
+            android:text="Medium Text of Product"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/bidthumb"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_launcher" />
+
+        <RatingBar
+            android:id="@+id/bidratingBar1"
+            style="@style/orangeBar"
+            android:layout_width="75dp"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/bidthumb"
+            android:layout_alignLeft="@+id/bidprice"
+            android:layout_marginBottom="14dp" />
+    </RelativeLayout>
+<View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/parentBid"
+        android:background="@android:color/black" />
+
+    <View
+        android:id="@+id/View01"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/black" />
+
+    <View
+        android:id="@+id/View02"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:background="@android:color/black" />
+
+    <RelativeLayout
+        android:id="@+id/parentBid"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/relativeLayout1"
+        android:background="#610000" >
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view1"
+            android:layout_centerHorizontal="true"
+            android:text="Juanito1234"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/pricemybasket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:text="$300.50"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/declineBid"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/layer_gradient"
+        android:text="Decline Bid"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/acceptBid"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/declineBid"
+        android:layout_alignLeft="@+id/declineBid"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/layer_gradient"
+        android:text="Accept Bid"
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>
