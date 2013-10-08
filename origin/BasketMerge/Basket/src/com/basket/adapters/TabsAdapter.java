@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.ViewGroup;
 
 public class TabsAdapter extends FragmentPagerAdapter implements TabListener, OnPageChangeListener{
 	private final Context mContext;
@@ -45,14 +47,21 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 	}
 	
 	public void addTab(Tab tab, Class<?> clss, Bundle args){
+
 		TabInfo info = new TabInfo(clss, args);
 		tab.setTag(info);
 		tab.setTabListener(this);
 		mTabs.add(info);
+		notifyDataSetChanged();
 		mActionBar.addTab(tab);
 		notifyDataSetChanged();
+		
 	}
-
+	public void removeTab(ActionBar.Tab tab) {
+	    mTabs.remove(tab.getTag());
+	    mActionBar.removeTab(tab);
+	    notifyDataSetChanged();
+	}
 
 	@Override
 	public void onPageScrollStateChanged(int state) {
@@ -75,7 +84,8 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		
+		notifyDataSetChanged();
+
 	}
 
 
@@ -84,9 +94,13 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 		mViewPager.setCurrentItem(tab.getPosition());
 		Log.v(TAG, "clicked");
 		Object tag = tab.getTag();
+		notifyDataSetChanged();
 		for (int i = 0; i<mTabs.size(); i++){
+
 			if (mTabs.get(i) == tag){
+
 				mViewPager.setCurrentItem(i);
+
 			}
 		}
 	}
@@ -94,7 +108,8 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		
+		notifyDataSetChanged();
+
 	}
 
 
@@ -109,5 +124,9 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 	public int getCount() {
 		return mTabs.size();
 	}
+	
+	
+	
+	 
 
 }

@@ -25,7 +25,7 @@ public class AdminPageActivity extends Activity {
 			public void onClick(View arg0) 
 			{
 				// TODO Auto-generated method stub
-				Intent accountCreate = new Intent(arg0.getContext(),SignUpActivity.class);
+				Intent accountCreate = new Intent(arg0.getContext(),AdminSignUp.class);
 				startActivity(accountCreate);
 			}
 			

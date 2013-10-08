@@ -56,26 +56,36 @@ public class HarvestFragment extends Fragment
 
 			public void onClick(View arg0) 
 			{
-				TextView ammountT = (TextView)view.findViewById(R.id.etCategoryPage);
-				double ammount =Double.parseDouble(ammountT.getText().toString());
-				Calendar c = Calendar.getInstance(); 
-				int minute = c.get(Calendar.MINUTE);
-				int hour = c.get(Calendar.HOUR);
-				int day = c.get(Calendar.DAY_OF_MONTH);
-				int month= c.get(Calendar.MONTH);
-				int year = c.get(Calendar.YEAR);
-				if(ammount<=event.getMinBid()){
-					Toast.makeText(HarvestFragment.this.getActivity(), "Bid needs to be higher than minumum or current", Toast.LENGTH_LONG).show();
-				}
-				else{
-					newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser());
-
-					if (!spiceManager.isStarted())
+				try 
+				{
+					TextView ammountT = (TextView)view.findViewById(R.id.etCategoryPage);
+					double ammount =Double.parseDouble(ammountT.getText().toString());
+					Calendar c = Calendar.getInstance(); 
+					int minute = c.get(Calendar.MINUTE);
+					int hour = c.get(Calendar.HOUR);
+					int day = c.get(Calendar.DAY_OF_MONTH);
+					int month= c.get(Calendar.MONTH);
+					int year = c.get(Calendar.YEAR);
+					if(ammount<=event.getMinBid())
 					{
-						spiceManager.start(getActivity());
-						BidRequest JsonSpringAndroidRequest = new BidRequest(newBid,event);
-						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BidListener());
+						Toast.makeText(HarvestFragment.this.getActivity(), "Bid needs to be higher than minumum or current", Toast.LENGTH_LONG).show();
 					}
+					else{
+						newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser());
+
+						if (!spiceManager.isStarted())
+						{
+							spiceManager.start(getActivity());
+							BidRequest JsonSpringAndroidRequest = new BidRequest(newBid,event);
+							spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new BidListener());
+						}
+					}
+				}
+				catch( NumberFormatException e)
+				{
+					Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
+					if (spiceManager.isStarted())
+						spiceManager.shouldStop();
 				}
 
 			}
@@ -93,6 +103,7 @@ public class HarvestFragment extends Fragment
 			if (!(arg0 instanceof RequestCancelledException)) {
 
 				Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
+				spiceManager.shouldStop();
 			}
 			Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
 
@@ -102,9 +113,9 @@ public class HarvestFragment extends Fragment
 		@Override
 		public void onRequestSuccess(Boolean bool) 
 		{
-			event.getBids().add(newBid);
-			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
 			spiceManager.shouldStop();
+			//event.getBids().add(newBid);
+			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
 			Toast.makeText(getActivity(), "Bid Posted", Toast.LENGTH_SHORT).show();
 
 		}

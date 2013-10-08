@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="Penis">Penis</string>
+
+    <string name="Penis">Penis</string>
     <string name="app_name">Basket</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
@@ -31,5 +32,6 @@
     <string name="title_activity_create_buy">CreateBuyActivity</string>
     <string name="title_activity_selling_bid">SellingBid</string>
     <string name="title_activity_bid_win">BidWinActivity</string>
+    <string name="title_activity_admin_sign_up">AdminSignUp</string>
 
 </resources>

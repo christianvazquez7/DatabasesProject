@@ -46,6 +46,7 @@ public class ProductsInBuyBasketsList extends ListFragment{
 
 
 		//list_items = getResources().getStringArray(R.array.list);
+		if(this.getArguments().getInt("pos") < BasketSession.getUser().getBaskets().size())
 		setListAdapter(new ProductBuyAdapter(getActivity(), BasketSession.getUser().getBaskets().get(this.getArguments().getInt("pos")).getBuyEvents(),BasketSession.getUser().getBaskets().get(this.getArguments().getInt("pos")),this.getArguments().getInt("pos") ));
 		//setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_items));
 

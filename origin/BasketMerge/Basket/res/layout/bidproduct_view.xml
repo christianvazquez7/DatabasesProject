@@ -56,13 +56,28 @@
         android:contentDescription="TODO"
         android:src="@drawable/ic_launcher" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bidprice"
+        android:layout_below="@+id/bidprice"
+        android:text="Ending:" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bidprice"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="5/7/2010" />
+
     <RatingBar
         android:id="@+id/bidratingBar1"
         style="@style/orangeBar"
         android:layout_width="75dp"
         android:layout_height="15dp"
-        android:layout_alignBottom="@+id/bidthumb"
-        android:layout_alignLeft="@+id/bidprice"
-        android:layout_marginBottom="14dp" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1" />
    
 </RelativeLayout>

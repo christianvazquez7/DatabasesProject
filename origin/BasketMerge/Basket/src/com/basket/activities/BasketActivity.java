@@ -7,6 +7,7 @@ import android.animation.LayoutTransition;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog.Builder;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -112,11 +113,9 @@ public class BasketActivity extends FragmentActivity {
 					BasketSession.getUser().getBaskets().add(new ProductBasket(name));
 					Tab newTab =bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName());
 					//newTab.getCustomView().setBackgroundColor(color.black);
-
+					mTabsAdapter.notifyDataSetChanged();
 					mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
 
-					mTabsAdapter.notifyDataSetChanged();
-					pager.getAdapter().notifyDataSetChanged();
 					if (!spiceManager.isStarted())
 					{
 						spiceManager.start(BasketActivity.this);	
@@ -135,18 +134,18 @@ public class BasketActivity extends FragmentActivity {
 
 			return true;
 		case addId+1:
+			if(!spiceManager.isStarted()){
 			if(BasketSession.getUser().getBaskets().size()>0){
 				currentItem = pager.getCurrentItem();
-
+				
 				temp = 	BasketSession.getUser().getBaskets().get(currentItem);
-				BasketSession.getUser().getBaskets().remove(currentItem);
+				BasketSession.getUser().getBaskets().remove(currentItem);				
 				pager.getAdapter().notifyDataSetChanged();
 				mTabsAdapter.notifyDataSetChanged();
 				spiceManager.start(BasketActivity.this);					
 				RemoveBasketRequest JsonSpringAndroidRequest = new RemoveBasketRequest(temp);
 				spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
-				pager.getAdapter().notifyDataSetChanged();
-			}
+			}}
 		pager.getAdapter().notifyDataSetChanged();
 		return true;
 		default:

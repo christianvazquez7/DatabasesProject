@@ -1,5 +1,7 @@
 package com.basket.activities;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.AddressContainer;
@@ -16,6 +19,7 @@ import com.basket.containers.BasketSession;
 import com.basket.containers.CreditCardContainer;
 import com.basket.fragments.CreditCardButton;
 import com.basket.fragments.SelectAddressButton;
+import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Order;
 import com.basket.general.SelectedCreditCard;
@@ -43,6 +47,15 @@ public class CheckoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
+		int number = getIntent().getIntExtra("basketNum", -1);
+		List<BuyEvent>pro = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
+		double total =0;
+		for (BuyEvent e :pro)
+		{
+			total+=e.getPrice();
+		}
+		TextView t =(TextView)this.findViewById(R.id.totaltextview);
+		t.setText("$"+Double.toString(total));
 		
 		FragmentManager fragMan = this.getFragmentManager();
 		Fragment pickCardButtonFrag = fragMan.findFragmentById(R.id.creditcardfieldplaceholder);

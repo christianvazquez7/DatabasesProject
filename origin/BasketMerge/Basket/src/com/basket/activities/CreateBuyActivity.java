@@ -67,18 +67,19 @@ public class CreateBuyActivity extends Activity {
 				newBuyEvent.setFeatures(prodFeat.getText().toString());
 				try{
 					newBuyEvent.setPrice(Double.parseDouble(prodPrice.getText().toString()));
+					BasketSession.getUser().getCurrentlySellingOnBuy().add(newBuyEvent);
+
+					spiceManager.start(CreateBuyActivity.this);					
+					NewBuySellEventRequest JsonSpringAndroidRequest = new NewBuySellEventRequest(newBuyEvent);
+					spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBuyEventSellListner());
+
+					
+					CreateBuyActivity.this.finish();
 				}catch (NumberFormatException e){
 					Toast.makeText(CreateBuyActivity.this, "Wrong input on price make sure its number", Toast.LENGTH_LONG).show();
 				}
 
-				BasketSession.getUser().getCurrentlySellingOnBuy().add(newBuyEvent);
-
-				spiceManager.start(CreateBuyActivity.this);					
-				NewBuySellEventRequest JsonSpringAndroidRequest = new NewBuySellEventRequest(newBuyEvent);
-				spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBuyEventSellListner());
-
 				
-				CreateBuyActivity.this.finish();
 			}
 		});
 	}

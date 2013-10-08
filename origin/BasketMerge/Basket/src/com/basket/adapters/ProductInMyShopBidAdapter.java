@@ -52,6 +52,7 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		}
 		else
 			((TextView)convertView.findViewById(R.id.bidnumOfRatings)).setText("("+Integer.toString(currentProduct.getReviews().size())+")");
+		((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getFday()+"/"+currentProduct.getFmonth()+"/"+currentProduct.getFyear());
 
 		return convertView;
 		
