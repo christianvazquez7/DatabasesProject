@@ -34,6 +34,39 @@ var Bid = bidJS.Bid;
 var reportJS= require("./report.js");
 var Report = reportJS.Report;
 
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'lukesionkira',
+  password : 'qwerty',
+  database: "myFirstSql"
+});
+
+connection.connect();
+
+
+ 
+	
+	function getUserInfo (callback) {
+		connection.query('SELECT * FROM Users AS solution', function(err, response) {
+			  if (err) throw err;
+			  callback(err, response);
+			});
+	};
+	
+	console.log('The solution is: ');
+	getUserInfo(function(err, result){
+	    console.log(err || JSON.stringify(result));
+		console.log('Im out!');
+
+	});
+
+
+
+
+
+
 var creditCardList = new Array(
 		new CreditCard (0123,124567,05,2030,011,"Christian",new Adress("Urb. Catalana","casa #7","Barceloneta PR",00617)),
 		new CreditCard (0456,123457,07,1992,044,"Juan",new Adress("Urb. Catalana","casa #7","Barceloneta PR",00617))
@@ -400,4 +433,5 @@ function myTimer()
 	console.log("Bam");
 	sender.send(message, registrationIds, 4, function (err, result) {console.log(result);});
 }
+
 
