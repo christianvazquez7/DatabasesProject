@@ -1,13 +1,16 @@
 package com.basket.lists;
 
+import java.util.ArrayList;
+
 public class BidList {
-int dum;
+ArrayList<Integer> toFinish;
 
-public int getDum() {
-	return dum;
+public ArrayList<Integer> getToFinish() {
+	return toFinish;
 }
 
-public void setDum(int dum) {
-	this.dum = dum;
+public void setToFinish(ArrayList<Integer> toFinish) {
+	this.toFinish = toFinish;
 }
+
 }

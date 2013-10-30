@@ -8,16 +8,6 @@
         >
 
         <TextView
-            android:id="@+id/numOfRatings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ratingBar1"
-            android:layout_toRightOf="@+id/ratingBar1"
-            android:text="(150)"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#800080" />
-
-        <TextView
             android:id="@+id/supplier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +39,7 @@
 
         <RatingBar
             android:id="@+id/ratingBar1"
-            style="@style/orangeBar"
+        style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/available"

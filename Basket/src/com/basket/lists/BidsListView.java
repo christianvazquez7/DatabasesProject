@@ -4,15 +4,31 @@ package com.basket.lists;
 import java.util.ArrayList;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.basket.activities.BidWinActivity;
+import com.basket.activities.BidsOnProductActivity;
 import com.basket.adapters.BidsInSellingProductAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.Bid;
+import com.basket.general.BidEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.restrequest.BidOnEventList;
+import com.basket.restrequest.BidOnEventRequest;
 import com.example.basket.R;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
@@ -20,26 +36,17 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class BidsListView extends ListFragment{
 	//private String[] list_items;
+	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	private int itemClicked;
+	private  PullToRefreshListView listView;
+	private ArrayList<Bid> bidsOnProduct;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View rootView = inflater.inflate(R.layout.bids_list, container, false);
-		ArrayList<Bid> bidsOnProduct = new ArrayList<Bid>();
-		Bid bid = new Bid ();
-		bid.setAmmount(400);
-		bid.setBidder(BasketSession.getUser());
-		bid.setDay(1);
-		bid.setHour(5);
-		bid.setMinute(56);
-		bid.setMonth(5);
-		bid.setYear(2013);
-		bidsOnProduct.add(bid);
-		bidsOnProduct.add(bid);
-		
-		
-		
-		int itemClicked = (Integer) this.getActivity().getIntent().getExtras().get("itemClicked");
+		bidsOnProduct = BasketSession.getBidSearch();
+		 itemClicked = (Integer) this.getActivity().getIntent().getExtras().get("itemClicked");
 		setListAdapter(new BidsInSellingProductAdapter(getActivity(), bidsOnProduct));
 		
-		final PullToRefreshListView listView = (PullToRefreshListView) rootView.findViewById(R.id.pull_to_refresh_listview);
+		listView = (PullToRefreshListView) rootView.findViewById(R.id.pull_to_refresh_listview);
 		listView.setShowLastUpdatedText(true);
 		listView.setOnRefreshListener(new OnRefreshListener() 
 		{
@@ -47,22 +54,53 @@ public class BidsListView extends ListFragment{
 		    @Override
 		    public void onRefresh() 
 		    {
-		        // Your code to refresh the list contents
-
-		        // ...
-
-		        // Make sure you call listView.onRefreshComplete()
-		        // when the loading is done. This can be done from here or any
-		        // other place, like on a broadcast receive from your loading
-		        // service or the onPostExecute of your AsyncTask.
-
-		        listView.onRefreshComplete();
+		    	if(!spiceManager.isStarted())
+		    	{
+		    	spiceManager.start(getActivity());
+				BidOnEventRequest JsonSpringAndroidRequest = new BidOnEventRequest(BasketSession.getUser().getCurrentlySellingOnBid().get(itemClicked).getId());
+				spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new GetBidsListener());
+		    	}
 		    }
 		});
 
 
 
 		return rootView;
+	}
+	
+	private class GetBidsListener implements RequestListener<BidOnEventList>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(getActivity(), "No connection to server", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(BidOnEventList bids) 
+		{
+			spiceManager.shouldStop();
+			BasketSession.setBids(bids.getBids());
+			bidsOnProduct.clear();
+			for (Bid b:bids.getBids())
+			{
+				bidsOnProduct.add(b);
+			}
+			listView.onRefreshComplete();
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+
+
 	}
 
 

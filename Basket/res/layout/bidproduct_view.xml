@@ -8,16 +8,6 @@
      >
 
     <TextView
-        android:id="@+id/bidnumOfRatings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bidratingBar1"
-        android:layout_toRightOf="@+id/bidratingBar1"
-        android:text="(150)"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#800080" />
-
-    <TextView
         android:id="@+id/bidsupplier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,8 +64,8 @@
 
     <RatingBar
         android:id="@+id/bidratingBar1"
-        style="@style/orangeBar"
-        android:layout_width="75dp"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="80dp"
         android:layout_height="15dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1" />

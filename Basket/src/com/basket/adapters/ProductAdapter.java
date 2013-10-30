@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.BidEvent;
@@ -28,14 +29,13 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			if (convertView==null)
 			{
 				convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view, null);
-
 			}
 			BidEvent currentProduct = (BidEvent) this.getItem(pos);	
 
-			((TextView)convertView.findViewById(R.id.bidproduct)).setText(currentProduct.getProduct().getName());
-			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinning().getAmmount()));
+			((TextView)convertView.findViewById(R.id.bidproduct)).setText(currentProduct.getbTitle()); //fix me!!!
+			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinningBid().getAmmount()));
 			((TextView)convertView.findViewById(R.id.bidsupplier)).setText(currentProduct.getProduct().getManufacturer());
-			((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getFday()+"/"+currentProduct.getFmonth()+"/"+currentProduct.getFyear());
+			((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getEndingTime());
 
 		}
 		else{
@@ -49,6 +49,8 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 			((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 			((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+			 final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
+			    minimumRating.setRating(currentProduct.getRating());
 		}
 		
 

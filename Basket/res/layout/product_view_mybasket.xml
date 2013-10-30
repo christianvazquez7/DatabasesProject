@@ -54,15 +54,12 @@
         android:layout_alignParentTop="true"
         android:contentDescription="TODO"
         android:src="@drawable/ic_launcher" />
-
-    <TextView
-        android:id="@+id/numOfRatings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+<RatingBar
+        android:id="@+id/ratingBar1"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="15dp"
         android:layout_alignLeft="@+id/available"
-        android:layout_below="@+id/available"
-        android:text="(150)"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#800080" />
+        android:layout_below="@+id/available" />
    
 </RelativeLayout>

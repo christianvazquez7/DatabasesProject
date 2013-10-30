@@ -7,7 +7,20 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuyEvent implements Event
 {
-	
+	float rating;
+	public float getRating() {
+		return rating;
+	}
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+	String creator;
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 	Product product;
 	
 	String description;
@@ -55,10 +68,12 @@ public class BuyEvent implements Event
 	}
 	@Override
 	public String toString() {
-		return "BuyEvent [product=" + product + ", price=" + price + ", day="
-				+ day + ", year=" + year + ", month=" + month + ", hour="
-				+ hour + ", minute=" + minute + ", finalized=" + finalized
-				+ "]";
+		return "BuyEvent [rating=" + rating + ", creator=" + creator
+				+ ", product=" + product + ", description=" + description
+				+ ", features=" + features + ", reviews=" + reviews
+				+ ", price=" + price + ", day=" + day + ", year=" + year
+				+ ", month=" + month + ", hour=" + hour + ", minute=" + minute
+				+ ", finalized=" + finalized + ", id=" + id + "]";
 	}
 	public double getPrice() {
 		return price;

@@ -1,6 +1,7 @@
 package com.basket.general;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -8,20 +9,51 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BidEvent implements Event
 {
-	Product product;
 
+	Product product;
+	byte[] picture;
+
+	public byte[] getPicture() {
+		return picture;
+	}
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+	private String bidTitle;
+	private String endingTime;
+	
+	public String getBidTitle() {
+		return bidTitle;
+	}
+	public void setBidTitle(String bidTitle) {
+		this.bidTitle = bidTitle;
+	}
+	public String getEndingTime() {
+		return endingTime;
+	}
+	public void setEndingTime(String endingTime) {
+		this.endingTime = endingTime;
+	}
+	public String getbTitle() {
+		return bidTitle;
+	}
+	public void setbTitle(String bTitle) {
+		this.bidTitle = bTitle;
+	}
+	float rating;
+	public float getRating() {
+		return rating;
+	}
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
 	String description;
 
 	String features;
-	ArrayList<Review>reviews;
 	
 	
 	double startingBid;
-	int sday;
-	int syear;
-	int smonth;
-	int shour;
-	int sminute;
+	
 	int id;
 	boolean finalized;
 	
@@ -37,12 +69,7 @@ public class BidEvent implements Event
 	public void setId(int id) {
 		this.id = id;
 	}
-	int fday;
-	int fyear;
-	int fmonth;
-	int fhour;
-	int fminute;
-	private List<Bid> bids;
+	
 	private double minBid;
 	
 	public double getMinBid() {
@@ -69,98 +96,38 @@ public class BidEvent implements Event
 	public void setFeatures(String features) {
 		this.features = features;
 	}
-	public ArrayList<Review> getReviews() {
-		return reviews;
-	}
-	public void setReviews(ArrayList<Review> reviews) {
-		this.reviews = reviews;
-	}
+
 	public double getStartingBid() {
 		return startingBid;
 	}
 	public void setStartingBid(double startingBid) {
 		this.startingBid = startingBid;
 	}
-	public int getSday() {
-		return sday;
+
+	@Override
+	public String toString() {
+		return "BidEvent [product=" + product + ", picture="
+				+ Arrays.toString(picture) + ", bidTitle=" + bidTitle
+				+ ", endingTime=" + endingTime + ", rating=" + rating
+				+ ", description=" + description + ", features=" + features
+				+ ", startingBid=" + startingBid + ", id=" + id
+				+ ", finalized=" + finalized + ", minBid=" + minBid
+				+ ", creator=" + creator + ", winningBid=" + winningBid + "]";
 	}
-	public void setSday(int sday) {
-		this.sday = sday;
-	}
-	public int getSyear() {
-		return syear;
-	}
-	public void setSyear(int syear) {
-		this.syear = syear;
-	}
-	public int getSmonth() {
-		return smonth;
-	}
-	public void setSmonth(int smonth) {
-		this.smonth = smonth;
-	}
-	public int getShour() {
-		return shour;
-	}
-	public void setShour(int shour) {
-		this.shour = shour;
-	}
-	public int getSminute() {
-		return sminute;
-	}
-	public void setSminute(int sminute) {
-		this.sminute = sminute;
-	}
-	public int getFday() {
-		return fday;
-	}
-	public void setFday(int fday) {
-		this.fday = fday;
-	}
-	public int getFyear() {
-		return fyear;
-	}
-	public void setFyear(int fyear) {
-		this.fyear = fyear;
-	}
-	public int getFmonth() {
-		return fmonth;
-	}
-	public void setFmonth(int fmonth) {
-		this.fmonth = fmonth;
-	}
-	public int getFhour() {
-		return fhour;
-	}
-	public void setFhour(int fhour) {
-		this.fhour = fhour;
-	}
-	public int getFminute() {
-		return fminute;
-	}
-	public void setFminute(int fminute) {
-		this.fminute = fminute;
-	}
-	public List<Bid> getBids() {
-		return bids;
-	}
-	public void setBids(List<Bid> bids) {
-		this.bids = bids;
-	}
-	public User getCreator() {
+	public String getCreator() {
 		return creator;
 	}
-	public void setCreator(User creator) {
+	public void setCreator(String creator) {
 		this.creator = creator;
 	}
-	public Bid getWinning() {
-		return winning;
+	public Bid getWinningBid() {
+		return winningBid;
 	}
-	public void setWinning(Bid winning) {
-		this.winning = winning;
+	public void setWinningBid(Bid winning) {
+		this.winningBid = winning;
 	}
-	private User creator;
-	private Bid winning;
+	private String creator;
+	private Bid winningBid;
 	@Override
 	
 	public boolean isBid() {

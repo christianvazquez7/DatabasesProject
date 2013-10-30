@@ -7,10 +7,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.Bid;
-import com.basket.general.Products;
 import com.example.basket.R;
 import com.example.basket.R.id;
 
@@ -30,9 +30,13 @@ public class BidsInSellingProductAdapter extends ArrayAdapter<Bid>
 			
 		}
 		Bid currentBid = this.getItem(pos);	
-		if(currentBid!=null){
-			((TextView)convertView.findViewById(id.bidamount)).setText(Double.toString(currentBid.getAmmount()));
-			((TextView)convertView.findViewById(id.bidDate)).setText(Integer.toString(currentBid.getDay())+"/"+Integer.toString(currentBid.getMonth())+"/"+Integer.toString(currentBid.getYear()));
+		if(currentBid!=null)
+		{
+			
+			((TextView)convertView.findViewById(id.bidamount)).setText("$"+Double.toString(currentBid.getAmmount()));
+			((TextView)convertView.findViewById(id.bidderName)).setText(currentBid.getBidder());
+			((TextView)convertView.findViewById(id.bidDate)).setText(currentBid.getBidTime());
+		
 
 		}
 		return convertView;

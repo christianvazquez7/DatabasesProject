@@ -9,17 +9,6 @@
      >
 
     <TextView
-        android:textColor="#FFFFFF"
-        android:id="@+id/bidnumOfRatings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bidratingBar1"
-        android:layout_toRightOf="@+id/bidratingBar1"
-        android:text="(150)"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        />
-
-    <TextView
                 android:textColor="#FFFFFF"
         
         android:id="@+id/bidsupplier"
@@ -63,17 +52,18 @@
         android:layout_alignParentTop="true"
         android:contentDescription="TODO"
         android:src="@drawable/ic_launcher" />
+
       <TextView
-        android:textColor="#FFFFFF"
-        android:id="@+id/won"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bidnumOfRatings"
-        android:layout_alignParentRight="true"
-        android:text="Won!"
-        
-        android:textSize="30dp"
-        android:visibility="invisible" />
+          android:id="@+id/won"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@+id/bidratingBar1"
+          android:layout_alignParentRight="true"
+          android:text="Won!"
+          android:textColor="#FFFFFF"
+          android:textSize="30dp"
+          android:visibility="invisible" />
+
       <TextView
           android:textColor="#FFFFFF"
         android:id="@+id/textView1"
@@ -95,10 +85,10 @@
 
     <RatingBar
         android:id="@+id/bidratingBar1"
-        style="@style/orangeBar"
-        android:layout_width="75dp"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="80dp"
         android:layout_height="15dp"
-        android:layout_alignBottom="@+id/bidthumb"
-        android:layout_alignLeft="@+id/bidprice" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1" />
    
 </RelativeLayout>

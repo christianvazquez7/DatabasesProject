@@ -73,9 +73,7 @@ public class CreateBidActivity extends Activity {
 					newBidEvent.setDescription(prodDescription.getText().toString());
 					newBidEvent.setFeatures(prodFeat.getText().toString());
 					newBidEvent.setMinBid(Double.parseDouble(prodPrice.getText().toString()));
-					newBidEvent.setFmonth(M);
-					newBidEvent.setFday(D);
-					newBidEvent.setFyear(Y);
+				
 					BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);
 					
 					spiceManager.start(CreateBidActivity.this);					

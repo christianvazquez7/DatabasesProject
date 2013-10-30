@@ -2,9 +2,9 @@
  * New node file
  */
 module.exports= {
-	Basket: function(name,buyEvents,bidEvents)
+	Basket: function(bname,buyEvents,bidEvents)
 	{
-		this.name=name;
+		this.bname=bname;
 		this.buyEvents=buyEvents;
 		this.bidEvents= bidEvents;
 	}

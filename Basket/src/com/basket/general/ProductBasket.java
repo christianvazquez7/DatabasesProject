@@ -7,22 +7,27 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductBasket
 {
-	public String name;
+	@Override
+	public String toString() {
+		return "ProductBasket [name=" + bname + ", buyEvents=" + buyEvents
+				+ ", bidEvents=" + bidEvents + "]";
+	}
+	public String bname;
 	public ArrayList<BuyEvent> buyEvents;
 	public ArrayList<BidEvent> bidEvents;
 	
 	public ProductBasket() {};
 
 	public ProductBasket(String name) {
-		this.name = name;
+		this.bname = name;
 		this.buyEvents = new ArrayList<BuyEvent>();
 		this.bidEvents = new ArrayList<BidEvent>();
 	}
 	public String getName() {
-		return name;
+		return bname;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.bname = name;
 	}
 	public ArrayList<BuyEvent> getBuyEvents() {
 		return buyEvents;

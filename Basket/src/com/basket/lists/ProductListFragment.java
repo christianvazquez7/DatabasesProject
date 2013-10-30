@@ -2,36 +2,40 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
+import android.animation.LayoutTransition;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.basket.activities.BidEventPageActivity;
 import com.basket.activities.BuyEventPageActivity;
 import com.basket.adapters.ProductAdapter;
 import com.basket.containers.BasketSession;
+import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Event;
+import com.basket.general.ReviewList;
+import com.basket.restrequest.GetReviewsRequest;
 import com.example.basket.R;
-import com.example.basket.R.layout;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class ProductListFragment extends android.app.ListFragment
 {
+	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	private int pos;
 	private ArrayList<Event> foundProducts;
 //	private Animator mCurrentAnimator;
 //	private int mShortAnimationDuration;
@@ -71,7 +75,7 @@ public class ProductListFragment extends android.app.ListFragment
 		foundProducts.add(event);
 		return true;
 	}
-	public void onListItemClick(ListView l, View v, int pos ,  long id )
+	public void onListItemClick(ListView l, View v, int posi ,  long id )
 	{
 //		if (((ProductFragmentActivity)this.getActivity()).isHandlingRequest())
 //		{
@@ -161,17 +165,24 @@ public class ProductListFragment extends android.app.ListFragment
 //
 //			}
 //		});
+		this.pos=posi;
+		if (!spiceManager.isStarted())
+		{
+			spiceManager.start(getActivity());
+			GetReviewsRequest a;
+			if(this.foundProducts.get(pos).isBid()) 
+			{
+				BidEvent be= (BidEvent) this.foundProducts.get(pos);
+				a = new GetReviewsRequest(be.getId(),0);
+			}
+			else
+			{
+				BuyEvent be= (BuyEvent) this.foundProducts.get(pos);
+				a = new GetReviewsRequest(be.getId(),1);
+			}
+			spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
+		}
 		
-		if(this.foundProducts.get(pos).isBid()){
-			Intent productPage = new Intent(this.getActivity(),BidEventPageActivity.class);
-			productPage.putExtra("selectedEvent",pos);
-			this.startActivityForResult(productPage, 0);
-		}
-		else{
-			Intent productPage = new Intent(this.getActivity(),BuyEventPageActivity.class);
-			productPage.putExtra("selectedEvent",pos);
-			this.startActivityForResult(productPage, 0);
-		}
 		
 	}
 
@@ -202,5 +213,50 @@ public class ProductListFragment extends android.app.ListFragment
 		viewGroup.setLayoutTransition(l);
 		  super.onResume() ; 
 		}
+	
+	private class GetReviewsListener implements RequestListener<ReviewList>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(getActivity(), "No connection to server", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(ReviewList reviews) 
+		{
+			spiceManager.shouldStop();
+			BasketSession.setReviews(reviews.getReviews());
+			
+			
+			if(foundProducts.get(pos).isBid())
+			{
+				Intent productPage = new Intent(getActivity(),BidEventPageActivity.class);
+				productPage.putExtra("selectedEvent",pos);
+				startActivityForResult(productPage, 0);
+			}
+			else{
+				Intent productPage = new Intent(getActivity(),BuyEventPageActivity.class);
+				productPage.putExtra("selectedEvent",pos);
+				startActivityForResult(productPage, 0);
+			}
+			
+			
+
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+
+
+	}
 
 }

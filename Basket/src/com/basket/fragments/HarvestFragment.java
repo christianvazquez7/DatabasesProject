@@ -41,13 +41,13 @@ public class HarvestFragment extends Fragment
 
 		event = (BidEvent) BasketSession.getProductSearch().get(this.getActivity().getIntent().getIntExtra("selectedEvent", 0));
 		TextView seller =(TextView)view.findViewById(R.id.Seller);
-		seller.setText(event.getCreator().getUsername());
+		seller.setText(event.getCreator());
 
 		TextView winningBid =(TextView)view.findViewById(R.id.tvCatTitle);
-		winningBid.setText(Double.toString(event.getWinning().getAmmount()));
+		winningBid.setText(Double.toString(event.getWinningBid().getAmmount()));
 
 		TextView nextBid =(TextView)view.findViewById(R.id.TextView02);
-		nextBid.setText(Double.toString(event.getWinning().getAmmount()+event.getMinBid()));
+		nextBid.setText(Double.toString(event.getWinningBid().getAmmount()+event.getMinBid()));
 
 		Button harvest = (Button) view.findViewById(R.id.harvest);
 		harvest.setOnClickListener(new OnClickListener()
@@ -71,7 +71,7 @@ public class HarvestFragment extends Fragment
 						Toast.makeText(HarvestFragment.this.getActivity(), "Bid needs to be higher than minumum or current", Toast.LENGTH_LONG).show();
 					}
 					else{
-						newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser());
+						newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser().getUsername());
 
 						if (!spiceManager.isStarted())
 						{
