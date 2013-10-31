@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,13 +26,15 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class DateSaleActivity extends Activity 
 {
-
+	private RadioGroup sortradiogroup;
 	private SpiceManager spiceManager  = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.product_date_sales);
-		
+		sortradiogroup = (RadioGroup) findViewById(R.id.sortradiogroup);
+		sortradiogroup.check(R.id.radioYear);
+		type = "Year";
 		Button update = (Button) this.findViewById(R.id.update);
 		update.setOnClickListener(new OnClickListener(){
 
@@ -40,17 +43,39 @@ public class DateSaleActivity extends Activity
 			{
 				if(!spiceManager.isStarted())
 				{
-				
-				spiceManager.start(DateSaleActivity.this);
-				DatePicker date = (DatePicker) findViewById(R.id.datePicker1);
-				ProductReportRequest JsonSpringAndroidRequest = new ProductReportRequest(date.getDayOfMonth(),date.getMonth(),date.getYear(),"Year");
-				spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductReportListener());
+
+					spiceManager.start(DateSaleActivity.this);
 				}
+				DatePicker date = (DatePicker) findViewById(R.id.datePicker1);
+				//Modificar segun radio button
+				sortradiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						switch (checkedId){
+						case R.id.radioYear:
+							type = "Year";
+							break;
+						case R.id.radioMonth:
+							type="Month";
+							break;
+						case R.id.radioWeek:
+							type="Week";
+							break;
+						case R.id.radioDay:
+							type = "Day";
+							break;
+						}
+					}
+				});
+				ProductReportRequest JsonSpringAndroidRequest = new ProductReportRequest(date.getDayOfMonth(),date.getMonth(),date.getYear(),type);
+				spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductReportListener());
+
 			}
-			
+
 		});
 	}
-
+	public String type = "";
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -62,10 +87,10 @@ public class DateSaleActivity extends Activity
 		@Override
 		public void onRequestFailure(SpiceException arg0) 
 		{
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(DateSaleActivity.this, "Search could not be processed", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
@@ -81,13 +106,13 @@ public class DateSaleActivity extends Activity
 			TextView gross =(TextView) findViewById(R.id.total_gross_view);
 			gross.setText(Double.toString(report.getTotalGross()));
 			gross.setVisibility(View.VISIBLE);
-			
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 
 

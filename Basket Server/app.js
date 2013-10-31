@@ -38,30 +38,34 @@ var Report = reportJS.Report;
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'lukesionkira',
-  password : 'qwerty',
+  user     : 'root',
+  password : '',
   database: "myFirstSql"
 });
 
 connection.connect();
 
 
- 
-	
-	function getUserInfo (callback) {
-		connection.query('SELECT * FROM Users AS solution', function(err, response) {
-			  if (err) throw err;
-			  callback(err, response);
-			});
-	};
-	
-	console.log('The solution is: ');
-	getUserInfo(function(err, result){
-	    console.log(err || JSON.stringify(result));
-		console.log('Im out!');
 
-	});
 
+function getUserInfo(uname, callback) {
+	console.log("In get user info uname is:"+uname);
+	if(uname==""){
+		console.log("Empty");
+		connection.query('SELECT * FROM Users', function(err, response) {
+		  if (err) throw err;
+		  callback(err, response);
+		});
+	}
+	else{
+		console.log("Not empty");
+		console.log(uname);
+		connection.query('SELECT * FROM Users WHERE username like \'%'+uname+'%\';', function(err, response) {
+		  if (err) throw err;
+		  callback(err, response);
+		});
+	}
+};
 
 
 
@@ -175,13 +179,36 @@ console.log("server listening");
 //		});
 
 //Search for users
-app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
+app.get('/Basket.js/AdminSearch/',function(req,res)
 {
-	var response =
-	{
-		"users": userList
-	};
-	res.json(response);
+	console.log("Empty argument adminsearch");
+	var namequery = "";
+	getUserInfo(namequery, function(err, result){
+		console.log(err || JSON.stringify(result));
+		console.log('Im out!');
+		var response =
+		{
+			"users": result
+		};
+		res.json(response);	
+	});
+	
+});
+app.get('/Basket.js/AdminSearch/:search',function(req,res)
+{
+	console.log("Not empty log");
+	var namequery = req.params.search;
+	console.log(req.params.search);
+	getUserInfo(namequery, function(err, result){
+		console.log(err || JSON.stringify(result));
+		console.log('Im out!');
+		var response =
+		{
+			"users": result
+		};
+		res.json(response);	
+	});
+	
 });
 //Edit a user
 app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
@@ -270,6 +297,9 @@ app.del('/Basket.js/UserDelete/:id', function(req,res)
 			res.json(true);
 		});
 //Create a user
+function createUser(callback) {
+
+};
 app.post('/Basket.js/create/:id', function(req,res)
 {
 	console.log("Creating user");
@@ -349,21 +379,88 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 });
 
 app.get('/Basket.js/UpdateBidSeller', function(req,res)
-		{
-			var response={
-				"dum":1
+{
+	var response={
+		"dum":1
+	};
+	res.json(response);
+});
+///////////////////////////////////////////
+
+function gettotalsales(type, reqdate, callback) {
+
+	console.log("Getting total sales"+reqdate+"Type:"+type);
+	var datearray = reqdate.split("-");
+	var queryadd="";
+	if(type=='Day'){
+	console.log("1");
+		queryadd = '\'%-'+datearray[2]+'%\'';
+	}
+	else if(type == 'Year'){
+		queryadd = '\'%'+datearray[0]+'-%\'';
+		console.log(datearray[0]);
+		console.log("2");
+	}
+	else if(type=='Month'){
+		queryadd = '\'%-'+datearray[1]+'-%\'';
+		console.log("3");
+	}
+	connection.query('select sum(amount) as result from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd  , function(err, response) {
+	  if (err) throw err;
+	  callback(err, response);
+	});
+};
+
+function gettotalsalescount(type, reqdate, callback) {
+
+	console.log("Getting total sales"+reqdate+"Type:"+type);
+	var datearray = reqdate.split("-");
+	var queryadd="";
+	if(type=='Day'){
+	console.log("1");
+		queryadd = '\'%-'+datearray[2]+'%\'';
+	}
+	else if(type == 'Year'){
+		queryadd = '\'%'+datearray[0]+'-%\'';
+		console.log(datearray[0]);
+		console.log("2");
+	}
+	else if(type=='Month'){
+		queryadd = '\'%-'+datearray[1]+'-%\'';
+		console.log("3");
+	}
+	connection.query('select count(buyEventId) as result from baskets natural join in_buy_basket natural join orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd  , function(err, response) {
+	  if (err) throw err;
+	  callback(err, response);
+	});
+};
+
+app.get('/Basket.js/ProductReport/:day/:month/:year/:type', function(req,res)
+{
+	var datereq = req.params.year+"-"+req.params.month+"-"+req.params.day;
+	 
+	gettotalsales(req.params.type, datereq, function(err, result){
+		console.log(err || JSON.stringify(result));
+		console.log('Im out!');
+		console.log(result[0].result);
+		// var response =
+		// {
+			// "users": result
+		// };
+		// res.json(response);	
+		
+		gettotalsalescount(req.params.type, datereq, function(err, result2){
+			console.log(err || JSON.stringify(result2));
+			console.log('Im out!');
+			console.log(result2);
+			var response =
+			{
+				"totalSales": result2[0].result,
+				"totalGross": result[0].result
 			};
 			res.json(response);
 		});
-app.get('/Basket.js/ProductReport/:day/:month/:year/:type', function(req,res)
-	{
-		var response =
-		{
-				"totalSales": 3200000,
-				"totalGross":12300030
-				
-		};
-		res.json(response);
+	});
 });
 
 //Get a user	

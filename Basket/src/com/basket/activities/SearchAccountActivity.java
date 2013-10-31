@@ -1,10 +1,6 @@
 package com.basket.activities;
 
-import java.util.List;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -21,10 +17,6 @@ import com.basket.general.UserList;
 import com.basket.lists.UserListFragmet;
 import com.basket.restrequest.AccountRequestForAdmin;
 import com.example.basket.R;
-import com.example.basket.R.anim;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -36,7 +28,7 @@ public class SearchAccountActivity extends FragmentActivity {
 
 	private SpiceManager spiceManager=  new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	private UserListFragmet userList;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -44,29 +36,30 @@ public class SearchAccountActivity extends FragmentActivity {
 		setContentView(R.layout.account_search);
 		overridePendingTransition(R.anim.enter, R.anim.leave);
 		userList = (UserListFragmet) this.getSupportFragmentManager().findFragmentById(R.id.accountListContainer);
-		
+
 		if (userList==null){
 			userList=new UserListFragmet();
 			this.getSupportFragmentManager().beginTransaction().add(R.id.accountListContainer, userList).commit();
 		}
-		
-	Button searchButton=(Button)this.findViewById(R.id.accountSearchbtn);
-	searchButton.setOnClickListener(new OnClickListener()
-	{
 
-		
-		public void onClick(View arg0) 
+		Button searchButton=(Button)this.findViewById(R.id.accountSearchbtn);
+		searchButton.setOnClickListener(new OnClickListener()
 		{
-			if (!spiceManager.isStarted())
+
+
+			public void onClick(View arg0) 
 			{
-				spiceManager.start(SearchAccountActivity.this);
-				String userName = ((TextView)findViewById(R.id.accountSearch)).getText().toString();
-				spiceManager.execute(new AccountRequestForAdmin(userName), new AdminSearchListener());
+				if (!spiceManager.isStarted())
+				{
+					spiceManager.start(SearchAccountActivity.this);
+					String userName = ((TextView)findViewById(R.id.accountSearch)).getText().toString();
+					Log.d("Username", userName);
+					spiceManager.execute(new AccountRequestForAdmin(userName), new AdminSearchListener());
+				}
+
 			}
-			
-		}
-		
-	});
+
+		});
 	}
 
 	@Override
@@ -92,11 +85,11 @@ public class SearchAccountActivity extends FragmentActivity {
 		public void onRequestSuccess(UserList FoundUsers) 
 		{
 			spiceManager.shouldStop();
-		
+
 			for (User u : FoundUsers.getResults()){
 				Log.d("try",u.toString());
 			}
-			
+
 			userList.setList(FoundUsers.getResults());
 		}
 
