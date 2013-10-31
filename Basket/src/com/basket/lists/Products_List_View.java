@@ -23,10 +23,6 @@ public class Products_List_View extends ListFragment{
 		View rootView = inflater.inflate(R.layout.orders_list, container, false);
 		products = BasketSession.getUser().getUserOrders().get(this.getArguments().getInt("pos")).getBuyEvents();
 		setListAdapter(new ProductInOrderAdapter(getActivity(), products));
-
-
-
-
 		return rootView;
 	}
 

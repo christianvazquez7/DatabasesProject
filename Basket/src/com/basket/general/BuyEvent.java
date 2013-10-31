@@ -9,14 +9,31 @@ public class BuyEvent implements Event
 {
 	
 	Product product;
+	String features;
+	ArrayList<Review>reviews;
 	
+	double price;
+	int day;
+	int year;
+	int month;
+	int hour;
+	int minute;
+	int ammount =1;
+	boolean finalized;
 	String description;
+	public int getAmmount() {
+		return ammount;
+	}
+	public void setAmmount(int ammount) {
+		this.ammount = ammount;
+	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getFeatures() {
 		return features;
 	}
@@ -29,16 +46,7 @@ public class BuyEvent implements Event
 	public void setReviews(ArrayList<Review> reviews) {
 		this.reviews = reviews;
 	}
-	String features;
-	ArrayList<Review>reviews;
 	
-	double price;
-	int day;
-	int year;
-	int month;
-	int hour;
-	int minute;
-	boolean finalized;
 	public int getId() {
 		return id;
 	}

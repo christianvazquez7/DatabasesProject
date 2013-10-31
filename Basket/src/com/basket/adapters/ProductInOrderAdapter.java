@@ -27,15 +27,16 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 		if (convertView==null)
 		{
 			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view_orders, null);
-			
+
 		}
 		BuyEvent currentProduct = this.getItem(pos);	
-		
+
 		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.pricemybasket)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
 
+		((TextView)convertView.findViewById(R.id.ammountofproduct)).setText(currentProduct.getAmmount());
 		return convertView;
-		
+
 	}
 }

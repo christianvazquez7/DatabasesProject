@@ -80,7 +80,23 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/price"
+        android:layout_alignTop="@+id/ratingBar1"
         android:src="@drawable/red_x_clipped_rev_1" />
+
+    <EditText
+        android:id="@+id/ammountofproduct"
+        android:text="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/numOfRatings"
+        android:layout_alignLeft="@+id/removeButton"
+        android:layout_alignRight="@+id/removeButton"
+        android:layout_alignTop="@+id/price"
+        android:background="@color/orange"
+        android:ems="10"
+        android:inputType="numberSigned" >
+
+        <requestFocus />
+    </EditText>
    
 </RelativeLayout>

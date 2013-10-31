@@ -38,7 +38,6 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 
-		//
 		mCreateAccountTextView = (TextView) this.findViewById(R.id.createAccount);
 
 		mCreateAccountTextView.setOnClickListener(new View.OnClickListener() {

@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +39,7 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 	private int pos3;
 	private ProductBasket inBasket;
 	private SpiceManager spiceManager=new SpiceManager(CarJsonSpringAndroidSpiceService.class);;
-	
+
 	public ProductBuyAdapter(Context activity,ArrayList<BuyEvent> products,ProductBasket baskets,int pos3)
 	{
 		super(activity,0,products);
@@ -53,20 +57,50 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 		}
 		BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
 		((ImageView)convertView.findViewById(R.id.removeButton)).setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) 
 			{
 				//Remove product
 				if (!spiceManager.isStarted()){
-				spiceManager.start(context);
-				ProductBuyAdapter.this.content.remove(pos2);
-				UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
-				spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
-				ProductBuyAdapter.this.notifyDataSetChanged();
+					spiceManager.start(context);
+					ProductBuyAdapter.this.content.remove(pos2);
+					UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
+					ProductBuyAdapter.this.notifyDataSetChanged();
 				}
+
+
+			}
+		});
+		((EditText)convertView.findViewById(R.id.ammountofproduct)).setGravity(Gravity.CENTER);
+		((EditText)convertView.findViewById(R.id.ammountofproduct)).addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				
-				
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (!spiceManager.isStarted()){
+					
+					if(s!=null&&!s.toString().equals("")){
+						spiceManager.start(context);
+						ProductBuyAdapter.this.content.get(pos2).setAmmount(Integer.getInteger(s.toString()));
+						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new UpdateProductAmmountListner());
+						ProductBuyAdapter.this.notifyDataSetChanged();
+					}
+				}
+
+
 			}
 		});
 		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
@@ -80,10 +114,10 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(context, "product could not be removed", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
@@ -92,17 +126,39 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 		@Override
 		public void onRequestSuccess(Boolean bool) 
 		{
-
-			
 			spiceManager.shouldStop();
 			Toast.makeText(context, "Product Deleted", Toast.LENGTH_SHORT).show();
-				
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
+		}
+	}
+	private class UpdateProductAmmountListner implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(context, "Could not update ammount", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bool) 
+		{
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
 		}
 	}
 }

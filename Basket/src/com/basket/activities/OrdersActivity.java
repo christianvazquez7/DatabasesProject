@@ -38,7 +38,6 @@ public class OrdersActivity extends FragmentActivity {
 			Bundle args = new Bundle();
 			args.putInt("pos", i);
 			mTabsAdapter.addTab(bar.newTab().setText("Order "+(i+1)), Products_List_View.class, args);
-
 		}
 		
 	}
