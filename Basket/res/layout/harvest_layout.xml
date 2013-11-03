@@ -31,15 +31,6 @@
                 android:text="$30.50"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/pricemybasket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/tvCatTitle"
-                android:layout_below="@+id/tvCatTitle"
-                android:text="30 min. ago"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
             <View
                 android:id="@+id/view1"
                 android:layout_width="fill_parent"
@@ -79,6 +70,16 @@
                 android:layout_marginLeft="15dp"
                 android:text="Current Harvest"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/pricemybasket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view1"
+                android:layout_alignRight="@+id/tvCatTitle"
+                android:text="30 min. ago"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="10dp" />
 
         </RelativeLayout>
 

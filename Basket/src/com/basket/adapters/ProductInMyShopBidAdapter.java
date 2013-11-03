@@ -1,21 +1,23 @@
 package com.basket.adapters;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.BidEvent;
 import com.example.basket.R;
+import com.example.basket.R.color;
 
 public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 {
@@ -41,8 +43,11 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		((TextView)convertView.findViewById(R.id.bidsupplier)).setText("From "+currentProduct.getProduct().getManufacturer());
 	    final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.bidratingBar1);
 	    minimumRating.setRating(currentProduct.getRating());
-		if(currentProduct.isFinalized()){
-			if(currentProduct.getWinningBid()==null){
+		if(currentProduct.isFinalized())
+		{
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.orange));
+			if(currentProduct.getWinningBid()==null)
+			{
 				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getStartingBid()));
 
 			}
@@ -54,27 +59,21 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 			((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getStartingBid()));
 		
 		
-		
-		Log.d("try",currentProduct.getEndingTime());
 
+		Bitmap bm=null;
+		if(currentProduct.getPicture()!=null)
+		 bm = BitmapFactory.decodeByteArray(currentProduct.getPicture(), 0 ,currentProduct.getPicture().length);
 		
-		String datetimeString=currentProduct.getEndingTime();
-//		Date result = null;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-//		try {
-//			result = formatter.parse (datetimeString);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		ImageView pic =(ImageView)convertView.findViewById(R.id.bidthumb);
+		if(pic!=null)
+		pic.setImageBitmap(bm);
+		
+
 		((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getEndingTime());
 
 		
 		
-		//Bitmap bm = BitmapFactory.decodeByteArray(currentProduct.getPicture()., 0 ,currentProduct.getPicture().length);
-//		ImageView pic =(ImageView)convertView.findViewById(R.id.bidthumb);
-		//pic.setImageBitmap(bm);
-
+	
 
 		return convertView;
 		

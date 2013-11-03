@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuyEvent implements Event
 {
@@ -44,7 +46,13 @@ public class BuyEvent implements Event
 	}
 	String features;
 	ArrayList<Review>reviews;
-	
+	String btitle;
+	public String getBtitle() {
+		return btitle;
+	}
+	public void setBtitle(String btitle) {
+		this.btitle = btitle;
+	}
 	double price;
 	int day;
 	int year;
@@ -120,6 +128,23 @@ public class BuyEvent implements Event
 	@Override
 	public boolean isBid() {
 		return false;
+	}
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return this.getBtitle();
+	}
+	@Override
+	@JsonIgnore
+	public Double getAmount() {
+		// TODO Auto-generated method stub
+		return this.getPrice();
+	}
+	@Override
+	@JsonIgnore
+	public String brand() {
+		// TODO Auto-generated method stub
+		return this.getProduct().getManufacturer();
 	}
 
 }

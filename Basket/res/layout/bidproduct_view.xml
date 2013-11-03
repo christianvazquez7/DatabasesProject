@@ -8,25 +8,6 @@
      >
 
     <TextView
-        android:id="@+id/bidsupplier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bidproduct"
-        android:layout_below="@+id/bidproduct"
-        android:text="From Apple Inc."
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/bidprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bidsupplier"
-        android:layout_below="@+id/bidsupplier"
-        android:text="$1,200.00"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/bidproduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,27 +28,59 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/theProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bidprice"
-        android:layout_below="@+id/bidprice"
-        android:text="Ending:" />
+        android:layout_below="@+id/bidproduct"
+        android:layout_toRightOf="@+id/bidthumb"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="14dp" />
 
     <TextView
-        android:id="@+id/endDate"
+        android:id="@+id/bidsupplier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bidprice"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="5/7/2010" />
+        android:layout_below="@+id/theProduct"
+        android:layout_toRightOf="@+id/bidthumb"
+        android:text="From Apple Inc."
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/bidprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bidsupplier"
+        android:layout_toRightOf="@+id/bidthumb"
+        android:text="$1,200.00"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <RatingBar
         android:id="@+id/bidratingBar1"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="80dp"
         android:layout_height="15dp"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1" />
+        android:layout_below="@+id/bidprice"
+        android:layout_toRightOf="@+id/bidthumb" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bidratingBar1"
+        android:layout_below="@+id/bidratingBar1"
+        android:text="Ending:"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bidthumb"
+        android:layout_centerHorizontal="true"
+        android:text="5/7/2010"
+        android:textSize="10dp" />
    
 </RelativeLayout>

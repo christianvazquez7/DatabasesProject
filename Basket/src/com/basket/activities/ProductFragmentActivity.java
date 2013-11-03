@@ -1,6 +1,6 @@
 package com.basket.activities;
 
-import java.util.List;
+import java.util.Collections;
 
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -17,9 +17,8 @@ import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
 import com.basket.containers.EventList;
-import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
-import com.basket.general.Event;
+import com.basket.general.EventComparator;
 import com.basket.lists.ProductListFragment;
 import com.basket.restrequest.ProductSearchRequest;
 import com.example.basket.R;
@@ -82,6 +81,29 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 			}
 			
 		});
+		((Button)this.findViewById(R.id.bEditCreditCards)).setOnClickListener(new OnClickListener(){
+
+			
+			public void onClick(View arg0)
+			{
+				if(BasketSession.getProductSearch()!=null)
+				{
+					ViewPager a = (ViewPager) findViewById(R.id.pager4);
+					ViewPager b = (ViewPager) findViewById(R.id.pager3);
+
+					int i =a.getCurrentItem();
+					int j= b.getCurrentItem();
+					EventComparator c =new EventComparator();
+					c.enableIncrease(i);
+					c.setComparationMode(j);
+					Collections.sort(BasketSession.getProductSearch(),c);
+					
+					((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
+
+				}
+			}
+			
+		});
 		
 		
 
@@ -124,7 +146,10 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 	            return findViewById(resId);
 	        }
 
-	        @Override
+	        public int getPick()
+	        {
+	        	return 0;
+	        }
 	        public int getCount() 
 	        {
 	            return 7;
@@ -262,6 +287,8 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 			}
 			((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
 			spiceManager.shouldStop();
+			
+
 				
 		}
 

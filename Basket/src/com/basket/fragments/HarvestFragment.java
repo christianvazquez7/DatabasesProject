@@ -44,10 +44,28 @@ public class HarvestFragment extends Fragment
 		seller.setText(event.getCreator());
 
 		TextView winningBid =(TextView)view.findViewById(R.id.tvCatTitle);
+		if(event.getWinningBid()!=null)
 		winningBid.setText(Double.toString(event.getWinningBid().getAmmount()));
+		else
+			winningBid.setText(Double.toString(event.getMinBid()));
+
 
 		TextView nextBid =(TextView)view.findViewById(R.id.TextView02);
+		TextView nextTime =(TextView)view.findViewById(R.id.pricemybasket);
+		if(event.getWinningBid()!=null){
 		nextBid.setText(Double.toString(event.getWinningBid().getAmmount()+event.getMinBid()));
+		nextTime.setText(event.getWinningBid().getBidTime());
+
+		}
+		else{
+			nextBid.setText(Double.toString(event.getMinBid()+event.getMinBid()));
+			nextTime.setText("");
+
+		}
+		
+
+
+
 
 		Button harvest = (Button) view.findViewById(R.id.harvest);
 		harvest.setOnClickListener(new OnClickListener()

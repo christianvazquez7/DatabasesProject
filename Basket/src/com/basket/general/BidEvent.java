@@ -134,6 +134,23 @@ public class BidEvent implements Event
 		// TODO Auto-generated method stub
 		return true;
 	}
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return bidTitle;
+	}
+	@Override
+	public Double getAmount() {
+		// TODO Auto-generated method stub
+		if (this.getWinningBid()!=null)
+		return this.getWinningBid().getAmmount();
+		else return this.getMinBid();
+	}
+	@Override
+	public String brand() {
+		// TODO Auto-generated method stub
+		return this.getProduct().getManufacturer();
+	}
 
 
 

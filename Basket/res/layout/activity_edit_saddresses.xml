@@ -16,6 +16,8 @@
         android:id="@+id/addShippingAddressButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Address" />
+        android:text="Add New Address" 
+        android:textColor="#FFFFFF"
+        android:background="@color/orange"/>
 
 </LinearLayout>
