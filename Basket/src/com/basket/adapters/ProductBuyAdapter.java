@@ -16,12 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.basket.activities.BasketActivity;
-import com.basket.containers.BasketSession;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
-import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -34,6 +31,8 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 {
+	private EditText ammountofprod;
+
 	private ArrayList<BuyEvent> content;
 	private Context context;
 	private int pos3;
@@ -73,36 +72,9 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 
 			}
 		});
-		((EditText)convertView.findViewById(R.id.ammountofproduct)).setGravity(Gravity.CENTER);
-		((EditText)convertView.findViewById(R.id.ammountofproduct)).addTextChangedListener(new TextWatcher() {
+		String ammount = Integer.toString(currentProduct.getAmmount());
+		((TextView)convertView.findViewById(R.id.ammounttv)).setText(ammount);
 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
-			}
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				if (!spiceManager.isStarted()){
-					
-					if(s!=null&&!s.toString().equals("")){
-						spiceManager.start(context);
-						ProductBuyAdapter.this.content.get(pos2).setAmmount(Integer.getInteger(s.toString()));
-						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
-						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new UpdateProductAmmountListner());
-						ProductBuyAdapter.this.notifyDataSetChanged();
-					}
-				}
-
-
-			}
-		});
 		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());

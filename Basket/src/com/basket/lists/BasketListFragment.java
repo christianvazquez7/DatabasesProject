@@ -42,12 +42,6 @@ public class BasketListFragment extends android.app.ListFragment
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
-//	private MyRenderer selectedRenderer;
-//	private boolean out = false;
-//	private View previousView;
-//	private MyRenderer prev;
-//	private boolean remove;
-//	private Animation centerAni;
 	private int currentPos=0;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	ProductBasket defaultPB;
@@ -65,8 +59,9 @@ public class BasketListFragment extends android.app.ListFragment
 			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB);
 			BasketSession.getUser().getBaskets().add(defaultPB);
 			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
-			
+
 		}
+
 		super.onCreate(savedInstance);
 		foundBaskets= BasketSession.getUser().getBaskets();	
 
@@ -82,10 +77,25 @@ public class BasketListFragment extends android.app.ListFragment
 	{
 		spiceManager.start(getActivity());
 		currentPos=pos;
-		BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+		boolean found = false;
+		for(int i = 0; i<BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().size();i++)
+		{
+			if(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getId() == ((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0))).getId())
+			{
+				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).setAmmount(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getAmmount()+1);
+				found = true;
+				break;
+			}
+		}
+		
+		if(!found)
+		{
+			BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+		}
+	
 		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));
 		spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BasketUpdateListener());
-		
+
 	}
 
 	private void zoomImageFromThumb(final View thumbView, int imageResId) {
@@ -231,10 +241,10 @@ public class BasketListFragment extends android.app.ListFragment
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(getActivity(), "Item could not be added", Toast.LENGTH_SHORT).show();
 			}
 			Toast.makeText(getActivity(), "Item could not be added", Toast.LENGTH_SHORT).show();
@@ -247,18 +257,18 @@ public class BasketListFragment extends android.app.ListFragment
 		public void onRequestSuccess(Boolean bool) 
 		{
 
-			
+
 			spiceManager.shouldStop();
 			Toast.makeText(getActivity(), "Product Added to Basket", Toast.LENGTH_SHORT).show();
-			
+
 			getActivity().finish();
-				
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 	}
 	private class NewBasketListener implements RequestListener<Boolean>, RequestProgressListener {

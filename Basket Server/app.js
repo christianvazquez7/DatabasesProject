@@ -87,9 +87,11 @@ var exproduct = new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40);
 var exbproduct = new product("Macbook Pro", 1204054932,"Dell Inc.",20,15,40);
 
 var buyEvents = new Array(
-		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
-		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
-		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false)
+		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
+		- 6 GB DDR3 \
+		- 17.3-Inch Screen \
+		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
+		,reviews,0,5)
 );
 
 var users = {};
@@ -120,7 +122,7 @@ var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 
 		- 6 GB DDR3 \
 		- 17.3-Inch Screen \
 		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
-		,reviews,0);
+		,reviews,0,1);
 
 buylist.push(event);
 
@@ -523,12 +525,12 @@ var registrationIds = [];
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-var myVar=setInterval(function(){myTimer()},30000);
+//var myVar=setInterval(function(){myTimer()},30000);
 
 function myTimer()
 {
 	console.log("Bam");
 	sender.send(message, registrationIds, 4, function (err, result) {console.log(result);});
-}
+};
 
 

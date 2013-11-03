@@ -83,9 +83,8 @@
         android:layout_alignTop="@+id/ratingBar1"
         android:src="@drawable/red_x_clipped_rev_1" />
 
-    <EditText
+    <!-- <EditText
         android:id="@+id/ammountofproduct"
-        android:text="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/numOfRatings"
@@ -96,7 +95,14 @@
         android:ems="10"
         android:inputType="numberSigned" >
 
-        <requestFocus />
-    </EditText>
+    </EditText> -->
+
+    <TextView
+        android:id="@+id/ammounttv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/available"
+        android:layout_alignParentRight="true"
+        />
    
 </RelativeLayout>

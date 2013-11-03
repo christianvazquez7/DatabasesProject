@@ -36,7 +36,7 @@ public class BasketAdapter extends ArrayAdapter<ProductBasket>
 		double totalA =0;
 		for(BuyEvent e : currentBasket.getBuyEvents())
 		{
-			totalA+=e.getPrice();
+			totalA+=e.getPrice()*e.getAmmount();
 		}
 		total.setText(Double.toString(totalA));
 		

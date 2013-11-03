@@ -29,6 +29,8 @@ public class ProductInCheckoutAdapter extends ArrayAdapter<BuyEvent>
 
 			}
 			BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
+			String s = Integer.toString(currentProduct.getAmmount());
+			((TextView)convertView.findViewById(R.id.productamount)).setText(s);
 
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 			((TextView)convertView.findViewById(R.id.pricemybasket)).setText("$"+Double.toString(currentProduct.getPrice()));

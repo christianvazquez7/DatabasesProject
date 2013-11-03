@@ -2,7 +2,7 @@
  * New node file
  */
 module.exports ={
-		BuyEvent: function(product,price,day,year,month,hour,minute,finalized,features,description,reviews,id)
+		BuyEvent: function(product,price,day,year,month,hour,minute,finalized,features,description,reviews,id,ammount)
 		{
 			this.product=product;
 			this.price= price;
@@ -16,5 +16,6 @@ module.exports ={
 			this.description=description;
 			this.reviews=reviews;
 			this.id=id;
+			this.ammount = ammount;
 		}
 };
