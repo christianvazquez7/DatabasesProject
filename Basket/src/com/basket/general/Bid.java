@@ -1,19 +1,23 @@
 package com.basket.general;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Bid {
 	private double ammount;
-	public int day,month,year,hour,minute;
-	private User bidder;
 	
+	private String bidder;
+	
+	public String getBidTime() {
+		return bidTime;
+	}
+	public void setBidTime(String bidTime) {
+		this.bidTime = bidTime;
+	}
+	private String bidTime;
 	
 	public Bid(){};
-	public Bid(double amount, int day,int month,int year,int hour,int minute, User user) {
+	public Bid(double amount, int day,int month,int year,int hour,int minute, String user) {
 		this.ammount = amount;
-		this.day=day;
-		this.month=month;
-		this.year=year;
-		this.hour=hour;
-		this.minute=minute;
 		this.bidder = user; 
 	}
 	public double getAmmount() {
@@ -22,40 +26,15 @@ public class Bid {
 	public void setAmmount(double ammount) {
 		this.ammount = ammount;
 	}
-	public int getDay() {
-		return day;
+	@Override
+	public String toString() {
+		return "Bid [ammount=" + ammount + ", bidder=" + bidder + ", bidTime="
+				+ bidTime + "]";
 	}
-	public void setDay(int day) {
-		this.day = day;
-	}
-	public int getMonth() {
-		return month;
-	}
-	public void setMonth(int month) {
-		this.month = month;
-	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public int getHour() {
-		return hour;
-	}
-	public void setHour(int hour) {
-		this.hour = hour;
-	}
-	public int getMinute() {
-		return minute;
-	}
-	public void setMinute(int minute) {
-		this.minute = minute;
-	}
-	public User getBidder() {
+	public String getBidder() {
 		return bidder;
 	}
-	public void setBidder(User bidder) {
+	public void setBidder(String bidder) {
 		this.bidder = bidder;
 	}
 	

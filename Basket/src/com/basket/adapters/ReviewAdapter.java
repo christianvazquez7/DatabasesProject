@@ -2,15 +2,16 @@ package com.basket.adapters;
 
 import java.util.ArrayList;
 
-import com.basket.general.Review;
-import com.example.basket.R;
-import com.example.basket.R.layout;
-
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import com.basket.general.Review;
+import com.example.basket.R;
 
 public class ReviewAdapter extends ArrayAdapter<Review> {
 	private Context context;
@@ -27,12 +28,16 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 			
 		}
 		Review currentProduct = this.getItem(pos);
-//		TextView productName = (TextView) convertView.findViewById(R.id.product);
-//		productName.setText(currentProduct.getName());
-//		
-//		TextView supplierName = (TextView) convertView.findViewById(R.id.supplier);
-//		productName.setText(currentProduct.getSupplier());
-//		
+		TextView title = (TextView) convertView.findViewById(R.id.reviewT);
+		title.setText(currentProduct.getTitle());
+		TextView content = (TextView) convertView.findViewById(R.id.content);
+		content.setText(currentProduct.getContent());
+		TextView reviewer = (TextView) convertView.findViewById(R.id.reviewer);
+		reviewer.setText("-"+currentProduct.getUsername());
+		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.bidratingBar1);
+	    minimumRating.setRating(currentProduct.getRrating());
+
+	
 		
 		return convertView;
 		

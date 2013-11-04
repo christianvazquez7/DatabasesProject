@@ -3,33 +3,27 @@
  */
 module.exports =
 {
-		BidEvent: function(product,startingBid,sday,syear,smonth,shour,sminute,fday,fyear,fmonth,fhour,fminute,features,description,reviews,bids,winning,creator,minBid,id)
+		BidEvent: function(product,startingBid,startingTime,endingTime,features,description,minBid,id,creator,rating,bTitle,picture,winningBid)
 		{
 			this.id=id;
 			this.product=product;
 			this.startingBid= startingBid;
 			
-			this.sday= sday;
-			this.syear= syear;
-			this.smonth= smonth;
-			this.shour= shour;
-			this.sminute= sminute;
+			this.endingTime=endingTime;
+			this.startingTime=startingTime;
+			this.creator = creator;
+			this.rating=rating;
 			
-			this.fday= fday;
-			this.fyear= fyear;
-			this.fmonth= fmonth;
-			this.fhour= fhour;
-			this.fminute= fminute;
-			
-			this.creator=creator;
 			
 			this.minBid=minBid;
-			this.bids=bids;
-			this.winning = winning;
+			
 			
 			this.features=features;
 			this.description=description;
-			this.reviews=reviews;
-
+			this.bidTitle=bTitle;
+			
+			
+			this.picture=picture;
+			this.winningBid=winningBid;
 		}
 };

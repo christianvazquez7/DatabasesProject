@@ -4,10 +4,25 @@ import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BuyEvent implements Event
 {
-	
+	float rating;
+	public float getRating() {
+		return rating;
+	}
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+	String creator;
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 	Product product;
 	String features;
 	ArrayList<Review>reviews;
@@ -18,14 +33,14 @@ public class BuyEvent implements Event
 	int month;
 	int hour;
 	int minute;
-	int ammount =1;
+	int item_quantity =1;
 	boolean finalized;
 	String description;
-	public int getAmmount() {
-		return ammount;
+	public int getitem_quantity() {
+		return item_quantity;
 	}
-	public void setAmmount(int ammount) {
-		this.ammount = ammount;
+	public void setitem_quantity(int item_quantity) {
+		this.item_quantity = item_quantity;
 	}
 	public String getDescription() {
 		return description;
@@ -46,7 +61,14 @@ public class BuyEvent implements Event
 	public void setReviews(ArrayList<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
+
+	String btitle;
+	public String getBtitle() {
+		return btitle;
+	}
+	public void setBtitle(String btitle) {
+		this.btitle = btitle;
+	}
 	public int getId() {
 		return id;
 	}
@@ -63,10 +85,12 @@ public class BuyEvent implements Event
 	}
 	@Override
 	public String toString() {
-		return "BuyEvent [product=" + product + ", price=" + price + ", day="
-				+ day + ", year=" + year + ", month=" + month + ", hour="
-				+ hour + ", minute=" + minute + ", finalized=" + finalized
-				+ "]";
+		return "BuyEvent [rating=" + rating + ", creator=" + creator
+				+ ", product=" + product + ", description=" + description
+				+ ", features=" + features + ", reviews=" + reviews
+				+ ", price=" + price + ", day=" + day + ", year=" + year
+				+ ", month=" + month + ", hour=" + hour + ", minute=" + minute
+				+ ", finalized=" + finalized + ", id=" + id + "]";
 	}
 	public double getPrice() {
 		return price;
@@ -113,6 +137,23 @@ public class BuyEvent implements Event
 	@Override
 	public boolean isBid() {
 		return false;
+	}
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return this.getBtitle();
+	}
+	@Override
+	@JsonIgnore
+	public Double getAmount() {
+		// TODO Auto-generated method stub
+		return this.getPrice();
+	}
+	@Override
+	@JsonIgnore
+	public String brand() {
+		// TODO Auto-generated method stub
+		return this.getProduct().getManufacturer();
 	}
 
 }

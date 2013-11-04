@@ -30,6 +30,15 @@ public class ShippingAddressListAdapter extends ArrayAdapter<Adress>
 		}
 		Adress currentAddress = this.getItem(pos);	
 		((TextView)convertView.findViewById(R.id.shippingAddressLine1)).setText(currentAddress.getLine1());
+		((TextView)convertView.findViewById(R.id.line2)).setText(currentAddress.getLine2());
+		((TextView)convertView.findViewById(R.id.city)).setText(currentAddress.getCity());
+		((TextView)convertView.findViewById(R.id.country)).setText(currentAddress.getCountry());
+		((TextView)convertView.findViewById(R.id.state)).setText(currentAddress.getState());
+
+
+
+		
+
 		((TextView)convertView.findViewById(R.id.shippingAddressZipCode)).setText(Integer.toString(currentAddress.getZipCode()));
 		return convertView;
 		

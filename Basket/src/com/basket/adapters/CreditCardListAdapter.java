@@ -30,8 +30,7 @@ public class CreditCardListAdapter extends ArrayAdapter<CreditCard>
 		CreditCard currentCC = this.getItem(pos);	
 		((TextView)convertView.findViewById(R.id.nameOnCardTextView)).setText(currentCC.getName());
 		((TextView)convertView.findViewById(R.id.creditCardNumberTextView)).setText(Long.toString(currentCC.getCardNum()));
-		((TextView)convertView.findViewById(R.id.creditCardExpYearTextView)).setText(Integer.toString(currentCC.getExpYear()));
-		((TextView)convertView.findViewById(R.id.creditCardExpMonthTextView)).setText(Integer.toString(currentCC.getExpMonth()));
+		((TextView)convertView.findViewById(R.id.date)).setText(Integer.toString(currentCC.getExpMonth())+"/"+Integer.toString(currentCC.getExpYear()));
 
 
 

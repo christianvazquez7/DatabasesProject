@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/wood4" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:paddingTop="40dp" >
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/round_corners_black_border"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:paddingLeft="5dp"
+                    android:id="@+id/buyEventProductNameET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="@null"
+                    android:hint="Review Title"
+                    
+                    android:ems="10" />
+            </LinearLayout>
+            
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                
+            </LinearLayout>
+        </LinearLayout>
+
+        <RatingBar
+            	android:layout_gravity="center"
+                    android:id="@+id/ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:numStars="5" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_weight=".5"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/round_corners_black_border"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_weight=".75"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+                <EditText
+                    android:id="@+id/buyEventProductFeatures"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ems="10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corners_edit_text"
+            android:orientation="vertical" >
+            </LinearLayout>
+        <Button
+            android:id="@+id/createBuyEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/layer_gradient"
+            android:text="Review it!"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</LinearLayout>

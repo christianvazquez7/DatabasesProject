@@ -18,7 +18,14 @@ public class User
 	private ArrayList<BuyEvent> currentlySellingOnBuy;
 	private ArrayList<CreditCard> creditCards;
 	private ArrayList<Order> userOrders;
+	private float rating;
 
+	public float getRating() {
+		return rating;
+	}
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
 	public User(){}
 	public User(String n,String e, String p){
 		username=n;
@@ -80,12 +87,16 @@ public class User
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", username=" + username
-				+ ", password=" + password + ", billingAdress=" + billingAdress
-				+ ", shippingAdress=" + shippingAdress + ", baskets=" + baskets
+				+ ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", age=" + age + ", bdDay="
+				+ bdDay + ", bdMonth=" + bdMonth + ", bdYear=" + bdYear
+				+ ", billingAdress=" + billingAdress + ", shippingAdress="
+				+ shippingAdress + ", baskets=" + baskets
 				+ ", currentlyBiddingOn=" + currentlyBiddingOn
 				+ ", currentlySellingOnBid=" + currentlySellingOnBid
 				+ ", currentlySellingOnBuy=" + currentlySellingOnBuy
-				+ ", creditCards=" + creditCards + "]";
+				+ ", creditCards=" + creditCards + ", userOrders=" + userOrders
+				+ ", rating=" + rating + "]";
 	}
 
 	public ArrayList<ProductBasket> getBaskets() {

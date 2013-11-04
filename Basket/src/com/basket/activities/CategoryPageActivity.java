@@ -266,10 +266,16 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 
 
 			BasketSession.getProductSearch().clear();
-			for(Event e: events.getBuyEvents())
-				BasketSession.getProductSearch().add(e);
-			for (Event e:events.getBidEvents())
-				BasketSession.getProductSearch().add(e);
+			int max = events.getBuyEvents().size();
+			if (events.getBidEvents().size()>max)max=events.getBidEvents().size();
+			for (int i =0; i<max;i++)
+			{
+				if (i<events.getBuyEvents().size())
+				BasketSession.getProductSearch().add(events.getBuyEvents().get(i));
+				if (i<events.getBidEvents().size())
+					BasketSession.getProductSearch().add(events.getBidEvents().get(i));
+			}
+			
 			((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
 			spiceManager.shouldStop();
 

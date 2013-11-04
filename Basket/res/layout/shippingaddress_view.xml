@@ -1,27 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/orange" >
+    android:background="#610000">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/home" />
 
     <TextView
-        android:textColor="#FFFFFF"
         android:id="@+id/shippingAddressLine1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="123 PENIS STREEET" />
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="123 PENIS STREEET"
+        android:textColor="#FFFFFF" />
+
     <TextView
-        android:textColor="#FFFFFF"
+        android:id="@+id/line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shippingAddressLine1"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="Small Text"
+            android:textColor="#FFFFFF" 
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+                    android:textColor="#FFFFFF" 
+        
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/line2"
+        android:layout_below="@+id/line2"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
         android:id="@+id/shippingAddressZipCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="12345" />
+        android:layout_alignLeft="@+id/city"
+        android:layout_below="@+id/city"
+        android:text="12345"
+        android:textColor="#FFFFFF" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/city"
+        android:layout_toRightOf="@+id/city"
+        android:text=","
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/state"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
+        android:layout_toRightOf="@+id/shippingAddressZipCode"
+        android:text=","
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
+        android:layout_toRightOf="@+id/TextView01"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>

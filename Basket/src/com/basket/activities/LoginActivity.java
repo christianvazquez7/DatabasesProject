@@ -122,7 +122,25 @@ public class LoginActivity extends Activity {
 		public void onRequestSuccess(User User) 
 		{
 			spiceManager.shouldStop();
-			Log.d("try",User.toString());
+			Log.d("try",User.getEmail().toString());
+//			Log.d("try",User.getFirstName().toString());
+//			Log.d("try",User.getLastName().toString());
+//			Log.d("try",User.getPassword().toString());
+//			Log.d("try",User.getUsername().toString());
+			Log.d("try",User.getCurrentlySellingOnBid().toString());
+
+
+
+
+
+
+
+			
+
+
+
+
+
 			BasketSession.beginSession(User);
 			Intent intent;
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);

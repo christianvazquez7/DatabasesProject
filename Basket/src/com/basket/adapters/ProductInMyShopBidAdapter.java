@@ -3,15 +3,21 @@ package com.basket.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.BidEvent;
-import com.basket.general.Products;
 import com.example.basket.R;
+import com.example.basket.R.color;
 
 public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 {
@@ -35,24 +41,39 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		BidEvent currentProduct = this.getItem(pos);	
 		((TextView)convertView.findViewById(R.id.bidproduct)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.bidsupplier)).setText("From "+currentProduct.getProduct().getManufacturer());
-		if(currentProduct.isFinalized()){
-			if(currentProduct.getWinning()==null){
-				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(15.82));
+	    final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.bidratingBar1);
+	    minimumRating.setRating(currentProduct.getRating());
+		if(currentProduct.isFinalized())
+		{
+			convertView.setBackgroundColor(context.getResources().getColor(R.color.orange));
+			if(currentProduct.getWinningBid()==null)
+			{
+				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getStartingBid()));
 
 			}
 			else
-				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getWinning().getAmmount()));
+				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getWinningBid().getAmmount()));
 
 		}
 		else
 			((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getStartingBid()));
-		if(currentProduct.getReviews()==null){
-			((TextView)convertView.findViewById(R.id.bidnumOfRatings)).setText("("+Integer.toString(0)+")");
+		
+		
 
-		}
-		else
-			((TextView)convertView.findViewById(R.id.bidnumOfRatings)).setText("("+Integer.toString(currentProduct.getReviews().size())+")");
-		((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getFday()+"/"+currentProduct.getFmonth()+"/"+currentProduct.getFyear());
+		Bitmap bm=null;
+		if(currentProduct.getPicture()!=null)
+		 bm = BitmapFactory.decodeByteArray(currentProduct.getPicture(), 0 ,currentProduct.getPicture().length);
+		
+		ImageView pic =(ImageView)convertView.findViewById(R.id.bidthumb);
+		if(pic!=null)
+		pic.setImageBitmap(bm);
+		
+
+		((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getEndingTime());
+
+		
+		
+	
 
 		return convertView;
 		

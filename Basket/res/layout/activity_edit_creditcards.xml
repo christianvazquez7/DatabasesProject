@@ -3,7 +3,6 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wood4"
     android:orientation="vertical" >
 	
     <FrameLayout 
@@ -14,6 +13,8 @@
 
 
     <Button
+        android:background="@color/orange"
+        android:textColor="#FFFFFF"
         android:id="@+id/addCreditCardButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -75,5 +75,5 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text="1" />
-   
+
 </RelativeLayout>

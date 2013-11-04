@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,6 +79,8 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
+	    minimumRating.setRating(currentProduct.getRating());
 
 		return convertView;
 

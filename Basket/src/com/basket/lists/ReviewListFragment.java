@@ -3,6 +3,7 @@ package com.basket.lists;
 import java.util.ArrayList;
 
 import com.basket.adapters.ReviewAdapter;
+import com.basket.containers.BasketSession;
 import com.basket.general.Review;
 import com.example.basket.R;
 import com.example.basket.R.drawable;
@@ -20,11 +21,8 @@ public class ReviewListFragment extends ListFragment
 		
 		super.onCreate(savedInstance);
 		
-		reviews = new ArrayList<Review>();
-		reviews.add(new Review());
-		reviews.add(new Review());
-		reviews.add(new Review());
-		reviews.add(new Review());reviews.add(new Review());
+		reviews = BasketSession.getReviewSearch();
+		
 	
 		getActivity().setTitle("Review List");
 		ReviewAdapter adapter = new ReviewAdapter(this.getActivity(),reviews);

@@ -4,6 +4,17 @@ package com.basket.general;
 public class CreditCard 
 {
 
+	@Override
+	public String toString() {
+		return "CreditCard [cardId=" + cardId + ", expMonth=" + expMonth
+				+ ", expYear=" + expYear + ", secCode=" + secCode
+				+ ", cardNum=" + cardNum + ", name=" + name + ", billing="
+				+ billing + "]";
+	}
+
+	public void setExpMonth(int expMonth) {
+		this.expMonth = expMonth;
+	}
 	private int cardId,expMonth,expYear,secCode;
 	private long cardNum;
 	private String name;

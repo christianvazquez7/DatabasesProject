@@ -18,8 +18,8 @@ public class ProductSearchRequest extends SpringAndroidSpiceRequest<EventList> {
 	@Override
 	public EventList loadDataFromNetwork() throws Exception {
 		
-		String url = BasketConstants.externalIp+"/Basket.js/search/foo";
-		//url+=query;
+		String url = BasketConstants.externalIp+"/Basket.js/search/";
+		url+=query;
 		Log.d( "request", "loading from network" );
 		return getRestTemplate().getForObject( url, EventList.class);
 	}

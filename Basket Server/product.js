@@ -2,16 +2,15 @@
  * New node file
  */
 module.exports =  { 
-	product : function (name, ISBN,manufacturer,width,height,depth)
+	product : function (name, productPId,manufacturer,width,height,depth)
 	{
 		
 		this.name = name;
-		this.ISBN = ISBN;
+		this.productPId = productPId;
 		this.manufacturer =  manufacturer;
 		this.width=width;
 		this.height=height;
 		this.depth=depth;
-		
 		
 		
 	}

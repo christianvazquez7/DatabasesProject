@@ -5,13 +5,14 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product 
 {
-	int ISBN;
+	int productPId;
 	
-	public int getISBN() {
-		return ISBN;
+
+	public int getProductPId() {
+		return productPId;
 	}
-	public void setISBN(int iSBN) {
-		ISBN = iSBN;
+	public void setProductPId(int productPId) {
+		this.productPId = productPId;
 	}
 	public int getWidth() {
 		return width;
@@ -32,16 +33,23 @@ public class Product
 		this.depth = depth;
 	}
 	public String getName() {
-		return name;
+		return pname;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.pname = name;
 	}
 	
 	int width;
 	int height;
+	@Override
+	public String toString() {
+		return "Product [ISBN=" + productPId + ", width=" + width + ", height="
+				+ height + ", depth=" + depth + ", pname=" + pname
+				+ ", manufacturer=" + manufacturer + "]";
+	}
+
 	int depth;
-	String name;
+	String pname;
 	String manufacturer;
 
 	public String getManufacturer() {
