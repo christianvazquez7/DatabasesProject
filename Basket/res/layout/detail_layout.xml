@@ -12,6 +12,43 @@
         android:divider="@drawable/custom_divider">
 
         <RelativeLayout
+            android:id="@+id/sellerRatings"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/wine"
+             >
+
+            <TextView
+                android:textColor="#FFFFFF"
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="Seller Ratings"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+               />
+
+            <ImageView
+                android:id="@+id/ImageView01"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/monotone_arrow_right" />
+             
+            </RelativeLayout>
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/custom_divider" />
+            
+        <RelativeLayout
             
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +99,7 @@
 
          <RelativeLayout
              android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
+             android:layout_height="100dp" >
 
              <ImageView
                  android:id="@+id/imageView1"
@@ -77,7 +114,7 @@
                  android:layout_height="110dp"
                  android:layout_alignLeft="@+id/textView4"
                  android:layout_below="@+id/textView4"
-                 android:text="The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
+                 android:text="The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set heat sinks keep your system cool on the inside so you can game for hours on end."
                  android:textSize="12dp" />
 
              <TextView

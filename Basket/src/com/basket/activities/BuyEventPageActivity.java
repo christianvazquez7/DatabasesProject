@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,20 +16,33 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
-//import com.basket.fragments.HarvestFragment;
 import com.basket.fragments.ProductDetailFragment;
 import com.basket.fragments.ProductFragment;
+import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.UserRatingList;
 import com.basket.lists.ReviewListFragment;
+import com.basket.restrequest.BidOnEventList;
 import com.example.basket.R;
+import com.example.basket.UserReviewListActivity;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
+//import com.basket.fragments.HarvestFragment;
 //import com.example.basket.R.anim;
 //import com.example.basket.R.id;
 //import com.example.basket.R.layout;
 //import com.example.basket.R.menu;
 
 public class BuyEventPageActivity extends FragmentActivity {
+
 	private ViewGroup viewGroup;
 	private BuyEvent currentEvent;
 	boolean tab = false;
@@ -36,6 +50,8 @@ public class BuyEventPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		
 		
 		currentEvent=(BuyEvent) BasketSession.getProductSearch().get(this.getIntent().getIntExtra("selectedEvent", 0));
 		setContentView(R.layout.product_page);
@@ -166,5 +182,7 @@ public class BuyEventPageActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.product, menu);
 		return true;
 	}
+	
+	
 
 }

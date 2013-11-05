@@ -6,6 +6,7 @@ import com.basket.general.Bid;
 import com.basket.general.Event;
 import com.basket.general.Review;
 import com.basket.general.User;
+import com.basket.general.UserRating;
 
 public class BasketSession 
 {
@@ -13,6 +14,7 @@ public class BasketSession
 	private static ArrayList<Event> currentSearchBuyList;
 	private static ArrayList<Bid> currentBids;
 	private static ArrayList<Review> currentReviews;
+	private static ArrayList<UserRating>  ratings;
 	
 	
 	
@@ -57,6 +59,16 @@ public class BasketSession
 		if (currentReviews!=null)
 		currentReviews.clear();
 		currentReviews=list;
+	}
+	public static ArrayList<UserRating> getUserRatings() {
+		
+		return ratings;
+	}
+	public static void setRatings(ArrayList<UserRating> r) {
+		
+		if (ratings!=null)
+			ratings.clear();
+			ratings=r;
 	}
 	
 	

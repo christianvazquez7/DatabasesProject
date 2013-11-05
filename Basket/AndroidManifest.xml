@@ -204,7 +204,7 @@
             android:name="com.basket.activities.BidWinActivity"
             android:label="@string/title_activity_bid_win" >
         </activity>
-         <activity
+        <activity
             android:name="com.basket.activities.AdminSignUp"
             android:label="@string/title_activity_admin_sign_up" >
         </activity>
@@ -223,7 +223,10 @@
 
         <service android:name="com.basket.notifications.GcmIntentService" />
 
-       
+        <activity
+            android:name="com.example.basket.UserReviewListActivity"
+            android:label="@string/title_activity_user_review_list" >
+        </activity>
     </application>
 
 </manifest>

@@ -33,5 +33,6 @@
     <string name="title_activity_selling_bid">SellingBid</string>
     <string name="title_activity_bid_win">BidWinActivity</string>
     <string name="title_activity_admin_sign_up">AdminSignUp</string>
+    <string name="title_activity_user_review_list">UserReviewListActivity</string>
 
 </resources>

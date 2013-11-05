@@ -1,5 +1,7 @@
 package com.basket.adapters;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -56,7 +58,15 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 
 		}
 		else
-			((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getStartingBid()));
+		{
+			if(currentProduct.getWinningBid()==null)
+			{
+				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getStartingBid()));
+
+			}
+			else
+				((TextView)convertView.findViewById(R.id.bidprice)).setText(Double.toString(currentProduct.getWinningBid().getAmmount()));
+		}
 		
 		
 
@@ -69,7 +79,20 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		pic.setImageBitmap(bm);
 		
 
-		((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getEndingTime());
+		
+		java.util.Date date = null;
+		
+		SimpleDateFormat formatter, FORMATTER;
+		formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		String oldDate = currentProduct.getEndingTime();
+		 try {
+			date = formatter.parse(oldDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+		 ((TextView)convertView.findViewById(R.id.endDate)).setText(FORMATTER.format(date));
 
 		
 		

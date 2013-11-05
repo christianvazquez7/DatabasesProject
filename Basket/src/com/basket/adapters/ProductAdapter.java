@@ -1,13 +1,19 @@
 package com.basket.adapters;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -42,9 +48,36 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			else
 			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinningBid().getAmmount()));
 			((TextView)convertView.findViewById(R.id.bidsupplier)).setText(currentProduct.getProduct().getManufacturer());
-			((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getEndingTime());
+			
+			java.util.Date date = null;
+			
+			SimpleDateFormat formatter, FORMATTER;
+			formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			String oldDate = currentProduct.getEndingTime();
+			 try {
+				date = formatter.parse(oldDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+			 ((TextView)convertView.findViewById(R.id.endDate)).setText(FORMATTER.format(date));
+			
+			
+			
 			 final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.bidratingBar1);
 			    minimumRating.setRating(currentProduct.getRating());
+			    
+			    
+			    
+    
+				Bitmap bm=null;
+				if(currentProduct.getPicture()!=null)
+				 bm = BitmapFactory.decodeByteArray(currentProduct.getPicture(), 0 ,currentProduct.getPicture().length);
+				
+				ImageView pic =(ImageView)convertView.findViewById(R.id.bidthumb);
+				if(pic!=null)
+				pic.setImageBitmap(bm);
 
 		}
 		else{
@@ -59,6 +92,17 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
 			 final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
 			    minimumRating.setRating(currentProduct.getRating());
+			    
+			    
+			    
+
+				Bitmap bm=null;
+				if(currentProduct.getPic()!=null)
+				 bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
+				
+				ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
+				if(pic!=null)
+				pic.setImageBitmap(bm);
 		}
 		
 

@@ -78,8 +78,8 @@
         android:id="@+id/endDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bidthumb"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/bidratingBar1"
+        android:layout_toRightOf="@+id/textView1"
         android:text="5/7/2010"
         android:textSize="10dp" />
    

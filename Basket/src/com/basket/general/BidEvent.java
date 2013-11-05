@@ -151,6 +151,11 @@ public class BidEvent implements Event
 		// TODO Auto-generated method stub
 		return this.getProduct().getManufacturer();
 	}
+	@Override
+	public String getSeller() {
+		// TODO Auto-generated method stub
+		return this.getCreator();
+	}
 
 
 

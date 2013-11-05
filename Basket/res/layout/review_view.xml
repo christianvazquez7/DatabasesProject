@@ -2,17 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0AFFA500"
->
-
-    <ImageView
-        android:id="@+id/ivCatPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/reviewT"
-        android:layout_toRightOf="@+id/content"
-        android:src="@drawable/monotone_arrow_right" />
+    android:background="#0AFFA500" >
 
     <TextView
         android:id="@+id/reviewT"
@@ -37,7 +27,7 @@
     <TextView
         android:id="@+id/content"
         android:layout_width="270dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_alignLeft="@+id/reviewT"
         android:layout_below="@+id/bidratingBar1"
         android:text="A good bit of this film is a superhero-origins story, in which we follow Steve Rogers asd asdas das das dasdasdasdasdas" />
@@ -46,12 +36,11 @@
         android:id="@+id/reviewer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivCatPage"
-        android:layout_toLeftOf="@+id/ivCatPage"
+        android:layout_alignBottom="@+id/content"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/reviewT"
         android:text="-Christian VAzquez"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FFA500" />
 
-</RelativeLayout>
-<!--   android:textColor="#F1FFA500"
- -->
+</RelativeLayout><!--    android:textColor="#F1FFA500" -->

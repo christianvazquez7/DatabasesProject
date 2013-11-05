@@ -16,6 +16,9 @@ var User= userJS.User;
 var reviewJS = require("./review.js");
 var Review= reviewJS.Review;
 
+var user_reviewJS = require("./user_review.js");
+var User_Review= user_reviewJS.User_Review;
+
 var creditCardJS = require("./creditCard.js");
 var CreditCard=creditCardJS.CreditCard;
 
@@ -205,9 +208,6 @@ app.get('/Basket.js/GetBuyReviews/:id',function(req,res)
 		var reviewList= new Array();
 		for (var i=0;i<rest[0][0].length;i++)
 		{
-			console.log(rest[0][0][i].title);
-			console.log(rest[0][0][i].content);
-//			console.log(review[0][0][i].username
 			
 		 reviewList.push(new Review(rest[0][0][i].title,rest[0][0][i].content,rest[0][0][i].username, rest[0][0][i].rrating));
 		}
@@ -230,7 +230,7 @@ app.get('/Basket.js/GetBidReviews/:id',function(req,res)
 	{
 		console.log(req.params.id);
 		var defered = Q.defer();
-		var userquery='select * from Product_Reviews natural join reviews_bid_event natural join Bid_Events join Users on Product_Reviews.userId=Users.userId where bidEventId='+connection.escape(req.params.id);
+		var userquery='select * from Product_Reviews natural join reviews_bid_event   join Bid_Events on productReviewedId=Bid_Events.bidEventId join Users on Product_Reviews.userId=Users.userId where reviews_bid_event.bidEventId='+connection.escape(req.params.id);
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -285,6 +285,39 @@ app.get('/Basket.js/GetBids/:id',function(req,res)
 		res.json(response);
 			});
 	
+		
+		});
+
+
+//get uRatings
+app.get('/Basket.js/GetRatings/:id',function(req,res)
+		{
+	
+	function getURatings() 
+	{
+		console.log(req.params.id);
+		var defered = Q.defer();
+		var userquery='select User_Reviews.rating,c.username from Users join User_Reviews on userReviewedId=Users.userID join Users as c on c.userId=userReviewId where Users.username='+ connection.escape(req.params.id);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([getURatings()]).then(function(rest)
+		{
+		console.log('HERE');
+		var t= new Array();
+		for (var i=0;i<rest[0][0].length;i++)
+		{
+			t.push(new User_Review(rest[0][0][i].rating,rest[0][0][i].username));
+		}
+		var response =
+		{
+			"r": t
+		};
+		console.log(response);
+		res.json(response);
+		});
+	
+
 		
 		});
 //Edit a user
@@ -373,7 +406,7 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 		 for (var i=0;i<rest[0][0].length;i++)
 		 {
 				
-				 eventList.push(new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].buyEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].btitle)); 
+				 eventList.push(new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].buyEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].btitle,rest[0][0][i].pic)); 
 		 }
 			
 		 for (var i=0;i<rest[1][0].length;i++)
@@ -506,7 +539,7 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 		 for (var i=0;i<max;i++)
 		 {
 			 if(i<rest[0][0].length)
-				 evetList.push(new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,1,1,1),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].basketId,rest[0][0][i].username,rest[0][0][i].rating)); 
+				 evetList.push(new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,1,1,1),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].basketId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].pic)); 
 			 if(i<rest[1][0].length)
 				 evetList.push(new BidEvent(new product(rest[3][0][i].pname,rest[3][0][i].sellerPId,rest[3][0][i].mname,1,1,1),rest[3][0][i].startingBid,rest[3][0][i].startingTime,rest[3][0][i].endingTime,rest[3][0][i].features,rest[3][0][i].description,rest[3][0][i].minBid,rest[3][0][i].bidEventId,rest[3][0][i].username, rest[3][0][i].rating)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		 }
@@ -685,7 +718,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		    			OrderList.push(new Order(rest[2][0][i-1].sellingTime,new CreditCard(rest[2][0][i-1].cardId,rest[2][0][i-1].cardNum,rest[2][0][i-1].expMonth,rest[2][0][i-1].expYear,rest[2][0][i-1].secCode,rest[2][0][i-1].name,new Adress(rest[2][0][i-1].bline1,rest[2][0][i-1].bline2,rest[2][0][i-1].bcountry,rest[2][0][i-1].bzipCode,rest[2][0][i-1].bcity,rest[2][0][i-1].bstate)),rest[2][0][i-1].accountNum,oEvents,new Adress(rest[2][0][i-1].sline1,rest[2][0][i-1].line2,rest[2][0][i-1].scountry,rest[2][0][i-1].szipCode,rest[2][0][i-1].scity,rest[2][0][i-1].sstate),null));
 				    	oEvents= new Array();
 		    			}
-				    	oEvents.push(new BuyEvent(new product(rest[2][0][i].pname,rest[2][0][i].sellerPId,rest[2][0][i].mname,1,1,1),rest[2][0][i].price,rest[2][0][i].sellingTime,false,rest[2][0][i].features,rest[2][0][i].description,rest[2][0][i].basketId,rest[2][0][i].username,rest[2][0][i].sellerRating,rest[2][0][i].btitle)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+				    	oEvents.push(new BuyEvent(new product(rest[2][0][i].pname,rest[2][0][i].sellerPId,rest[2][0][i].mname,1,1,1),rest[2][0][i].price,rest[2][0][i].sellingTime,false,rest[2][0][i].features,rest[2][0][i].description,rest[2][0][i].basketId,rest[2][0][i].username,rest[2][0][i].sellerRating,rest[2][0][i].btitle,rest[2][0][i].pic)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 				    	OrderList.push(new Order(rest[2][0][i].sellingTime,new CreditCard(rest[2][0][i].cardId,rest[2][0][i].cardNum,rest[2][0][i].expMonth,rest[2][0][i].expYear,rest[2][0][i].secCode,rest[2][0][i].name,new Adress(rest[2][0][i].bline1,rest[2][0][i].bline2,rest[2][0][i].bcountry,rest[2][0][i].bzipCode,rest[2][0][i].bcity,rest[2][0][i].bstate)),rest[2][0][i].accountNum,oEvents,new Adress(rest[2][0][i].sline1,rest[2][0][i].sline2,rest[2][0][i].scountry,rest[2][0][i].szipCode,rest[2][0][i].scity,rest[2][0][i].sstate),null));
 		    		}
 		    		else
@@ -695,7 +728,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		    		
 		    		oEvents= new Array();
 		    	}
-		    	oEvents.push(new BuyEvent(new product(rest[2][0][i].pname,rest[2][0][i].sellerPId,rest[2][0][i].mname,1,1,1),rest[2][0][i].price,rest[2][0][i].sellingTime,false,rest[2][0][i].features,rest[2][0][i].description,rest[2][0][i].basketId,rest[2][0][i].username,rest[2][0][i].sellerRating,rest[2][0][i].btitle)); 
+		    	oEvents.push(new BuyEvent(new product(rest[2][0][i].pname,rest[2][0][i].sellerPId,rest[2][0][i].mname,1,1,1),rest[2][0][i].price,rest[2][0][i].sellingTime,false,rest[2][0][i].features,rest[2][0][i].description,rest[2][0][i].basketId,rest[2][0][i].username,rest[2][0][i].sellerRating,rest[2][0][i].btitle,rest[2][0][i].pic)); 
 		    	curroId=rest[2][0][i].orderId;
 		    	console.log(rest[2][0][i].orderId+'at'+i);
 		    	
@@ -753,7 +786,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		   for (var i=0;i<rest[6][0].length;i++)
 		   {
 			   
-		    	sBuyEvents.push(new BuyEvent(new product(rest[6][0][i].pname,rest[6][0][i].sellerPId,rest[6][0][i].mname,1,1,1),rest[6][0][i].price,rest[6][0][i].sellingTime,false,rest[6][0][i].features,rest[6][0][i].description,rest[6][0][i].basketId,rest[6][0][i].username,rest[6][0][i].rating,rest[6][0][i].btitle)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+		    	sBuyEvents.push(new BuyEvent(new product(rest[6][0][i].pname,rest[6][0][i].sellerPId,rest[6][0][i].mname,1,1,1),rest[6][0][i].price,rest[6][0][i].sellingTime,false,rest[6][0][i].features,rest[6][0][i].description,rest[6][0][i].basketId,rest[6][0][i].username,rest[6][0][i].rating,rest[6][0][i].btitle,rest[6][0][i].pic)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		   }
 		   
 		   //get user Baskets!!
@@ -773,7 +806,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 				    	EventsPerBasket[rest[7][0][i-1].bname]=Events; //must address multiple name existance?
 				    	Events= new Array();
 		    			}
-				    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].basketId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+				    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].basketId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle,rest[7][0][i].pic)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		    			EventsPerBasket[rest[7][0][i].bname]=Events; 
 		    		}
 		    		else
@@ -783,7 +816,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		    		
 		    		Events= new Array();
 		    	}
-		    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].basketId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+		    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].basketId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle,rest[7][0][i].pic)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		    	currId=rest[7][0][i].basketId;
 		    }
 		    
