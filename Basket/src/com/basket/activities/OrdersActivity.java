@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 
 import com.basket.adapters.TabsAdapter;
 import com.basket.containers.BasketSession;
+import com.basket.fragments.InvoiceFragment;
 import com.basket.general.Order;
 import com.basket.lists.Products_List_View;
 import com.example.basket.R;
@@ -37,7 +38,7 @@ public class OrdersActivity extends FragmentActivity {
 			Products_List_View.ordernum=i;
 			Bundle args = new Bundle();
 			args.putInt("pos", i);
-			mTabsAdapter.addTab(bar.newTab().setText("Order "+(i+1)), Products_List_View.class, args);
+			mTabsAdapter.addTab(bar.newTab().setText("Order "+(i+1)), InvoiceFragment.class, args);
 
 		}
 		

@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
+import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.restrequest.DeleteBidEventRequest;
 import com.example.basket.R;
@@ -48,6 +51,28 @@ public class BidWinActivity extends Activity {
 				removeBid();
 			}
 		});
+		
+		
+		BidEvent e = BasketSession.getUser().getCurrentlySellingOnBid().get(position);
+		
+
+		((TextView)this.findViewById(R.id.bidproduct)).setText(((BidEvent) e).getBidTitle());
+		((TextView)this.findViewById(R.id.winnah)).setText(((BidEvent) e).getWinningBid().getBidder());
+
+		if (((BidEvent) e).getWinningBid()!=null)
+		((TextView)this.findViewById(R.id.bidprice)).setText("$"+Double.toString(((BidEvent) e).getWinningBid().getAmmount()));
+		else
+			((TextView)this.findViewById(R.id.bidprice)).setText("$"+Double.toString(((BidEvent) e).getMinBid()));
+
+		((TextView)this.findViewById(R.id.bidsupplier)).setText(((BidEvent) e).getProduct().getManufacturer());
+		((TextView)this.findViewById(R.id.pp)).setText(((BidEvent) e).getProduct().getName());
+		 final RatingBar minimumRating = (RatingBar)this.findViewById(R.id.bidratingBar1);
+		    minimumRating.setRating(e.getRating());
+		    ((TextView)this.findViewById(R.id.textView1)).setText(((BidEvent) e).getWinningBid().getBidder());
+		    ((TextView)this.findViewById(R.id.pricemybasket)).setText(Double.toString(((BidEvent) e).getWinningBid().getAmmount()));
+
+		    
+	
 	}
 
 	protected void removeBid() {

@@ -142,7 +142,7 @@ public class LoginActivity extends Activity {
 //			Log.d("try",User.getLastName().toString());
 //			Log.d("try",User.getPassword().toString());
 //			Log.d("try",User.getUsername().toString());
-			Log.d("try",User.getCurrentlySellingOnBid().toString());
+			Log.d("try",User.getUserOrders().toString());
 
 
 

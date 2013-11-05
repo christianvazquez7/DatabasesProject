@@ -7,12 +7,26 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 public class Order 
 {
+	@Override
+	public String toString() {
+		return "Order [creditCard=" + creditCard + ", bidEvent=" + bidEvent
+				+ ", shipAdress=" + shipAdress + ", buyEvents=" + buyEvents
+				+ ", day=" + day + ", month=" + month + ", year=" + year
+				+ ", account=" + account + "]";
+	}
 	public CreditCard creditCard;
 	public BidEvent getBidEvent() {
 		return bidEvent;
 	}
 	public void setBidEvent(BidEvent bidEvent) {
 		this.bidEvent = bidEvent;
+	}
+	public String sDate;
+	public String getsDate() {
+		return sDate;
+	}
+	public void setsDate(String sDate) {
+		this.sDate = sDate;
 	}
 	public BidEvent bidEvent;
 	public CreditCard getCreditCard() 

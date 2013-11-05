@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.BuyEvent;
@@ -26,15 +28,18 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 	{
 		if (convertView==null)
 		{
-			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view_orders, null);
+			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view, null);
 			
 		}
-		BuyEvent currentProduct = this.getItem(pos);	
-		
-		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
-		((TextView)convertView.findViewById(R.id.pricemybasket)).setText("$"+Double.toString(currentProduct.getPrice()));
-		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
-
+	
+	
+	BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
+	((TextView)convertView.findViewById(R.id.theProductb)).setText(currentProduct.getProduct().getName());
+	((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getBtitle());
+	((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
+	((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+	 final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
+	minimumRating.setRating(currentProduct.getRating());
 		return convertView;
 		
 	}
