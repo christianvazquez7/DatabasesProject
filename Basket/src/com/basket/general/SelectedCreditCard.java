@@ -18,8 +18,16 @@ public class SelectedCreditCard extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) 
 	{
 		View view = inflater.inflate(R.layout.creditcard_view,container, false);
+		
 		((TextView)view.findViewById(R.id.nameOnCardTextView)).setText(CreditCardContainer.paymentSelection.getName());
 		((TextView)view.findViewById(R.id.creditCardNumberTextView)).setText(Long.toString(CreditCardContainer.paymentSelection.getCardNum()));
+		((TextView)view.findViewById(R.id.date)).setText(Integer.toString(CreditCardContainer.paymentSelection.getExpMonth())+"/"+Integer.toString(CreditCardContainer.paymentSelection.getExpYear()));
+		
+		
+		
+		
+//		((TextView)view.findViewById(R.id.nameOnCardTextView)).setText(CreditCardContainer.paymentSelection.getName());
+//		((TextView)view.findViewById(R.id.creditCardNumberTextView)).setText(Long.toString(CreditCardContainer.paymentSelection.getCardNum()));
 		//Tira un error
 		//((TextView)view.findViewById(R.id.creditCardExpMonthTextView)).setText(CreditCardContainer.paymentSelection.getExpMonth());
 		//((TextView)view.findViewById(R.id.creditCardExpYearTextView)).setText(CreditCardContainer.paymentSelection.getExpYear());

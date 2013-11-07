@@ -7,7 +7,16 @@ public class Section {
 
     private String title;
     private boolean isBold;
+    private ArrayList<Category> subsub;
     
+	public ArrayList<Category> getSubsub() {
+		return subsub;
+	}
+
+	public void setSubsub(ArrayList<Category> subsub) {
+		this.subsub = subsub;
+	}
+
 	private List<SectionItem> sectionItems = new ArrayList<SectionItem>();
 
     public Section(String title) {
@@ -41,6 +50,14 @@ public class Section {
 
 	public void setBold(boolean isBold) {
 		this.isBold = isBold;
+	}
+
+	public void addSectionItem(int i, String name, String string,
+			ArrayList<Category> child) {
+		SectionItem temp = new SectionItem(i, name, string);
+		temp.setSubsub(child);
+		this.sectionItems.add( temp);
+		
 	}
 
 }

@@ -1,11 +1,14 @@
 package com.basket.fragments;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,8 @@ import com.basket.activities.ChooseSubSubCategoryActivity;
 import com.basket.activities.PicknickActivity;
 import com.basket.activities.ProductFragmentActivity;
 import com.basket.adapters.SectionListAdapter;
+import com.basket.containers.BasketSession;
+import com.basket.general.Category;
 import com.basket.general.Section;
 import com.example.basket.R;
 
@@ -26,6 +31,8 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 
 	private ExpandableListView sectionListView;
 	private Animation animSlideup, animSlidedown;
+	public static int count=500;
+
 	List<Section> sectionList;
 
 	@Override
@@ -67,6 +74,32 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 	}
 
 	private List<Section> createMenu() {
+		
+		Map<String,Category> categoryMap = new Hashtable<String,Category>();
+		ArrayList<Category> categoryTree= new ArrayList<Category>();
+	
+		for (Category c: BasketSession.getCategory())
+		{
+			categoryMap.put(c.getName(), c);
+		}
+		
+		for (Category c: BasketSession.getCategory())
+		{
+			if (c.getParent()==null)
+			{
+				categoryTree.add(c);
+			}else
+			{
+				Log.d("try","added child");
+
+				categoryMap.get(c.getParent().getName()).getChild().add(c);
+			}
+		}
+		
+		Log.d("try",categoryTree.toString());
+		
+		
+		
 		List<Section> sectionList = new ArrayList<Section>();
 
 		Section oGeneralSection = new Section("General");
@@ -77,53 +110,72 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 
 		Section oCategoriesSection = new Section("Categories");
 		oCategoriesSection.setBold(true);
-
-
-		Section oElectronicsSection = new Section("Electronics");
-		oElectronicsSection.addSectionItem(101, "TV", "monotone_arrow_right");
-		oElectronicsSection.addSectionItem(102, "Audio", "monotone_arrow_right");
-		oElectronicsSection.addSectionItem(103, "Phones", "monotone_arrow_right");
-		oElectronicsSection.addSectionItem(104, "Cameras", "monotone_arrow_right");
-		oElectronicsSection.addSectionItem(104, "Video", "monotone_arrow_right");
-
-		Section oComputersSection = new Section("Computers");
-		oComputersSection.addSectionItem(201, "Laptops", "monotone_arrow_right");
-		oComputersSection.addSectionItem(202, "Desktops", "monotone_arrow_right");
-		oComputersSection.addSectionItem(203, "Tablets", "monotone_arrow_right");
-		oComputersSection.addSectionItem(204, "Printers", "monotone_arrow_right");
-
-		Section oClothingSection = new Section("Clothing");
-		oClothingSection.addSectionItem(301, "Children", "monotone_arrow_right");
-		oClothingSection.addSectionItem(302, "Men", "monotone_arrow_right");
-		oClothingSection.addSectionItem(303, "Women", "monotone_arrow_right");
-
-		Section oSportsSection = new Section("Sports");
-		oSportsSection.addSectionItem(401, "Bicycles", "monotone_arrow_right");
-		oSportsSection.addSectionItem(402, "Fishing", "monotone_arrow_right");
-		oSportsSection.addSectionItem(403, "Baseball", "monotone_arrow_right");
-		oSportsSection.addSectionItem(404, "Golf", "monotone_arrow_right");
-		oSportsSection.addSectionItem(405, "Basketball", "monotone_arrow_right");
-
-		Section oBooksSection = new Section("Books");
-		oBooksSection.addSectionItem(501, "Children", "monotone_arrow_right");
-		oBooksSection.addSectionItem(502, "Fiction", "monotone_arrow_right");
-		oBooksSection.addSectionItem(503, "Technology", "monotone_arrow_right");
-		oBooksSection.addSectionItem(504, "Business", "monotone_arrow_right");
-
-		Section oShoesSection = new Section("Shoes");
-
-		oShoesSection.addSectionItem(601, "Children", "monotone_arrow_right");
-		oShoesSection.addSectionItem(602, "Women", "monotone_arrow_right");
-		oShoesSection.addSectionItem(603, "Men", "monotone_arrow_right");
-
 		sectionList.add(oGeneralSection);
 		sectionList.add(oCategoriesSection);
-		sectionList.add(oBooksSection);
-		sectionList.add(oElectronicsSection);
-		sectionList.add(oComputersSection);
-		sectionList.add(oClothingSection);
-		sectionList.add(oShoesSection);
-		sectionList.add(oSportsSection);
+
+		for (Category c: categoryTree)
+		{
+			Section sec = new Section(c.getName());
+			Log.d("try",Integer.toString(c.getChild().size()));
+			for (Category d: c.getChild())
+			{
+				if(d.getChild().size()>0)
+				{
+				sec.addSectionItem(302, d.getName(), "monotone_arrow_right",d.getChild());
+				sec.setSubsub(d.getChild());
+				}
+				else
+				sec.addSectionItem(count++, d.getName(), "monotone_arrow_right");
+
+			}
+			sectionList.add(sec);
+		}
+
+//		Section oElectronicsSection = new Section("Electronics");
+//		oElectronicsSection.addSectionItem(101, "TV", "monotone_arrow_right");
+//		oElectronicsSection.addSectionItem(102, "Audio", "monotone_arrow_right");
+//		oElectronicsSection.addSectionItem(103, "Phones", "monotone_arrow_right");
+//		oElectronicsSection.addSectionItem(104, "Cameras", "monotone_arrow_right");
+//		oElectronicsSection.addSectionItem(104, "Video", "monotone_arrow_right");
+//
+//		Section oComputersSection = new Section("Computers");
+//		oComputersSection.addSectionItem(201, "Laptops", "monotone_arrow_right");
+//		oComputersSection.addSectionItem(202, "Desktops", "monotone_arrow_right");
+//		oComputersSection.addSectionItem(203, "Tablets", "monotone_arrow_right");
+//		oComputersSection.addSectionItem(204, "Printers", "monotone_arrow_right");
+//
+//		Section oClothingSection = new Section("Clothing");
+//		oClothingSection.addSectionItem(301, "Children", "monotone_arrow_right");
+//		oClothingSection.addSectionItem(302, "Men", "monotone_arrow_right");
+//		oClothingSection.addSectionItem(303, "Women", "monotone_arrow_right");
+//
+//		Section oSportsSection = new Section("Sports");
+//		oSportsSection.addSectionItem(401, "Bicycles", "monotone_arrow_right");
+//		oSportsSection.addSectionItem(402, "Fishing", "monotone_arrow_right");
+//		oSportsSection.addSectionItem(403, "Baseball", "monotone_arrow_right");
+//		oSportsSection.addSectionItem(404, "Golf", "monotone_arrow_right");
+//		oSportsSection.addSectionItem(405, "Basketball", "monotone_arrow_right");
+//
+//		Section oBooksSection = new Section("Books");
+//		oBooksSection.addSectionItem(501, "Children", "monotone_arrow_right");
+//		oBooksSection.addSectionItem(502, "Fiction", "monotone_arrow_right");
+//		oBooksSection.addSectionItem(503, "Technology", "monotone_arrow_right");
+//		oBooksSection.addSectionItem(504, "Business", "monotone_arrow_right");
+//
+//		Section oShoesSection = new Section("Shoes");
+//
+//		oShoesSection.addSectionItem(601, "Children", "monotone_arrow_right");
+//		oShoesSection.addSectionItem(602, "Women", "monotone_arrow_right");
+//		oShoesSection.addSectionItem(603, "Men", "monotone_arrow_right");
+//
+//		sectionList.add(oGeneralSection);
+//		sectionList.add(oCategoriesSection);
+//		sectionList.add(oBooksSection);
+//		sectionList.add(oElectronicsSection);
+//		sectionList.add(oComputersSection);
+//		sectionList.add(oClothingSection);
+//		sectionList.add(oShoesSection);
+//		sectionList.add(oSportsSection);
 
 
 		return sectionList;
@@ -133,34 +185,17 @@ public class SlidingMenuFragment extends Fragment implements ExpandableListView.
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
 
+		
 		if((int)id == 302 || (int)id == 303 || (int)id == 401){
 			//TODO
 			if((int)id == 302){
 				ArrayList<String> menClothSubCatList = new ArrayList<String>();
-				menClothSubCatList.add("Shirts");
-				menClothSubCatList.add("Pants");
-				menClothSubCatList.add("Socks");
+				for (Category c: this.sectionList.get(groupPosition).getSectionItems().get(childPosition).getSubsub() )
+				{
+					menClothSubCatList.add(c.getName());
+				}
 				Intent i = new Intent(getActivity(), ChooseSubSubCategoryActivity.class);
 				i.putStringArrayListExtra("subcategoryList", menClothSubCatList);
-				startActivity(i);
-			}
-			else if((int)id == 303){
-				ArrayList<String> womenClothSubCatList = new ArrayList<String>();
-				womenClothSubCatList.add("Shirts");
-				womenClothSubCatList.add("Pants");
-				womenClothSubCatList.add("Dresses");
-				Intent i = new Intent(getActivity(), ChooseSubSubCategoryActivity.class);
-				i.putStringArrayListExtra("subcategoryList", womenClothSubCatList);
-				startActivity(i);
-			}
-			else if((int)id == 401){
-				ArrayList<String> bicyclesSubCatList = new ArrayList<String>();
-				bicyclesSubCatList.add("Frames");
-				bicyclesSubCatList.add("Wheels");
-				bicyclesSubCatList.add("Helmets");
-				bicyclesSubCatList.add("Parts");
-				Intent i = new Intent(getActivity(), ChooseSubSubCategoryActivity.class);
-				i.putStringArrayListExtra("subcategoryList", bicyclesSubCatList);
 				startActivity(i);
 			}
 		}

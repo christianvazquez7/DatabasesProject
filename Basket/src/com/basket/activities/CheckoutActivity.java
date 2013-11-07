@@ -1,5 +1,6 @@
 package com.basket.activities;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -91,7 +92,11 @@ public class CheckoutActivity extends Activity {
 				{
 					if(!spiceManager.isStarted())
 					{
+						Date now = new Date();
+						
 						orderToPlace = new Order();
+						orderToPlace.setsDate(now.toString());
+
 						orderToPlace.setAccount(1);
 						orderToPlace.setBuyEvents(list.getProducts2());
 						orderToPlace.setCreditCard(CreditCardContainer.paymentSelection);

@@ -43,14 +43,18 @@ public class ProductDetailFragment extends Fragment
 		if(theEvent.isBid()){
 			((TextView)view.findViewById(R.id.description)).setText(((BidEvent) theEvent).getDescription());
 			((TextView)view.findViewById(R.id.feats)).setText(((BidEvent) theEvent).getFeatures());
-			((TextView)view.findViewById(R.id.dim)).setText("Product Dimensions: "+((BidEvent) theEvent).getProduct().getWidth()+" inches x "+((BidEvent) theEvent).getProduct().getHeight()+" inches x "+((BidEvent) theEvent).getProduct().getDepth()+ " inches");
+			((TextView)view.findViewById(R.id.dimension)).setText(((BidEvent) theEvent).getProduct().getDimensions());
+			//((TextView)view.findViewById(R.id.ISBN2)).setText(((BidEvent) theEvent).getProduct().getProductPId());
+
 		
 		}
 		else{
 			//((TextView)view.findViewById(R.id.bin)).setText(theEvent.getProduct().getISBN());
 			((TextView)view.findViewById(R.id.description)).setText(((BuyEvent) theEvent).getDescription());
 			((TextView)view.findViewById(R.id.feats)).setText(((BuyEvent) theEvent).getFeatures());
-			((TextView)view.findViewById(R.id.dim)).setText("Product Dimensions: "+((BuyEvent) theEvent).getProduct().getWidth()+" inches x "+((BuyEvent) theEvent).getProduct().getHeight()+" inches x "+((BuyEvent) theEvent).getProduct().getDepth()+ " inches");
+			((TextView)view.findViewById(R.id.dimension)).setText(((BuyEvent) theEvent).getProduct().getDimensions());
+			//((TextView)view.findViewById(R.id.ISBN2)).setText(((BuyEvent) theEvent).getProduct().getProductPId());
+
 		}
 		
 		

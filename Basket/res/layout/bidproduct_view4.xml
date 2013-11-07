@@ -73,16 +73,6 @@
         android:layout_below="@+id/bidprice"
         android:text="Ending:" />
 
-    <TextView
-        android:textColor="#FFFFFF"
-        android:id="@+id/endDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_toRightOf="@+id/bidprice"
-        android:text="5/7/2010" />
-
     <RatingBar
         android:id="@+id/bidratingBar1"
         style="?android:attr/ratingBarStyleSmall"
@@ -90,5 +80,14 @@
         android:layout_height="15dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bidprice"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="5/7/2010"
+        android:textColor="#FFFFFF" />
    
 </RelativeLayout>

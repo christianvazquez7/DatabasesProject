@@ -106,8 +106,7 @@ public class BidEvent implements Event
 
 	@Override
 	public String toString() {
-		return "BidEvent [product=" + product + ", picture="
-				+ Arrays.toString(picture) + ", bidTitle=" + bidTitle
+		return "BidEvent [product=" + product +  "bidTitle=" + bidTitle
 				+ ", endingTime=" + endingTime + ", rating=" + rating
 				+ ", description=" + description + ", features=" + features
 				+ ", startingBid=" + startingBid + ", id=" + id
