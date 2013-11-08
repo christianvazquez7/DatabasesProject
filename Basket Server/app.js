@@ -859,7 +859,6 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		    	
 				
 
-//must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		    }
 		    
 //		    
