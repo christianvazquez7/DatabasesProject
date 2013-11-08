@@ -17,6 +17,7 @@ public class BasketSession
 	private static ArrayList<Review> currentReviews;
 	private static ArrayList<UserRating>  ratings;
 	private static ArrayList<Category> categories;
+	private static ArrayList<Deal>deals;
 	
 	
 	
@@ -81,6 +82,16 @@ public class BasketSession
 	public static ArrayList<Category> getCategory() {
 		// TODO Auto-generated method stub
 		return categories;
+	}
+	public static void setDeals(ArrayList<Deal> events) {
+		if(deals!=null)
+			deals.clear();
+		deals=events;
+		
+	}
+	public static ArrayList<Deal> getDeals() {
+		// TODO Auto-generated method stub
+		return deals;
 	}
 	
 	

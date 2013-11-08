@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
 import com.basket.containers.CategoryList;
+import com.basket.containers.DealList;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
 import com.basket.general.UserAccount;
 import com.basket.restrequest.GetCategoriesRequest;
+import com.basket.restrequest.GetDOTDRequest;
 import com.basket.restrequest.UserRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -133,7 +135,7 @@ public class LoginActivity extends Activity {
 		public void onRequestSuccess(User User) 
 		{
 			spiceManager.shouldStop();
-			Log.d("try",User.getEmail().toString());
+			Log.d("try",BasketSession.getDeals().toString());
 
 			
 
@@ -172,8 +174,49 @@ public class LoginActivity extends Activity {
 		public void onRequestSuccess(CategoryList cat) 
 		{
 			
+			
+			
 			mLoginButton.setActivated(false);
 			BasketSession.setCategories(cat.getCategories());
+			GetDOTDRequest req = new GetDOTDRequest();
+			spiceManager.execute(req, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
+//			String email =((TextView)findViewById(R.id.email)).getText().toString();
+//			String password =((TextView)findViewById(R.id.password)).getText().toString();
+//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
+//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+
+
+	}
+	
+	
+	private class DealRequestListener implements RequestListener<DealList>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(DealList cat) 
+		{
+			
+			BasketSession.setDeals(cat.getEvents());
+			//GetDOTDRequest req = new GetDOTDRequest();
+			//spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
 			String email =((TextView)findViewById(R.id.email)).getText().toString();
 			String password =((TextView)findViewById(R.id.password)).getText().toString();
 			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);

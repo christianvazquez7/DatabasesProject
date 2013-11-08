@@ -10,6 +10,10 @@ var product = roduct.product;
 var orderJS= require("./order.js");
 var Order =  orderJS.Order;
 
+var dealJS= require("./deal.js");
+var Deal =  dealJS.Deal;
+
+
 var categoryJS= require("./category.js");
 var Category =  categoryJS.Category;
 
@@ -292,6 +296,36 @@ app.get('/Basket.js/GetBids/:id',function(req,res)
 		});
 
 
+app.get('/Basket.js/GetDeals',function(req,res)
+		{
+	
+	function getDeals() 
+	{
+		var defered = Q.defer();
+		var userquery='SELECT * FROM deal_of_the_day natural join Buy_Events natural join Products natural join Manufacturers join Users on userId=soldBy where dayOfSale=DATE(NOW())';
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([getDeals()]).then(function(rest)
+		{
+				
+		var events= new Array();
+		for (var i=0;i<rest[0][0].length;i++)
+		{
+			 events.push(new Deal(rest[0][0][i].title,new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].buyEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].btitle,rest[0][0][i].pic))); 
+		}
+		var response =
+		{
+			"events": events	
+		};
+		console.log(response);
+		res.json(response);
+			});
+	
+		
+		});
+
+
 //get uRatings
 app.get('/Basket.js/GetRatings/:id',function(req,res)
 		{
@@ -433,6 +467,57 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 			res.json(response);
 	});
 });
+
+app.get('/Basket.js/search/:searchQuery/:cat',function(req,res)
+		{
+			console.log(req.params.searchQuery);
+			function getBuyEvents () 
+			{
+				var defered = Q.defer();
+				var userquery='select * from Buy_Events natural join Products natural join Manufacturers join Users on userId=soldBy join Categories on Categories.categoryId=buycategory where btitle like "%'+req.params.searchQuery+'%" and name='+connection.escape(req.params.cat);
+				console.log(userquery);
+				connection.query(userquery, defered.makeNodeResolver());
+				return defered.promise;
+			};
+			function getBidEvents () 
+			{
+				var defered = Q.defer();
+				var userquery='select Categories.*,Bid_Events.*,Products.*,Manufacturers.*,Users.*,bidTime as time,w.username as wusername,amount from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy left outer join Bids on bidId=winningBid left outer join Users as w on w.userId=Bids.userId join Categories on Categories.categoryId=bidcategory where bidTitle like "%'+req.params.searchQuery+'%" and name='+connection.escape(req.params.cat);
+				connection.query(userquery, defered.makeNodeResolver());
+				return defered.promise;
+			};
+			Q.all([getBuyEvents(),getBidEvents()]).then(function(rest)
+			{
+				console.log('yeeah');
+				var eventList = new Array();
+				var bidList=new Array();
+				 for (var i=0;i<rest[0][0].length;i++)
+				 {
+						
+						 eventList.push(new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].buyEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].btitle,rest[0][0][i].pic)); 
+				 }
+					
+				 for (var i=0;i<rest[1][0].length;i++)
+				 {
+					 	console.log(rest[1][0][i].amount);
+					 	if(rest[1][0][i].wusername!=null)
+						 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount))); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+					 	else
+							 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+
+				 }
+				 console.log('sali');
+				 var response =
+					{
+						"buyEvents":eventList,
+						"bidEvents":bidList
+					};
+				 
+				 console.log(bidList.length);
+				 console.log(bidList);
+					res.json(response);
+			});
+		});
 
 //Delete bidevent
 app.del('/Basket.js/remBid/:id', function(req,res)

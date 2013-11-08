@@ -34,26 +34,6 @@
                 android:outAnimation="@anim/right_to_left"
                 android:padding="20dp" >
 
-                <ImageView
-                    android:id="@+id/iViewDeal_1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/book_image" />
-
-                <ImageView
-                    android:id="@+id/iViewDeal_2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/camera_image" />
-
-                <ImageView
-                    android:id="@+id/iViewDeal_3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/tennis_image" />
             </ViewFlipper>
 
             <TextView
