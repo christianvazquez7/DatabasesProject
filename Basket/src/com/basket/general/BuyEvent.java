@@ -60,6 +60,13 @@ public class BuyEvent implements Event
 	int hour;
 	int minute;
 	boolean finalized;
+	byte[] pic;
+	public byte[] getPic() {
+		return pic;
+	}
+	public void setPic(byte[] pic) {
+		this.pic = pic;
+	}
 	public int getId() {
 		return id;
 	}
@@ -145,6 +152,11 @@ public class BuyEvent implements Event
 	public String brand() {
 		// TODO Auto-generated method stub
 		return this.getProduct().getManufacturer();
+	}
+	@Override
+	public String getSeller() {
+		// TODO Auto-generated method stub
+		return this.getCreator();
 	}
 
 }

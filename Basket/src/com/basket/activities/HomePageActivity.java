@@ -9,15 +9,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.basket.containers.BasketSession;
+import com.basket.containers.Deal;
+import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.restrequest.RegisterDeviceRequest;
 import com.example.basket.R;
@@ -102,9 +111,28 @@ public class HomePageActivity extends Activity {
                 R.anim.slide_down); 
         
         
-        
+        LayoutInflater inf = LayoutInflater.from(getApplicationContext());
 		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
 		mVFlipper2 = (ViewFlipper) findViewById(R.id.vfRecom);
+		
+		for (Deal d : BasketSession.getDeals())
+		{
+			View a = inf.inflate(R.layout.blank, null);
+			TextView t = (TextView) a.findViewById(R.id.deal_name);
+			t.setText(d.getTitle());
+			
+			Bitmap bm=null;
+			if(((BuyEvent)d.getEve()).getPic()!=null)
+			 bm = BitmapFactory.decodeByteArray(((BuyEvent)d.getEve()).getPic(), 0 ,((BuyEvent)d.getEve()).getPic().length);
+			
+			ImageView pic =(ImageView)a.findViewById(R.id.dpic);
+			if(pic!=null)
+			pic.setImageBitmap(bm);
+			
+			mVFlipper1.addView(a);
+			
+		}
+		
 		
 		mVFlipper1.setFlipInterval(6000);
 		mVFlipper2.setFlipInterval(6000);

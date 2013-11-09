@@ -3,7 +3,6 @@ package com.basket.lists;
 import java.util.ArrayList;
 
 import android.app.ListFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.basket.activities.BidEventPageActivity;
-import com.basket.activities.BuyEventPageActivity;
 import com.basket.adapters.ProductInMyShopBidAdapter;
-
-import com.basket.containers.AddressContainer;
 import com.basket.containers.BasketSession;
-import com.basket.containers.CreditCardContainer;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
-import com.basket.general.Order;
 import com.basket.restrequest.UpdateBidRequest;
+import com.basket.restrequest.WinBidRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -56,7 +50,8 @@ public class BiddingItemsListView extends ListFragment{
 			    {
 			    	if(!spiceManager.isStarted()){
 						spiceManager.start(getActivity());
-						UpdateBidRequest JsonSpringAndroidRequest = new UpdateBidRequest();
+						
+						WinBidRequest JsonSpringAndroidRequest = new WinBidRequest(BasketSession.getUser().getUsername());
 						spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new UpdateBidSellerListener());
 			    	}
 
@@ -106,9 +101,9 @@ public class BiddingItemsListView extends ListFragment{
 			spiceManager.shouldStop();
 			for (int i =1 ; i<BasketSession.getUser().getCurrentlyBiddingOn().size()+1;i++)
 			{	
+				if(User.getToFinish().contains(BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).getId()))
 				listView.getChildAt(i).findViewById(R.id.won).setVisibility(View.VISIBLE);
-				//BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).setFinalized(true);
-				
+				//BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).setFinalized(true);			
 			}
 			
 			listView.refreshDrawableState();

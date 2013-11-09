@@ -6,62 +6,47 @@ import java.util.LinkedList;
 
 import java.util.UUID;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * @author arios_000
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Category {
+	@Override
+	public String toString() {
+		return "Category [name=" + name + ", child=" + child + ", parent="
+				+ parent + "]";
+	}
 	//Variable Declaration.
 	private String name; 
-
-	private UUID mCategoryId;
+	private ArrayList<Category> child;		
 	private Category parent;
-	private ArrayList<Products> currentDeals;
-	private ArrayList<Products> popularProducts;
-	private boolean mainCategory;
-
-	public Category(String name, Category parent){
-		this.name = name;
-		this.parent = parent;
-		mCategoryId = UUID.randomUUID();
-		if(parent == null) this.mainCategory = true;
-	}
-	public Category(){
-		this.name = "Generic Category";
-		this.parent = null;
-		mCategoryId = UUID.randomUUID();
-		if(parent == null) this.mainCategory = true;
-	}
-
-	public UUID getCategoryId() {
-		return mCategoryId;
-	}
-
-	public ArrayList<Products> getCurrentDeals() {
-		return currentDeals;
-	}
-
-	public void addCurrentDeals(Products currentDeal) {
-		this.currentDeals.add(currentDeal);
-	}
-
-	public ArrayList<Products> getPopularProducts() {
-		return popularProducts;
-	}
-
-	public void addPopularProductsAt(int x, Products popularProduct) {
-		this.popularProducts.add(x, popularProduct);
-	}
-
 	public String getName() {
 		return name;
 	}
-
+	public void setName(String name) {
+		this.name = name;
+	}
+	public ArrayList<Category> getChild() {
+		return child;
+	}
+	public void setChild(ArrayList<Category> child) {
+		this.child = child;
+	}
 	public Category getParent() {
 		return parent;
 	}
-
-	public boolean isMainCategory(){
-		return this.mainCategory;
+	public void setParent(Category parent) {
+		this.parent = parent;
 	}
+	
 }
+	
+	
+	
+
+
+	

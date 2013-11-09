@@ -1,5 +1,7 @@
 package com.basket.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.os.Bundle;
@@ -54,7 +56,21 @@ public class HarvestFragment extends Fragment
 		TextView nextTime =(TextView)view.findViewById(R.id.pricemybasket);
 		if(event.getWinningBid()!=null){
 		nextBid.setText(Double.toString(event.getWinningBid().getAmmount()+event.getMinBid()));
-		nextTime.setText(event.getWinningBid().getBidTime());
+		
+		java.util.Date date = null;
+		
+		SimpleDateFormat formatter, FORMATTER;
+		formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		String oldDate = event.getEndingTime();
+		 try {
+			date = formatter.parse(event.getWinningBid().getBidTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+		 nextTime.setText(FORMATTER.format(date));
+		
 
 		}
 		else{

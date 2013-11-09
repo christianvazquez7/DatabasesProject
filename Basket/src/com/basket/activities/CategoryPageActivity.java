@@ -1,5 +1,7 @@
 package com.basket.activities;
 
+import java.util.Collections;
+
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -21,6 +23,7 @@ import com.basket.containers.BasketSession;
 import com.basket.containers.EventList;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Event;
+import com.basket.general.EventComparator;
 import com.basket.lists.ProductListFragment;
 import com.basket.restrequest.ProductSearchRequest;
 import com.example.basket.R;
@@ -54,7 +57,7 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 		sm.setSlidingEnabled(true);
 
 		setContentView(R.layout.activity_categorypage);
-		((EditText)findViewById(R.id.searchBar)).setHint("Search Category");
+		((EditText)findViewById(R.id.searchBar)).setHint("Search in "+this.getIntent().getStringExtra("categoryName"));
 		android.app.FragmentManager fm = this.getFragmentManager();
 		android.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
@@ -79,12 +82,36 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 					productList.clear();
 					spiceManager.start(CategoryPageActivity.this);
 					String searchQuery = ((TextView)findViewById(R.id.searchBar)).getText().toString();
-					ProductSearchRequest JsonSpringAndroidRequest = new ProductSearchRequest(searchQuery);
+					ProductSearchRequest JsonSpringAndroidRequest = new ProductSearchRequest(searchQuery,getIntent().getStringExtra("categoryName"));
 					spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductSearchListener());
 
 				}
 			}
 
+		});
+		
+((Button)this.findViewById(R.id.bEditCreditCards)).setOnClickListener(new OnClickListener(){
+
+			
+			public void onClick(View arg0)
+			{
+				if(BasketSession.getProductSearch()!=null)
+				{
+					ViewPager a = (ViewPager) findViewById(R.id.pager4);
+					ViewPager b = (ViewPager) findViewById(R.id.pager3);
+
+					int i =a.getCurrentItem();
+					int j= b.getCurrentItem();
+					EventComparator c =new EventComparator();
+					c.enableIncrease(i);
+					c.setComparationMode(j);
+					Collections.sort(BasketSession.getProductSearch(),c);
+					
+					((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
+
+				}
+			}
+			
 		});
 
 
@@ -234,11 +261,7 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
         
         
         
-		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
 		
-		mVFlipper1.setFlipInterval(6000);
-		
-		mVFlipper1.startFlipping();
 	}
 
 

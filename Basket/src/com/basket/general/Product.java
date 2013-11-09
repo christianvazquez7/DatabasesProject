@@ -38,7 +38,19 @@ public class Product
 	public void setName(String name) {
 		this.pname = name;
 	}
-	
+	String dimensions;
+	public String getDimensions() {
+		return dimensions;
+	}
+	public void setDimensions(String dimensions) {
+		this.dimensions = dimensions;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
 	int width;
 	int height;
 	@Override

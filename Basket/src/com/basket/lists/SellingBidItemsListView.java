@@ -145,13 +145,24 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 			spiceManager.shouldStop();
 			BasketSession.setBids(bids.getBids());
 			BidEvent e =BasketSession.getUser().getCurrentlySellingOnBid().get(pos);
-			Intent i;
+			Intent i=null;
 			if (e.isFinalized())
-				i = new Intent(getActivity(),BidWinActivity.class);
+			{
+				if(e.getWinningBid()!=null)
+					i = new Intent(getActivity(),BidWinActivity.class);
+				else
+				{
+					Toast.makeText(getActivity(), "No Bidder", Toast.LENGTH_SHORT).show();
+					BasketSession.getUser().getCurrentlySellingOnBid().remove(pos);
+				}
+			}
 			else
 				i = new Intent(getActivity(),BidsOnProductActivity.class);
+			if(i!=null)
+			{
 			i.putExtra("itemClicked", pos);
 			startActivity(i);
+			}
 
 		}
 

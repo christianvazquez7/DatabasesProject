@@ -6,4 +6,5 @@ public interface Event
 	String getTitle();
 	Double getAmount();
 	String brand();
+	String getSeller();
 }

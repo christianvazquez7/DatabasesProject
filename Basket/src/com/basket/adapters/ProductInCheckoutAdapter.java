@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.basket.general.BuyEvent;
@@ -33,6 +36,14 @@ public class ProductInCheckoutAdapter extends ArrayAdapter<BuyEvent>
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 			((TextView)convertView.findViewById(R.id.pricemybasket)).setText("$"+Double.toString(currentProduct.getPrice()));
 			((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+
+			Bitmap bm=null;
+			if(currentProduct.getPic()!=null)
+			 bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
+			
+			ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
+			if(pic!=null)
+			pic.setImageBitmap(bm);
 			return convertView;
 		}
 		else{
@@ -43,6 +54,14 @@ public class ProductInCheckoutAdapter extends ArrayAdapter<BuyEvent>
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 			((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 			((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+
+			Bitmap bm=null;
+			if(currentProduct.getPic()!=null)
+			 bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
+			
+			ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
+			if(pic!=null)
+			pic.setImageBitmap(bm);
 			return convertView;
 		}
 		//Esto puede causar problemas

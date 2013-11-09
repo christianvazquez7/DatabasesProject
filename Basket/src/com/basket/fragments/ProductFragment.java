@@ -1,10 +1,16 @@
 package com.basket.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -39,7 +45,28 @@ public class ProductFragment extends Fragment
 			((TextView)view.findViewById(R.id.textView2)).setText(((BidEvent) theEvent).getProduct().getName());
 			 final RatingBar minimumRating = (RatingBar)view.findViewById(R.id.bidratingBar1);
 			    minimumRating.setRating(e.getRating());
-				((TextView)view.findViewById(R.id.endDate)).setText(((BidEvent) theEvent).getEndingTime());
+			
+			    java.util.Date date = null;
+				
+				SimpleDateFormat formatter, FORMATTER;
+				formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+				String oldDate = e.getEndingTime();
+				 try {
+					date = formatter.parse(oldDate);
+				} catch (ParseException ed) {
+					// TODO Auto-generated catch block
+					ed.printStackTrace();
+				}
+				FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+				 ((TextView)view.findViewById(R.id.endDate)).setText(FORMATTER.format(date));
+				
+				Bitmap bm=null;
+				if(e.getPicture()!=null)
+				 bm = BitmapFactory.decodeByteArray(e.getPicture(), 0 ,e.getPicture().length);
+				
+				ImageView pic =(ImageView)view.findViewById(R.id.bidivCatPage);
+				if(pic!=null)
+				pic.setImageBitmap(bm);
 
 			return view;
 		}
@@ -52,6 +79,15 @@ public class ProductFragment extends Fragment
 			    minimumRating.setRating(((BuyEvent) theEvent).getRating());
 			((TextView)view.findViewById(R.id.price)).setText("$"+Double.toString(((BuyEvent) theEvent).getPrice()));
 			((TextView)view.findViewById(R.id.supplier)).setText(((BuyEvent) theEvent).getProduct().getManufacturer());
+			
+			
+			Bitmap bm=null;
+			if(((BuyEvent) theEvent).getPic()!=null)
+			 bm = BitmapFactory.decodeByteArray(((BuyEvent) theEvent).getPic(), 0 ,((BuyEvent) theEvent).getPic().length);
+			
+			ImageView pic =(ImageView)view.findViewById(R.id.ivCatPage);
+			if(pic!=null)
+			pic.setImageBitmap(bm);
 			return view;
 		}
 

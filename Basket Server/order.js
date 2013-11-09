@@ -1,7 +1,7 @@
 
 module.exports =  
 { 
-	Order : function (sDate, creditCard,account,buyEvents,shipAdress)
+	Order : function (sDate, creditCard,account,buyEvents,shipAdress,bidEvent)
 	{
 		
 		this.creditCard=creditCard;
@@ -9,5 +9,6 @@ module.exports =
 		this.buyEvents=buyEvents;
 		this.shipAdress=shipAdress;
 		this.sDate=sDate;
+		this.bidEvent=bidEvent;
 	}
 };

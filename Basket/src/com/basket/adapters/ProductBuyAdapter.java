@@ -3,6 +3,8 @@ package com.basket.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -70,11 +72,23 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 				
 			}
 		});
-		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getTitle());
 		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+		((TextView)convertView.findViewById(R.id.pod)).setText(currentProduct.getProduct().getName());
+
 		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
 	    minimumRating.setRating(currentProduct.getRating());
+	    
+	    
+
+		Bitmap bm=null;
+		if(currentProduct.getPic()!=null)
+		 bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
+		
+		ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
+		if(pic!=null)
+		pic.setImageBitmap(bm);
 
 		return convertView;
 
