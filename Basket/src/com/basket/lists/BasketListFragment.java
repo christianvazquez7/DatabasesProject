@@ -3,6 +3,7 @@ package com.basket.lists;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -24,6 +26,7 @@ import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.Event;
 import com.basket.general.ProductBasket;
 import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
@@ -80,9 +83,13 @@ public class BasketListFragment extends android.app.ListFragment
 		boolean found = false;
 		for(int i = 0; i<BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().size();i++)
 		{
-			if(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getId() == ((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0))).getId())
+			List<BuyEvent> list = BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents();
+			List<Event> inList = BasketSession.getProductSearch();
+			int in = BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getId();
+			int out = ((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0))).getId();
+			if( in == out)
 			{
-				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).setAmmount(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getAmmount()+1);
+				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).setitem_quantity(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getitem_quantity()+1);
 				found = true;
 				break;
 			}
@@ -90,7 +97,7 @@ public class BasketListFragment extends android.app.ListFragment
 		
 		if(!found)
 		{
-			BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+			BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0)));
 		}
 	
 		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));

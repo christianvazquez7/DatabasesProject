@@ -4,14 +4,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -32,7 +28,6 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 {
-	private EditText ammountofprod;
 
 	private ArrayList<BuyEvent> content;
 	private Context context;
@@ -56,31 +51,76 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_buybasket, null);
 		}
 		BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
-		((ImageView)convertView.findViewById(R.id.removeButton)).setOnClickListener(new View.OnClickListener() {
+
+		((ImageView)convertView.findViewById(R.id.uparrow)).setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) 
-			{
-				//Remove product
+			public void onClick(View v) {
 				if (!spiceManager.isStarted()){
 					spiceManager.start(context);
-					ProductBuyAdapter.this.content.remove(pos2);
+					content.get(pos2).setitem_quantity(content.get(pos2).getitem_quantity()+1);
 					UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 					ProductBuyAdapter.this.notifyDataSetChanged();
 				}
+				ProductBuyAdapter.this.notifyDataSetChanged();
+			}
+		});
 
+		((ImageView)convertView.findViewById(R.id.downarrow)).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if(content.get(pos2).getitem_quantity()-1 <= 0 ){
+					if (!spiceManager.isStarted()){
+						spiceManager.start(context);
+						ProductBuyAdapter.this.content.remove(pos2);
+						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
+						ProductBuyAdapter.this.notifyDataSetChanged();
+					}
+				}
+				else{
+					if (!spiceManager.isStarted()){
+						spiceManager.start(context);
+						content.get(pos2).setitem_quantity(content.get(pos2).getitem_quantity()-1);
+						ProductBuyAdapter.this.content.remove(pos2);
+						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
+						ProductBuyAdapter.this.notifyDataSetChanged();
+					}
+				}
+				ProductBuyAdapter.this.notifyDataSetChanged();
 
 			}
 		});
-		String ammount = Integer.toString(currentProduct.getAmmount());
+
+
+		//		((ImageView)convertView.findViewById(R.id.removeButton)).setOnClickListener(new View.OnClickListener() {
+		//
+		//			@Override
+		//			public void onClick(View v) 
+		//			{
+		//				//Remove product
+		//				if (!spiceManager.isStarted()){
+		//					spiceManager.start(context);
+		//					ProductBuyAdapter.this.content.remove(pos2);
+		//					UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+		//					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
+		//					ProductBuyAdapter.this.notifyDataSetChanged();
+		//				}
+		//
+		//
+		//			}
+		//		});
+		String ammount = Integer.toString(currentProduct.getitem_quantity());
 		((TextView)convertView.findViewById(R.id.ammounttv)).setText(ammount);
 
 		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
 		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
-	    minimumRating.setRating(currentProduct.getRating());
+		minimumRating.setRating(currentProduct.getRating());
 
 		return convertView;
 
@@ -93,41 +133,18 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
 
-				Toast.makeText(context, "product could not be removed", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "product could not be updated", Toast.LENGTH_SHORT).show();
 			}
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(Boolean bool) 
 		{
-			spiceManager.shouldStop();
-			Toast.makeText(context, "Product Deleted", Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onRequestProgressUpdate(RequestProgress arg0) 
-		{
-
-		}
-	}
-	private class UpdateProductAmmountListner implements RequestListener<Boolean>, RequestProgressListener {
-
-		@Override
-		public void onRequestFailure(SpiceException arg0) {
-
-			Log.d("error",arg0.getMessage());
-			if (!(arg0 instanceof RequestCancelledException)) {
-
-				Toast.makeText(context, "Could not update ammount", Toast.LENGTH_SHORT).show();
-			}
-			spiceManager.shouldStop();
-		}
-
-		@Override
-		public void onRequestSuccess(Boolean bool) 
-		{
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			Toast.makeText(context, "Product Quantity Updated", Toast.LENGTH_SHORT).show();
 		}
 
 		@Override

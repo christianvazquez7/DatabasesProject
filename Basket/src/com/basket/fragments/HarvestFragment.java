@@ -124,8 +124,8 @@ public class HarvestFragment extends Fragment
 				spiceManager.shouldStop();
 			}
 			Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
-
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override

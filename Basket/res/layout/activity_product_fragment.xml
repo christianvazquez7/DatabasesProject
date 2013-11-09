@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:background="@drawable/round_corners_edit_text2"
             android:ems="10"
-            android:hint="Account Name"
+            android:hint="Product Name"
             android:paddingLeft="10dp" />
 
         <Button

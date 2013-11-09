@@ -51,7 +51,7 @@ public class CheckoutActivity extends Activity {
 		double total =0;
 		for (BuyEvent e :pro)
 		{
-			total+=e.getPrice()*e.getAmmount();
+			total+=e.getPrice()*e.getitem_quantity();
 		}
 		TextView t =(TextView)this.findViewById(R.id.totaltextview);
 		t.setText("$"+Double.toString(total));

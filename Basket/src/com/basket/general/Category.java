@@ -16,8 +16,8 @@ public class Category {
 
 	private UUID mCategoryId;
 	private Category parent;
-	private ArrayList<Products> currentDeals;
-	private ArrayList<Products> popularProducts;
+	private ArrayList<Product> currentDeals;
+	private ArrayList<Product> popularProducts;
 	private boolean mainCategory;
 
 	public Category(String name, Category parent){
@@ -37,19 +37,19 @@ public class Category {
 		return mCategoryId;
 	}
 
-	public ArrayList<Products> getCurrentDeals() {
+	public ArrayList<Product> getCurrentDeals() {
 		return currentDeals;
 	}
 
-	public void addCurrentDeals(Products currentDeal) {
+	public void addCurrentDeals(Product currentDeal) {
 		this.currentDeals.add(currentDeal);
 	}
 
-	public ArrayList<Products> getPopularProducts() {
+	public ArrayList<Product> getPopularProducts() {
 		return popularProducts;
 	}
 
-	public void addPopularProductsAt(int x, Products popularProduct) {
+	public void addPopularProductsAt(int x, Product popularProduct) {
 		this.popularProducts.add(x, popularProduct);
 	}
 

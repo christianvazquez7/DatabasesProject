@@ -111,6 +111,10 @@
             android:label="@string/title_activity_date_sale" >
         </activity>
         <activity
+            android:name="com.basket.activities.AdminProductDateSaleActivity"
+            android:label="@string/title_activity_date_sale" >
+        </activity>
+        <activity
             android:name="com.basket.activities.AdminProductActivity"
             android:label="@string/title_activity_admin_product" >
         </activity>
@@ -118,7 +122,6 @@
             android:name="com.basket.general.ProductSales"
             android:label="@string/title_activity_product_sales" >
         </activity>
-
         <service
             android:name="com.basket.general.CarJsonSpringAndroidSpiceService"
             android:exported="false" />

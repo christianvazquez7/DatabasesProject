@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Report;
 import com.basket.restrequest.ProductReportRequest;
+import com.basket.restrequest.SalesReportRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -68,7 +69,7 @@ public class DateSaleActivity extends Activity
 						}
 					}
 				});
-				ProductReportRequest JsonSpringAndroidRequest = new ProductReportRequest(date.getDayOfMonth(),date.getMonth(),date.getYear(),type);
+				SalesReportRequest JsonSpringAndroidRequest = new SalesReportRequest(date.getDayOfMonth(),date.getMonth(),date.getYear(),type);
 				spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductReportListener());
 
 			}
@@ -93,13 +94,14 @@ public class DateSaleActivity extends Activity
 
 				Toast.makeText(DateSaleActivity.this, "Search could not be processed", Toast.LENGTH_SHORT).show();
 			}
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(Report report) {
-
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 			TextView sales =(TextView) findViewById(R.id.total_sale_text);
 			sales.setText(Double.toString(report.getTotalSales()));
 			sales.setVisibility(View.VISIBLE);

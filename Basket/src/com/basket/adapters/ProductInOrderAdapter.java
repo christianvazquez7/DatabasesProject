@@ -34,7 +34,7 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.pricemybasket)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
-		String s = Integer.toString(currentProduct.getAmmount());
+		String s = Integer.toString(currentProduct.getitem_quantity());
 		((TextView)convertView.findViewById(R.id.productamount)).setText(s);
 		return convertView;
 

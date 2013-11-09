@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.Product;
 import com.example.basket.R;
@@ -16,7 +19,6 @@ import com.example.basket.R;
 public class AdminProductAdapter extends ArrayAdapter<Product>
 {
 	private Context context;
-	
 	public AdminProductAdapter(Context activity,ArrayList<Product> products)
 	{
 		super(activity,0,products);
@@ -24,16 +26,13 @@ public class AdminProductAdapter extends ArrayAdapter<Product>
 	}
 	public View getView(int pos,View convertView, ViewGroup parent)
 	{
-		if (convertView==null)
-		{
-			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view_admin, null);
-			
-		}
-		Product currentProduct = this.getItem(pos);	
-		
-		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getName());
+		if(convertView == null)
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.admin_product_view, null);
+
+		Product currentProduct = (Product) this.getItem(pos);	
+		((TextView)convertView.findViewById(R.id.theProductb)).setText(currentProduct.getName());
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getManufacturer());
 		return convertView;
-		
+
 	}
 }

@@ -63,24 +63,25 @@ public class EditCreditCardsActivity extends FragmentActivity {
 			}
 		});
 	}
-	
-	
+
+
 	@Override
 	protected void onResume(){
 		super.onResume();
 		if(cclist != null){
 			((ArrayAdapter<CreditCard>)cclist.getListAdapter()).notifyDataSetChanged();
-			if(!spiceManager.isStarted())
-			spiceManager.start(EditCreditCardsActivity.this);
-			UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
-			spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
+			if(!spiceManager.isStarted()){
+				spiceManager.start(EditCreditCardsActivity.this);
+				UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
+				spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
+			}
 		}
-		
+
 	}
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
 
-	
+
 	private class UserEditListener implements RequestListener<Boolean>, RequestProgressListener {
 
 		@Override
@@ -89,15 +90,17 @@ public class EditCreditCardsActivity extends FragmentActivity {
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
 
-				Toast.makeText(EditCreditCardsActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(EditCreditCardsActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
 			}
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(Boolean edit) {
-			spiceManager.shouldStop();
-			Toast.makeText(EditCreditCardsActivity.this, "Successfully updated credit cards", Toast.LENGTH_SHORT).show();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			//Toast.makeText(EditCreditCardsActivity.this, "Successfully updated credit cards", Toast.LENGTH_SHORT).show();
 
 		}
 

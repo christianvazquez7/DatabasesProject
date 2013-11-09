@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
+import com.basket.restrequest.AdminRequest;
 import com.basket.restrequest.UserRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -30,6 +31,7 @@ public class LoginActivity extends Activity {
 	private static final int SIZE_OF_BUFFER_TO_SIMULATE_OUT_OF_MEMORY = 1000000;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	private UserRequest JsonSpringAndroidRequest;
+	private AdminRequest adminRequest;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,26 +86,23 @@ public class LoginActivity extends Activity {
 				if(!spiceManager.isStarted()){
 					spiceManager.start(LoginActivity.this);
 					mLoginButton.setActivated(false);
-					String email =((TextView)findViewById(R.id.email)).getText().toString();
-					String password =((TextView)findViewById(R.id.password)).getText().toString();
-					JsonSpringAndroidRequest = new UserRequest(email,password);
-					spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+					String email =((TextView)findViewById(R.id.email)).getText().toString().trim();
+					String password =((TextView)findViewById(R.id.password)).getText().toString().trim();
+					if(email.contains("@")){
+						adminRequest = new AdminRequest(email,password);
+						spiceManager.execute(adminRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new AdminRequestListner());
 
+					}
+					else{
+						JsonSpringAndroidRequest = new UserRequest(email,password);
+						spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+					}
 				}
 			}
 		});
 
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-	}
 	private class UserRequestListener implements RequestListener<User>, RequestProgressListener {
 
 		@Override
@@ -123,40 +122,57 @@ public class LoginActivity extends Activity {
 		{
 			spiceManager.shouldStop();
 			Log.d("try",User.getEmail().toString());
-//			Log.d("try",User.getFirstName().toString());
-//			Log.d("try",User.getLastName().toString());
-//			Log.d("try",User.getPassword().toString());
-//			Log.d("try",User.getUsername().toString());
+			//			Log.d("try",User.getFirstName().toString());
+			//			Log.d("try",User.getLastName().toString());
+			//			Log.d("try",User.getPassword().toString());
+			//			Log.d("try",User.getUsername().toString());
 			Log.d("try",User.getCurrentlySellingOnBid().toString());
-
-
-
-
-
-
-
-			
-
-
-
-
 
 			BasketSession.beginSession(User);
 			Intent intent;
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);
-			if (User.getUsername().equals("blabla"))
-				//intent = new Intent(LoginActivity.this,FrontPageActivity.class);
-				intent = new Intent(LoginActivity.this,AdminPageActivity.class);
 			startActivity(intent);
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-
+			
 		}
 
 
 	}
+	private class AdminRequestListner implements RequestListener<Boolean>, RequestProgressListener {
 
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(LoginActivity.this, "Wrong Username or password", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+			mLoginButton.setActivated(true);
+		}
+
+	
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean arg0) {
+			Intent intent;
+			if (arg0){
+				intent = new Intent(LoginActivity.this,AdminPageActivity.class);
+				startActivity(intent);
+			}
+			spiceManager.shouldStop();
+		}
+
+
+	}
 }

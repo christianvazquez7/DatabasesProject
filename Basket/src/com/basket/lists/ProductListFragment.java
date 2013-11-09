@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.basket.activities.BidEventPageActivity;
 import com.basket.activities.BuyEventPageActivity;
 import com.basket.adapters.ProductAdapter;
+import com.basket.containers.AdminSession;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
@@ -60,21 +61,13 @@ public class ProductListFragment extends android.app.ListFragment
 		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
 		this.getActivity().addContentView(layout, rlp);
-
-		
-
-
 	}
 	public void clear()
 	{
 		foundProducts.clear();
 		
 	}
-	public boolean addEvent(Event event)
-	{
-		foundProducts.add(event);
-		return true;
-	}
+
 	public void onListItemClick(ListView l, View v, int posi ,  long id )
 	{
 //		if (((ProductFragmentActivity)this.getActivity()).isHandlingRequest())

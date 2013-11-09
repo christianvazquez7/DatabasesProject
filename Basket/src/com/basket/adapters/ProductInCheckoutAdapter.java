@@ -29,7 +29,7 @@ public class ProductInCheckoutAdapter extends ArrayAdapter<BuyEvent>
 
 			}
 			BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
-			String s = Integer.toString(currentProduct.getAmmount());
+			String s = Integer.toString(currentProduct.getitem_quantity());
 			((TextView)convertView.findViewById(R.id.productamount)).setText(s);
 
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
