@@ -1,5 +1,7 @@
 package com.basket.activities;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import com.basket.containers.BasketSession;
 import com.basket.containers.CategoryList;
 import com.basket.containers.DealList;
+import com.basket.containers.EventList;
+import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
 import com.basket.restrequest.AdminRequest;
@@ -100,7 +104,8 @@ public class LoginActivity extends Activity {
 		});
 
 	}
-
+	
+	private Intent intent;
 	private class UserRequestListener implements RequestListener<User>, RequestProgressListener {
 
 		@Override
@@ -120,17 +125,15 @@ public class LoginActivity extends Activity {
 		{
 			Log.d("PROGRESS", "GETU");
 
-			spiceManager.shouldStop();
 			Log.d("try",BasketSession.getDeals().toString());
 
 
 
 			BasketSession.beginSession(User);
-			Intent intent;
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);
-			if (User.getUsername().equals("blabla"))
-				intent = new Intent(LoginActivity.this,AdminPageActivity.class);
-			startActivity(intent);
+			GetRecommendationsRequest recommendations = new GetRecommendationsRequest(User);
+			spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
+
 		}
 
 		@Override
@@ -138,11 +141,7 @@ public class LoginActivity extends Activity {
 		{
 
 		}
-
-
 	}
-
-
 	private class GetCategoriesListener implements RequestListener<CategoryList>, RequestProgressListener {
 
 		@Override
@@ -180,6 +179,42 @@ public class LoginActivity extends Activity {
 
 		}
 	}
+	private class GetRecommendationsListner implements RequestListener<EventList>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+
+		@Override
+		public void onRequestSuccess(EventList arg0) {
+			
+			Log.d("PROGRESS", "Getting recomendations");
+
+			BasketSession.setRecommendations((ArrayList<BuyEvent>) arg0.getBuyEvents());
+			startActivity(intent);
+			mLoginButton.setActivated(true);
+			//			String email =((TextView)findViewById(R.id.email)).getText().toString();
+			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
+			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
+			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+
+
+		}
+	}
 	private class AdminRequestListner implements RequestListener<Boolean>, RequestProgressListener {
 
 		@Override
@@ -214,9 +249,6 @@ public class LoginActivity extends Activity {
 
 
 	}
-
-
-
 	private class DealRequestListener implements RequestListener<DealList>, RequestProgressListener {
 
 		@Override
@@ -238,24 +270,23 @@ public class LoginActivity extends Activity {
 			BasketSession.setDeals(cat.getEvents());
 			//GetDOTDRequest req = new GetDOTDRequest();
 			//spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
-//			String email =((TextView)findViewById(R.id.email)).getText().toString();
-//			String password =((TextView)findViewById(R.id.password)).getText().toString();
-//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
-//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
-			if(!spiceManager.isStarted()){
-				spiceManager.start(LoginActivity.this);
+			//			String email =((TextView)findViewById(R.id.email)).getText().toString();
+			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
+			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
+			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
 
-				String email =((TextView)findViewById(R.id.email)).getText().toString().trim();
-				String password =((TextView)findViewById(R.id.password)).getText().toString().trim();
-				if(email.contains("@")){
-					adminRequest = new AdminRequest(email,password);
-					spiceManager.execute(adminRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new AdminRequestListner());
-				}
-				else{
-					uReq = new UserRequest(email,password);
-					spiceManager.execute(uReq, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
-				}
+
+			String email =((TextView)findViewById(R.id.email)).getText().toString().trim();
+			String password =((TextView)findViewById(R.id.password)).getText().toString().trim();
+			if(email.contains("@")){
+				adminRequest = new AdminRequest(email,password);
+				spiceManager.execute(adminRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new AdminRequestListner());
 			}
+			else{
+				uReq = new UserRequest(email,password);
+				spiceManager.execute(uReq, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+			}
+
 
 
 		}

@@ -57,26 +57,6 @@
                 android:outAnimation="@anim/right_to_left"
                 android:padding="20dp" >
 
-                <ImageView
-                    android:id="@+id/iViewRecom_1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/tv_image" />
-
-                <ImageView
-                    android:id="@+id/iViewRecom_2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/laptop_image" />
-
-                <ImageView
-                    android:id="@+id/iViewRecom_3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/tablet_image" />
             </ViewFlipper>
         </LinearLayout>
     </LinearLayout>

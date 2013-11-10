@@ -64,5 +64,13 @@
         android:layout_height="15dp"
         android:layout_alignLeft="@+id/price"
         android:layout_below="@+id/price" />
+    <TextView
+        android:id="@+id/ammounttv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="53dp"
+        
+        android:text="1" />
    
 </RelativeLayout>

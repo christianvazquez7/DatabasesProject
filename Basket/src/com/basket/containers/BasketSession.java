@@ -3,6 +3,7 @@ package com.basket.containers;
 import java.util.ArrayList;
 
 import com.basket.general.Bid;
+import com.basket.general.BuyEvent;
 import com.basket.general.Category;
 import com.basket.general.Event;
 import com.basket.general.Review;
@@ -18,6 +19,7 @@ public class BasketSession
 	private static ArrayList<UserRating>  ratings;
 	private static ArrayList<Category> categories;
 	private static ArrayList<Deal>deals;
+	private static ArrayList<BuyEvent>recommendations;
 	
 	
 	
@@ -90,10 +92,21 @@ public class BasketSession
 		deals=events;
 		
 	}
+	public static void setRecommendations(ArrayList<BuyEvent> rec) {
+		if(recommendations!=null)
+			recommendations.clear();
+		recommendations=rec;
+		
+	}
 	public static ArrayList<Deal> getDeals() {
 		// TODO Auto-generated method stub
 		return deals;
 	}
+	public static ArrayList<BuyEvent> getRecommendations() {
+		// TODO Auto-generated method stub
+		return recommendations;
+	}
+	
 	
 	
 	

@@ -32,30 +32,30 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 		if (convertView==null)
 		{
 			convertView=((Activity)context).getLayoutInflater().inflate(R.layout.product_view, null);
-			
+
 		}
-	
-	
-	BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
-	((TextView)convertView.findViewById(R.id.theProductb)).setText(currentProduct.getProduct().getName());
-	((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getBtitle());
-	((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
-	((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
-	 final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
-	minimumRating.setRating(currentProduct.getRating());
-	
 
-	Bitmap bm=null;
-	if(currentProduct.getPic()!=null)
-	 bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
-	
-	ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
-	if(pic!=null)
-	pic.setImageBitmap(bm);
 
-		
+		BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
+		((TextView)convertView.findViewById(R.id.theProductb)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getBtitle());
+		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
+		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
+		minimumRating.setRating(currentProduct.getRating());
+
+
+		Bitmap bm=null;
+		if(currentProduct.getPic()!=null)
+			bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
+
+		ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
+		if(pic!=null)
+			pic.setImageBitmap(bm);
+
+
 		String s = Integer.toString(currentProduct.getitem_quantity());
-		((TextView)convertView.findViewById(R.id.productamount)).setText(s);
+		((TextView)convertView.findViewById(R.id.ammounttv)).setText(s);
 		return convertView;
 
 	}

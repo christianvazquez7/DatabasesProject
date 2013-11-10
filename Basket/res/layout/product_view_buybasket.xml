@@ -57,9 +57,10 @@
         android:id="@+id/uparrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
-android:layout_marginLeft="280dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/uparrow"/>
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/uparrow"
+	/>
 
     <TextView
         android:id="@+id/pod"

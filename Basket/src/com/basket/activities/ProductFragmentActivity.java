@@ -164,8 +164,8 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 				return arg0 == ((View) arg1);
 			}
 			//	        public int getItemPosition(Object object) {
-				//	            return POSITION_NONE;
-				//	        }
+			//	            return POSITION_NONE;
+			//	        }
 		}
 
 
