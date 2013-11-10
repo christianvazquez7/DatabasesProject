@@ -32,6 +32,7 @@ public class Category {
 	}
 	public ArrayList<Category> getChild() {
 		return child;
+	}
 	private ArrayList<Product> currentDeals;
 	private ArrayList<Product> popularProducts;
 	private boolean mainCategory;
@@ -39,19 +40,19 @@ public class Category {
 	public Category(String name, Category parent){
 		this.name = name;
 		this.parent = parent;
-		mCategoryId = UUID.randomUUID();
+//		mCategoryId = UUID.randomUUID();
 		if(parent == null) this.mainCategory = true;
 	}
 	public Category(){
 		this.name = "Generic Category";
 		this.parent = null;
-		mCategoryId = UUID.randomUUID();
+//		mCategoryId = UUID.randomUUID();
 		if(parent == null) this.mainCategory = true;
 	}
 
-	public UUID getCategoryId() {
-		return mCategoryId;
-	}
+//	public UUID getCategoryId() {
+//		return mCategoryId;
+//	}
 
 	public ArrayList<Product> getCurrentDeals() {
 		return currentDeals;

@@ -36,7 +36,6 @@
         android:contentDescription="TODO"
         android:src="@drawable/ic_launcher" />
 
-<<<<<<< HEAD
     <RatingBar
         android:id="@+id/ratingBar1"
         style="?android:attr/ratingBarStyleSmall"
@@ -44,21 +43,7 @@
         android:layout_height="15dp"
         android:layout_below="@+id/price"
         android:layout_toRightOf="@+id/thumb" />
-=======
-    <!-- <EditText
-        android:id="@+id/ammountofproduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/numOfRatings"
-        android:layout_alignLeft="@+id/removeButton"
-        android:layout_alignRight="@+id/removeButton"
-        android:layout_alignTop="@+id/price"
-        android:background="@color/orange"
-        android:ems="10"
-        android:inputType="numberSigned" >
 
-    </EditText> -->
->>>>>>> master2
 
     <ImageView
         android:id="@+id/downarrow"
@@ -72,10 +57,9 @@
         android:id="@+id/uparrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
-<<<<<<< HEAD
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/pod"
-        android:src="@drawable/red_x_clipped_rev_1" />
+android:layout_marginLeft="280dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/uparrow"/>
 
     <TextView
         android:id="@+id/pod"
@@ -97,10 +81,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000"
         android:textSize="12dp" />
-=======
-        android:layout_marginLeft="280dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/uparrow" />
+
 
     <TextView
         android:id="@+id/ammounttv"
@@ -110,6 +91,5 @@
         android:layout_marginTop="53dp"
         
         android:text="1" />
->>>>>>> master2
    
 </RelativeLayout>

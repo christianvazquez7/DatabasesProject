@@ -16,19 +16,18 @@
 
 package com.basket.notifications;
 
-import com.basket.activities.LoginActivity;
-import com.example.basket.R;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import com.basket.activities.LoginActivity;
+import com.example.basket.R;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 /**
  * This {@code IntentService} does the actual handling of the GCM message.
