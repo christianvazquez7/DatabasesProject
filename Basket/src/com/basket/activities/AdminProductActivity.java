@@ -10,15 +10,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basket.containers.AdminSession;
+import com.basket.containers.EventList;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.Event;
 import com.basket.general.Product;
 import com.basket.general.ProductList;
-import com.basket.lists.AdminProductList;
-import com.basket.restrequest.AdminProductRequest;
+import com.basket.lists.AdminProductListFragment;
+import com.basket.restrequest.AdminProductSearchRequest;
+import com.basket.restrequest.ProductSearchRequest;
 import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.octo.android.robospice.SpiceManager;
@@ -32,7 +33,7 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 public class AdminProductActivity extends SlidingFragmentActivity {
 
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
-	private AdminProductList productList;
+	private AdminProductListFragment productList;
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -46,16 +47,14 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 		setContentView(R.layout.activity_product_fragment);
 		android.app.FragmentManager fm = this.getFragmentManager();
 		android.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
-		
+
 		if (fragment == null)
 		{
-			
-			fragment = new AdminProductList();
-			productList= (AdminProductList) fragment;
-			fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
-			
+			fragment = new AdminProductListFragment();
+			productList= (AdminProductListFragment) fragment;
+			fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();	
 		}
-		
+
 		Button search = (Button)findViewById(R.id.searchButton);
 		search.setOnClickListener(new OnClickListener()
 		{
@@ -68,52 +67,54 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 					productList.clear();
 					spiceManager.start(AdminProductActivity.this);
 					String searchQuery = ((TextView)findViewById(R.id.searchBar)).getText().toString();
-					AdminProductRequest JsonSpringAndroidRequest = new AdminProductRequest(searchQuery);
+					AdminProductSearchRequest JsonSpringAndroidRequest = new AdminProductSearchRequest(searchQuery);
+//					ProductSearchRequest JsonSpringAndroidRequest = new ProductSearchRequest(searchQuery);
 					spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductSearchListener());
 				}
-				
+
 			}
-			
+
 		});
-		
+
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
-		
-		
+
+
 	}
+
 	private class ProductSearchListener implements RequestListener<ProductList>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
-			if (!(arg0 instanceof RequestCancelledException)) 
-			{
+			if (!(arg0 instanceof RequestCancelledException)) {
+
 				Toast.makeText(AdminProductActivity.this, "Search could not be processed", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
 		}
 
-		public void onRequestSuccess(ProductList product) {
-
-			
-			Log.d("buyevent",product.toString());
-			productList.clear();
-			for(Product pr: product.getResults())
-			productList.addProduct(pr);
-			((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
-			spiceManager.shouldStop();	
-		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
+
 		}
 
-
+		@Override
+		public void onRequestSuccess(ProductList arg0) {
+			
+			if(AdminSession.getEventsList()!=null && AdminSession.getEventsList().size()>0)
+				AdminSession.getEventsList().clear();
+			for(Product p : arg0.getResults()){
+				AdminSession.getProducts().add(p);
+			}
+			((ArrayAdapter<Event>)productList.getListAdapter()).notifyDataSetChanged();
+			spiceManager.shouldStop();
+		}
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -131,6 +132,6 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 		spiceManager.cancelAllRequests();
 		spiceManager.shouldStop();
 	}
-	
+
 
 }

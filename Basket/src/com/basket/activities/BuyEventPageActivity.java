@@ -50,12 +50,9 @@ public class BuyEventPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
-		
 		currentEvent=(BuyEvent) BasketSession.getProductSearch().get(this.getIntent().getIntExtra("selectedEvent", 0));
 		setContentView(R.layout.product_page);
-		
+
 		LayoutTransition f = new LayoutTransition();
 		f.enableTransitionType(LayoutTransition.CHANGING);
 		f.setDuration(20);
@@ -70,20 +67,20 @@ public class BuyEventPageActivity extends FragmentActivity {
 
 		TabHost mTabHost = (TabHost)findViewById(android.R.id.tabhost);
 		mTabHost.setup();
-		
+
 		TabHost.TabSpec calculatorTab = mTabHost.newTabSpec("tab1");
 		calculatorTab.setContent(R.id.reviews);
 		calculatorTab.setIndicator("Reviews");
-	
+
 		//	   TabSpec spec = mTabHost.newTabSpec("tab1");
 		//       //spec.setIndicator(mTabHost.);
 		//       spec.setContent(R.id.fragmentContainer);
 		//       mTabHost.addTab(spec);
 		final FragmentManager fm = this.getSupportFragmentManager();
-	    fragment = fm.findFragmentById(R.id.reviewFragmentContainer);
+		fragment = fm.findFragmentById(R.id.reviewFragmentContainer);
 		product = fm.findFragmentById(R.id.productContainer);
 		detail=fm.findFragmentById(R.id.tab3);
-		
+
 
 		final Animation  outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
 				Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
@@ -132,7 +129,7 @@ public class BuyEventPageActivity extends FragmentActivity {
 			fm.beginTransaction().add(R.id.productContainer, product).commit();
 			////			((ReviewListFragment)fragment).getListView().setDivider(this.getResources().getDrawable(R.drawable.custom_divider));
 		}
-		
+
 		if (detail == null){
 			detail = new ProductDetailFragment();
 			ProductDetailFragment sp=(ProductDetailFragment)detail;
@@ -154,23 +151,22 @@ public class BuyEventPageActivity extends FragmentActivity {
 			fm.beginTransaction().add(R.id.reviewFragmentContainer, fragment).commit();
 			////			((ReviewListFragment)fragment).getListView().setDivider(this.getResources().getDrawable(R.drawable.custom_divider));
 		}
-		
+
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 
 		Button add =(Button)this.findViewById(R.id.addToBasket);
 		add.setOnClickListener(new OnClickListener(){
 
-			
+
 			public void onClick(View v) 
 			{
 				Intent chooseBasket = new Intent(BuyEventPageActivity.this,BasketFragmentActivity.class);
 				chooseBasket.putExtra("selected", getIntent().getIntExtra("selectedEvent", 0));
 				startActivityForResult(chooseBasket,0);
 				finish();
-				
 			}
-			
+
 		});
 
 	}

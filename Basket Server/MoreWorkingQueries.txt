@@ -1,0 +1,1 @@
+select sum(amount) as result from (select * from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '%2013-%' as specorder

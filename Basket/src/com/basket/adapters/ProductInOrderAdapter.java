@@ -52,7 +52,11 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 	ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
 	if(pic!=null)
 	pic.setImageBitmap(bm);
-		return convertView;
+
 		
+		String s = Integer.toString(currentProduct.getitem_quantity());
+		((TextView)convertView.findViewById(R.id.productamount)).setText(s);
+		return convertView;
+
 	}
 }

@@ -15,13 +15,10 @@ public class UpdateBasketRequest extends SpringAndroidSpiceRequest<Boolean> {
 		super(Boolean.class);
 		position=basketPos;
 		basket=b;
-	
-	
 	}
 
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception {
-		
 		String url = BasketConstants.externalIp+"/Basket.js/UpdateBasket/";
 		url+=position;
 		Log.d( "request", "loading from network" );	

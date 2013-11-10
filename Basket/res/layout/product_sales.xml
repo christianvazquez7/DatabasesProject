@@ -28,13 +28,13 @@
             android:background="@android:color/darker_gray" />
 
         <RadioGroup
-            android:id="@+id/radioGroup1"
+            android:id="@+id/sortradiogroup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" >
 
             <RadioButton
-                android:id="@+id/radio0"
+                android:id="@+id/radioYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -42,21 +42,21 @@
                 android:textSize="10dp" />
 
             <RadioButton
-                android:id="@+id/radio1"
+                android:id="@+id/radioMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Month"
                 android:textSize="10dp" />
 
             <RadioButton
-                android:id="@+id/radio2"
+                android:id="@+id/radioWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Week"
                 android:textSize="10dp" />
 
             <RadioButton
-                android:id="@+id/radio3"
+                android:id="@+id/radioDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Day"

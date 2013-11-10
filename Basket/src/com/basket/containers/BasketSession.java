@@ -40,7 +40,8 @@ public class BasketSession
 	}
 	public static void setProducts(ArrayList<Event> list)
 	{
-		currentSearchBuyList.clear();
+		if(list!=null && list.size()>0)
+			currentSearchBuyList.clear();
 		currentSearchBuyList=list;
 	}
 	public static ArrayList<Bid> getBidSearch()

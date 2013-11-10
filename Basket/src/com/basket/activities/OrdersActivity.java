@@ -40,6 +40,7 @@ public class OrdersActivity extends FragmentActivity {
 			args.putInt("pos", i);
 			mTabsAdapter.addTab(bar.newTab().setText("Order "+(i+1)), InvoiceFragment.class, args);
 
+			// mTabsAdapter.addTab(bar.newTab().setText("Order "+(i+1)), Products_List_View.class, args);
 		}
 		
 	}

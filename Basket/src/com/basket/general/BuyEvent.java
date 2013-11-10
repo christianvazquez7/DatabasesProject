@@ -24,14 +24,31 @@ public class BuyEvent implements Event
 		this.creator = creator;
 	}
 	Product product;
+	String features;
+	ArrayList<Review>reviews;
 	
+	double price;
+	int day;
+	int year;
+	int month;
+	int hour;
+	int minute;
+	int item_quantity =1;
+	boolean finalized;
 	String description;
+	public int getitem_quantity() {
+		return item_quantity;
+	}
+	public void setitem_quantity(int item_quantity) {
+		this.item_quantity = item_quantity;
+	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getFeatures() {
 		return features;
 	}
@@ -44,8 +61,7 @@ public class BuyEvent implements Event
 	public void setReviews(ArrayList<Review> reviews) {
 		this.reviews = reviews;
 	}
-	String features;
-	ArrayList<Review>reviews;
+
 	String btitle;
 	public String getBtitle() {
 		return btitle;
@@ -53,13 +69,7 @@ public class BuyEvent implements Event
 	public void setBtitle(String btitle) {
 		this.btitle = btitle;
 	}
-	double price;
-	int day;
-	int year;
-	int month;
-	int hour;
-	int minute;
-	boolean finalized;
+
 	byte[] pic;
 	public byte[] getPic() {
 		return pic;
@@ -67,6 +77,7 @@ public class BuyEvent implements Event
 	public void setPic(byte[] pic) {
 		this.pic = pic;
 	}
+
 	public int getId() {
 		return id;
 	}

@@ -37,7 +37,7 @@ public class FaqActivity extends Activity {
 				this, groupList, laptopCollection);
 		expListView.setAdapter(expListAdapter);
 
-		//setGroupIndicatorToRight();
+		setGroupIndicatorToRight();
 
 		expListView.setOnChildClickListener(new OnChildClickListener() {
 

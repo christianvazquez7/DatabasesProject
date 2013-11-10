@@ -6,11 +6,13 @@ import com.basket.general.BasketConstants;
 import com.basket.general.Report;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-public class ProductReportRequest extends SpringAndroidSpiceRequest<Report> 
+public class SalesReportRequest extends SpringAndroidSpiceRequest<Report> 
 {
-	private int day,month,year,pid;
+	private int day;
+	private int month;
+	private int year;
 	private String type;
-	public ProductReportRequest(int d, int m, int y,String t, int pid) 
+	public SalesReportRequest(int d, int m, int y,String t) 
 	{
 		super(Report.class);
 		Log.d("Date", "D"+d+"m"+m+"y"+y);
@@ -18,14 +20,14 @@ public class ProductReportRequest extends SpringAndroidSpiceRequest<Report>
 		month=m+1;
 		year=y;
 		type=t;
-		this.pid = pid;
+		
 	}
 
 	@Override
 	public Report loadDataFromNetwork() throws Exception 
 	{
-		String url = BasketConstants.externalIp+"/Basket.js/ProductReport/";
-		url+=day+"/"+month+"/"+ year+"/"+type+"/"+pid;
+		String url = BasketConstants.externalIp+"/Basket.js/SalesReport/";
+		url+=day+"/"+month+"/"+ year+"/"+type;
 		Log.d( "request", "loading from network" );
 		return getRestTemplate().getForObject(url, Report.class);
 	}

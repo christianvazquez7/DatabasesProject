@@ -32,6 +32,41 @@ public class Category {
 	}
 	public ArrayList<Category> getChild() {
 		return child;
+	private ArrayList<Product> currentDeals;
+	private ArrayList<Product> popularProducts;
+	private boolean mainCategory;
+
+	public Category(String name, Category parent){
+		this.name = name;
+		this.parent = parent;
+		mCategoryId = UUID.randomUUID();
+		if(parent == null) this.mainCategory = true;
+	}
+	public Category(){
+		this.name = "Generic Category";
+		this.parent = null;
+		mCategoryId = UUID.randomUUID();
+		if(parent == null) this.mainCategory = true;
+	}
+
+	public UUID getCategoryId() {
+		return mCategoryId;
+	}
+
+	public ArrayList<Product> getCurrentDeals() {
+		return currentDeals;
+	}
+
+	public void addCurrentDeals(Product currentDeal) {
+		this.currentDeals.add(currentDeal);
+	}
+
+	public ArrayList<Product> getPopularProducts() {
+		return popularProducts;
+	}
+
+	public void addPopularProductsAt(int x, Product popularProduct) {
+		this.popularProducts.add(x, popularProduct);
 	}
 	public void setChild(ArrayList<Category> child) {
 		this.child = child;

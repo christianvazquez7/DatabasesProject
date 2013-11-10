@@ -38,12 +38,11 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 public class CheckoutActivity extends Activity {
 	public static boolean changeCreditCard =false;
 	public static boolean changeShippingAddressCard = false;
-	private Button checkoutButton;
 	private Fragment items,selCardFrag,selShipFrag;
 	private Order orderToPlace;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
-	
-	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,11 +52,11 @@ public class CheckoutActivity extends Activity {
 		double total =0;
 		for (BuyEvent e :pro)
 		{
-			total+=e.getPrice();
+			total+=e.getPrice()*e.getitem_quantity();
 		}
 		TextView t =(TextView)this.findViewById(R.id.totaltextview);
 		t.setText("$"+Double.toString(total));
-		
+
 		FragmentManager fragMan = this.getFragmentManager();
 		Fragment pickCardButtonFrag = fragMan.findFragmentById(R.id.creditcardfieldplaceholder);
 		if(pickCardButtonFrag==null){
@@ -69,24 +68,24 @@ public class CheckoutActivity extends Activity {
 			pickAddressButtonFrag = new SelectAddressButton();
 			fragMan.beginTransaction().add(R.id.shippingaddressfieldplaceholder, pickAddressButtonFrag).commit();
 		}
-		 items = fragMan.findFragmentById(R.id.productsForCheckoutPlaceholder);
+		items = fragMan.findFragmentById(R.id.productsForCheckoutPlaceholder);
 
 		if(items==null){
 			items = new Products_In_Checkout_List_View();
 			fragMan.beginTransaction().add(R.id.productsForCheckoutPlaceholder, items).commit();
 		}
-		
+
 		Button checkOut = (Button) findViewById(R.id.CheckOut);
 		checkOut.setOnClickListener(new OnClickListener()
 		{
 
-			
+
 			public void onClick(View arg0) 
 			{
 				Products_In_Checkout_List_View list = (Products_In_Checkout_List_View) items;
 				if (CreditCardContainer.paymentSelection==null || AddressContainer.shippingSelection==null || list.getProducts2().size()==0)
 				{
-					
+
 				}
 				else
 				{
@@ -109,7 +108,7 @@ public class CheckoutActivity extends Activity {
 					}
 				}
 			}
-			
+
 		});
 
 	}
@@ -130,8 +129,8 @@ public class CheckoutActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.checkout, menu);
 		return true;
-		
-		
+
+
 	}
 
 	public void changeCreditCardSelection() {
@@ -142,7 +141,7 @@ public class CheckoutActivity extends Activity {
 
 	public void changeShippingAddressSelection() {
 		FragmentManager fragMan = this.getFragmentManager();
-		 selShipFrag = new SelectedShippingAddress();
+		selShipFrag = new SelectedShippingAddress();
 		fragMan.beginTransaction().replace(R.id.shippingaddressfieldplaceholder, selShipFrag).commit();
 	}
 	private class PlaceOrderListener implements RequestListener<Boolean>, RequestProgressListener {

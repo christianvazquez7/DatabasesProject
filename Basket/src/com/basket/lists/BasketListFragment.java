@@ -3,6 +3,7 @@ package com.basket.lists;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -24,6 +26,7 @@ import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.general.Event;
 import com.basket.general.ProductBasket;
 import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
@@ -42,12 +45,6 @@ public class BasketListFragment extends android.app.ListFragment
 	private Animator mCurrentAnimator;
 	private int mShortAnimationDuration;
 	private RelativeLayout layout;
-//	private MyRenderer selectedRenderer;
-//	private boolean out = false;
-//	private View previousView;
-//	private MyRenderer prev;
-//	private boolean remove;
-//	private Animation centerAni;
 	private int currentPos=0;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	ProductBasket defaultPB;
@@ -65,8 +62,9 @@ public class BasketListFragment extends android.app.ListFragment
 			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB);
 			BasketSession.getUser().getBaskets().add(defaultPB);
 			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
-			
+
 		}
+
 		super.onCreate(savedInstance);
 		foundBaskets= BasketSession.getUser().getBaskets();	
 
@@ -82,10 +80,30 @@ public class BasketListFragment extends android.app.ListFragment
 	{
 		spiceManager.start(getActivity());
 		currentPos=pos;
-		BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0)));
+
+		boolean found = false;
+		for(int i = 0; i<BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().size();i++)
+		{
+			List<BuyEvent> list = BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents();
+			List<Event> inList = BasketSession.getProductSearch();
+			int in = BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getId();
+			int out = ((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0))).getId();
+			if( in == out)
+			{
+				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).setitem_quantity(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getitem_quantity()+1);
+				found = true;
+				break;
+			}
+		}
+		
+		if(!found)
+		{
+			BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0)));
+		}
+	
 		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));
 		spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BasketUpdateListener());
-		
+
 	}
 
 	private void zoomImageFromThumb(final View thumbView, int imageResId) {
@@ -231,33 +249,37 @@ public class BasketListFragment extends android.app.ListFragment
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
-				Toast.makeText(getActivity(), "Item added", Toast.LENGTH_SHORT).show();
+
+
+				Toast.makeText(getActivity(), "Item could not be added", Toast.LENGTH_SHORT).show();
 			}
 			Toast.makeText(getActivity(), "Item  added", Toast.LENGTH_SHORT).show();
 			//BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().remove(BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selectedEvent", 0)));
+			if (spiceManager.isStarted()) {
+				spiceManager.shouldStop();
 
-			spiceManager.shouldStop();
+			}
 		}
 
 		@Override
 		public void onRequestSuccess(Boolean bool) 
 		{
 
-			
+
 			spiceManager.shouldStop();
 			Toast.makeText(getActivity(), "Product Added to Basket", Toast.LENGTH_SHORT).show();
+
 			getActivity().finish();
-				
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 	}
 	private class NewBasketListener implements RequestListener<Boolean>, RequestProgressListener {

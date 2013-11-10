@@ -57,5 +57,23 @@
         android:layout_alignParentTop="true"
         android:contentDescription="TODO"
         android:src="@drawable/ic_launcher" />
-   
+
+    <TextView
+        android:id="@+id/numOfRatings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/available"
+        android:layout_below="@+id/available"
+        android:text="(150)"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#800080" />
+
+    <TextView
+        android:id="@+id/productamount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="1" />
+
 </RelativeLayout>

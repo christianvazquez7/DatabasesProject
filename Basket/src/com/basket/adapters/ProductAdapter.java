@@ -33,12 +33,12 @@ public class ProductAdapter extends ArrayAdapter<Event>
 	public View getView(int pos,View convertView, ViewGroup parent)
 	{
 		if(this.getItem(pos).isBid()){
-		
-			
-				convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view, null);
-			
+
+
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view, null);
+
 			BidEvent currentProduct = (BidEvent) this.getItem(pos);	
-			
+
 			Log.d("try",currentProduct.toString());
 			((TextView)convertView.findViewById(R.id.theProduct)).setText(currentProduct.getProduct().getName()); 
 
@@ -46,7 +46,7 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			if(currentProduct.getWinningBid()==null)
 				((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getMinBid()));
 			else
-			((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinningBid().getAmmount()));
+				((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinningBid().getAmmount()));
 			((TextView)convertView.findViewById(R.id.bidsupplier)).setText(currentProduct.getProduct().getManufacturer());
 			
 			java.util.Date date = null;
@@ -79,12 +79,13 @@ public class ProductAdapter extends ArrayAdapter<Event>
 				if(pic!=null)
 				pic.setImageBitmap(bm);
 
+
 		}
 		else{
-			
-				convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view, null);
 
-			
+			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.product_view, null);
+
+
 			BuyEvent currentProduct = (BuyEvent) this.getItem(pos);	
 			((TextView)convertView.findViewById(R.id.theProductb)).setText(currentProduct.getProduct().getName());
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getBtitle());
@@ -103,8 +104,9 @@ public class ProductAdapter extends ArrayAdapter<Event>
 				ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
 				if(pic!=null)
 				pic.setImageBitmap(bm);
+
 		}
-		
+
 
 
 

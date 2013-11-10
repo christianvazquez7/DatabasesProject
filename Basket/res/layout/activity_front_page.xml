@@ -19,6 +19,13 @@
         android:layout_below="@+id/bEditCreditCards"
         android:layout_marginTop="22dp"
         android:text="basket list" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/plussign" />
+
     <Button
         android:id="@+id/bHomePage" 
         android:layout_width="wrap_content"

@@ -155,12 +155,14 @@ public class EditUserActivity extends Activity {
 
 				Toast.makeText(EditUserActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
 			}
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(Boolean edit) {
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 			theUser.setEmail(buffEmail);
 			theUser.setPassword(buffPass);
 			theUser.setUsername(buffUser);

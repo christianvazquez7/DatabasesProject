@@ -13,13 +13,10 @@ import com.basket.adapters.ProductInOrderAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
-import com.basket.general.Event;
 import com.example.basket.R;
 
 public class Products_List_View extends ListFragment{
-	//private String[] list_items;
 	public static int ordernum =0;
-
 	private ArrayList<BuyEvent> products;
 	private ArrayList<BidEvent>bproducts;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -36,10 +33,6 @@ public class Products_List_View extends ListFragment{
 		}
 		else
 		setListAdapter(new ProductInOrderAdapter(getActivity(), products));
-
-
-
-
 		return rootView;
 	}
 
