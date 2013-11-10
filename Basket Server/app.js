@@ -53,13 +53,12 @@ var bb = require('bytebuffer');
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'root',
-  password : '',
+  user     : 'lukesionkira',
+  password : 'qwerty',
   database: "myFirstSql"
 });
 
 connection.connect();
-
 
 
  
@@ -78,24 +77,6 @@ connection.connect();
 //
 //	});
 
-function getUserInfo(uname, callback) {
-	console.log("In get user info uname is:"+uname);
-	if(uname==""){
-		console.log("Empty");
-		connection.query('SELECT * FROM Users', function(err, response) {
-		  if (err) throw err;
-		  callback(err, response);
-		});
-	}
-	else{
-		console.log("Not empty");
-		console.log(uname);
-		connection.query('SELECT * FROM Users WHERE username like \'%'+uname+'%\';', function(err, response) {
-		  if (err) throw err;
-		  callback(err, response);
-		});
-	}
-};
 
 
 
@@ -117,11 +98,9 @@ var exproduct = new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40);
 var exbproduct = new product("Macbook Pro", 1204054932,"Dell Inc.",20,15,40);
 
 var buyEvents = new Array(
-		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 3610QM \
-		- 6 GB DDR3 \
-		- 17.3-Inch Screen \
-		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
-		,reviews,0,5)
+		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
+		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false),
+		new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false)
 );
 
 var users = {};
@@ -151,7 +130,7 @@ var event= new BuyEvent(exproduct,1700.50,1,2010,05,8,36,false,"- Intel Core i7 
 		- 6 GB DDR3 \
 		- 17.3-Inch Screen \
 		- 1600x900","The all-new Alienware 14 is compact, powerful and designed for more intense gaming anywhere you set up. The magnesium alloy frame and anodized aluminum shell protect your LCD and its components, while the copper heat sinks keep your system cool on the inside so you can game for hours on end."
-		,reviews,0,1);
+		,reviews,0);
 
 buylist.push(event);
 
@@ -210,36 +189,13 @@ console.log("server listening");
 //		});
 
 //Search for users
-app.get('/Basket.js/AdminSearch/',function(req,res)
+app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
 {
-	console.log("Empty argument adminsearch");
-	var namequery = "";
-	getUserInfo(namequery, function(err, result){
-		console.log(err || JSON.stringify(result));
-		console.log('Im out!');
-		var response =
-		{
-			"users": result
-		};
-		res.json(response);	
-	});
-	
-});
-app.get('/Basket.js/AdminSearch/:search',function(req,res)
-{
-	console.log("Not empty log");
-	var namequery = req.params.search;
-	console.log(req.params.search);
-	getUserInfo(namequery, function(err, result){
-		console.log(err || JSON.stringify(result));
-		console.log('Im out!');
-		var response =
-		{
-			"users": result
-		};
-		res.json(response);	
-	});
-	
+	var response =
+	{
+		"users": userList
+	};
+	res.json(response);
 });
 
 app.get('/Basket.js/GetBuyReviews/:id',function(req,res)
@@ -580,9 +536,6 @@ app.del('/Basket.js/UserDelete/:id', function(req,res)
 			res.json(true);
 		});
 //Create a user
-function createUser(callback) {
-
-};
 app.post('/Basket.js/create/:id', function(req,res)
 {
 	console.log("Creating user");
@@ -654,7 +607,7 @@ var products = new Array(
 //Search for product
 app.get('/Basket.js/Product/:searchQuery', function(req,res)
 {
-	console.log("Looking for product"+req.params.searchQuery);
+	
 	function getBuyEvents () 
 	{
 		var defered = Q.defer();
@@ -693,7 +646,6 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 
 app.get('/Basket.js/UpdateBidSeller', function(req,res)
 		{
-
 	function getFinishedBidEvents () 
 	{
 		var defered = Q.defer();
@@ -703,7 +655,7 @@ app.get('/Basket.js/UpdateBidSeller', function(req,res)
 	};
 	
 	Q.all([getFinishedBidEvents()]).then(function(rest)
-	{
+			{
 			var finished = new Array();
 			for (var i = 0; i<rest[0][0].length;i++)
 			{
@@ -713,7 +665,7 @@ app.get('/Basket.js/UpdateBidSeller', function(req,res)
 				"toFinish":finished
 			};
 			res.json(response);
-	});
+			});
 	
 		});
 
@@ -749,623 +701,23 @@ app.get('/Basket.js/WinBid/:id', function(req,res)
 
 
 
-
-
-
-
-///////////////////////////////////////////
-function getadminproducts(query, callback) {
-	console.log("Loading admin products "+query);
-	connection.query('select * from products natural join manufacturers where pname like \'%'+query+'%\''  , function(err, response) {
-	  if (err) throw err;
-	  callback(err, response);
-	});
-};
-app.get('/Basket.js/AdminProductSearch/:query', function(req,res)
-{
-	console.log("Getting admin products");
-	getadminproducts(req.params.query, function(err, result){
-		console.log(err || JSON.stringify(result));
-		console.log('Im out!');
-		var productlist = new Array();
-		for(var i=0;i<result.length;i++){
-			console.log(result[i]);
-			productlist.push(new product(result[i].pname, result[i].productId,result[i].mname,result[i].width,result[i].height,result[i].depth));
-		}
-		 var response =
-		 {
-			"products": productlist
-		 };
-		 res.json(response);	
-	});
-});
-function getproductsales(weekStart,type, reqdate, pid, callback) {
-	console.log(2);
-var month = weekStart.getMonth();
-		month+=1;
-	console.log("Getting total sales"+reqdate+"Type:"+type);
-	var datearray = reqdate.split("-");
-	var queryadd="";
-	if(type=='Day'){
-	console.log("1");
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-	}
-	else if(type == 'Year'){
-		queryadd = '\'%'+datearray[0]+'-%\'';
-		console.log(datearray[0]);
-		console.log("2");
-	}
-	else if(type=='Month'){
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-%\'';
-		console.log("3");
-	}
-	
-	var query = 'select sum(price*item_quantity) as result from in_buy_basket natural join buy_events natural join baskets, orders where basketId = withbasketId and productId = ' +pid+' and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-	console.log(query);
-	connection.query(query, function(err, response) {
-	  if (err) throw err;
-	  callback(err, response);
-	});
-};
-function getproductsalescount(weekStart,type, reqdate, pid, callback) {
-	console.log(1);
-	var month = weekStart.getMonth();
-		month+=1;
-	console.log("Getting total sales"+reqdate+"Type:"+type);
-	var datearray = reqdate.split("-");
-	var queryadd="";
-	if(type=='Day'){
-	console.log("1");
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-	}
-	else if(type == 'Year'){
-		queryadd = '\'%'+datearray[0]+'-%\'';
-		console.log(datearray[0]);
-		console.log("2");
-	}
-	else if(type=='Month'){
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-%\'';
-		console.log("3");
-	}
-	var query = 'select sum(item_quantity) as result from in_buy_basket natural join buy_events natural join baskets, orders where basketId = withbasketId and productId = ' +pid+' and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-			console.log(query);
-
-	connection.query(query  , function(err, response) {
-	  if (err) throw err;
-	  callback(err, response);
-	});
-};
-function gettotalsales(weekStart, type, reqdate, callback) {
-	console.log(1);
-var month = weekStart.getMonth();
-		month+=1;
-		console.log(weekStart);
-	console.log("Getting total sales"+reqdate+"Type:"+type);
-	var datearray = reqdate.split("-");
-	var queryadd="";
-	if(type=='Day'){
-	console.log("1");
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-	}
-	else if(type == 'Year'){
-		queryadd = '\'%'+datearray[0]+'-%\'';
-		console.log(datearray[0]);
-		console.log("2");
-	}
-	else if(type=='Month'){
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-%\'';
-		console.log("3");
-	}
-	var query = 'select sum(amount) as result from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-	console.log(query);
-	connection.query(query  , function(err, response) {
-	  if (err) throw err;
-	  callback(err, response);
-	});
-};
-function gettotalsalescount(weekStart, type, reqdate, callback) {
-	console.log(1);
-var month = weekStart.getMonth();
-		month+=1;
-				console.log(weekStart);
-
-	console.log("Getting total sales count"+reqdate+"Type:"+type);
-	var datearray = reqdate.split("-");
-	var queryadd="";
-	if(type=='Day'){
-	console.log("1");
-		// queryadd = '\'%-'+datearray[2]+'%\'';
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-
-	}
-	else if(type == 'Year'){
-		queryadd = '\'%'+datearray[0]+'-%\'';
-		console.log(datearray[0]);
-		console.log("2");
-	}
-	else if(type=='Month'){
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-%\'';
-
-		// queryadd = '\'%-'+datearray[1]+'-%\'';
-		console.log("3");
-	}
-	var query = 'select sum(item_quantity) as result from baskets natural join in_buy_basket natural join buy_events, orders where basketId = withbasketId and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-	console.log(query);
-	connection.query(query  , function(err, response) {
-	  if (err) throw err;
-	  callback(err, response);
-	});
-};
-
-app.get('/Basket.js/ProductReport/:day/:month/:year/:type/:pid', function(req,res)
-{
-	// var datereq = req.params.year+"-"+req.params.month+"-"+req.params.day;
-	// var now = new Date();
-	// var startDay = 1; //0=sunday, 1=monday etc.
-	// var d = now.getDay(); //get the current day
-	// var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-	// var weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-	// console.log(weekStart);
-	// console.log(weekEnd);
-	// console.log(req.params.pid);
-	
-	// getproductsales(req.params.type, datereq, req.params.pid, function(err, result){
-		// console.log(err || JSON.stringify(result));
-		// console.log('Im out!');
-		// console.log(result[0].result);
-		// if(result[0].result == null){
-			// console.log("In if");
-			// var response =
-			// {
-				// "totalSales": 0,
-				// "totalGross": 0
-
+app.get('/Basket.js/ProductReport/:day/:month/:year/:type', function(req,res)
+	{
+		var response =
+		{
+				"totalSales": 3200000,
+				"totalGross":12300030
 				
-			// };
-			// res.json(response);
-		// }
-		// else{
-			// getproductsalescount(req.params.type, datereq, req.params.pid, function(err, result2){
-				// console.log(err || JSON.stringify(result2));
-				// console.log('Im out!');
-				// console.log(result2);
-				// var response =
-				// {
-					// "totalSales": result2[0].result,
-					// "totalGross": result[0].result
-					
-				// };
-				// console.log(response);
-				// res.json(response);
-			// });
-		// }
-		
-	// });
-	
-	
-	var month = req.params.month;
-	
-	var datereq = req.params.year+"-"+month+"-"+req.params.day;
-
-	console.log(req.params.type);
-	console.log(datereq);
-
-	// if(req.params.type == "Week"){
-		// var now = new Date();
-		// now.setFullYear( req.params.year);
-		// now.setDate(req.params.day);
-		// now.setMonth(req.params.month-1);
-		// var startDay = 1; //0=sunday, 1=monday etc.
-		// var d = now.getDay(); //get the current day
-		// var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		// var weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-		// var totalSales = 0;
-		// var totalGross = 0;
-		// for(var i =0; i<7;i++){
-			// var month = weekStart.getMonth()+1;
-			// var datereq = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-			// console.log(datereq);
-			// gettotalsales("Day", datereq, function(err, result){
-				// console.log(err || JSON.stringify(result));
-				// console.log('Resultado de totalSales');
-				// console.log(result[0].result);
-				// if(result[0].result!=null)
-					// totalSales+=result[0].result;
-			// });
-			// var val = weekStart.valueOf();
-			// weekStart = new Date(val+86400000);
-		// }
-		// weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		// weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-
-		// for(var i =0; i<7;i++){
-			// month = weekStart.getMonth()+1;
-			// datereq = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-
-			// gettotalsalescount("Day", datereq, function(err, result){
-				// console.log(err || JSON.stringify(result));
-				// console.log('Resultado de totalSalescount');
-				// console.log(result);
-				
-				// if(result[0].result!=null)
-					// totalGross+=result[0].result;
-			// });
-			
-			// var val = weekStart.valueOf();
-			// weekStart = new Date(val+86400000);
-		// }
-		// var response =
-		// {
-			// "totalSales": totalSales,
-			// "totalGross": totalGross
-		// };
-		// console.log(response);
-		// res.json(response);
-		
-	// }
-	function gettotsales(weekStart) {	
-		var defered = Q.defer();
-		var month = weekStart.getMonth();
-		month+=1;
-		var reqdate = weekStart.getFullYear()+"-%"+month+"-"+weekStart.getDate();
-		
-		console.log("Getting total sales"+reqdate+"Type:");
-		var datearray = reqdate.split("-");
-		var queryadd="";
-		console.log("1");
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-		
-		
-		// var query = 'select sum(amount) as result from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-		var query = 'select sum(price*item_quantity) as result from in_buy_basket natural join buy_events natural join baskets, orders where basketId = withbasketId and productId = ' +req.params.pid+' and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-
-		console.log(query);
-		connection.query(query, defered.makeNodeResolver());
-		return defered.promise;
-
-	};
-	function gettotsalescount(weekStart) {
-		var defered = Q.defer();
-		var month = weekStart.getMonth();
-		month+=1;
-		var reqdate = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-
-		console.log("Getting total sales count"+reqdate+"Type:");
-		var datearray = reqdate.split("-");
-		var queryadd="";
-		
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-		
-		// var query = 'select sum(item_quantity) as result from baskets natural join in_buy_basket natural join buy_events, orders where basketId = withbasketId and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-		var query = 'select sum(item_quantity) as result from in_buy_basket natural join buy_events natural join baskets, orders where basketId = withbasketId and productId = ' +req.params.pid+' and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-		console.log(query);
-		connection.query(query  , defered.makeNodeResolver());
-		return defered.promise;
-	};
-	if(req.params.type == "Week"){
-		var now = new Date();
-		now.setFullYear( req.params.year);
-		now.setDate(req.params.day);
-		now.setMonth(req.params.month-1);
-		var startDay = 0; //0=sunday, 1=monday etc.
-		var d = now.getDay(); //get the current day
-		var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		var val = weekStart.valueOf();
-		Q.all([gettotsalescount(weekStart), gettotsalescount(new Date(val+1*86400000)), gettotsalescount(new Date(val+2*86400000)),gettotsalescount(new Date(val+3*86400000)),gettotsalescount(new Date(val+4*86400000)),gettotsalescount(new Date(val+5*86400000)),gettotsalescount(new Date(val+6*86400000)),gettotsales(weekStart), gettotsales(new Date(val+1*86400000)), gettotsales(new Date(val+2*86400000)),gettotsales(new Date(val+3*86400000)),gettotsales(new Date(val+4*86400000)),gettotsales(new Date(val+5*86400000)),gettotsales(new Date(val+6*86400000))]).then(function(rest){
-			
-		
-		// weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		// weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-
-		// for(var i =0; i<7;i++){
-			// month = weekStart.getMonth()+1;
-			// datereq = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-
-			// gettotalsalescount("Day", datereq, function(err, result){
-				// console.log(err || JSON.stringify(result));
-				// console.log('Resultado de totalSalescount');
-				// console.log(result);
-				
-				// if(result[0].result!=null)
-					// totalGross+=result[0].result;
-			// });
-			
-			// var val = weekStart.valueOf();
-			// weekStart = new Date(val+86400000);
-			var totalSales = 0;
-			var totalGross = 0;
-			for (var i=0;i<rest.length;i++)
-			{
-				for(var j =0; j<rest[0][0].length;j++ ){
-										console.log(rest[i][0][j].result);
-
-					if(rest[i][0][j].result!= null){
-					console.log(rest.length);
-						if(i<7){
-							console.log("Adding sale "+rest[i][0][j].result);
-							totalSales+= rest[i][0][j].result;
-						}
-						else{
-							console.log("Adding sale "+rest[i][0][j].result);
-							totalGross+=rest[i][0][j].result;
-						}
-					}
-				}
-			}
-			var response =
-			{
-				"totalSales": totalSales,
-				"totalGross": totalGross
-			};
-		console.log(response);
+		};
 		res.json(response);
-		});
-		
-		
-	}
-	else{
-		var now = new Date();
-		console.log(now);
-		now.setFullYear( req.params.year);
-		now.setDate(req.params.day);
-		now.setMonth(req.params.month-1);
-		console.log(now);
-				var startDay = 0; //0=sunday, 1=monday etc.
-				var d = now.getDay();
-		var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		console.log("In else value of weekStart"+weekStart);
-		getproductsales(weekStart,req.params.type, datereq, req.params.pid, function(err, result){
-			console.log(err || JSON.stringify(result));
-			console.log('Im out!');
-			console.log(result[0].result);
-			// var response =
-			// {
-				// "users": result
-			// };
-			// res.json(response);	
-			
-			getproductsalescount(weekStart, req.params.type, datereq, req.params.pid,function(err, result2){
-				console.log(err || JSON.stringify(result2));
-				console.log('Im out!');
-				console.log(result2);
-				var response =
-				{
-					"totalSales": result2[0].result,
-					"totalGross": result[0].result
-					
-				};
-				console.log(response);
-				res.json(response);
-			});
-		});
-	}
-});
-
-
-app.get('/Basket.js/SalesReport/:day/:month/:year/:type', function(req,res)
-{
-
-	var month = req.params.month;
-	
-	var datereq = req.params.year+"-"+month+"-"+req.params.day;
-
-	console.log(req.params.type);
-	console.log(datereq);
-
-	// if(req.params.type == "Week"){
-		// var now = new Date();
-		// now.setFullYear( req.params.year);
-		// now.setDate(req.params.day);
-		// now.setMonth(req.params.month-1);
-		// var startDay = 1; //0=sunday, 1=monday etc.
-		// var d = now.getDay(); //get the current day
-		// var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		// var weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-		// var totalSales = 0;
-		// var totalGross = 0;
-		// for(var i =0; i<7;i++){
-			// var month = weekStart.getMonth()+1;
-			// var datereq = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-			// console.log(datereq);
-			// gettotalsales("Day", datereq, function(err, result){
-				// console.log(err || JSON.stringify(result));
-				// console.log('Resultado de totalSales');
-				// console.log(result[0].result);
-				// if(result[0].result!=null)
-					// totalSales+=result[0].result;
-			// });
-			// var val = weekStart.valueOf();
-			// weekStart = new Date(val+86400000);
-		// }
-		// weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		// weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-
-		// for(var i =0; i<7;i++){
-			// month = weekStart.getMonth()+1;
-			// datereq = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-
-			// gettotalsalescount("Day", datereq, function(err, result){
-				// console.log(err || JSON.stringify(result));
-				// console.log('Resultado de totalSalescount');
-				// console.log(result);
-				
-				// if(result[0].result!=null)
-					// totalGross+=result[0].result;
-			// });
-			
-			// var val = weekStart.valueOf();
-			// weekStart = new Date(val+86400000);
-		// }
-		// var response =
-		// {
-			// "totalSales": totalSales,
-			// "totalGross": totalGross
-		// };
-		// console.log(response);
-		// res.json(response);
-		
-	// }
-	function gettotsales(weekStart) {	
-		var defered = Q.defer();
-		var month = weekStart.getMonth();
-		month+=1;
-		var reqdate = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-		
-		console.log("Getting total sales"+reqdate+"Type:");
-		var datearray = reqdate.split("-");
-		var queryadd="";
-		console.log("1");
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-		
-		
-		var query = 'select sum(amount) as result from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-		console.log(query);
-		connection.query(query, defered.makeNodeResolver());
-		return defered.promise;
-
-	};
-	function gettotsalescount(weekStart) {
-		var defered = Q.defer();
-		var month = weekStart.getMonth();
-		month+=1;
-		var reqdate = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-
-		console.log("Getting total sales count"+reqdate+"Type:");
-		var datearray = reqdate.split("-");
-		var queryadd="";
-		
-		queryadd = '\'%'+weekStart.getFullYear()+'-%'+month+'-'+datearray[2]+'\'';
-		
-		var query = 'select sum(item_quantity) as result from baskets natural join in_buy_basket natural join buy_events, orders where basketId = withbasketId and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
-		console.log(query);
-		connection.query(query  , defered.makeNodeResolver());
-		return defered.promise;
-	};
-	if(req.params.type == "Week"){
-		var now = new Date();
-		now.setFullYear( req.params.year);
-		now.setDate(req.params.day);
-		now.setMonth(req.params.month-1);
-		var startDay = 0; //0=sunday, 1=monday etc.
-		var d = now.getDay(); //get the current day
-		var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		var val = weekStart.valueOf();
-		Q.all([gettotsalescount(weekStart), gettotsalescount(new Date(val+1*86400000)), gettotsalescount(new Date(val+2*86400000)),gettotsalescount(new Date(val+3*86400000)),gettotsalescount(new Date(val+4*86400000)),gettotsalescount(new Date(val+5*86400000)),gettotsalescount(new Date(val+6*86400000)),gettotsales(weekStart), gettotsales(new Date(val+1*86400000)), gettotsales(new Date(val+2*86400000)),gettotsales(new Date(val+3*86400000)),gettotsales(new Date(val+4*86400000)),gettotsales(new Date(val+5*86400000)),gettotsales(new Date(val+6*86400000))]).then(function(rest){
-			
-		
-		// weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		// weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
-
-		// for(var i =0; i<7;i++){
-			// month = weekStart.getMonth()+1;
-			// datereq = weekStart.getFullYear()+"-"+month+"-"+weekStart.getDate();
-
-			// gettotalsalescount("Day", datereq, function(err, result){
-				// console.log(err || JSON.stringify(result));
-				// console.log('Resultado de totalSalescount');
-				// console.log(result);
-				
-				// if(result[0].result!=null)
-					// totalGross+=result[0].result;
-			// });
-			
-			// var val = weekStart.valueOf();
-			// weekStart = new Date(val+86400000);
-			var totalSales = 0;
-			var totalGross = 0;
-			for (var i=0;i<rest.length;i++)
-			{
-				for(var j =0; j<rest[0][0].length;j++ ){
-					
-					if(rest[i][0][j].result!= null){
-					console.log(rest[i][0][j].result);
-					console.log(rest.length);
-						if(i<7){
-							console.log("Adding sale "+rest[i][0][j].result);
-							totalSales+= rest[i][0][j].result;
-						}
-						else{
-							console.log("Adding sale "+rest[i][0][j].result);
-							totalGross+=rest[i][0][j].result;
-						}
-					}
-				}
-			}
-			var response =
-			{
-				"totalSales": totalSales,
-				"totalGross": totalGross
-			};
-		console.log(response);
-		res.json(response);
-		});
-		
-		
-	}
-	else{
-		var now = new Date();
-		console.log(now);
-		now.setFullYear( req.params.year);
-		now.setDate(req.params.day);
-		now.setMonth(req.params.month-1);
-		console.log(now);
-				var startDay = 0; //0=sunday, 1=monday etc.
-				var d = now.getDay();
-		var weekStart = new Date(now.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
-		console.log("In else value of weekStart"+weekStart);
-		gettotalsales(weekStart,req.params.type, datereq, function(err, result){
-			console.log(err || JSON.stringify(result));
-			console.log('Im out!');
-			console.log(result[0].result);
-			// var response =
-			// {
-				// "users": result
-			// };
-			// res.json(response);	
-			
-			gettotalsalescount(weekStart, req.params.type, datereq, function(err, result2){
-				console.log(err || JSON.stringify(result2));
-				console.log('Im out!');
-				console.log(result2);
-				var response =
-				{
-					"totalSales": result2[0].result,
-					"totalGross": result[0].result
-					
-				};
-				console.log(response);
-				res.json(response);
-			});
-		});
-	}
-});
-
-function getAdminList (uname, upass, callback) {
-		var userquery= 'SELECT * FROM admins where username='+connection.escape(uname)+' and password='+connection.escape(upass);
-		connection.query(userquery, function(err, response) {
-		if (err) 
-			throw err;
-		callback(err, response);
-	});
-};
-app.get('/Basket.js/Admin/:id/:password', function(req, res) {
-	console.log("In admin search");
-	getAdminList(req.params.id, req.params.password, function(err, result2){
-		console.log(err || JSON.stringify(result2));
-		console.log('Im out!');
-		console.log(result2.length);
-		if (result2.length ==0) {
-	    	res.statusCode=404;
-	    	res.send("Wrong");
-	    	return;
-		}		
-		res.json(true);
-	});
 });
 
 //Get a user	
-app.get('/Basket.js/User/:id/:password', function(req, res) 		
-{  
+app.get('/Basket.js/User/:id/:password', function(req, res) 
+		
+{
+	
+	  
 	
 	function getUserInfo (callback) {
 		var userquery= 'SELECT * FROM Users where username='+connection.escape(req.params.id)+' and password='+connection.escape(req.params.password);
@@ -1444,8 +796,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	    if (result.length ==0) {
 	    	res.statusCode=404;
 	    	res.send("Wrong");
-	    	return;
-		}
+	    	return;}
 		var dd = result[0].userId;
 		
 		
@@ -1461,7 +812,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		   }
 		   //console.log(shipping);
 		   
-			//get the billing address in billing
+		 //get the billing address in billing
 		   var billing= new Array();
 		   for (var i=0;i<rest[1][0].length;i++)
 		   {
@@ -1498,7 +849,6 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		    		else
 		    		{
 		    		OrderList.push(new Order(rest[2][0][i-1].sellingTime,new CreditCard(rest[2][0][i-1].cardId,rest[2][0][i-1].cardNum,rest[2][0][i-1].expMonth,rest[2][0][i-1].expYear,rest[2][0][i-1].secCode,rest[2][0][i-1].name,new Adress(rest[2][0][i-1].bline1,rest[2][0][i-1].bline2,rest[2][0][i-1].bcountry,rest[2][0][i-1].bzipCode,rest[2][0][i-1].bcity,rest[2][0][i-1].bstate)),rest[2][0][i-1].accountNum,oEvents,new Adress(rest[2][0][i-1].sline1,rest[2][0][i-1].sline2,rest[2][0][i-1].scountry,rest[2][0][i-1].szipCode,rest[2][0][i-1].scity,rest[2][0][i-1].sstate),null));
-
 		    		}
 		    		
 		    		oEvents= new Array();
@@ -1522,7 +872,6 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		    	OrderList.push(new Order(o[i].endingTime,new CreditCard(o[i].cardId,o[i].cardNum,o[i].expMonth,o[i].expYear,o[i].secCode,o[i].name,new Adress(o[i].bline1,o[i].bline2,o[i].bcountry,o[i].bzipCode,o[i].bcity,o[i].bstate)),o[i].accountNum,empty,new Adress(o[i].sline1,o[i].sline2,o[i].scountry,o[i].szipCode,o[i].scity,o[i].sstate),new BidEvent(new product(rest[8][0][i].pname,rest[8][0][i].sellerPId,rest[8][0][i].mname,rest[8][0][i].width,rest[8][0][i].height,rest[8][0][i].depth,rest[8][0][i].dimensions),rest[8][0][i].startingBid,rest[8][0][i].startingTime,rest[8][0][i].endingTime,rest[8][0][i].features,rest[8][0][i].description,rest[8][0][i].minBid,rest[8][0][i].bidEventId,rest[8][0][i].seller, rest[8][0][i].sellerRating,rest[8][0][i].bidTitle,rest[8][0][i].picture,new Bid(rest[8][0][i].wusername,rest[8][0][i].time,rest[8][0][i].wamount))));	
 		    	else
 			    	OrderList.push(new Order(o[i].endingTime,new CreditCard(o[i].cardId,o[i].cardNum,o[i].expMonth,o[i].expYear,o[i].secCode,o[i].name,new Adress(o[i].bline1,o[i].bline2,o[i].bcountry,o[i].bzipCode,o[i].bcity,o[i].bstate)),o[i].accountNum,empty,new Adress(o[i].sline1,o[i].sline2,o[i].scountry,o[i].szipCode,o[i].scity,o[i].sstate),new BidEvent(new product(rest[8][0][i].pname,rest[8][0][i].sellerPId,rest[8][0][i].mname,rest[8][0][i].width,rest[8][0][i].height,rest[8][0][i].depth,rest[8][0][i].dimensions),rest[8][0][i].startingBid,rest[8][0][i].startingTime,rest[8][0][i].endingTime,rest[8][0][i].features,rest[8][0][i].description,rest[8][0][i].minBid,rest[8][0][i].bidEventId,rest[8][0][i].seller, rest[8][0][i].sellerRating,rest[8][0][i].bidTitle,rest[8][0][i].picture,null)));		  
-
 
 		    }
 		    
@@ -1633,7 +982,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		   
 		   
 	     
-			res.json(response);
+	     res.json(response);
 	    });
 	
 //		getShipping(result[0].userId,function(err, result)
@@ -1665,7 +1014,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 //		    	sBuyEvents.push(new BuyEvent(new product(result[i].pname,result[i].sellerPId,result[i].mname,1,1,1),result[i].price,1,1,1,1,1,false,result[i].features,result[i].description,null,result[i].basketId)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 //		   }
 		   //console.log(sBuyEvents);
-});
+		});
 //		
 //		getCurrentlyBiddingOn(result[0].userId,function(err, result)
 //		{
@@ -1724,7 +1073,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 //		   // console.log(EventsPerBasket);
 //		});
 //		res.json(result[0]);
-});
+	});
 	
 //	var email = req.params.id;
 //	var userAccount = users[email];
@@ -1783,7 +1132,7 @@ var registrationIds = [];
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-//var myVar=setInterval(function(){myTimer()},30000);
+var myVar=setInterval(function(){myTimer()},30000);
 //check for completed bidEvents
 
 //var myVar2=setInterval(function(){myBidEventTimer()},60000);
@@ -1800,13 +1149,12 @@ var registrationIds = [];
 //	};
 //	
 //	
-//};
+//}
 
 function myTimer()
 {
 	console.log("Bam");
 	sender.send(message, registrationIds, 4, function (err, result) {console.log(result);});
-
 }
 app.get('/Basket.js/LoadCategory',function(req,res)
 		{
@@ -1857,7 +1205,5 @@ app.get('/Basket.js/LoadCategory',function(req,res)
 				res.json(response);
 			});
 		});
-
-
 
 
