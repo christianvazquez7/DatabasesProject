@@ -44,7 +44,6 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
 		minimumRating.setRating(currentProduct.getRating());
 
-
 		Bitmap bm=null;
 		if(currentProduct.getPic()!=null)
 			bm = BitmapFactory.decodeByteArray(currentProduct.getPic(), 0 ,currentProduct.getPic().length);
@@ -52,7 +51,6 @@ public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>
 		ImageView pic =(ImageView)convertView.findViewById(R.id.thumb);
 		if(pic!=null)
 			pic.setImageBitmap(bm);
-
 
 		String s = Integer.toString(currentProduct.getitem_quantity());
 		((TextView)convertView.findViewById(R.id.ammounttv)).setText(s);
