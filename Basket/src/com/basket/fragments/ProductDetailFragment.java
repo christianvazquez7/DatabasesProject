@@ -43,7 +43,7 @@ public class ProductDetailFragment extends Fragment
 			((TextView)view.findViewById(R.id.description)).setText(((BidEvent) theEvent).getDescription());
 			((TextView)view.findViewById(R.id.feats)).setText(((BidEvent) theEvent).getFeatures());
 			((TextView)view.findViewById(R.id.dimension)).setText(((BidEvent) theEvent).getProduct().getDimensions());
-//			((TextView)view.findViewById(R.id.ISBN2)).setText(((BidEvent) theEvent).getProduct().getProductPId());
+			((TextView)view.findViewById(R.id.textView1)).setText(Integer.toString((((BidEvent) theEvent).getProduct().getProductPId())));
 
 		
 		}
