@@ -46,7 +46,7 @@ var Bid = bidJS.Bid;
 var reportJS= require("./report.js");
 var Report = reportJS.Report;
 
-var Q = require('Q');
+var Q = require('q');
 var bb = require('bytebuffer');
 
 var mysql      = require('mysql');
