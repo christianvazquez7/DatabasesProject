@@ -136,12 +136,21 @@ public class HarvestFragment extends Fragment
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
 
-				Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Bid Placed", Toast.LENGTH_SHORT).show();
 				spiceManager.shouldStop();
 			}
-			Toast.makeText(getActivity(), "Error in Bid", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "Bid Placed", Toast.LENGTH_SHORT).show();
 			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
+			boolean found=false;
+			for (BidEvent b: BasketSession.getUser().getCurrentlyBiddingOn()){
+			if (b.getId()==event.getId())
+				found=true;
+			}
+			if (!found)
+			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
+
+
 		}
 
 		@Override

@@ -165,16 +165,6 @@
                 android:textColor="#FFA500" />
 
             <TextView
-                android:id="@+id/ISBN2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ISBN"
-                android:layout_toRightOf="@+id/ISBN"
-                android:text="Small Text"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="12dp" />
-
-            <TextView
                 android:id="@+id/dim"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
@@ -210,6 +200,17 @@
                 android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ISBN"
+                android:layout_alignBottom="@+id/ISBN"
+                android:layout_toRightOf="@+id/ISBN"
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </RelativeLayout>
     </LinearLayout>
 
