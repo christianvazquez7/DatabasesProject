@@ -175,15 +175,9 @@ public class ProductListFragment extends android.app.ListFragment
 			}
 			spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
 		}
-		
-		
 	}
 
-	
 	public class MyRenderer extends RelativeLayout {
-
-
-
 		public MyRenderer(Context context) 
 		{
 			super(context);
@@ -191,8 +185,6 @@ public class ProductListFragment extends android.app.ListFragment
 
 			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-			//
-
 			addView(e,rlp);
 		}
 

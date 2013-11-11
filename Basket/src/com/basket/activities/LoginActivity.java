@@ -46,13 +46,9 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		spiceManager.addListenerIfPending(User.class, JSON_CACHE_KEY, new UserRequestListener());
 		LoginActivity.this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		setContentView(R.layout.activity_login);
-
 		mCreateAccountTextView = (TextView) this.findViewById(R.id.createAccount);
-
 		mCreateAccountTextView.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				if (spiceManager.isStarted())
@@ -63,10 +59,8 @@ public class LoginActivity extends Activity {
 				Intent signup = new Intent(LoginActivity.this,SignUpActivity.class);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				startActivity(signup);
-
 			}
 		});
-		//
 		mForgotAccountTextView = (TextView)findViewById(R.id.forgotField);
 
 		mForgotAccountTextView.setOnClickListener(new View.OnClickListener() {
@@ -101,35 +95,29 @@ public class LoginActivity extends Activity {
 		});
 
 	}
-	
+
 	private Intent intent;
 	private class UserRequestListener implements RequestListener<User>, RequestProgressListener {
-
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
 
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-
 				Toast.makeText(LoginActivity.this, "Wrong Username or password", Toast.LENGTH_SHORT).show();
 			}
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(User User) 
 		{
 			Log.d("PROGRESS", "GETU");
-
 			Log.d("try",BasketSession.getDeals().toString());
-
-
-
 			BasketSession.beginSession(User);
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);
 			GetRecommendationsRequest recommendations = new GetRecommendationsRequest(User);
 			spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
-			
 		}
 
 		@Override
@@ -139,7 +127,6 @@ public class LoginActivity extends Activity {
 		}
 	}
 	private class GetCategoriesListener implements RequestListener<CategoryList>, RequestProgressListener {
-
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
 
@@ -148,15 +135,13 @@ public class LoginActivity extends Activity {
 
 				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
 			}
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
-
 		@Override
 		public void onRequestSuccess(CategoryList cat) 
 		{
-
 			Log.d("PROGRESS", "GETCAT");
-
 			BasketSession.setCategories(cat.getCategories());
 			GetDOTDRequest req = new GetDOTDRequest();
 			spiceManager.execute(req, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
@@ -164,10 +149,7 @@ public class LoginActivity extends Activity {
 			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
 			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
 			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
-
-
 		}
-
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
@@ -175,54 +157,43 @@ public class LoginActivity extends Activity {
 		}
 	}
 	private class GetRecommendationsListner implements RequestListener<EventList>, RequestProgressListener {
-
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
 
 				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
 			}
 			if(spiceManager.isStarted())
-
-			spiceManager.shouldStop();
+				spiceManager.shouldStop();
 		}
-
-
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
 
 		}
-
 		@Override
 		public void onRequestSuccess(EventList arg0) {
-			
 			Log.d("PROGRESS", "Getting recomendations");
-
 			BasketSession.setRecommendations((ArrayList<BuyEvent>) arg0.getBuyEvents());
+			spiceManager.shouldStop();
 			startActivity(intent);
 			//			String email =((TextView)findViewById(R.id.email)).getText().toString();
 			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
 			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
 			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
-			if(spiceManager.isStarted())
-
-			spiceManager.shouldStop();
+			//if(spiceManager.isStarted())
 		}
 	}
 	private class AdminRequestListner implements RequestListener<Boolean>, RequestProgressListener {
-
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
 			}
 			Toast.makeText(LoginActivity.this, "Wrong Username or password", Toast.LENGTH_SHORT).show();
 			if(spiceManager.isStarted())
-			spiceManager.shouldStop();
+				spiceManager.shouldStop();
 		}
 
 		@Override
@@ -234,39 +205,31 @@ public class LoginActivity extends Activity {
 		@Override
 		public void onRequestSuccess(Boolean arg0) {
 			Log.d("PROGRESS", "GETAD");
-
 			Intent intent;
 			if (arg0){
 				intent = new Intent(LoginActivity.this,AdminPageActivity.class);
 				startActivity(intent);
 			}
-			if(spiceManager.isStarted())
-
 			spiceManager.shouldStop();
 		}
 
 
 	}
 	private class DealRequestListener implements RequestListener<DealList>, RequestProgressListener {
-
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-
 				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
 			}
 			if(spiceManager.isStarted())
-
-			spiceManager.shouldStop();
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(DealList cat) 
 		{
 			Log.d("PROGRESS", "GETDEAL");
-
 			BasketSession.setDeals(cat.getEvents());
 			//GetDOTDRequest req = new GetDOTDRequest();
 			//spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
@@ -274,8 +237,6 @@ public class LoginActivity extends Activity {
 			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
 			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
 			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
-
-
 			String email =((TextView)findViewById(R.id.email)).getText().toString().trim();
 			String password =((TextView)findViewById(R.id.password)).getText().toString().trim();
 			if(email.contains("@")){
@@ -286,9 +247,6 @@ public class LoginActivity extends Activity {
 				uReq = new UserRequest(email,password);
 				spiceManager.execute(uReq, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
 			}
-
-
-
 		}
 
 
