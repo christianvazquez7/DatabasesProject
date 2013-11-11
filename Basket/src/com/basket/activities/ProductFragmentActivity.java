@@ -265,7 +265,6 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-
 				Toast.makeText(ProductFragmentActivity.this, "Search could not be processed", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();

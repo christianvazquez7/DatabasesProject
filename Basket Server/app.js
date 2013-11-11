@@ -225,6 +225,22 @@ app.get('/Basket.js/AdminSearch/',function(req,res)
 	
 });
 
+app.get('/Basket.js/AdminSearch/:search',function(req,res)
+{
+	console.log("Not empty log");
+	var namequery = req.params.search;
+	console.log(req.params.search);
+	getUserInfo(namequery, function(err, result){
+		console.log(err || JSON.stringify(result));
+		console.log('Im out!');
+		var response =
+		{
+			"users": result
+		};
+		res.json(response);	
+	});
+	
+});
 function getrecommendations(username, callback) {
 	console.log("Loading recommendations for "+username);
 	var query = 'select * from buy_events natural join products natural join manufacturers natural join Users where soldBy = userId and buycategory in (select buycategory as boughtcategories from users natural join orders, baskets natural join buy_events natural join in_buy_basket where basketId = withbasketId and username = \''+username+'\') and buyEventId not in (select buyEventId as boughtIds from users natural join orders, baskets natural join buy_events natural join in_buy_basket where basketId = withbasketId and username = \''+username+'\')';
@@ -254,14 +270,7 @@ app.get('/Basket.js/GetRecommendations/:userName',function(req,res)
 	});
 	
 });
-app.get('/Basket.js/AdminSearch/:searchQuery',function(req,res)
-{
-	var response =
-	{
-		"users": userList
-	};
-	res.json(response);
-});
+
 
 app.get('/Basket.js/GetBuyReviews/:id',function(req,res)
 		{

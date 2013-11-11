@@ -97,9 +97,6 @@ public class LoginActivity extends Activity {
 					JsonSpringAndroidRequest = new GetCategoriesRequest();
 					spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetCategoriesListener());
 				}
-
-				mLoginButton.setActivated(false);
-
 			}
 		});
 
@@ -117,7 +114,6 @@ public class LoginActivity extends Activity {
 				Toast.makeText(LoginActivity.this, "Wrong Username or password", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
-			mLoginButton.setActivated(true);
 		}
 
 		@Override
@@ -133,7 +129,7 @@ public class LoginActivity extends Activity {
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);
 			GetRecommendationsRequest recommendations = new GetRecommendationsRequest(User);
 			spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
-
+			
 		}
 
 		@Override
@@ -161,7 +157,6 @@ public class LoginActivity extends Activity {
 
 			Log.d("PROGRESS", "GETCAT");
 
-			mLoginButton.setActivated(false);
 			BasketSession.setCategories(cat.getCategories());
 			GetDOTDRequest req = new GetDOTDRequest();
 			spiceManager.execute(req, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
@@ -189,6 +184,8 @@ public class LoginActivity extends Activity {
 
 				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
 			}
+			if(spiceManager.isStarted())
+
 			spiceManager.shouldStop();
 		}
 
@@ -206,13 +203,13 @@ public class LoginActivity extends Activity {
 
 			BasketSession.setRecommendations((ArrayList<BuyEvent>) arg0.getBuyEvents());
 			startActivity(intent);
-			mLoginButton.setActivated(true);
 			//			String email =((TextView)findViewById(R.id.email)).getText().toString();
 			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
 			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
 			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
+			if(spiceManager.isStarted())
 
-
+			spiceManager.shouldStop();
 		}
 	}
 	private class AdminRequestListner implements RequestListener<Boolean>, RequestProgressListener {
@@ -224,9 +221,8 @@ public class LoginActivity extends Activity {
 			if (!(arg0 instanceof RequestCancelledException)) {
 			}
 			Toast.makeText(LoginActivity.this, "Wrong Username or password", Toast.LENGTH_SHORT).show();
-
+			if(spiceManager.isStarted())
 			spiceManager.shouldStop();
-			mLoginButton.setActivated(true);
 		}
 
 		@Override
@@ -244,6 +240,8 @@ public class LoginActivity extends Activity {
 				intent = new Intent(LoginActivity.this,AdminPageActivity.class);
 				startActivity(intent);
 			}
+			if(spiceManager.isStarted())
+
 			spiceManager.shouldStop();
 		}
 
@@ -259,6 +257,8 @@ public class LoginActivity extends Activity {
 
 				Toast.makeText(LoginActivity.this, "No connection to server", Toast.LENGTH_SHORT).show();
 			}
+			if(spiceManager.isStarted())
+
 			spiceManager.shouldStop();
 		}
 
