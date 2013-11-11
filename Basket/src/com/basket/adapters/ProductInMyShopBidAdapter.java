@@ -87,11 +87,12 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		String oldDate = currentProduct.getEndingTime();
 		 try {
 			date = formatter.parse(oldDate);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+		if(date!=null)
 		 ((TextView)convertView.findViewById(R.id.endDate)).setText(FORMATTER.format(date));
 
 		

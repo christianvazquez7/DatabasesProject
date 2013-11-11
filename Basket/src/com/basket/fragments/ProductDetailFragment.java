@@ -48,12 +48,14 @@ public class ProductDetailFragment extends Fragment
 		
 		}
 		else{
+			
 			//((TextView)view.findViewById(R.id.bin)).setText(theEvent.getProduct().getISBN());
 			((TextView)view.findViewById(R.id.description)).setText(((BuyEvent) theEvent).getDescription());
 			((TextView)view.findViewById(R.id.feats)).setText(((BuyEvent) theEvent).getFeatures());
+			TextView a =(TextView)view.findViewById(R.id.textView1);
+			a.setText(Integer.toString(((BuyEvent)theEvent).getProduct().getProductPId()));
 			((TextView)view.findViewById(R.id.dimension)).setText(((BuyEvent) theEvent).getProduct().getDimensions());
-			//int id = ((BuyEvent)theEvent).getProduct().getProductPId();
-			//((TextView)view.findViewById(R.id.ISBN2)).setText(id);
+			
 
 		}
 		
