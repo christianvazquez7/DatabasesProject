@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.basket.containers.EventList;
 import com.basket.general.BasketConstants;
-import com.basket.general.BuyEvent;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 public class ProductSearchRequest extends SpringAndroidSpiceRequest<EventList> {

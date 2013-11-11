@@ -1,24 +1,30 @@
 package com.basket.activities;
 
+import java.util.Collections;
+
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.AdminSession;
-import com.basket.containers.EventList;
+import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Event;
+import com.basket.general.EventComparator;
 import com.basket.general.Product;
+import com.basket.general.ProductComparator;
 import com.basket.general.ProductList;
 import com.basket.lists.AdminProductListFragment;
 import com.basket.restrequest.AdminProductSearchRequest;
-import com.basket.restrequest.ProductSearchRequest;
 import com.example.basket.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -38,7 +44,7 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		this.setBehindContentView(R.layout.menu_layout);
+		this.setBehindContentView(R.layout.admin_menu_layout);
 		SlidingMenu sm = this.getSlidingMenu();
 		sm.setBehindOffset(90);
 		sm.setFadeDegree(0.35f);
@@ -58,7 +64,6 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 		Button search = (Button)findViewById(R.id.searchButton);
 		search.setOnClickListener(new OnClickListener()
 		{
-
 			@Override
 			public void onClick(View arg0) 
 			{
@@ -68,17 +73,104 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 					spiceManager.start(AdminProductActivity.this);
 					String searchQuery = ((TextView)findViewById(R.id.searchBar)).getText().toString();
 					AdminProductSearchRequest JsonSpringAndroidRequest = new AdminProductSearchRequest(searchQuery);
-//					ProductSearchRequest JsonSpringAndroidRequest = new ProductSearchRequest(searchQuery);
+					//ProductSearchRequest JsonSpringAndroidRequest = new ProductSearchRequest(searchQuery);
 					spiceManager.execute(JsonSpringAndroidRequest, "product_search", DurationInMillis.ALWAYS_EXPIRED, new ProductSearchListener());
 				}
-
 			}
 
 		});
+		
+		((Button)this.findViewById(R.id.bEditCreditCards)).setOnClickListener(new OnClickListener(){
+			public void onClick(View arg0)
+			{
+				if(AdminSession.getProducts()!=null)
+				{
+					ViewPager a = (ViewPager) findViewById(R.id.pager4);
+					ViewPager b = (ViewPager) findViewById(R.id.pager3);
 
+					int i =a.getCurrentItem();
+					int j= b.getCurrentItem();
+					ProductComparator c =new ProductComparator();
+					c.enableIncrease(i);
+					c.setComparationMode(j);
+					Collections.sort(AdminSession.getProducts(),c);
+
+					((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
+
+				}
+			}
+
+		});
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 
+		class OrderPagerAdapter extends PagerAdapter {
+
+			public Object instantiateItem(View collection, int position) {
+
+				int resId = 0;
+				switch (position) {
+				case 0:
+					resId = R.id.decreasing;
+					break;
+				case 1:
+					resId = R.id.increasing;
+					break;
+				}
+				return findViewById(resId);
+			}
+
+			@Override
+			public int getCount() 
+			{
+				return 2;
+			}
+
+			@Override
+			public boolean isViewFromObject(View arg0, Object arg1) 
+			{
+				return arg0 == ((View) arg1);
+			}
+		}
+		class ByPagerAdapter extends PagerAdapter {
+
+			public Object instantiateItem(View collection, int position) {
+
+				int resId = 0;
+				switch (position) {
+				case 1:
+					resId = R.id.brand_filter;
+					break;
+				case 2:
+					resId = R.id.name_filter;
+					break;
+				}
+
+				return findViewById(resId);
+			}
+			public void destroyItem(ViewGroup viewPager, int position, Object object) {
+
+				this.notifyDataSetChanged();
+			}
+			@Override
+			public int getCount() 
+			{
+				return 2;
+			}
+
+			@Override
+			public boolean isViewFromObject(View arg0, Object arg1) 
+			{
+				return arg0 == ((View) arg1);
+			}
+		}
+		OrderPagerAdapter adapter2 = new OrderPagerAdapter();
+		ViewPager pager2 = (ViewPager) findViewById(R.id.pager4);
+		pager2.setAdapter(adapter2);
+
+		ByPagerAdapter adapter3 = new ByPagerAdapter();
+		ViewPager pager3 = (ViewPager) findViewById(R.id.pager3);
+		pager3.setAdapter(adapter3);
 
 	}
 
@@ -105,7 +197,7 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 
 		@Override
 		public void onRequestSuccess(ProductList arg0) {
-			
+
 			if(AdminSession.getEventsList()!=null && AdminSession.getEventsList().size()>0)
 				AdminSession.getEventsList().clear();
 			for(Product p : arg0.getResults()){

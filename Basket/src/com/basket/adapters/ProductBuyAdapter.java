@@ -86,7 +86,6 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 					if (!spiceManager.isStarted()){
 						spiceManager.start(context);
 						content.get(pos2).setitem_quantity(content.get(pos2).getitem_quantity()-1);
-						ProductBuyAdapter.this.content.remove(pos2);
 						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
 						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 						ProductBuyAdapter.this.notifyDataSetChanged();

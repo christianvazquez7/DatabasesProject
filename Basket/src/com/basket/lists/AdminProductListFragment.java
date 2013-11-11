@@ -47,13 +47,13 @@ public class AdminProductListFragment extends android.app.ListFragment
 		foundProducts= new ArrayList<Product>();
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Product List");
-		AdminProductAdapter adapter = new AdminProductAdapter(this.getActivity(),foundProducts);
 		AdminSession.setProducts(foundProducts);
+
+		AdminProductAdapter adapter = new AdminProductAdapter(this.getActivity(),foundProducts);
 
 		this.setListAdapter(adapter);
 		layout= new RelativeLayout(this.getActivity());
-		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
+		RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
 		this.getActivity().addContentView(layout, rlp);
 	}
 	public void clear()
