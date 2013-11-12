@@ -1762,7 +1762,7 @@ app.get('/Basket.js/LoadCategory',function(req,res)
 			function getCategories() 
 			{
 				var defered = Q.defer();
-				var userquery='select * from Categories';
+				var userquery='select * from categories';
 				console.log(userquery);
 				connection.query(userquery, defered.makeNodeResolver());
 				return defered.promise;
