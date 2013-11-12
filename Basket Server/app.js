@@ -89,7 +89,7 @@ function getUserInfo(uname, callback) {
 	else{
 		console.log("Not empty");
 		console.log(uname);
-		connection.query('SELECT * FROM Users WHERE username like \'%'+uname+'%\';', function(err, response) {
+		connection.query('SELECT username, password, email FROM Users WHERE username like \'%'+uname+'%\' union '+'SELECT username, password, email FROM admins WHERE username like \'%'+uname+'%\';', function(err, response) {
 		  if (err) throw err;
 		  callback(err, response);
 		});
