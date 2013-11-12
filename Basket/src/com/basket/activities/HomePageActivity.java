@@ -54,7 +54,7 @@ public class HomePageActivity extends Activity {
 	public static final String PROPERTY_REG_ID = "registration_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-
+	
 	/**
 	 * Substitute you own sender ID here. This is the project number you got
 	 * from the API Console, as described in "Getting Started."
@@ -74,8 +74,8 @@ public class HomePageActivity extends Activity {
 	ViewFlipper mVFlipper1, mVFlipper2;
 	Animation animIn, animOut;
 	//	ImageView[] mIVDeal, mIVRecom;
-	private BuyEvent buyevent;
-	private int pos;
+	private BuyEvent buyevent, temp;
+	private int pos,i;
 
 
 	@Override
@@ -120,20 +120,39 @@ public class HomePageActivity extends Activity {
 		LayoutInflater inf = LayoutInflater.from(getApplicationContext());
 		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
 		mVFlipper2 = (ViewFlipper) findViewById(R.id.vfRecom);
-
-		for (Deal d : BasketSession.getDeals())
+		for(i =0; i<BasketSession.getDeals().size();i++)
+//		for (Deal d : BasketSession.getDeals())
 		{
+			Deal d = BasketSession.getDeals().get(i);
 			View a = inf.inflate(R.layout.blank, null);
 			TextView t = (TextView) a.findViewById(R.id.deal_name);
 			t.setText(d.getTitle());
-
+			
 			Bitmap bm=null;
 			if(((BuyEvent)d.getEve()).getPic()!=null)
 				bm = BitmapFactory.decodeByteArray(((BuyEvent)d.getEve()).getPic(), 0 ,((BuyEvent)d.getEve()).getPic().length);
 
 			ImageView pic =(ImageView)a.findViewById(R.id.dpic);
-			if(pic!=null)
+			temp = d.getEve();
+			if(pic!=null){
 				pic.setImageBitmap(bm);
+				pic.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (!spiceManager.isStarted())
+						{
+							productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
+							productPage.putExtra("selectedEvent",i);
+							spiceManager.start(HomePageActivity.this);
+							productPage.putExtra("fromDeals", true);
+							GetReviewsRequest a;
+							a = new GetReviewsRequest(temp.getId(),1);
+							spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
+						}
+					}
+				});
+			}
 
 			mVFlipper1.addView(a);
 

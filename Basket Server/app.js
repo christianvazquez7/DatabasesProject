@@ -470,9 +470,16 @@ app.put('/Basket.js/UpdateUser/',function(req,res){
 app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
 	console.log("Updating basket");
 	var u =users["lukesionkira@hotmail.com"];
+	console.log(u.baskets[req.params.pos]);
+	if(u.baskets[req.params.pos]==undefined){
+		res.json(false);
+	}
+	else{
 	u.baskets[req.params.pos].buyEvents=req.body.buyEvents;
 	console.log(req.body.buyEvents);
 	res.json(true);
+	}
+	
 });
 //Add a bid
 app.put('/Basket.js/addBid/:id',function(req,res){

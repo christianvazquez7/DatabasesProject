@@ -87,7 +87,17 @@ public class BasketListFragment extends android.app.ListFragment
 			List<BuyEvent> list = BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents();
 			List<Event> inList = BasketSession.getProductSearch();
 			int in = BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getId();
-			int out = ((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0))).getId();
+			int out =0;
+			if(this.getActivity().getIntent().getBooleanExtra("fromDeals", false)){
+				out = ((BuyEvent) BasketSession.getDeals().get(getActivity().getIntent().getIntExtra("selected", 0)).getEve()).getId();
+
+			}
+			else if(this.getActivity().getIntent().getBooleanExtra("fromHP", false)){
+				out = ((BuyEvent) BasketSession.getRecommendations().get(getActivity().getIntent().getIntExtra("selected", 0))).getId();
+
+			}
+			else
+				out = ((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0))).getId();
 			if( in == out)
 			{
 				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).setitem_quantity(BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().get(i).getitem_quantity()+1);
@@ -95,15 +105,22 @@ public class BasketListFragment extends android.app.ListFragment
 				break;
 			}
 		}
-		
+
 		if(!found)
 		{
-			BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0)));
+			if(this.getActivity().getIntent().getBooleanExtra("fromDeals", false)){
+				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add(((BuyEvent) BasketSession.getDeals().get(getActivity().getIntent().getIntExtra("selected", 0)).getEve()));
+
+			}
+			else if(this.getActivity().getIntent().getBooleanExtra("fromHP", false)){
+				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getRecommendations().get(getActivity().getIntent().getIntExtra("selected", 0)));
+
+			}
+			else
+				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0)));
 		}
-	
 		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));
 		spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BasketUpdateListener());
-
 	}
 
 	private void zoomImageFromThumb(final View thumbView, int imageResId) {

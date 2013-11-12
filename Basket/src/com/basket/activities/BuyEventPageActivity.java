@@ -37,7 +37,11 @@ public class BuyEventPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(this.getIntent().getBooleanExtra("fromHP", false)){
+		if(this.getIntent().getBooleanExtra("fromDeals", false)){
+			currentEvent=(BuyEvent)BasketSession.getDeals().get(this.getIntent().getIntExtra("selectedEvent", 0)).getEve();
+
+		}
+		else if(this.getIntent().getBooleanExtra("fromHP", false)){
 			currentEvent=(BuyEvent)BasketSession.getRecommendations().get(this.getIntent().getIntExtra("selectedEvent", 0));
 		}
 		else
@@ -91,16 +95,11 @@ public class BuyEventPageActivity extends FragmentActivity {
 
 		});
 		this.findViewById(R.id.productContainer).setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) 
 			{
 				if (!tab){
-					//arg0.startAnimation(outAni);
 					fm.beginTransaction().setCustomAnimations(R.anim.slide_up, R.anim.slide_down).remove(product).commit();
-					//(R.id.productContainer, new BarFragment()).commit();
-					//	fm.beginTransaction().setCustomAnimations(R.anim.slide, R.anim.slide).add(R.id.productContainer,new BarFragment()).commit();
-
 					tab=true;
 				}
 				else{
@@ -110,7 +109,6 @@ public class BuyEventPageActivity extends FragmentActivity {
 					tab=false;
 				}
 			}
-
 		});
 		if (product == null)
 		{
@@ -154,6 +152,9 @@ public class BuyEventPageActivity extends FragmentActivity {
 			{
 				Intent chooseBasket = new Intent(BuyEventPageActivity.this,BasketFragmentActivity.class);
 				chooseBasket.putExtra("selected", getIntent().getIntExtra("selectedEvent", 0));
+				if(BuyEventPageActivity.this.getIntent().getBooleanExtra("fromHP", false)){
+					chooseBasket.putExtra("fromHP", true);
+				}
 				startActivityForResult(chooseBasket,0);
 				finish();
 			}
