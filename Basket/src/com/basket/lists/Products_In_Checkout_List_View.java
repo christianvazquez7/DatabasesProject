@@ -25,9 +25,6 @@ public class Products_In_Checkout_List_View extends ListFragment{
 		int number = this.getActivity().getIntent().getIntExtra("basketNum", -1);
 		products2 = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
 		setListAdapter(new ProductInCheckoutAdapter(getActivity(), products2));
-
-
-
 		return rootView;
 	}
 
