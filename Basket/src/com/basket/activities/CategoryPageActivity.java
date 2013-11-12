@@ -89,10 +89,10 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 			}
 
 		});
-		
-((Button)this.findViewById(R.id.bEditCreditCards)).setOnClickListener(new OnClickListener(){
 
-			
+		((Button)this.findViewById(R.id.bEditCreditCards)).setOnClickListener(new OnClickListener(){
+
+
 			public void onClick(View arg0)
 			{
 				if(BasketSession.getProductSearch()!=null)
@@ -106,12 +106,12 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 					c.enableIncrease(i);
 					c.setComparationMode(j);
 					Collections.sort(BasketSession.getProductSearch(),c);
-					
+
 					((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
 
 				}
 			}
-			
+
 		});
 
 
@@ -124,55 +124,55 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 
 			public Object instantiateItem(View collection, int position) {
 
-	            int resId = 0;
-	            switch (position) {
-	            case 0:
-	                resId = R.id.page_one;
-	                break;
-	            case 1:
-	                resId = R.id.page_two;
-	                break;
-	            case 2:
-	                resId = R.id.page_two;
-	                break;
-	            case 3:
-	                resId = R.id.page_three;
-	                break;
-	            case 4:
-	                resId = R.id.page_four;
-	                break;
-	            case 5:
-	                resId = R.id.page_five;
-	                break;
-	            case 6:
-	                resId = R.id.page_six;
-	                break;
-	            case 7:
-	                resId = R.id.page_seven;
-	                break;
-	            
-	            }
-	            return findViewById(resId);
-	        }
+				int resId = 0;
+				switch (position) {
+				case 0:
+					resId = R.id.page_one;
+					break;
+				case 1:
+					resId = R.id.page_two;
+					break;
+				case 2:
+					resId = R.id.page_two;
+					break;
+				case 3:
+					resId = R.id.page_three;
+					break;
+				case 4:
+					resId = R.id.page_four;
+					break;
+				case 5:
+					resId = R.id.page_five;
+					break;
+				case 6:
+					resId = R.id.page_six;
+					break;
+				case 7:
+					resId = R.id.page_seven;
+					break;
 
-	        @Override
-	        public int getCount() 
-	        {
-	            return 7;
-	        }
-	        @Override
-	        public void destroyItem(View collection, int position, Object view) {
-	            // ((ViewPager) collection).removeView((View) view);
-	             notifyDataSetChanged();
-	        }
-	        @Override
-	        public boolean isViewFromObject(View arg0, Object arg1) 
-	        {
-	            return arg0 == ((View) arg1);
-	        }
-//	        public int getItemPosition(Object object) {
-//	            return POSITION_NONE;
-//	        }
+				}
+				return findViewById(resId);
+			}
+
+			@Override
+			public int getCount() 
+			{
+				return 7;
+			}
+			@Override
+			public void destroyItem(View collection, int position, Object view) {
+				// ((ViewPager) collection).removeView((View) view);
+				notifyDataSetChanged();
+			}
+			@Override
+			public boolean isViewFromObject(View arg0, Object arg1) 
+			{
+				return arg0 == ((View) arg1);
+			}
+			//	        public int getItemPosition(Object object) {
+				//	            return POSITION_NONE;
+				//	        }
 		}
 
 
@@ -255,13 +255,13 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 		ViewPager pager3 = (ViewPager) findViewById(R.id.pager3);
 		pager3.setAdapter(adapter3);
 		animIn = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_up); 
-        animOut = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_down); 
-        
-        
-        
-		
+				R.anim.slide_up); 
+		animOut = AnimationUtils.loadAnimation(getApplicationContext(),
+				R.anim.slide_down); 
+
+
+
+
 	}
 
 
@@ -294,11 +294,11 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 			for (int i =0; i<max;i++)
 			{
 				if (i<events.getBuyEvents().size())
-				BasketSession.getProductSearch().add(events.getBuyEvents().get(i));
+					BasketSession.getProductSearch().add(events.getBuyEvents().get(i));
 				if (i<events.getBidEvents().size())
 					BasketSession.getProductSearch().add(events.getBidEvents().get(i));
 			}
-			
+
 			((ArrayAdapter)productList.getListAdapter()).notifyDataSetChanged();
 			spiceManager.shouldStop();
 
@@ -307,10 +307,8 @@ public class CategoryPageActivity extends SlidingFragmentActivity {
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-
+			
 		}
-
-
 	}
 	public boolean isHandlingRequest() {
 		// TODO Auto-generated method stub

@@ -38,22 +38,22 @@ public class ProductListFragment extends android.app.ListFragment
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	private int pos;
 	private ArrayList<Event> foundProducts;
-//	private Animator mCurrentAnimator;
-//	private int mShortAnimationDuration;
+	//	private Animator mCurrentAnimator;
+	//	private int mShortAnimationDuration;
 	private RelativeLayout layout;
-//	private MyRenderer selectedRenderer;
-//	private boolean out = false;
-//	private View previousView;
-//	private MyRenderer prev;
-//	private boolean remove;
-//	private Animation centerAni;
+	//	private MyRenderer selectedRenderer;
+	//	private boolean out = false;
+	//	private View previousView;
+	//	private MyRenderer prev;
+	//	private boolean remove;
+	//	private Animation centerAni;
 
 	public void onCreate(Bundle savedInstance)
 	{
 		foundProducts= new ArrayList<Event>();
 		super.onCreate(savedInstance);
 		getActivity().setTitle("Product List");
-		
+
 		ProductAdapter adapter = new ProductAdapter(this.getActivity(),foundProducts);
 		BasketSession.setProducts(foundProducts);
 		this.setListAdapter(adapter);
@@ -65,99 +65,99 @@ public class ProductListFragment extends android.app.ListFragment
 	public void clear()
 	{
 		foundProducts.clear();
-		
+
 	}
 
 	public void onListItemClick(ListView l, View v, int posi ,  long id )
 	{
-//		if (((ProductFragmentActivity)this.getActivity()).isHandlingRequest())
-//		{
-//			((ProductFragmentActivity)this.getActivity()).stopSpice();
-//		}
-//		//this.zoomImageFromThumb(v, R.layout.zoom);
-//		// parent container
-//
-//		int t = v.getTop() + l.getTop();
-//		int ls = v.getLeft() + l.getLeft();
-//
-//		// create a copy of the listview and add it to the parent
-//		// container
-//		// at the same location it was in the listview
-//		if(!out){
-//			selectedRenderer = new MyRenderer(v.getContext());
-//			prev=selectedRenderer;
-//
-//			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(v.getWidth(),l.getHeight() );
-//			rlp.topMargin = t;
-//			rlp.leftMargin = ls;
-//			layout.addView(selectedRenderer, rlp);
-//			v.setVisibility(View.INVISIBLE);
-//		}
-//
-//		// animate out the listView
-//		Animation outAni;
-//		if (!out){
-//
-//			centerAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,
-//					Animation.RELATIVE_TO_SELF,0f,Animation.ABSOLUTE,-t);
-//			centerAni.setZAdjustment(Animation.ZORDER_TOP);
-//			centerAni.setFillAfter(true);
-//			centerAni.setDuration(500);
-//			previousView=v;
-//			outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
-//					Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0f,
-//					Animation.RELATIVE_TO_SELF, 0f);
-//			out=true;
-//			outAni.setDuration(500);
-//			outAni.setFillAfter(true);
-//			l.startAnimation(outAni);
-//			selectedRenderer.startAnimation(centerAni);
-//
-//		}
-//		else{
-//
-//			outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f,
-//					Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
-//					Animation.RELATIVE_TO_SELF, 0f);
-//			if (previousView!=null)
-//				previousView.setVisibility(View.VISIBLE);
-//			out=false;
-//			outAni.setDuration(500);
-//			outAni.setFillAfter(true);
-//			l.startAnimation(outAni);
-//
-//
-//		}
-//		//        outAni.setDuration(500);
-//		//        outAni.setFillAfter(true);
-//		outAni.setAnimationListener(new Animation.AnimationListener() {
-//			@Override
-//			public void onAnimationStart(Animation animation) {
-//			}
-//
-//			@Override
-//			public void onAnimationRepeat(Animation animation) {
-//			}
-//
-//			@Override
-//			public void onAnimationEnd(Animation animation) {
-//				//                ScaleAnimation scaleAni;
-//				//                
-//				//                scaleAni= new ScaleAnimation(1f, 
-//				//                        1f, 1f, 2f, 
-//				//                        Animation.RELATIVE_TO_SELF, 0.5f,
-//				//                        Animation.RELATIVE_TO_SELF, 0.5f);
-//				//                
-//				//                	
-//				//                scaleAni.setDuration(400);
-//				//                scaleAni.setFillAfter(true);
-//				//                selectedRenderer.startAnimation(scaleAni);
-//
-//				if(!out)
-//					layout.removeView(prev);
-//
-//			}
-//		});
+		//		if (((ProductFragmentActivity)this.getActivity()).isHandlingRequest())
+		//		{
+		//			((ProductFragmentActivity)this.getActivity()).stopSpice();
+		//		}
+		//		//this.zoomImageFromThumb(v, R.layout.zoom);
+		//		// parent container
+		//
+		//		int t = v.getTop() + l.getTop();
+		//		int ls = v.getLeft() + l.getLeft();
+		//
+		//		// create a copy of the listview and add it to the parent
+		//		// container
+		//		// at the same location it was in the listview
+		//		if(!out){
+		//			selectedRenderer = new MyRenderer(v.getContext());
+		//			prev=selectedRenderer;
+		//
+		//			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(v.getWidth(),l.getHeight() );
+		//			rlp.topMargin = t;
+		//			rlp.leftMargin = ls;
+		//			layout.addView(selectedRenderer, rlp);
+		//			v.setVisibility(View.INVISIBLE);
+		//		}
+		//
+		//		// animate out the listView
+		//		Animation outAni;
+		//		if (!out){
+		//
+		//			centerAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,0f,
+		//					Animation.RELATIVE_TO_SELF,0f,Animation.ABSOLUTE,-t);
+		//			centerAni.setZAdjustment(Animation.ZORDER_TOP);
+		//			centerAni.setFillAfter(true);
+		//			centerAni.setDuration(500);
+		//			previousView=v;
+		//			outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
+		//					Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0f,
+		//					Animation.RELATIVE_TO_SELF, 0f);
+		//			out=true;
+		//			outAni.setDuration(500);
+		//			outAni.setFillAfter(true);
+		//			l.startAnimation(outAni);
+		//			selectedRenderer.startAnimation(centerAni);
+		//
+		//		}
+		//		else{
+		//
+		//			outAni = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f,
+		//					Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
+		//					Animation.RELATIVE_TO_SELF, 0f);
+		//			if (previousView!=null)
+		//				previousView.setVisibility(View.VISIBLE);
+		//			out=false;
+		//			outAni.setDuration(500);
+		//			outAni.setFillAfter(true);
+		//			l.startAnimation(outAni);
+		//
+		//
+		//		}
+		//		//        outAni.setDuration(500);
+		//		//        outAni.setFillAfter(true);
+		//		outAni.setAnimationListener(new Animation.AnimationListener() {
+		//			@Override
+		//			public void onAnimationStart(Animation animation) {
+		//			}
+		//
+		//			@Override
+		//			public void onAnimationRepeat(Animation animation) {
+		//			}
+		//
+		//			@Override
+		//			public void onAnimationEnd(Animation animation) {
+		//				//                ScaleAnimation scaleAni;
+		//				//                
+		//				//                scaleAni= new ScaleAnimation(1f, 
+		//				//                        1f, 1f, 2f, 
+		//				//                        Animation.RELATIVE_TO_SELF, 0.5f,
+		//				//                        Animation.RELATIVE_TO_SELF, 0.5f);
+		//				//                
+		//				//                	
+		//				//                scaleAni.setDuration(400);
+		//				//                scaleAni.setFillAfter(true);
+		//				//                selectedRenderer.startAnimation(scaleAni);
+		//
+		//				if(!out)
+		//					layout.removeView(prev);
+		//
+		//			}
+		//		});
 		this.pos=posi;
 		if (!spiceManager.isStarted())
 		{
@@ -190,15 +190,15 @@ public class ProductListFragment extends android.app.ListFragment
 
 	}
 	public void onResume() {
-		  //onResume happens after onStart and onActivityCreate
+		//onResume happens after onStart and onActivityCreate
 		LayoutTransition l = new LayoutTransition();
 		l.enableTransitionType(LayoutTransition.CHANGING);
 		l.setDuration(500);
 		ViewGroup viewGroup = this.getListView();
 		viewGroup.setLayoutTransition(l);
-		  super.onResume() ; 
-		}
-	
+		super.onResume() ; 
+	}
+
 	private class GetReviewsListener implements RequestListener<ReviewList>, RequestProgressListener {
 
 		@Override
@@ -217,8 +217,8 @@ public class ProductListFragment extends android.app.ListFragment
 		{
 			spiceManager.shouldStop();
 			BasketSession.setReviews(reviews.getReviews());
-			
-			
+
+
 			if(foundProducts.get(pos).isBid())
 			{
 				Intent productPage = new Intent(getActivity(),BidEventPageActivity.class);
@@ -230,8 +230,8 @@ public class ProductListFragment extends android.app.ListFragment
 				productPage.putExtra("selectedEvent",pos);
 				startActivityForResult(productPage, 0);
 			}
-			
-			
+
+
 
 		}
 

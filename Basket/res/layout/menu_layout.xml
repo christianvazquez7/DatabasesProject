@@ -41,7 +41,7 @@
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="#1BFFA500" >
+                    android:background="@color/white" >
 
                     <LinearLayout
                         android:id="@+id/page_one"
@@ -217,7 +217,7 @@
                     android:id="@+id/pager3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#1BFFA500" >
+                    android:background="@color/white" >
 
                     <LinearLayout
                         android:id="@+id/price_filter"
@@ -338,7 +338,7 @@
             android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/linearLayout2"
-            android:background="#1BFFA500" >
+            android:background="@color/white" >
 
             <LinearLayout
                 android:id="@+id/increasing"

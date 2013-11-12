@@ -2,28 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="6dip"
     android:background="@drawable/shelf3"
     
      >
-
-    <ImageView
-
-        android:id="@+id/thumb"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:contentDescription="TODO"
-        android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/theProductb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/supplier"
-        android:layout_alignLeft="@+id/supplier"
-        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/supplier"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="Medium Text of Product"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
@@ -32,9 +21,8 @@
         android:id="@+id/supplier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/thumb"
-        android:layout_marginBottom="25dp"
-        android:layout_toRightOf="@+id/thumb"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="From Apple Inc."
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000"

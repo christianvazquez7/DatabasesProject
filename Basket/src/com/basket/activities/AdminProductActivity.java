@@ -138,12 +138,13 @@ public class AdminProductActivity extends SlidingFragmentActivity {
 
 				int resId = 0;
 				switch (position) {
+				case 0:
+					resId = R.id.name_filter;
+					break;
 				case 1:
 					resId = R.id.brand_filter;
 					break;
-				case 2:
-					resId = R.id.name_filter;
-					break;
+					
 				}
 
 				return findViewById(resId);
