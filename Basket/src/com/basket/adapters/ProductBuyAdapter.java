@@ -118,7 +118,7 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 		String ammount = Integer.toString(currentProduct.getitem_quantity());
 		((TextView)convertView.findViewById(R.id.ammounttv)).setText(ammount);
 
-		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getTitle());
 		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
 		((TextView)convertView.findViewById(R.id.pod)).setText(currentProduct.getProduct().getName());
