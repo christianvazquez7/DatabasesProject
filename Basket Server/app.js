@@ -616,11 +616,54 @@ app.del('/Basket.js/UserDelete/:id', function(req,res)
 			res.json(true);
 		});
 //Create a user
+
+
+
+
 app.post('/Basket.js/create/:id', function(req,res)
 {
-	console.log("Creating user");
-	userList.push(req.body);
-	res.json(true);
+	function insertUser () 
+	{
+		var defered = Q.defer();
+		var userquery='INSERT INTO `myfirstsql`.`users` (`userId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`, `birthday`, `rating`) \
+		VALUES (NULL, \''+req.body.username+'\', \''+req.body.firstName+'\', \''+req.body.lastName+'\', \''+req.body.password+'\', \''+req.body.email+'\', \''+req.body.age+'\', \''+req.body.bdYear+'-'+req.body.bdMonth+'-'+req.body.bdDay+'\', \'0\');';
+		console.log(userquery);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	function insertShipAddress () 
+	{
+		var defered = Q.defer();
+		var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
+		VALUES (NULL,\''+req.body.shippingAdress[0].line1+'\',\''+req.body.shippingAdress[0].line2+'\',\''+req.body.shippingAdress[0].city+'\',\''+req.body.shippingAdress[0].country+'\',\''+req.body.shippingAdress[0].zipCode+'\',(select max(userId) from users),\''+req.body.shippingAdress[0].state+'\');';
+		console.log(userquery);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	function insertBillAddress () 
+	{
+		var defered = Q.defer();
+		var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
+		VALUES (NULL,\''+req.body.billingAdress[0].line1+'\',\''+req.body.billingAdress[0].line2+'\',\''+req.body.billingAdress[0].city+'\',\''+req.body.billingAdress[0].country+'\',\''+req.body.billingAdress[0].zipCode+'\',(select max(userId) from users),\''+req.body.billingAdress[0].state+'\');';
+		console.log(userquery);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+
+	function insertCreditCards () 
+	{
+		var defered = Q.defer();
+		var userquery='INSERT INTO `myfirstsql`.`credit_cards` (`cardId`, `cardNum`, `secCode`, `expMonth`, `expYear`, `name`, `userId`, `bankAccountId`, `BillingId`) \
+		VALUES (NULL,\''+req.body.creditCards[0].cardNum+'\',\''+req.body.creditCards[0].secCode+'\',\''+req.body.creditCards[0].expMonth+'\',\''+req.body.creditCards[0].expYear+'\',\''+req.body.creditCards[0].name+'\',(select max(userId) from users),'+"1,(select max(AddressId) from address));";
+		console.log(userquery);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([insertUser(),insertShipAddress(),insertBillAddress(),insertCreditCards()]).then(function(rest)
+	{
+		console.log("Success!");
+		res.json(true);
+	});
 });
 //Place an order
 app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)

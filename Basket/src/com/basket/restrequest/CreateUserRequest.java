@@ -1,7 +1,5 @@
 package com.basket.restrequest;
 
-import android.util.Log;
-
 import com.basket.general.BasketConstants;
 import com.basket.general.User;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;

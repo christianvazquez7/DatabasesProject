@@ -187,7 +187,6 @@
                     android:hint="Day"
                     android:inputType="number" >
 
-                    <requestFocus />
                 </EditText>
 
                 <View
@@ -305,7 +304,6 @@
                 android:id="@+id/etSAStateSignUp"
                 android:layout_width="fill_parent"
                 android:layout_height="55dp"
-                android:layout_centerVertical="true"
                 android:background="@null"
                 android:ems="10"
                 android:hint="State"
@@ -327,7 +325,8 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="Zip Code"
-                android:paddingLeft="30dp" />
+                android:paddingLeft="30dp"
+                android:inputType="number" />
 
             <View
                 android:id="@+id/view1"
@@ -391,7 +390,8 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="Card Number"
-                android:paddingLeft="30dp" />
+                android:paddingLeft="30dp" 
+                android:inputType="number"/>
 
             <View
                 android:id="@+id/view1"
@@ -409,7 +409,8 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="Security Code"
-                android:paddingLeft="30dp" />
+                android:paddingLeft="30dp"
+                android:inputType="number" />
 
             <View
                 android:id="@+id/view1"
@@ -452,7 +453,6 @@
                     android:hint="Month"
                     android:inputType="number" >
 
-                    <requestFocus />
                 </EditText>
 
                 <View
@@ -574,7 +574,8 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="Zip Code"
-                android:paddingLeft="30dp" />
+                android:paddingLeft="30dp" 
+                android:inputType="number"/>
 
             <View
                 android:id="@+id/view1"

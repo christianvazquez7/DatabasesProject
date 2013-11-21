@@ -1,6 +1,9 @@
 package com.basket.activities;
 
 
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,26 +32,20 @@ public class SignUpActivity extends Activity {
 	//ET is for EditText, CC for Credit Card, SA & BA for Shipping and Billing Address, B is for button
 	//A is for awesome -Pedro
 
-	private EditText mETFName, mETLName, mETPassword, mETEmail, mETUserName, mETBDayDay, mETBDayMonth, mETBDayYear,
-	mETCCName, mETCCNum, mETCCSecCode, mETCCExpMonth, mETCCExpYear,
-	mETSALine1, mETSALine2, mETSACity, mETSAState, mETSACountry, mETSAZipCode,
-	mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
+	private EditText mETFName, mETLName, mETPassword, mETVerifyPassword, mETEmail, mETUserName, mETBDayDay, mETBDayMonth, mETBDayYear,
+	mETCCName, mETCCNum, mETCCSecCode, mETCCExpMonth, mETCCExpYear,mETSALine1, mETSALine2, mETSACity, mETSAState, 
+	mETSACountry, mETSAZipCode, mETBALine1, mETBALine2, mETBACity, mETBAState, mETBACountry, mETBAZipCode;
 
 	private User newUser;
 	private Adress shippingAddress;
 	private Adress billingAddress;
 	private CreditCard creditCard;
 
-	private String userName, email, password, fName, lName, bDay,
-	ccName, ccAddrs,
-	saLine1, saLine2, saCity, saState, saCountry,
+	private String userName, email, password, fName, lName, bDay, ccName, ccAddrs, saLine1, saLine2, saCity, saState, saCountry,
 	baLine1, baLine2, baCity, baState, baCountry;
 
 	private long ccNumber;
-	private int ccExpMonth, ccExpYear, ccSecCode,
-	saZipCode, baZipCode,
-	bdDay, bdMonth, bdYear, age,
-	currDay, currMonth, currYear;
+	private int ccExpMonth, ccExpYear, ccSecCode, saZipCode, baZipCode,	bdDay, bdMonth, bdYear, age;
 
 	private SpiceManager spiceManager  = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
@@ -66,9 +63,15 @@ public class SignUpActivity extends Activity {
 				if (!spiceManager.isStarted())
 				{
 					try{
-						spiceManager.start(SignUpActivity.this);
-						initializeUserFields();
-						spiceManager.execute(new CreateUserRequest(newUser), new CreateAccountListener());
+
+						if(initializeUserFields()){
+							spiceManager.start(SignUpActivity.this);
+							spiceManager.execute(new CreateUserRequest(newUser), new CreateAccountListener());
+						}
+						else{
+							Toast.makeText(SignUpActivity.this, "Please write matching passwords", Toast.LENGTH_SHORT).show();
+						}
+
 					}
 					catch(NumberFormatException e){
 						Toast.makeText(SignUpActivity.this, "Please fix number fields", Toast.LENGTH_LONG).show();;
@@ -85,7 +88,12 @@ public class SignUpActivity extends Activity {
 		mETLName = (EditText) findViewById(R.id.etLNameSignUp); 
 		this.lName = mETLName.getText().toString();
 		mETPassword = (EditText) findViewById(R.id.passwordSignUp); 
-		this.password = mETPassword.getText().toString();
+		mETVerifyPassword = (EditText) findViewById(R.id.verifyPasswordSignUp);
+		if(mETPassword.getText().toString().equals(mETVerifyPassword.getText().toString()))
+			this.password = mETPassword.getText().toString();
+		else{
+			return false;
+		}
 		mETEmail = (EditText) findViewById(R.id.emailSignUp);
 		this.email = mETEmail.getText().toString();
 		mETUserName = (EditText) findViewById(R.id.userNameSignUp);
@@ -99,7 +107,11 @@ public class SignUpActivity extends Activity {
 		this.bdDay = Integer.parseInt(mETBDayDay.getText().toString());
 		this.bdMonth = Integer.parseInt(mETBDayMonth.getText().toString());
 		this.bdYear = Integer.parseInt(mETBDayYear.getText().toString());
+		LocalDate dob = new LocalDate(bdYear,bdMonth,bdDay);
+		LocalDate currentDate = new LocalDate();
 
+		Years currAge = Years.yearsBetween(dob, currentDate);
+		this.age = currAge.getYears();
 
 		mETCCName = (EditText) findViewById(R.id.etCCNameSignUp);
 		this.ccName = mETCCName.getText().toString();
@@ -148,8 +160,9 @@ public class SignUpActivity extends Activity {
 
 		this.newUser = new User(this.userName, this.email,this.password, 
 				this.fName, this.lName, this.bdDay, this.bdMonth, this.bdYear);
-
+		this.newUser.setAge(this.age);
 		this.newUser.getShippingAdress().add(shippingAddress);
+		this.newUser.getBillingAdress().add(billingAddress);
 		this.newUser.getCreditCards().add(creditCard);
 
 		return true;
@@ -164,7 +177,6 @@ public class SignUpActivity extends Activity {
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) 
 			{
-
 				Toast.makeText(SignUpActivity.this, "User could not be created", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
@@ -173,9 +185,16 @@ public class SignUpActivity extends Activity {
 		@Override
 		public void onRequestSuccess(Boolean CreatedUser) 
 		{
-			Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
-			spiceManager.shouldStop();
-			SignUpActivity.this.finish();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			if(CreatedUser){
+				Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
+				SignUpActivity.this.finish();
+			}
+			else
+			{
+				Toast.makeText(SignUpActivity.this, "Problem Creating user", Toast.LENGTH_SHORT).show();
+			}
 		}
 
 		@Override

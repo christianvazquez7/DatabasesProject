@@ -7,8 +7,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User 
 {
-
-
 	private String email, username, password, firstName, lastName;
 	private int age, bdDay, bdMonth, bdYear;
 	private ArrayList<Adress> billingAdress, shippingAdress;

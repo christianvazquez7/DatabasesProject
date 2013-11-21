@@ -1,0 +1,51 @@
+
+
+select * 
+from in_buy_basket natural join buy_events natural join baskets, orders
+where basketId = withbasketId
+
+
+Suma de dinero generado por producto id X
+select sum(price)
+from in_buy_basket natural join buy_events natural join baskets, orders
+where basketId = withbasketId and productId = X
+
+Suma de dinero generado por producto name X
+select sum(price)
+from in_buy_basket natural join buy_events natural join baskets, orders
+where basketId = withbasketId and btitle like "%Item%"
+
+Suma de cantidades
+select sum(item_quantity)
+from in_buy_basket natural join buy_events natural join baskets, orders
+where basketId = withbasketId and productId = X
+
+
+
+Para loadiar todo
+select distinct *
+from in_buy_basket natural join buy_events natural join baskets natural join products, orders
+where basketId = withbasketId and productId =  "%item%"
+
+select distinct *
+from products
+where pname like "%query%"
+
+'select sum(amount) as result from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd  , function(err, response)
+
+'select sum(price) as result from in_buy_basket natural join buy_events natural join baskets, orders where basketId = withbasketId and productId = X and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd
+
+
+select *
+from buy_events
+where buycategory in 
+(select buycategory as boughtcategories
+from users natural join orders, baskets natural join buy_events natural join in_buy_basket 
+where basketId = withbasketId and username = 'edgargajo') 
+and buyEventId not in (select buyEventId as boughtIds
+from users natural join orders, baskets natural join buy_events natural join in_buy_basket 
+where basketId = withbasketId and username = 'edgargajo')
+
+select * from buy_events natural join products natural join manufacturers where buycategory in (select buycategory as boughtcategories from users natural join orders, baskets natural join buy_events natural join in_buy_basket where basketId = withbasketId and username = 'edgargajo') and buyEventId not in (select buyEventId as boughtIds from users natural join orders, baskets natural join buy_events natural join in_buy_basket where basketId = withbasketId and username = 'edgargajo')
+
+INSERT INTO `myfirstsql`.`users` (`userId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`, `birthday`, `rating`) VALUES (NULL, 'pedro696', 'Pedro', 'Colon', 'tito12@', 'gordopansa@hotmail.com', '20', '1993-08-22', '0');
