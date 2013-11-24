@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 var express = require('express');
+var nodemailer = require("nodemailer");
 
 var app = express();
 var roduct = require("./product.js");
@@ -58,6 +59,57 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "basketservices@gmail.com",
+        pass: "tito12@@"
+    }
+});
+
+function getForgottenUserAccount(umail, callback) {
+	console.log("In get user info uname is:"+umail);
+	connection.query('SELECT * FROM users WHERE email=\''+umail+'\'', function(err, response) {
+		if (err) 
+			throw err;
+		callback(err, response);
+	});
+};
+
+// create reusable transport method (opens pool of SMTP connections)
+app.get('/Basket.js/ForgetCreds/:email',function(req,res){
+
+
+	getForgottenUserAccount(req.params.email, function(err, result){
+		console.log(err || JSON.stringify(result));
+		var mailOptions = {
+		    from: "Basket Services <basketservices@gmail.com>", // sender address
+		    to: req.params.email, // list of receivers
+		    subject: "Your basket account ", // Subject line
+		    text: JSON.stringify(result)//, // plaintext body
+		    // html: "<b>Hello world ✔</b>" // html body
+		}
+
+	// send mail with defined transport object
+		smtpTransport.sendMail(mailOptions, function(error, response){
+		    if(error){
+		        console.log(error);
+		    }else{
+		        console.log("Message sent: " + response.message);
+		    }
+
+		    // if you don't want to use this transport object anymore, uncomment following line
+		    //smtpTransport.close(); // shut down the connection pool, no more messages
+		});
+
+		console.log('Sent email!!');
+		
+		res.json(true);	
+	});
+
+});
+
 
 
 
@@ -631,6 +683,18 @@ app.post('/Basket.js/create/:id', function(req,res)
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
+	function getInsertedUserId () 
+	{
+		var defered = Q.defer();
+		var userquery='select userId from users where username= \''+req.body.username+'\' and firstName = \''+req.body.firstName+'\' and lastName = \''+req.body.lastName+'\' and email = \''+req.body.email+'\'';
+		console.log(userquery);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([insertUser(),getInsertedUserId()]).then(function(rest){
+
+		
+	});
 	function insertShipAddress () 
 	{
 		var defered = Q.defer();
