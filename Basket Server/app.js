@@ -60,15 +60,10 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-var smtpTransport = nodemailer.createTransport("SMTP",{
-    service: "Gmail",
-    auth: {
-        user: "basketservices@gmail.com",
-        pass: "tito12@@"
-    }
-});
 
-function getForgottenUserAccount(umail, callback) {
+
+function getForgottenUserAccount(umail, callback) 
+{
 	console.log("In get user info uname is:"+umail);
 	connection.query('SELECT * FROM users WHERE email=\''+umail+'\'', function(err, response) {
 		if (err) 
@@ -77,57 +72,9 @@ function getForgottenUserAccount(umail, callback) {
 	});
 };
 
-// create reusable transport method (opens pool of SMTP connections)
-app.get('/Basket.js/ForgetCreds/:email',function(req,res){
+// // create reusable transport method (opens pool of SMTP connections)
 
 
-	getForgottenUserAccount(req.params.email, function(err, result){
-		console.log(err || JSON.stringify(result));
-		var mailOptions = {
-		    from: "Basket Services <basketservices@gmail.com>", // sender address
-		    to: req.params.email, // list of receivers
-		    subject: "Your basket account ", // Subject line
-		    text: JSON.stringify(result)//, // plaintext body
-		    // html: "<b>Hello world ✔</b>" // html body
-		}
-
-	// send mail with defined transport object
-		smtpTransport.sendMail(mailOptions, function(error, response){
-		    if(error){
-		        console.log(error);
-		    }else{
-		        console.log("Message sent: " + response.message);
-		    }
-
-		    // if you don't want to use this transport object anymore, uncomment following line
-		    //smtpTransport.close(); // shut down the connection pool, no more messages
-		});
-
-		console.log('Sent email!!');
-		
-		res.json(true);	
-	});
-
-});
-
-
-
-
- 
-	
-//	function getUserInfo (callback) {
-//		var userquery= 'select Address.* from Address where userId=1 and addressId not in (select Address.id from'
-//		connection.query(userquery, function(err, response) {
-//			  if (err) throw err;
-//			  callback(err, response);
-//			});
-//	};
-//	
-//	console.log('The solution is: ');
-//	getUserInfo(function(err, result){
-//		console.log(result);
-//
-//	});
 
 function getUserInfo(uname, callback) {
 	console.log("In get user info uname is:"+uname);
@@ -325,7 +272,7 @@ app.get('/Basket.js/GetRecommendations/:userName',function(req,res)
 
 
 app.get('/Basket.js/GetBuyReviews/:id',function(req,res)
-		{
+{
 	
 	function getBuyReviews() 
 	{
@@ -351,14 +298,11 @@ app.get('/Basket.js/GetBuyReviews/:id',function(req,res)
 		};
 		res.json(response);
 			});
-	
-		
-		});
+});
 
 
 app.get('/Basket.js/GetBidReviews/:id',function(req,res)
-		{
-	
+{
 	function getBuyReviews() 
 	{
 		console.log(req.params.id);
@@ -374,10 +318,8 @@ app.get('/Basket.js/GetBidReviews/:id',function(req,res)
 		for (var i=0;i<rest[0][0].length;i++)
 		{
 			console.log(rest[0][0][i].title);
-			console.log(rest[0][0][i].content);
-//			console.log(review[0][0][i].username
-			
-		 reviewList.push(new Review(rest[0][0][i].title,rest[0][0][i].content,rest[0][0][i].username, rest[0][0][i].rrating));
+			console.log(rest[0][0][i].content);			
+		 	reviewList.push(new Review(rest[0][0][i].title,rest[0][0][i].content,rest[0][0][i].username, rest[0][0][i].rrating));
 		}
 		console.log(reviewList);
 		var response =
@@ -385,14 +327,12 @@ app.get('/Basket.js/GetBidReviews/:id',function(req,res)
 			"reviews": reviewList
 		};
 		res.json(response);
-			});
-	
-		
-		});
+	});	
+});
 
 
 app.get('/Basket.js/GetBids/:id',function(req,res)
-		{
+{			
 	
 	function getBids() 
 	{
@@ -415,10 +355,8 @@ app.get('/Basket.js/GetBids/:id',function(req,res)
 			"bids": bidList
 		};
 		res.json(response);
-			});
-	
-		
-		});
+	});		
+});
 
 
 app.get('/Basket.js/GetDeals',function(req,res)
@@ -447,14 +385,11 @@ app.get('/Basket.js/GetDeals',function(req,res)
 		console.log(response);
 		res.json(response);
 			});
-	
-		
 });
-
 
 //get uRatings
 app.get('/Basket.js/GetRatings/:id',function(req,res)
-		{
+{
 	
 	function getURatings() 
 	{
@@ -478,11 +413,8 @@ app.get('/Basket.js/GetRatings/:id',function(req,res)
 		};
 		console.log(response);
 		res.json(response);
-		});
-	
-
-		
-		});
+		});		
+});
 //Edit a user
 app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 	console.log("Editing user");
@@ -662,73 +594,183 @@ app.del('/Basket.js/remBid/:id', function(req,res)
 
 //Delete user
 app.del('/Basket.js/UserDelete/:id', function(req,res)
-		{
-			var target = req.params.id;
-			userList.splice(target,1);
-			res.json(true);
-		});
+{
+	var target = req.params.id;
+	userList.splice(target,1);
+	res.json(true);
+});
+
+
 //Create a user
+function insertUser (req , callback) 
+{
+	console.log(req);
+	// console.log(callback);
+	// var defered = Q.defer();
+	var userquery='INSERT INTO `myfirstsql`.`users` (`userId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`, `birthday`, `rating`) \
+	VALUES (NULL, \''+req.body.username+'\', \''+req.body.firstName+'\', \''+req.body.lastName+'\', \''+req.body.password+'\', \''+req.body.email+'\', \''+req.body.age+'\', \''+req.body.bdYear+'-'+req.body.bdMonth+'-'+req.body.bdDay+'\', \'0\');';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+function getInsertedUserId (req , callback) 
+{
+	// var defered = Q.defer();
+	var userquery='select userId from users where username= \''+req.body.username+'\' and firstName = \''+req.body.firstName+'\' and lastName = \''+req.body.lastName+'\' and email = \''+req.body.email+'\'';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};	
+function insertShipAddress (userId, req  ,callback) 
+{
+	// var defered = Q.defer();
+	var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
+	VALUES (NULL,\''+req.body.shippingAdress[0].line1+'\',\''+req.body.shippingAdress[0].line2+'\',\''+req.body.shippingAdress[0].city+'\',\''+req.body.shippingAdress[0].country+'\',\''+req.body.shippingAdress[0].zipCode+'\',\''+userId+'\',\''+req.body.shippingAdress[0].state+'\');';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
 
-
-
+function getInsertedShipAddress (req,callback) 
+{
+	// var defered = Q.defer();
+	var userquery='select AddressId from address where userId= \''+userId+'\' and line1 = \''+req.body.shippingAdress[0].line1+'\'';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};	
+function insertBillAddress (userId, req,callback) 
+{
+	// var defered = Q.defer();
+	var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
+	VALUES (NULL,\''+req.body.billingAdress[0].line1+'\',\''+req.body.billingAdress[0].line2+'\',\''+req.body.billingAdress[0].city+'\',\''+req.body.billingAdress[0].country+'\',\''+req.body.billingAdress[0].zipCode+'\',\''+userId+'\',\''+req.body.billingAdress[0].state+'\');';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+function getInsertedBillAddress (userId, req,callback) 
+{
+	// var defered = Q.defer();
+	var userquery='select AddressId from address where userId= \''+userId+'\' and line1 = \''+req.body.billingAdress[0].line1+'\'';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};	
+function insertCreditCards (userId, billId, req,callback) 
+{
+	// var defered = Q.defer();
+	var userquery='INSERT INTO `myfirstsql`.`credit_cards` (`cardId`, `cardNum`, `secCode`, `expMonth`, `expYear`, `name`, `userId`, `bankAccountId`, `BillingId`) \
+	VALUES (NULL,\''+req.body.creditCards[0].cardNum+'\',\''+req.body.creditCards[0].secCode+'\',\''+req.body.creditCards[0].expMonth+'\',\''+req.body.creditCards[0].expYear+'\',\''+req.body.creditCards[0].name+'\',\''+userId+'\',\'1'+'\',\''+billId+'\');';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
 
 app.post('/Basket.js/create/:id', function(req,res)
 {
-	function insertUser () 
-	{
-		var defered = Q.defer();
-		var userquery='INSERT INTO `myfirstsql`.`users` (`userId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`, `birthday`, `rating`) \
-		VALUES (NULL, \''+req.body.username+'\', \''+req.body.firstName+'\', \''+req.body.lastName+'\', \''+req.body.password+'\', \''+req.body.email+'\', \''+req.body.age+'\', \''+req.body.bdYear+'-'+req.body.bdMonth+'-'+req.body.bdDay+'\', \'0\');';
-		console.log(userquery);
-		connection.query(userquery, defered.makeNodeResolver());
-		return defered.promise;
-	};
-	function getInsertedUserId () 
-	{
-		var defered = Q.defer();
-		var userquery='select userId from users where username= \''+req.body.username+'\' and firstName = \''+req.body.firstName+'\' and lastName = \''+req.body.lastName+'\' and email = \''+req.body.email+'\'';
-		console.log(userquery);
-		connection.query(userquery, defered.makeNodeResolver());
-		return defered.promise;
-	};
-	Q.all([insertUser(),getInsertedUserId()]).then(function(rest){
-
-		
+	
+	var userId =-1;
+	var insertedBill ="";
+	console.log(req.body.creditCards);
+	res.json(false);
+	console.log(req.body);
+	insertUser(req, function(err, result){
+		console.log(req.body);
+		getInsertedUserId(req, function(err, result){
+				console.log(result);
+				userId = result[0].userId;
+				console.log(userId);
+				insertShipAddress(userId, req, function(err, result){
+					insertBillAddress(userId,req, function(err, result){
+						getInsertedBillAddress(userId, req, function(err, result){
+							insertedBill = result[0].AddressId;
+							console.log(insertedBill);
+							insertCreditCards(userId,insertedBill,req,function(err, result){
+								console.log("Success");
+								res.json(true);
+							});
+						});
+					});
+				});
+		});
 	});
-	function insertShipAddress () 
-	{
-		var defered = Q.defer();
-		var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
-		VALUES (NULL,\''+req.body.shippingAdress[0].line1+'\',\''+req.body.shippingAdress[0].line2+'\',\''+req.body.shippingAdress[0].city+'\',\''+req.body.shippingAdress[0].country+'\',\''+req.body.shippingAdress[0].zipCode+'\',(select max(userId) from users),\''+req.body.shippingAdress[0].state+'\');';
-		console.log(userquery);
-		connection.query(userquery, defered.makeNodeResolver());
-		return defered.promise;
-	};
-	function insertBillAddress () 
-	{
-		var defered = Q.defer();
-		var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
-		VALUES (NULL,\''+req.body.billingAdress[0].line1+'\',\''+req.body.billingAdress[0].line2+'\',\''+req.body.billingAdress[0].city+'\',\''+req.body.billingAdress[0].country+'\',\''+req.body.billingAdress[0].zipCode+'\',(select max(userId) from users),\''+req.body.billingAdress[0].state+'\');';
-		console.log(userquery);
-		connection.query(userquery, defered.makeNodeResolver());
-		return defered.promise;
-	};
 
-	function insertCreditCards () 
-	{
-		var defered = Q.defer();
-		var userquery='INSERT INTO `myfirstsql`.`credit_cards` (`cardId`, `cardNum`, `secCode`, `expMonth`, `expYear`, `name`, `userId`, `bankAccountId`, `BillingId`) \
-		VALUES (NULL,\''+req.body.creditCards[0].cardNum+'\',\''+req.body.creditCards[0].secCode+'\',\''+req.body.creditCards[0].expMonth+'\',\''+req.body.creditCards[0].expYear+'\',\''+req.body.creditCards[0].name+'\',(select max(userId) from users),'+"1,(select max(AddressId) from address));";
-		console.log(userquery);
-		connection.query(userquery, defered.makeNodeResolver());
-		return defered.promise;
-	};
-	Q.all([insertUser(),insertShipAddress(),insertBillAddress(),insertCreditCards()]).then(function(rest)
-	{
-		console.log("Success!");
-		res.json(true);
-	});
 });
+
+
+
+// app.post('/Basket.js/create/:id', function(req,res)
+// {
+// 	console.log(req.body);
+// 	function insertUser () 
+// 	{
+// 		var defered = Q.defer();
+// 		var userquery='INSERT INTO `myfirstsql`.`users` (`userId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`, `birthday`, `rating`) \
+// 		VALUES (NULL, \''+req.body.username+'\', \''+req.body.firstName+'\', \''+req.body.lastName+'\', \''+req.body.password+'\', \''+req.body.email+'\', \''+req.body.age+'\', \''+req.body.bdYear+'-'+req.body.bdMonth+'-'+req.body.bdDay+'\', \'0\');';
+// 		console.log(userquery);
+// 		connection.query(userquery, defered.makeNodeResolver());
+// 		return defered.promise;
+// 	};
+// 	function getInsertedUserId () 
+// 	{
+// 		var defered = Q.defer();
+// 		var userquery='select userId from users where username= \''+req.body.username+'\' and firstName = \''+req.body.firstName+'\' and lastName = \''+req.body.lastName+'\' and email = \''+req.body.email+'\'';
+// 		console.log(userquery);
+// 		connection.query(userquery, defered.makeNodeResolver());
+// 		return defered.promise;
+// 	};
+	
+// 	function insertShipAddress () 
+// 	{
+// 		var defered = Q.defer();
+// 		var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
+// 		VALUES (NULL,\''+req.body.shippingAdress[0].line1+'\',\''+req.body.shippingAdress[0].line2+'\',\''+req.body.shippingAdress[0].city+'\',\''+req.body.shippingAdress[0].country+'\',\''+req.body.shippingAdress[0].zipCode+'\',(select max(userId) from users),\''+req.body.shippingAdress[0].state+'\');';
+// 		console.log(userquery);
+// 		connection.query(userquery, defered.makeNodeResolver());
+// 		return defered.promise;
+// 	};
+// 	function insertBillAddress () 
+// 	{
+// 		var defered = Q.defer();
+// 		var userquery='INSERT INTO `myfirstsql`.`address` (`AddressId`, `line1`, `line2`, `city`, `country`, `zipCode`, `userId`, `state`) \
+// 		VALUES (NULL,\''+req.body.billingAdress[0].line1+'\',\''+req.body.billingAdress[0].line2+'\',\''+req.body.billingAdress[0].city+'\',\''+req.body.billingAdress[0].country+'\',\''+req.body.billingAdress[0].zipCode+'\',(select max(userId) from users),\''+req.body.billingAdress[0].state+'\');';
+// 		console.log(userquery);
+// 		connection.query(userquery, defered.makeNodeResolver());
+// 		return defered.promise;
+// 	};
+
+// 	function insertCreditCards () 
+// 	{
+// 		var defered = Q.defer();
+// 		var userquery='INSERT INTO `myfirstsql`.`credit_cards` (`cardId`, `cardNum`, `secCode`, `expMonth`, `expYear`, `name`, `userId`, `bankAccountId`, `BillingId`) \
+// 		VALUES (NULL,\''+req.body.creditCards[0].cardNum+'\',\''+req.body.creditCards[0].secCode+'\',\''+req.body.creditCards[0].expMonth+'\',\''+req.body.creditCards[0].expYear+'\',\''+req.body.creditCards[0].name+'\',(select max(userId) from users),'+"1,(select max(AddressId) from address));";
+// 		console.log(userquery);
+// 		connection.query(userquery, defered.makeNodeResolver());
+// 		return defered.promise;
+// 	};
+// 	Q.all([insertUser(),insertShipAddress(),insertBillAddress(),insertCreditCards()]).then(function(rest)
+// 	{
+// 		console.log("Success!");
+// 		res.json(true);
+// 	});
+
+// });
+
+
 //Place an order
 app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
 		{
@@ -739,7 +781,7 @@ app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
 	us.baskets.splice(req.params.pos,1);
 
 	res.json(true);
-		});
+});
 //Create a basket
 app.post('/Basket.js/NewBasket', function(req,res)
 {
@@ -818,7 +860,7 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 });
 
 app.get('/Basket.js/UpdateBidSeller', function(req,res)
-		{
+{
 	function getFinishedBidEvents () 
 	{
 		var defered = Q.defer();
@@ -840,7 +882,7 @@ app.get('/Basket.js/UpdateBidSeller', function(req,res)
 			res.json(response);
 			});
 	
-		});
+});
 
 
 
@@ -1912,4 +1954,47 @@ app.get('/Basket.js/LoadCategory',function(req,res)
 				console.log(CategoryTree.length);
 				res.json(response);
 			});
+});
+
+app.get('/Basket.js/ForgetCreds/:email',function(req,res)
+{
+	getForgottenUserAccount(req.params.email, function(err, result)
+	{
+		console.log(err || JSON.stringify(result));
+		var smtpTransport = nodemailer.createTransport("SMTP",
+		{
+		    service: "Gmail",
+		    auth: {
+		        user: "basketservices@gmail.com",
+		        pass: "tito12@@"
+		    }
+		});
+		var mailOptions = {
+		    from: "Basket Services <basketservices@gmail.com>", // sender address
+		    to: req.params.email, // list of receivers
+		    subject: "Your basket account ", // Subject line
+		    text: JSON.stringify(result)//, // plaintext body
+		    // html: "<b>Hello world ✔</b>" // html body
+		}
+
+	// send mail with defined transport object
+		smtpTransport.sendMail(mailOptions, function(error, response)
+		{
+		    if(error)
+			{
+		        console.log(error);
+		    }
+			else{
+		        console.log("Message sent: " + response.message);
+		    }
+
+		    // if you don't want to use this transport object anymore, uncomment following line
+		    smtpTransport.close(); // shut down the connection pool, no more messages
+		});
+
+		console.log('Sent email!!');
+		
+		res.json(true);	
+	});
+
 });
