@@ -45,8 +45,6 @@ public class SearchAccountActivity extends FragmentActivity {
 		Button searchButton=(Button)this.findViewById(R.id.accountSearchbtn);
 		searchButton.setOnClickListener(new OnClickListener()
 		{
-
-
 			public void onClick(View arg0) 
 			{
 				if (!spiceManager.isStarted())

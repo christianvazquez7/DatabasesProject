@@ -27,9 +27,7 @@ public class EditRequest extends SpringAndroidSpiceRequest<Boolean> {
 		
 		String url = BasketConstants.externalIp+"/Basket.js/UserEdit/";
 		url+=loc+"/"+usr+"/"+pass+"/"+em;
-		
 		Log.d( "request", "loading from network" );
-		
 		getRestTemplate().put(url, newU);
 		return true;
 	}

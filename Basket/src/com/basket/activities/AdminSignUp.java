@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.basket.general.Adress;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.CreditCard;
 import com.basket.general.User;
+import com.basket.restrequest.CreateAdminRequest;
 import com.basket.restrequest.CreateUserRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -49,14 +51,14 @@ public class AdminSignUp extends Activity {
 	saZipCode, baZipCode,
 	bdDay, bdMonth, bdYear, age,
 	currDay, currMonth, currYear;
-
+	private CheckBox isAdmin;
 	private SpiceManager spiceManager  = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up2);
-
+		isAdmin = (CheckBox) findViewById(R.id.isAdmin);
 
 		Button signUp = (Button) this.findViewById(R.id.signUp);
 		signUp.setOnClickListener(new OnClickListener(){
@@ -65,6 +67,7 @@ public class AdminSignUp extends Activity {
 			{
 				if (!spiceManager.isStarted())
 				{
+					if(!isAdmin.isChecked()){
 					try{
 						spiceManager.start(AdminSignUp.this);
 						initializeUserFields();
@@ -72,6 +75,17 @@ public class AdminSignUp extends Activity {
 					}
 					catch(NumberFormatException e){
 						Toast.makeText(AdminSignUp.this, "Please fix number fields", Toast.LENGTH_LONG).show();;
+					}
+					}
+					else{
+						try{
+							spiceManager.start(AdminSignUp.this);
+							initializeUserFields();
+							spiceManager.execute(new CreateAdminRequest(newUser), new CreateAccountListener());
+						}
+						catch(NumberFormatException e){
+							Toast.makeText(AdminSignUp.this, "Please fix number fields", Toast.LENGTH_LONG).show();;
+						}
 					}
 				}
 			}

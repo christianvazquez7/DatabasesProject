@@ -416,13 +416,37 @@ app.get('/Basket.js/GetRatings/:id',function(req,res)
 		});		
 });
 //Edit a user
+function editUser (userId, req , callback) 
+{
+	console.log(req);
+	var userquery='UPDATE `myfirstsql`.`users` SET `email` = \''+req.params.email+'\', password = \''+req.params.pass+'\', username = \''+req.params.usr+'\' WHERE `users`.`userId` = \''+userId+'\';';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+function getUserId (req , callback) 
+{
+	// var defered = Q.defer();
+	var userquery='select userId from users where username= \''+req.body.username+'\' and email = \''+req.body.email+'\'';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};	
 app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 	console.log("Editing user");
-	var buffUser =userList[req.params.id];
-	buffUser.username=req.params.usr;
-	buffUser.password=req.params.pass;
-	buffUser.email=req.params.email;
-	res.json(true);
+	getUserId(req,function(err, result){
+		var userId = result[0].userId;
+		editUser(userId,req,function(err,result){
+			console.log("Success");
+			res.json(true);
+
+		});
+
+	});
 });
 //Register Device
 app.put('/Basket.js/RegisterDevice/:id',function(req,res){
@@ -602,6 +626,7 @@ app.del('/Basket.js/UserDelete/:id', function(req,res)
 
 
 //Create a user
+
 function insertUser (req , callback) 
 {
 	console.log(req);
@@ -710,8 +735,26 @@ app.post('/Basket.js/create/:id', function(req,res)
 	});
 
 });
-
-
+function insertAdmin (req , callback) 
+{
+	console.log(req);
+	// console.log(callback);
+	// var defered = Q.defer();
+	var userquery='INSERT INTO `myfirstsql`.`admins` (`adminId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`) \
+	VALUES (NULL, \''+req.body.username+'\', \''+req.body.firstName+'\', \''+req.body.lastName+'\', \''+req.body.password+'\', \''+req.body.email+'\', \''+req.body.age+'\');';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+app.post('/Basket.js/createAdmin/:id', function(req,res)
+{
+	insertAdmin(req,function(err,result){
+		console.log("Success inserting admin");
+		res.json("true");
+	});
+});
 
 // app.post('/Basket.js/create/:id', function(req,res)
 // {
@@ -1955,13 +1998,8 @@ app.get('/Basket.js/LoadCategory',function(req,res)
 				res.json(response);
 			});
 });
-
-app.get('/Basket.js/ForgetCreds/:email',function(req,res)
-{
-	getForgottenUserAccount(req.params.email, function(err, result)
-	{
-		console.log(err || JSON.stringify(result));
-		var smtpTransport = nodemailer.createTransport("SMTP",
+//UNTESTED
+var smtpTransport = nodemailer.createTransport("SMTP",
 		{
 		    service: "Gmail",
 		    auth: {
@@ -1969,6 +2007,19 @@ app.get('/Basket.js/ForgetCreds/:email',function(req,res)
 		        pass: "tito12@@"
 		    }
 		});
+app.get('/Basket.js/ForgetCreds/:email',function(req,res)
+{
+	getForgottenUserAccount(req.params.email, function(err, result)
+	{
+		console.log(err || JSON.stringify(result));
+		// var smtpTransport = nodemailer.createTransport("SMTP",
+		// {
+		//     service: "Gmail",
+		//     auth: {
+		//         user: "basketservices@gmail.com",
+		//         pass: "tito12@@"
+		//     }
+		// });
 		var mailOptions = {
 		    from: "Basket Services <basketservices@gmail.com>", // sender address
 		    to: req.params.email, // list of receivers
