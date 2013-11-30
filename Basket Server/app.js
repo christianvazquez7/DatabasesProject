@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var nodemailer = require("nodemailer");
-
+var queues= require('mysql-queues');
 var app = express();
 var roduct = require("./product.js");
 var product = roduct.product;
@@ -58,6 +58,7 @@ var connection = mysql.createConnection({
   database: "myFirstSql"
 });
 
+queues(connection,true);
 connection.connect();
 
 
@@ -489,21 +490,70 @@ app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
 	}
 	
 });
-//Add a bid
+//Add a bid aquiiii!!
 app.put('/Basket.js/addBid/:id',function(req,res){
-	console.log("here");
-	var u =userList[1];
-	var target;
-	   for(var i=0; i<bidlist.length; i++) {
-	        if (bidlist[i].id == req.params.id) target=bidlist[i];
-	    }
-	   console.log(req.body);
-	   console.log(target);
-	   target.bids.push(req.body);
-	   
-	  // u.currentlyBiddingOn.push(target);
 	
-	res.json(true);
+	console.log('got here');
+	function getEventWinning() 
+	{
+		console.log(req.params.id);
+		var defered = Q.defer();
+		var userquery='select amount from bid_events left outer join bids on winningBid=bidId where bid_events.bidEventId='+connection.escape(req.params.id);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	
+	function getBidder() 
+	{
+		console.log(req.params.id);
+		var defered = Q.defer();
+		var userquery='select userId from users where username='+connection.escape(req.body.bidder);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([getEventWinning(),getBidder()]).then(function(rest)
+	{
+		if (rest[0][0][0].amount>req.body.ammount)
+		{
+			res.json(false);
+		}
+		else
+		{
+			console.log('highest bid '+ rest[1][0][0].userId );
+
+			var trans = connection.startTransaction();
+			console.log('init');
+			trans.query('insert into bids (amount,bidTime,userId,bidEventId) values ('+connection.escape(req.body.ammount)+','+connection.escape(req.body.date)+','+
+					connection.escape(rest[1][0][0].userId)+','+connection.escape(req.params.id)+')',function(err,info){
+				
+				if (err)
+					{
+					trans.rollback();
+					console.log('error in insert');
+					}
+				else{
+					console.log('trying update');
+					trans.query('update bid_events S set winningBid= (select bidId from bids where amount='+ connection.escape(req.body.ammount)+' and userId=' + connection.escape(rest[1][0][0].userId)+' and S.bidEventId= bids.bidEventId)',
+							function(err,info){
+						if(err){
+							console.log('error in update');
+							trans.rollback();
+						}
+						else{
+							trans.commit();
+							res.json(false);
+							}
+						
+					});
+					
+					
+				}
+			});
+			trans.execute();
+		}
+	
+	});
+	
 });
 //Search for something
 app.get('/Basket.js/search/:searchQuery',function(req,res)

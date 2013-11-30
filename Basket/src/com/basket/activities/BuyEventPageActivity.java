@@ -22,6 +22,7 @@ import com.basket.fragments.ProductFragment;
 import com.basket.general.BuyEvent;
 import com.basket.lists.ReviewListFragment;
 import com.example.basket.R;
+import com.example.basket.ReviewActivity;
 //import com.basket.fragments.HarvestFragment;
 //import com.example.basket.R.anim;
 //import com.example.basket.R.id;
@@ -159,6 +160,20 @@ public class BuyEventPageActivity extends FragmentActivity {
 				finish();
 			}
 
+		});
+		
+		View reviewIt = this.findViewById(R.id.reviewIt);
+		reviewIt.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent reviewProduct = new Intent(BuyEventPageActivity.this, ReviewActivity.class);
+				reviewProduct.putExtra("id", currentEvent.getId());
+				startActivityForResult(reviewProduct,0);
+				
+			}
+			
 		});
 
 	}
