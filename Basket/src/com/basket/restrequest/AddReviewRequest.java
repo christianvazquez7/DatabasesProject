@@ -17,15 +17,16 @@ public class AddReviewRequest extends SpringAndroidSpiceRequest<Boolean>
 	private int id;
 	private boolean isBid;
 	private String username;
+	private int pid;
 	
-	public AddReviewRequest(Review newReview,String username, int eventId, boolean bid) 
+	public AddReviewRequest(Review newReview,String username, int eventId, boolean bid, int pid) 
 	{
 		super(Boolean.class);
 		this.newReview=newReview;
 		this.id=eventId;
 		isBid=bid;
 		this.username=username;
-	
+		this.pid=pid;
 	
 	}
 
@@ -34,7 +35,7 @@ public class AddReviewRequest extends SpringAndroidSpiceRequest<Boolean>
 	{
 		
 		String url = BasketConstants.externalIp+"/Basket.js/addReview/";
-		url+=id+"/"+username+"/"+isBid;
+		url+=id+"/"+username+"/"+isBid+"/"+pid;
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().put(url, newReview);
 		return true;

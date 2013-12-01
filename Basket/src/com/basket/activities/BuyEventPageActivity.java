@@ -170,6 +170,8 @@ public class BuyEventPageActivity extends FragmentActivity {
 			{
 				Intent reviewProduct = new Intent(BuyEventPageActivity.this, ReviewActivity.class);
 				reviewProduct.putExtra("id", currentEvent.getId());
+				reviewProduct.putExtra("bid", false);
+				reviewProduct.putExtra("pro", currentEvent.getProduct().getProductPId());
 				startActivityForResult(reviewProduct,0);
 				
 			}

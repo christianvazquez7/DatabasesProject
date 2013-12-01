@@ -120,7 +120,7 @@ public class BasketActivity extends FragmentActivity {
 					{
 						spiceManager.start(BasketActivity.this);	
 					}
-					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket);
+					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket,BasketSession.getUser().getUsername());
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
 				}
 			});

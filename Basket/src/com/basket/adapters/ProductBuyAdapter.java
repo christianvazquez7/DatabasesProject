@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
+import com.basket.restrequest.QUpdateBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -61,7 +62,7 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 				if (!spiceManager.isStarted()){
 					spiceManager.start(context);
 					content.get(pos2).setitem_quantity(content.get(pos2).getitem_quantity()+1);
-					UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+					QUpdateBasketRequest JsonSpringAndroidRequest = new QUpdateBasketRequest(inBasket,inBasket.getId(),content.get(pos2).getitem_quantity(),content.get(pos2).getId());
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 					ProductBuyAdapter.this.notifyDataSetChanged();
 				}
@@ -76,8 +77,9 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 				if(content.get(pos2).getitem_quantity()-1 <= 0 ){
 					if (!spiceManager.isStarted()){
 						spiceManager.start(context);
+						QUpdateBasketRequest JsonSpringAndroidRequest = new QUpdateBasketRequest(inBasket,inBasket.getId(),content.get(pos2).getitem_quantity()-1,content.get(pos2).getId());
+
 						ProductBuyAdapter.this.content.remove(pos2);
-						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
 						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 						ProductBuyAdapter.this.notifyDataSetChanged();
 					}
@@ -86,7 +88,7 @@ public class ProductBuyAdapter extends ArrayAdapter<BuyEvent>
 					if (!spiceManager.isStarted()){
 						spiceManager.start(context);
 						content.get(pos2).setitem_quantity(content.get(pos2).getitem_quantity()-1);
-						UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos3,inBasket);
+						QUpdateBasketRequest JsonSpringAndroidRequest = new QUpdateBasketRequest(inBasket,inBasket.getId(),content.get(pos2).getitem_quantity(),content.get(pos2).getId());
 						spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new DeleteBasketListener());
 						ProductBuyAdapter.this.notifyDataSetChanged();
 					}

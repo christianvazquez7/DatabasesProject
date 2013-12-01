@@ -14,6 +14,7 @@ public class RemoveBasketRequest extends SpringAndroidSpiceRequest<Boolean> {
 	{
 		super(Boolean.class);
 		basket=b;
+		
 	
 	
 	}

@@ -23,6 +23,7 @@ import com.basket.fragments.ProductFragment;
 import com.basket.general.BidEvent;
 import com.basket.lists.ReviewListFragment;
 import com.example.basket.R;
+import com.example.basket.ReviewActivity;
 
 public class BidEventPageActivity extends FragmentActivity {
 	private ViewGroup viewGroup;
@@ -156,6 +157,24 @@ public class BidEventPageActivity extends FragmentActivity {
 		this.getActionBar().setDisplayShowTitleEnabled(false);
 		this.getActionBar().setDisplayShowHomeEnabled(false);
 		//Add to basket button
+		
+		
+		View reviewIt = this.findViewById(R.id.reviewIt);
+		reviewIt.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent reviewProduct = new Intent(BidEventPageActivity.this, ReviewActivity.class);
+				reviewProduct.putExtra("id", currentEvent.getId());
+				reviewProduct.putExtra("bid", true);
+				reviewProduct.putExtra("pro", currentEvent.getProduct().getProductPId());
+
+				startActivityForResult(reviewProduct,0);
+				
+			}
+			
+		});
 		
 
 	}

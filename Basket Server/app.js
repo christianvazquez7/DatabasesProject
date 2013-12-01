@@ -308,7 +308,7 @@ app.get('/Basket.js/GetBidReviews/:id',function(req,res)
 	{
 		console.log(req.params.id);
 		var defered = Q.defer();
-		var userquery='select * from Product_Reviews natural join reviews_bid_event   join Bid_Events on productReviewedId=Bid_Events.bidEventId join Users on Product_Reviews.userId=Users.userId where reviews_bid_event.bidEventId='+connection.escape(req.params.id);
+		var userquery='select distinct * from Product_Reviews natural join reviews_bid_event   join Bid_Events on reviews_bid_event.bidEventId=Bid_Events.bidEventId join Users on Product_Reviews.userId=Users.userId where reviews_bid_event.bidEventId='+connection.escape(req.params.id);
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -490,6 +490,124 @@ app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
 	}
 	
 });
+
+
+app.put('/Basket.js/QUpdateBasket/:bid/:q/:eid',function(req,res){
+	console.log(req.params.eid);
+	console.log(req.params.bid);
+	console.log(req.params.q);
+
+
+	var trans = connection.startTransaction();
+	if(req.params.q<=0)
+	{
+		trans.query('delete from in_buy_basket where buyEventId='+connection.escape(req.params.eid)+' and basketId='+
+				connection.escape(req.params.bid),function(err,info){
+			
+			if(err)
+				trans.rollback();
+			else{
+				trans.commit();
+				res.json(true);
+			}
+			
+		});
+	}else
+		trans.query('update in_buy_basket set item_quantity='+req.params.q+ ' where buyEventId='+connection.escape(req.params.eid)+' and basketId='+
+				connection.escape(req.params.bid),function(err,info){
+					
+					if(err)
+						trans.rollback();
+					else{
+						trans.commit();
+						res.json(true);
+					}
+				
+
+});
+	
+	trans.execute();
+});
+
+
+app.put('/Basket.js/addReview/:id/:username/:isBid/:pid',function(req,res)
+		{
+
+	function getRater() 
+	{
+		console.log(req.params.id);
+		var defered = Q.defer();
+		var userquery='select userId from users where username='+connection.escape(req.params.username);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	function getPid() 
+	{
+		console.log(req.params.id);
+		var defered = Q.defer();
+		var userquery='select productId from products where sellerPId='+connection.escape(req.params.pid);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([getRater(),getPid()]).then(function(rest)
+			{
+
+		var trans = connection.startTransaction();
+		trans.query('insert into product_reviews (title,rrating,content,userId,productReviewedId) values ('+
+				connection.escape(req.body.title)+','+connection.escape(req.body.rrating)+','+connection.escape(req.body.content)+','+
+				connection.escape(rest[0][0][0].userId)+','+connection.escape(rest[1][0][0].productId)+')',function(err,info){
+					
+					if (err)
+						{
+						trans.rollback();
+						console.log('error in insert');
+						}
+					else{
+						console.log('trying update');
+						if (req.params.isBid)
+						{
+						trans.query('insert into reviews_bid_event (productReviewedId,bidEventId) values ('+connection.escape(rest[1][0][0].productId)+',' + connection.escape(req.params.id)+')',
+								function(err,info){
+							if(err){
+								console.log('error in update');
+								trans.rollback();
+							}
+							else{
+								trans.commit();
+								res.json(true);
+								}
+						});
+						}
+						else
+						{
+							trans.query('insert into reviews_buy_event (productReviewId,buyEventId) values ('+connection.escape(rest[1][0][0].productId)+',' + connection.escape(req.params.id)+')',
+									function(err,info){
+								if(err){
+									console.log('error in update');
+									trans.rollback();
+								}
+								else{
+									trans.commit();
+									res.json(true);
+									}
+								
+							});
+						}
+						
+						
+					}
+
+
+
+			});
+		
+			trans.execute();
+			});
+	
+		});
+
+
+
 //Add a bid aquiiii!!
 app.put('/Basket.js/addBid/:id',function(req,res){
 	
@@ -875,21 +993,69 @@ app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
 
 	res.json(true);
 });
-//Create a basket
-app.post('/Basket.js/NewBasket', function(req,res)
+//Create a basketWW
+app.post('/Basket.js/NewBasket/:username', function(req,res)
 {
-	var u =users["lukesionkira@hotmail.com"];
-	u.baskets.push(req.body);
-	res.json(true);
+	console.log("found it!!!!");
+	function getUser() 
+	{
+		var defered = Q.defer();
+		var query='select userId from users where username='+connection.escape(req.params.username);
+		connection.query(query, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	
+	Q.all([getUser()]).then(function(rest)
+	{
+		
+		var trans = connection.startTransaction();
+		
+		trans.query('insert into baskets (userId,bname) values('+connection.escape(rest[0][0][0].userId)+','+connection.escape(req.body.bname)+')',function(err,info){
+			console.log(rest[0][0][0].userId);
+			console.log(req.body.bname);
+			if (err)
+				{
+				trans.rollback();
+				console.log('error in insert');
+				}
+			else{
+				console.log('successfull!!');
+				trans.commit();
+				res.json(true);
+				}
+				
+		
+	});
+	trans.execute();	
+});
 });
 //Remove a basket
 app.post('/Basket.js/RemoveBasket', function(req,res)
 {
-	console.log("Here");
-	var u =users["lukesionkira@hotmail.com"];
-	var index = u.baskets.indexOf(req.body);
-	u.baskets.splice(index, 1);
-	res.json(true);
+	console.log(req.body);
+	var trans = connection.startTransaction();
+	
+
+	function error(err) {
+	    if(err && trans.rollback) {trans.rollback(); throw err;}
+
+	}
+	
+	function error2(err) {
+	    if(err && trans.rollback) {trans.rollback(); throw err;}
+	    else{
+	    	trans.commit();
+	    	res.json(true);
+			}
+	}
+	
+	trans.query("delete from in_buy_basket where basketId="+connection.escape(req.body.id), error);
+	trans.query("delete from baskets where basketId="+connection.escape(req.body.id), error2);
+
+
+	
+	trans.execute();
+	
 });
 //Create a sell bid event
 app.post('/Basket.js/NewBidSell', function(req,res)
@@ -1638,6 +1804,14 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		connection.query(userquery, defered.makeNodeResolver());
 		 return defered.promise;
 	};
+	function getEmptyBaskets (id) 
+	{
+		
+		var defered = Q.defer();
+		var userquery= 'SELECT * FROM Baskets where Baskets.basketId not in (select a.basketId from Baskets as a natural join in_buy_basket natural join Buy_Events) and  Baskets.basketId not in (select b.basketId from Baskets as b natural join in_bid_basket) and userId='+connection.escape(id);
+		connection.query(userquery, defered.makeNodeResolver());
+		 return defered.promise;
+	};
 	function getSoldBy (id)
 	{
 		var defered = Q.defer();
@@ -1700,7 +1874,7 @@ getUserInfo(function(err, result){
 		
 		
 		
-		Q.all([getShipping(dd),getBilling(dd),getOrders(dd),getCurrentlyBiddingOn(dd),getCreditCards(dd),getSoldByBid(dd),getSoldBy(dd),getUserBaskets(dd),getOrdersBid(dd)]).then(function(rest){
+		Q.all([getShipping(dd),getBilling(dd),getOrders(dd),getCurrentlyBiddingOn(dd),getCreditCards(dd),getSoldByBid(dd),getSoldBy(dd),getUserBaskets(dd),getOrdersBid(dd),getEmptyBaskets(dd)]).then(function(rest){
 	     //console.log(rest[0][0][0]);
 	     
 	     //get the shipping Address in shipping
@@ -1774,7 +1948,6 @@ getUserInfo(function(err, result){
 
 		    }
 		    
-		    console.log(OrderList);
 		   
 		   
 		   //bidding on in BidEvents
@@ -1826,6 +1999,7 @@ getUserInfo(function(err, result){
 		   var BasketList = new Array();
 		    var Events= new Array();
 		    var EventsPerBasket={};
+		    var idPerBasket={};
 		    if(rest[7][0].length>0)	//no baskets at all
 		    var currId=rest[7][0][0].basketId;
 		    for(var i=0;i<rest[7][0].length;i++)
@@ -1837,27 +2011,38 @@ getUserInfo(function(err, result){
 		    			if (currId != rest[7][0][i].basketId)
 		    			{
 				    	EventsPerBasket[rest[7][0][i-1].bname]=Events; //must address multiple name existance?
+				    	idPerBasket[rest[7][0][i-1].bname]=rest[7][0][i-1].basketId;
 				    	Events= new Array();
 		    			}
-				    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1,rest[7][0][i].dimensions),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].basketId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle,rest[7][0][i].pic,rest[7][0][i].item_quantity)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+				    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1,rest[7][0][i].dimensions),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].buyEventId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle,rest[7][0][i].pic,rest[7][0][i].item_quantity)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		    			EventsPerBasket[rest[7][0][i].bname]=Events; 
+				    	idPerBasket[rest[7][0][i].bname]=rest[7][0][i].basketId;
+
 		    		}
 		    		else
 		    		{
 		    		EventsPerBasket[rest[7][0][i-1].bname]=Events; //must address multiple name existance?
+			    	idPerBasket[rest[7][0][i-1].bname]=rest[7][0][i-1].basketId;
+
 		    		}
 		    		
 		    		Events= new Array();
 		    	}
-		    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1,rest[7][0][i].dimensions),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].basketId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle,rest[7][0][i].pic,rest[7][0][i].item_quantity)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+		    	Events.push(new BuyEvent(new product(rest[7][0][i].pname,rest[7][0][i].sellerPId,rest[7][0][i].mname,1,1,1,rest[7][0][i].dimensions),rest[7][0][i].price,rest[7][0][i].sellingTime,false,rest[7][0][i].features,rest[7][0][i].description,rest[7][0][i].buyEventId,rest[7][0][i].username,rest[7][0][i].rating,rest[7][0][i].btitle,rest[7][0][i].pic,rest[7][0][i].item_quantity)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 		    	currId=rest[7][0][i].basketId;
 		    }
+		    
+		    
 		    
 		   
 //		   var keys = Object.keys(EventsPerBasket);
 		   for (var key in EventsPerBasket)
 		   {
-			   BasketList.push(new Basket(key,EventsPerBasket[key],null));
+			   BasketList.push(new Basket(key,EventsPerBasket[key],null,idPerBasket[key]));
+		   }
+		   var empty = new Array();
+		   for(var i=0;i<rest[9][0].length;i++){
+			   BasketList.push(new Basket(rest[9][0][i].bname,empty,null,rest[9][0][i].basketId));  //add empty baskets separately
 		   }
 		   
 		   var response={
@@ -1879,8 +2064,8 @@ getUserInfo(function(err, result){
 		   
 		   
 		   
-		   
-	     
+	     for (var i=0;i<BasketList.length;i++)
+	    	 console.log(BasketList[i]);
 	     res.json(response);
 	    });
 	

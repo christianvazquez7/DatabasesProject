@@ -59,7 +59,7 @@ public class BasketListFragment extends android.app.ListFragment
 			defaultPB.setName("Default");
 			if(!spiceManager.isStarted())
 				spiceManager.start(getActivity());					
-			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB);
+			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB,BasketSession.getUser().getUsername());
 			BasketSession.getUser().getBaskets().add(defaultPB);
 			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
 

@@ -13,6 +13,22 @@ public class ProductBasket
 				+ ", bidEvents=" + bidEvents + "]";
 	}
 	public String bname;
+	public int id;
+	public String getBname() {
+		return bname;
+	}
+
+	public void setBname(String bname) {
+		this.bname = bname;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	public ArrayList<BuyEvent> buyEvents;
 	public ArrayList<BidEvent> bidEvents;
 	

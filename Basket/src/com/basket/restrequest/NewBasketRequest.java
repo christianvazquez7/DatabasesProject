@@ -10,20 +10,20 @@ public class NewBasketRequest extends SpringAndroidSpiceRequest<Boolean> {
 	
 	
 	private ProductBasket basket;
-	public NewBasketRequest(ProductBasket b) 
+	private String username;
+	public NewBasketRequest(ProductBasket b,String username) 
 	{
 		super(Boolean.class);
 		basket=b;
+		this.username=username;
 	
 	
 	}
 
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception 
-	{
-		
-		String url = BasketConstants.externalIp+"/Basket.js/NewBasket";
-		
+	{	
+		String url = BasketConstants.externalIp+"/Basket.js/NewBasket/"+username;	
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().postForObject(url,basket,Boolean.class);
 		return true;
