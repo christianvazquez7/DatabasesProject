@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,22 +15,34 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TabHost;
+import android.widget.Toast;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 
 import com.basket.containers.BasketSession;
 import com.basket.fragments.ProductDetailFragment;
 import com.basket.fragments.ProductFragment;
 import com.basket.general.BuyEvent;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.lists.ReviewListFragment;
 import com.example.basket.R;
 import com.example.basket.ReviewActivity;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
 //import com.basket.fragments.HarvestFragment;
 //import com.example.basket.R.anim;
 //import com.example.basket.R.id;
 //import com.example.basket.R.layout;
 //import com.example.basket.R.menu;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class BuyEventPageActivity extends FragmentActivity {
+	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
 	private ViewGroup viewGroup;
 	private BuyEvent currentEvent;
@@ -177,8 +190,59 @@ public class BuyEventPageActivity extends FragmentActivity {
 			}
 			
 		});
+		
+		RatingBar rating = (RatingBar) this.findViewById(R.id.ratingbar);
+		rating.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+
+	      
+	        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) 
+	        {
+	          if(fromUser && !spiceManager.isStarted())
+	          {
+	        	  spiceManager.start(BuyEventPageActivity.this);
+	        	  RateUserRequest rateU = new RateUserRequest(BasketSession.getUser(),BasketSession.getUser().getUsername(),currentEvent.getCreator(),rating);
+				spiceManager.execute(rateU, "", DurationInMillis.ALWAYS_EXPIRED, new RateUserRequestListener());
+
+	          
+	          }
+	        }
+	    });
+		
 
 	}
+	private class RateUserRequestListener implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(BuyEventPageActivity.this, "Bid Failed", Toast.LENGTH_SHORT).show();
+				spiceManager.shouldStop();
+			}
+			Toast.makeText(BuyEventPageActivity.this, "Bid Failed", Toast.LENGTH_SHORT).show();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+		
+
+
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bool) 
+		{
+			spiceManager.shouldStop();
+			Toast.makeText(BuyEventPageActivity.this, "Rating Posted", Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

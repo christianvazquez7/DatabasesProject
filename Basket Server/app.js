@@ -271,7 +271,7 @@ app.get('/Basket.js/GetRecommendations/:userName',function(req,res)
 	
 });
 
-
+//WORK!!
 app.get('/Basket.js/GetBuyReviews/:id',function(req,res)
 {
 	
@@ -396,7 +396,7 @@ app.get('/Basket.js/GetRatings/:id',function(req,res)
 	{
 		console.log(req.params.id);
 		var defered = Q.defer();
-		var userquery='select User_Reviews.rating,c.username from Users join User_Reviews on userReviewedId=Users.userID join Users as c on c.userId=userReviewId where Users.username='+ connection.escape(req.params.id);
+		var userquery='select User_Reviews.rating,c.username from Users join User_Reviews on userReviewedId=Users.userID join Users as c on c.userId=User_reviews.userId where Users.username='+ connection.escape(req.params.id);
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -476,18 +476,53 @@ app.put('/Basket.js/UpdateUser/',function(req,res){
 	res.json(true);
 });
 //Update a basket
-app.put('/Basket.js/UpdateBasket/:pos',function(req,res){
-	console.log("Updating basket");
-	var u =users["lukesionkira@hotmail.com"];
-	console.log(u.baskets[req.params.pos]);
-	if(u.baskets[req.params.pos]==undefined){
-		res.json(false);
-	}
-	else{
-	u.baskets[req.params.pos].buyEvents=req.body.buyEvents;
-	console.log(req.body.buyEvents);
-	res.json(true);
-	}
+app.put('/Basket.js/UpdateBasket/:bid/:eid',function(req,res)
+{
+	function getRater() 
+	{
+		console.log(req.params.id);
+		var defered = Q.defer();
+		var userquery='select item_quantity  from in_buy_basket where basketId='+connection.escape(req.params.bid)+' and buyEventId='+connection.escape(req.params.eid);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	
+	Q.all([getRater()]).then(function(rest)
+			{
+				var trans= connection.startTransaction();
+				if (rest[0][0].length>0 && rest[0][0][0].item_quantity>0)
+				{
+					trans.query('update in_buy_basket set item_quantity='+connection.escape(rest[0][0][0].item_quantity +1)+' where basketId='+connection.escape(req.params.bid)+' and buyEventId='+connection.escape(req.params.eid),
+							function(err,info)
+					{
+						if(err)
+							trans.rollback();
+						else
+						{
+							trans.commit();
+							res.json(true);
+						}
+							
+					});
+				}
+				else
+				{
+					trans.query('insert into in_buy_basket (basketId,buyEventId,item_quantity) values ('+connection.escape(req.params.bid)+
+							','+connection.escape(req.params.eid)+',1)', function(err,info){
+						
+						if (err)
+							trans.rollback();
+						else
+							{
+							trans.commit();
+							res.json(true);
+							}
+					});
+				}
+				trans.execute();
+				
+			});
+			
 	
 });
 
@@ -563,36 +598,46 @@ app.put('/Basket.js/addReview/:id/:username/:isBid/:pid',function(req,res)
 						console.log('error in insert');
 						}
 					else{
-						console.log('trying update');
-						if (req.params.isBid)
-						{
-						trans.query('insert into reviews_bid_event (productReviewedId,bidEventId) values ('+connection.escape(rest[1][0][0].productId)+',' + connection.escape(req.params.id)+')',
-								function(err,info){
-							if(err){
-								console.log('error in update');
-								trans.rollback();
-							}
-							else{
-								trans.commit();
-								res.json(true);
-								}
-						});
-						}
-						else
-						{
-							trans.query('insert into reviews_buy_event (productReviewId,buyEventId) values ('+connection.escape(rest[1][0][0].productId)+',' + connection.escape(req.params.id)+')',
-									function(err,info){
-								if(err){
-									console.log('error in update');
-									trans.rollback();
-								}
-								else{
-									trans.commit();
-									res.json(true);
+						trans.query('select productReviewId from product_reviews where userId='+connection.escape(rest[0][0][0].userId)+' and title='+connection.escape(req.body.title),
+						function(err,info2){
+							if(err)trans.rollback();
+							else
+							{
+								console.log('trying update');
+								if (req.params.isBid=="true")
+								{
+								trans.query('insert into reviews_bid_event (productReviewId,bidEventId) values ('+connection.escape(info2[0].productReviewId)+',' + connection.escape(req.params.id)+')',
+										function(err,info){
+									if(err){
+										console.log('error in update');
+										trans.rollback();
 									}
+									else{
+										trans.commit();
+										res.json(true);
+										}
+								});
+								}
+								else
+								{
+									trans.query('insert into reviews_buy_event (productReviewId,buyEventId) values ('+connection.escape(info2[0].productReviewId)+',' + connection.escape(req.params.id)+')',
+											function(err,info){
+										if(err){
+											console.log('error in update');
+											trans.rollback();
+										}
+										else{
+											trans.commit();
+											res.json(true);
+											}
+										
+									});
+								}
 								
-							});
-						}
+								
+							}
+						});
+						
 						
 						
 					}
@@ -1029,6 +1074,75 @@ app.post('/Basket.js/NewBasket/:username', function(req,res)
 	trans.execute();	
 });
 });
+
+//rate user
+app.put('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res)
+		{
+	function getRatingCount() 
+	{
+		var defered = Q.defer();
+		var userquery='select count(*) as total,sum(user_reviews.rating) as result from user_reviews join users on userReviewedId=users.userId where username='
+			+connection.escape(req.params.ratee);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	function getRaterId() 
+	{
+		var defered = Q.defer();
+		var userquery='select userId from users where username='+connection.escape(req.params.rater);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	function getRateeId() 
+	{
+		var defered = Q.defer();
+		var userquery='select userId from users where username='+connection.escape(req.params.ratee);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	Q.all([getRatingCount(),getRaterId(),getRateeId()]).then(function(rest)
+			{
+				var trans= connection.startTransaction();
+				
+				trans.query('insert into user_reviews (rating,userId,userReviewedId) values ('+connection.escape(req.params.rating)+','
+						+connection.escape(rest[1][0][0].userId)+','+connection.escape(rest[2][0][0].userId)+')', function (err,info){
+				
+						if (err)
+							trans.rollback();
+						else
+						{
+							console.log(req.params.rating);
+							console.log(rest[0][0][0].result+req.params.rating);
+							var num=parseFloat(req.params.rating);
+							var newR= parseFloat(rest[0][0][0].result);
+							var t= parseFloat(rest[0][0][0].total);
+							t=t+1;
+							var total = (num+newR)/(t);
+							console.log(total);
+							console.log(rest[0][0][0].total+1);
+							trans.query('update users set rating='+connection.escape(total)+' where userId='+
+									connection.escape(rest[2][0][0].userId),function(err,info)
+							{
+								if(err)
+									trans.rollback();
+								else
+								{
+									trans.commit();
+									res.json(true);
+								}
+							});
+							
+						}
+					
+				});
+				trans.execute();
+			});
+
+
+
+
+
+		});
 //Remove a basket
 app.post('/Basket.js/RemoveBasket', function(req,res)
 {
@@ -1800,7 +1914,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	{
 		
 		var defered = Q.defer();
-		var userquery= 'SELECT * FROM Baskets natural join Users natural join in_buy_basket natural join Buy_Events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy where Users.userId='+connection.escape(id)+' order by basketId';
+		var userquery= 'SELECT * FROM Baskets natural join Users natural join in_buy_basket natural join Buy_Events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy where Users.userId='+connection.escape(id)+' and basketId not in (select basketId as cc from baskets as dd join orders as bb on dd.basketId=bb.withbasketId) order by basketId';
 		connection.query(userquery, defered.makeNodeResolver());
 		 return defered.promise;
 	};

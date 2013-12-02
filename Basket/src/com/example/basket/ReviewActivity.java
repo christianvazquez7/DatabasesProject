@@ -30,6 +30,7 @@ public class ReviewActivity extends Activity {
 	private boolean forBid;
 	private int forEventId;
 	private int withProduct;
+	private Review theReview;
 	
 	
 	@Override
@@ -68,7 +69,7 @@ public class ReviewActivity extends Activity {
 				 newReview.setRrating(rating);
 				 newReview.setTitle(title);
 				 newReview.setUsername(BasketSession.getUser().getUsername());
-				 
+				 theReview=newReview;
 				 AddReviewRequest postReview = new AddReviewRequest(newReview,BasketSession.getUser().getUsername(),forEventId,forBid,withProduct);
 				 spiceManager.execute(postReview,"", DurationInMillis.ALWAYS_EXPIRED, new PReviewListener());
 				}
@@ -100,6 +101,7 @@ public class ReviewActivity extends Activity {
 		{
 			spiceManager.shouldStop();
 			Toast.makeText(ReviewActivity.this, "Review Posted", Toast.LENGTH_SHORT).show();
+			BasketSession.getReviewSearch().add(theReview);
 			finish();
 		}
 

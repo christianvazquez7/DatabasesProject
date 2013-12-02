@@ -137,7 +137,8 @@ public class BasketActivity extends FragmentActivity {
 			if(!spiceManager.isStarted()){
 			if(BasketSession.getUser().getBaskets().size()>0){
 				currentItem = pager.getCurrentItem();
-				
+				mTabsAdapter.removeTab();
+				pager.removeView(pager.getChildAt(currentItem));
 				temp = 	BasketSession.getUser().getBaskets().get(currentItem);
 				BasketSession.getUser().getBaskets().remove(currentItem);				
 				pager.getAdapter().notifyDataSetChanged();

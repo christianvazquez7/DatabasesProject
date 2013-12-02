@@ -11,6 +11,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
 import android.support.v4.app.FragmentActivity;
 
@@ -19,7 +20,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.ViewGroup;
 
-public class TabsAdapter extends FragmentPagerAdapter implements TabListener, OnPageChangeListener{
+public class TabsAdapter extends FragmentStatePagerAdapter implements TabListener, OnPageChangeListener{
 	private final Context mContext;
 	private final ActionBar mActionBar;
 	private final ViewPager mViewPager;
@@ -57,9 +58,10 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabListener, On
 		notifyDataSetChanged();
 		
 	}
-	public void removeTab(ActionBar.Tab tab) {
-	    mTabs.remove(tab.getTag());
-	    mActionBar.removeTab(tab);
+	public void removeTab() {
+	
+	    mTabs.remove(mActionBar.getSelectedTab().getTag());
+	    mActionBar.removeTab(mActionBar.getSelectedTab());
 	    notifyDataSetChanged();
 	}
 
