@@ -39,10 +39,8 @@ public class EditUserActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_profile);
-		
 		user = this.getIntent().getIntExtra("selectedUser", 0);
 		theUser = BasketSession.getUser();
-		
 		buffPass = theUser.getPassword();
 		buffEmail = theUser.getEmail();
 		buffUser = theUser.getUsername();

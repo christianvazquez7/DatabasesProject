@@ -384,7 +384,7 @@ app.get('/Basket.js/GetDeals',function(req,res)
 		};
 		console.log(response);
 		res.json(response);
-			});
+	});
 });
 
 //get uRatings
@@ -439,6 +439,7 @@ function getUserId (req , callback)
 app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 	console.log("Editing user");
 	getUserId(req,function(err, result){
+
 		var userId = result[0].userId;
 		editUser(userId,req,function(err,result){
 			console.log("Success");
@@ -756,6 +757,108 @@ app.post('/Basket.js/createAdmin/:id', function(req,res)
 	});
 });
 
+function updateCreditCard (cardId, req , callback) 
+{
+	console.log(req);
+	// console.log(callback);
+	// var defered = Q.defer();
+	var userquery='UPDATE `myfirstsql`.`credit_cards` SET `cardNum` = \''+req.cardNum+'\', secCode = \''+req.secCode+'\', expMonth = \''+req.expMonth+'\', expYear = \''+req.expYear+'\', name = \''+req.name+'\' WHERE `credit_cards`.`cardId` = \''+cardId+'\';';
+
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+function updateBilling (billId, req , callback) 
+{
+	console.log(req);
+	// console.log(callback);
+	// var defered = Q.defer();
+	var userquery='UPDATE `myfirstsql`.`address` SET `line1` = \''+req.line1+'\', line2 = \''+req.line2+'\', city = \''+req.city+'\', country = \''+req.country+'\', zipCode = \''+req.zipCode+'\', state = \''+req.state+'\' WHERE `address`.`AddressId` = \''+billId+'\';';
+
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+function getCreditCardIdandBillId (uid,card, callback) 
+{
+	console.log(card);
+	// console.log(callback);
+	// var defered = Q.defer();
+	var userquery='SELECT cardId, BillingId from credit_cards where cardNum = \"'+card.cardNum+'\" and secCode = \"'+card.secCode+'\" and expMonth = \"'+card.expMonth+'\" and expYear=\"'+card.expYear+'\" and userId=\"'+uid+'\"';
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+  		if (err) throw err;
+  		callback(err, response);
+	});
+};
+app.post('/Basket.js/updateCreditCard/:email/:uname', function(req,res)
+{
+	var bod = 
+	{
+		"username":req.params.uname,
+		"email":req.params.email
+	};
+	var user = {
+		"body": bod
+	};			
+	console.log("User");
+	console.log(user);
+	console.log("Body");
+	console.log(req.body);
+	getUserId(user,function(err,result)
+	{
+		console.log(result);
+		var userId = result[0].userId;
+		console.log(userId);
+
+		getCreditCardIdandBillId(userId, req.body[1],function(err,response)
+		{
+			console.log(response);
+			var billId = response[0].BillingId;
+			updateCreditCard(response[0].cardId,req.body[0],function(err,respnse)
+			{
+				console.log("Updating card");
+
+				updateAddress(billId,req.body[1].billing,function(err,respon){
+					console.log("Updated succesfully");
+					res.json(true);
+				});
+			});
+		});
+	});	
+});
+app.post('/Basket.js/createCreditCard/', function(req,res)
+{
+	getUserId()
+	insertBillAddress()
+	insertCreditCards(userId, billId, req,callback)
+});
+function updateAddress (billId, newAddress , callback) 
+{
+	console.log(billId);
+	console.log(newAddress);
+	// console.log(callback);
+	// var defered = Q.defer();
+	// var userquery='INSERT INTO `myfirstsql`.`admins` (`adminId`, `username`, `firstName`, `lastName`, `password`, `email`, `age`) \
+	// VALUES (NULL, \''+req.body.username+'\', \''+req.body.firstName+'\', \''+req.body.lastName+'\', \''+req.body.password+'\', \''+req.body.email+'\', \''+req.body.age+'\');';
+	// console.log(userquery);
+	// connection.query(userquery, function(err, response) {
+ //  		if (err) throw err;
+ //  		callback(err, response);
+	// });
+};
+
+app.post('/Basket.js/updateAddress/:id', function(req,res)
+{
+	insertAdmin(req,function(err,result){
+		console.log("Success inserting admin");
+		res.json("true");
+	});
+});
 // app.post('/Basket.js/create/:id', function(req,res)
 // {
 // 	console.log(req.body);
@@ -1578,7 +1681,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		connection.query(userquery, function(err, response) {
 			  if (err) throw err;
 			  callback(err, response);
-			});
+		});
 	};
 	function getUserBaskets (id) 
 	{
@@ -1641,7 +1744,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		 return defered.promise;
 	};
 	
-getUserInfo(function(err, result){
+	getUserInfo(function(err, result){
 	    if (result.length ==0) {
 	    	res.statusCode=404;
 	    	res.send("Wrong");

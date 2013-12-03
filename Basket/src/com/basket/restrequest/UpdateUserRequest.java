@@ -18,5 +18,4 @@ public class UpdateUserRequest extends SpringAndroidSpiceRequest<Boolean> {
 		getRestTemplate().put(url, newU);
 		return true;
 	}
-
 }
