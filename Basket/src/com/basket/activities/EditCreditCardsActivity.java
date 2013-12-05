@@ -32,7 +32,7 @@ public class EditCreditCardsActivity extends FragmentActivity {
 	private Button mCCAddButton;
 	private User theUser;
 	private ArrayList<CreditCard> creditCards;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,39 +69,9 @@ public class EditCreditCardsActivity extends FragmentActivity {
 		super.onResume();
 		if(cclist != null){
 			((ArrayAdapter<CreditCard>)cclist.getListAdapter()).notifyDataSetChanged();
-//			if(!spiceManager.isStarted()){
-//				spiceManager.start(EditCreditCardsActivity.this);
-//				UpdateUserRequest JsonSpringAndroidRequest = new UpdateUserRequest(theUser);
-//				spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
-//			}
 		}
 
 	}
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
-	private class UserEditListener implements RequestListener<Boolean>, RequestProgressListener {
-		@Override
-		public void onRequestFailure(SpiceException arg0) {
-
-			Log.d("error",arg0.getMessage());
-			if (!(arg0 instanceof RequestCancelledException)) {
-				Toast.makeText(EditCreditCardsActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
-			}
-			if(spiceManager.isStarted())
-				spiceManager.shouldStop();
-		}
-
-		@Override
-		public void onRequestSuccess(Boolean edit) {
-			if(spiceManager.isStarted())
-				spiceManager.shouldStop();
-			//Toast.makeText(EditCreditCardsActivity.this, "Successfully updated credit cards", Toast.LENGTH_SHORT).show();
-
-		}
-
-		@Override
-		public void onRequestProgressUpdate(RequestProgress arg0) 
-		{
-
-		}
-	}
+	
 }

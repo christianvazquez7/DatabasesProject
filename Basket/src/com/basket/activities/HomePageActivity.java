@@ -2,6 +2,7 @@ package com.basket.activities;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.Activity;
@@ -28,6 +29,7 @@ import android.widget.ViewFlipper;
 
 import com.basket.containers.BasketSession;
 import com.basket.containers.Deal;
+import com.basket.containers.EventList;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ReviewList;
@@ -54,7 +56,7 @@ public class HomePageActivity extends Activity {
 	public static final String PROPERTY_REG_ID = "registration_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-	
+
 	/**
 	 * Substitute you own sender ID here. This is the project number you got
 	 * from the API Console, as described in "Getting Started."
@@ -68,6 +70,7 @@ public class HomePageActivity extends Activity {
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
 	////////////////////////////////////////////////////////////////////////////
+	private static final String JSON_CACHE_KEY = "tweets_json";
 
 	private SlidingMenu slidingMenu;
 
@@ -121,13 +124,13 @@ public class HomePageActivity extends Activity {
 		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
 		mVFlipper2 = (ViewFlipper) findViewById(R.id.vfRecom);
 		for(i =0; i<BasketSession.getDeals().size();i++)
-//		for (Deal d : BasketSession.getDeals())
+			//		for (Deal d : BasketSession.getDeals())
 		{
 			Deal d = BasketSession.getDeals().get(i);
 			View a = inf.inflate(R.layout.blank, null);
 			TextView t = (TextView) a.findViewById(R.id.deal_name);
 			t.setText(d.getTitle());
-			
+
 			Bitmap bm=null;
 			if(((BuyEvent)d.getEve()).getPic()!=null)
 				bm = BitmapFactory.decodeByteArray(((BuyEvent)d.getEve()).getPic(), 0 ,((BuyEvent)d.getEve()).getPic().length);
@@ -257,6 +260,9 @@ public class HomePageActivity extends Activity {
 		super.onResume();
 		// Check device for Play Services APK. Se deberia hacer pero enfogona....
 		//checkPlayServices();
+		GetRecommendationsRequest recommendations = new GetRecommendationsRequest(BasketSession.getUser());
+		spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
+
 	}
 	/**
 	 * Check the device to make sure it has the Google Play Services APK. If
@@ -464,6 +470,67 @@ public class HomePageActivity extends Activity {
 
 
 	}
+	private class GetRecommendationsListner implements RequestListener<EventList>, RequestProgressListener {
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+				Toast.makeText(HomePageActivity.this, "Could not get recommendations", Toast.LENGTH_SHORT).show();
+			}
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+		}
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
 
+		}
+		@Override
+		public void onRequestSuccess(EventList arg0) {
+			Log.d("PROGRESS", "Getting recomendations");
+			BasketSession.setRecommendations((ArrayList<BuyEvent>) arg0.getBuyEvents());
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			LayoutInflater inf = LayoutInflater.from(getApplicationContext());
+
+			for(int i = 0;i<BasketSession.getRecommendations().size();i++){
+				BuyEvent e = BasketSession.getRecommendations().get(i);
+				pos = i;
+				View a = inf.inflate(R.layout.blank, null);
+				TextView t = (TextView) a.findViewById(R.id.deal_name);
+				t.setText(e.getTitle());
+				buyevent = e;
+				byte[] K = e.getPic();
+				Bitmap bm=null;
+				if(e.getPic()!=null)
+					bm = BitmapFactory.decodeByteArray(e.getPic(), 0 ,e.getPic().length);
+
+				ImageView pic =(ImageView)a.findViewById(R.id.dpic);
+				pic.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						if (!spiceManager.isStarted())
+						{
+							productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
+							productPage.putExtra("selectedEvent",pos);
+							spiceManager.start(HomePageActivity.this);
+							GetReviewsRequest a;
+							a = new GetReviewsRequest(buyevent.getId(),1);
+							spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
+						}
+					}
+				});
+				if(pic!=null){
+					if(K.length ==0){
+						pic.setImageResource(R.drawable.ic_launcher);
+					}
+					else
+						pic.setImageBitmap(bm);
+				}
+				mVFlipper2.addView(a);
+			}
+		}
+	}
 }
 

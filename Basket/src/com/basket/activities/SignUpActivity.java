@@ -189,7 +189,7 @@ public class SignUpActivity extends Activity {
 				spiceManager.shouldStop();
 			if(CreatedUser){
 				Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
-//				SignUpActivity.this.finish();
+				SignUpActivity.this.finish();
 			}
 			else
 			{

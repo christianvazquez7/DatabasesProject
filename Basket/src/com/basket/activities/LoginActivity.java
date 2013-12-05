@@ -35,11 +35,12 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 public class LoginActivity extends Activity {
 	private TextView mCreateAccountTextView, mForgotAccountTextView;
 	private Button mLoginButton;
-	private static final String JSON_CACHE_KEY = "tweets_json";
 	private static final int SIZE_OF_BUFFER_TO_SIMULATE_OUT_OF_MEMORY = 1000000;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	private GetCategoriesRequest JsonSpringAndroidRequest;
 	private UserRequest uReq;
+	private static final String JSON_CACHE_KEY = "tweets_json";
+
 	private AdminRequest adminRequest;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

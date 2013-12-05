@@ -14,6 +14,7 @@ import com.basket.general.Adress;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.CreditCard;
 import com.basket.general.User;
+import com.basket.restrequest.InsertCreditCardRequest;
 import com.basket.restrequest.UpdateCreditCardRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -34,7 +35,7 @@ public class EditSingleCCActivity extends Activity {
 	mCCName, mCCNumber, mCCExpMonth, mCCExpYear, mCCSecCode;
 
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -115,10 +116,14 @@ public class EditSingleCCActivity extends Activity {
 						}
 					}
 					else{
-						
+						if(!spiceManager.isStarted()){
+							spiceManager.start(EditSingleCCActivity.this);
+							InsertCreditCardRequest updateReq = new InsertCreditCardRequest(theCreditCard, theUser);
+							spiceManager.execute(updateReq, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new InsertCreditCardListner());
+						}
 					}
 					//Toast.makeText(EditSingleCCActivity.this, "Added credit card", Toast.LENGTH_SHORT).show();
-					
+
 				}
 				catch(NumberFormatException e){
 					Toast.makeText(EditSingleCCActivity.this, "Problem with seccode or exp month or exp year or cardnum", Toast.LENGTH_SHORT).show();;
@@ -142,7 +147,7 @@ public class EditSingleCCActivity extends Activity {
 
 
 	}
-	
+
 	@Override
 	public void onBackPressed(){
 		if(EditSingleCCActivity.this.getIntent().getBooleanExtra("createdNewCard", false)){
@@ -155,13 +160,17 @@ public class EditSingleCCActivity extends Activity {
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
 			Toast.makeText(EditSingleCCActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 		}
 
 		@Override
 		public void onRequestSuccess(Boolean edit) {
-			spiceManager.shouldStop();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
 			theUser.getCreditCards().set(selectedCreditCard, theCreditCard);
+			Toast.makeText(EditSingleCCActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+
 			EditSingleCCActivity.this.finish();
 		}
 
@@ -171,5 +180,29 @@ public class EditSingleCCActivity extends Activity {
 
 		}
 	}
+	private class InsertCreditCardListner implements RequestListener<Boolean>, RequestProgressListener {
 
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+			Toast.makeText(EditSingleCCActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean edit) {
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			theUser.getCreditCards().set(selectedCreditCard, theCreditCard);
+			Toast.makeText(EditSingleCCActivity.this, "Success adding new credit card", Toast.LENGTH_LONG).show();
+
+			EditSingleCCActivity.this.finish();
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+	}
 }
