@@ -256,7 +256,7 @@ app.get('/Basket.js/GetRecommendations/:userName',function(req,res)
 	
 	getrecommendations(req.params.userName, function(err, result){
 		
-		console.log(err || JSON.stringify(result));
+		console.log(err);
 		console.log('Im out!');
 		var results = new Array();
 		for(var i =0;i<result.length;i++){
@@ -378,12 +378,10 @@ app.get('/Basket.js/GetDeals',function(req,res)
 		{
 			 events.push(new Deal(rest[0][0][i].title,new BuyEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].price,rest[0][0][i].sellingTime,false,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].buyEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].btitle,rest[0][0][i].pic,1))); 
 		}
-		console.log(events);
 		var response =
 		{
 			"events": events	
 		};
-		console.log(response);
 		res.json(response);
 			});
 });
@@ -725,7 +723,7 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 	function getBuyEvents () 
 	{
 		var defered = Q.defer();
-		var userquery='select * from Buy_Events natural join Products natural join Manufacturers join Users on userId=soldBy where btitle like "%'+req.params.searchQuery+'%"';
+		var userquery='select * from Buy_Events natural join Products natural join Manufacturers join Users on userId=soldBy where available>0 and btitle like "%'+req.params.searchQuery+'%"';
 		console.log(userquery);
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
@@ -733,7 +731,7 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 	function getBidEvents () 
 	{
 		var defered = Q.defer();
-		var userquery='select Bid_Events.*,Products.*,Manufacturers.*,Users.*,bidTime as time,w.username as wusername,amount from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy left outer join Bids on bidId=winningBid left outer join Users as w on w.userId=Bids.userId where bidTitle like "%'+req.params.searchQuery+'%"';
+		var userquery='select Bid_Events.*,Products.*,Manufacturers.*,Users.*,bidTime as time,w.username as wusername,amount from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy left outer join Bids on bidId=winningBid left outer join Users as w on w.userId=Bids.userId where bidTitle like "%'+req.params.searchQuery+'%" and finished=false';
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -752,9 +750,9 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 		 {
 			 	console.log(rest[1][0][i].amount);
 			 	if(rest[1][0][i].wusername!=null)
-				 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount))); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+				 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount),rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 			 	else
-					 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+					 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null,rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 
 		 }
 		 console.log('sali');
@@ -775,7 +773,7 @@ app.get('/Basket.js/search/:searchQuery/:cat',function(req,res)
 			function getBuyEvents () 
 			{
 				var defered = Q.defer();
-				var userquery='select * from Buy_Events natural join Products natural join Manufacturers join Users on userId=soldBy join Categories on Categories.categoryId=buycategory where btitle like "%'+req.params.searchQuery+'%" and name='+connection.escape(req.params.cat);
+				var userquery='select * from Buy_Events natural join Products natural join Manufacturers join Users on userId=soldBy join Categories on Categories.categoryId=buycategory where available>0 and btitle like "%'+req.params.searchQuery+'%" and name='+connection.escape(req.params.cat);
 				console.log(userquery);
 				connection.query(userquery, defered.makeNodeResolver());
 				return defered.promise;
@@ -783,7 +781,7 @@ app.get('/Basket.js/search/:searchQuery/:cat',function(req,res)
 			function getBidEvents () 
 			{
 				var defered = Q.defer();
-				var userquery='select Categories.*,Bid_Events.*,Products.*,Manufacturers.*,Users.*,bidTime as time,w.username as wusername,amount from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy left outer join Bids on bidId=winningBid left outer join Users as w on w.userId=Bids.userId join Categories on Categories.categoryId=bidcategory where bidTitle like "%'+req.params.searchQuery+'%" and name='+connection.escape(req.params.cat);
+				var userquery='select Categories.*,Bid_Events.*,Products.*,Manufacturers.*,Users.*,bidTime as time,w.username as wusername,amount from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy left outer join Bids on bidId=winningBid left outer join Users as w on w.userId=Bids.userId join Categories on Categories.categoryId=bidcategory where finished=false and bidTitle like "%'+req.params.searchQuery+'%" and name='+connection.escape(req.params.cat);
 				connection.query(userquery, defered.makeNodeResolver());
 				return defered.promise;
 			};
@@ -802,9 +800,9 @@ app.get('/Basket.js/search/:searchQuery/:cat',function(req,res)
 				 {
 					 	console.log(rest[1][0][i].amount);
 					 	if(rest[1][0][i].wusername!=null)
-						 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount))); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+						 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount),rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 					 	else
-							 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+							 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null,rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 
 				 }
 				 console.log('sali');
@@ -821,12 +819,50 @@ app.get('/Basket.js/search/:searchQuery/:cat',function(req,res)
 		});
 
 //Delete bidevent
-app.del('/Basket.js/remBid/:id', function(req,res)
+app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res)
 {
-	console.log("Removing item");
-	var target = req.params.id;
-	users["lukesionkira@hotmail.com"].currentlySellingOnBid.splice(target,1);
-	res.json(true);
+	function getWinner() 
+	{
+		var defered = Q.defer();
+		var userquery='select userId from users where userId='+connection.escape(req.params.winner);
+		console.log(userquery);
+		connection.query(userquery, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	var trans = connection.startTransaction();
+	if (req.params.type==1)
+		trans.query('update bid_events set accepted=true where bidEventId='+connection.escape(req.params.id),function(err,info){
+			console.log('ACCEPTED');
+
+			if(err)
+				trans.rollback();
+			else
+			{
+				trans.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(req.params),function(err,info)
+				{
+					if (err)trans.rollback();
+					else
+					{
+						
+					}
+					
+				});
+//				trans.commit();
+//				res.json(true);
+			}				
+		});
+	else
+		trans.query('update bid_events set declined=true where bidEventId='+connection.escape(req.params.id),function(err,info){
+			console.log('REHECTED');
+			if(err)
+				trans.rollback();
+			else
+			{
+				trans.commit();
+				res.json(true);
+			}				
+		});
+	trans.execute();
 });
 
 //Delete user
@@ -1028,15 +1064,50 @@ app.post('/Basket.js/createAdmin/:id', function(req,res)
 
 
 //Place an order
-app.post('/Basket.js/PlaceOrder/:username/:pos', function(req,res)
+app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
 		{
-	console.log("hind");
-	var us = users["lukesionkira@hotmail.com"];
-	us.userOrders.push(req.body);
+	console.log("Placing an Order!");
+	var trans= connection.startTransaction();
+	for(var i = 0; i < req.body.buyEvents.length; i++){
+		
+		
+		var quan =req.body.buyEvents[i].item_quantity;
+	    trans.query("select available from buy_events where buyEventId="+ connection.escape(req.body.buyEvents[i].id), quan,function(err,info){
+			console.log('checking');
+			console.log(info[0]<this.values);
+	    	if(err && trans.rollback) {trans.rollback(); throw err;}
+		    else if(info[0].available<this.values) {console.log(info[0].available); console.log(this.values); trans.rollback(); throw err;}
+	    });
+		}
+	trans.commit();
 	
-	us.baskets.splice(req.params.pos,1);
+	var transaction = connection.startTransaction();
+	for(var i = 0; i < req.body.buyEvents.length; i++)
+	{
+		var quan =req.body.buyEvents[i].item_quantity;
+	transaction.query('update buy_events set available=available-'+connection.escape(quan)+' where buyEventId='+connection.escape(req.body.buyEvents[i].id),quan,function(err,info){
+		console.log('updating');
+		if(err && trans.rollback) {trans.rollback(); throw err;}	    
+	});
+	}
+	
+		
+	transaction.query('insert into orders (amount,orderTime,userId,bankAccountId,cardId,withbasketId,type,shipTo) values ('+connection.escape(req.params.total)
+			+','+connection.escape(req.params.date)+','+connection.escape(req.params.uId)+','+connection.escape(5)+','+connection.escape(req.params.cId)+
+			','+connection.escape(req.params.basket)+','+connection.escape('buy')+','+connection.escape(req.params.sId)+')',function (err,info){
+		if (err)transaction.rollback();
+		else
+		{
+			console.log('inserted value');
+			transaction.commit();
+			res.json(true);
+		}
+	});
+	transaction.execute();
+	
+	
+	
 
-	res.json(true);
 });
 //Create a basketWW
 app.post('/Basket.js/NewBasket/:username', function(req,res)
@@ -1206,7 +1277,7 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 	function getBidEvents () 
 	{
 		var defered = Q.defer();
-		var userquery='select * from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy where bidTitle like \'%'+connection.escape(req.params.searchQuery)+'%\'';
+		var userquery='select * from Bid_Events natural join Products natural join Manufacturers join Users on userId=soldBy where finished=false and bidTitle like \'%'+connection.escape(req.params.searchQuery)+'%\'';
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -1929,13 +2000,13 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	function getSoldBy (id)
 	{
 		var defered = Q.defer();
-		var userquery= 'SELECT * FROM  Users join Buy_Events on soldBy=userId natural join Products natural join Manufacturers where userId='+connection.escape(id);
+		var userquery= 'SELECT * FROM  Users join Buy_Events on soldBy=userId natural join Products natural join Manufacturers where available>0 and userId='+connection.escape(id);
 		connection.query(userquery, defered.makeNodeResolver());
 		 return defered.promise;
 	};
 	function getSoldByBid (id) {
 		var defered=Q.defer();
-		var userquery= 'SELECT Users.*,Bid_Events.*,Products.*,Manufacturers.*,Bids.*,b.username as winnerName FROM  Users join Bid_Events on soldBy=userId natural join Products natural join Manufacturers left outer join Bids on bidId=winningBid left outer join Users as b on b.userId=Bids.userId where Users.userId='+connection.escape(id);
+		var userquery= 'SELECT Users.*,Bid_Events.*,Products.*,Manufacturers.*,Bids.*,b.username as winnerName FROM  Users join Bid_Events on soldBy=userId natural join Products natural join Manufacturers left outer join Bids on bidId=winningBid left outer join Users as b on b.userId=Bids.userId where accepted=false and declined=false and Users.userId='+connection.escape(id);
 		connection.query(userquery, defered.makeNodeResolver());
 		 return defered.promise;
 	};
@@ -1947,7 +2018,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	};
 	function getCurrentlyBiddingOn (id) {
 		var defered=Q.defer();
-		var userquery= 'select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,w.bidTime as time,w.amount as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where a.userId='+connection.escape(id);
+		var userquery= 'select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,w.bidTime as time,w.amount as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where accepted=false and declined=false and finished=true and wu.userId='+connection.escape(id)+' or finished=false and a.userId='+connection.escape(id);
 		connection.query(userquery,defered.makeNodeResolver());
 		 return defered.promise;
 	};
@@ -1995,7 +2066,7 @@ getUserInfo(function(err, result){
 	     var shipping= new Array();
 		   for (var i=0;i<rest[0][0].length;i++)
 		   {
-			   shipping.push(new Adress(rest[0][0][i].line1,rest[0][0][i].line2,rest[0][0][i].country,rest[0][0][i].zipCode,rest[0][0][i].city,rest[0][0][i].state));
+			   shipping.push(new Adress(rest[0][0][i].line1,rest[0][0][i].line2,rest[0][0][i].country,rest[0][0][i].zipCode,rest[0][0][i].city,rest[0][0][i].state,rest[0][0][i].AddressId));
 		   }
 		   //console.log(shipping);
 		   
@@ -2003,7 +2074,7 @@ getUserInfo(function(err, result){
 		   var billing= new Array();
 		   for (var i=0;i<rest[1][0].length;i++)
 		   {
-			   billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state));
+			   billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state,rest[1][0][i].AddressId));
 		   }
 		   //console.log(billing);
 		
@@ -2056,9 +2127,9 @@ getUserInfo(function(err, result){
 		    for (var i =0;i<o.length;i++)
 		    {
 		    	if(rest[8][0][i].wusername!=null)
-		    	OrderList.push(new Order(o[i].endingTime,new CreditCard(o[i].cardId,o[i].cardNum,o[i].expMonth,o[i].expYear,o[i].secCode,o[i].name,new Adress(o[i].bline1,o[i].bline2,o[i].bcountry,o[i].bzipCode,o[i].bcity,o[i].bstate)),o[i].accountNum,empty,new Adress(o[i].sline1,o[i].sline2,o[i].scountry,o[i].szipCode,o[i].scity,o[i].sstate),new BidEvent(new product(rest[8][0][i].pname,rest[8][0][i].sellerPId,rest[8][0][i].mname,rest[8][0][i].width,rest[8][0][i].height,rest[8][0][i].depth,rest[8][0][i].dimensions),rest[8][0][i].startingBid,rest[8][0][i].startingTime,rest[8][0][i].endingTime,rest[8][0][i].features,rest[8][0][i].description,rest[8][0][i].minBid,rest[8][0][i].bidEventId,rest[8][0][i].seller, rest[8][0][i].sellerRating,rest[8][0][i].bidTitle,rest[8][0][i].picture,new Bid(rest[8][0][i].wusername,rest[8][0][i].time,rest[8][0][i].wamount))));	
+		    	OrderList.push(new Order(o[i].endingTime,new CreditCard(o[i].cardId,o[i].cardNum,o[i].expMonth,o[i].expYear,o[i].secCode,o[i].name,new Adress(o[i].bline1,o[i].bline2,o[i].bcountry,o[i].bzipCode,o[i].bcity,o[i].bstate)),o[i].accountNum,empty,new Adress(o[i].sline1,o[i].sline2,o[i].scountry,o[i].szipCode,o[i].scity,o[i].sstate),new BidEvent(new product(rest[8][0][i].pname,rest[8][0][i].sellerPId,rest[8][0][i].mname,rest[8][0][i].width,rest[8][0][i].height,rest[8][0][i].depth,rest[8][0][i].dimensions),rest[8][0][i].startingBid,rest[8][0][i].startingTime,rest[8][0][i].endingTime,rest[8][0][i].features,rest[8][0][i].description,rest[8][0][i].minBid,rest[8][0][i].bidEventId,rest[8][0][i].seller, rest[8][0][i].sellerRating,rest[8][0][i].bidTitle,rest[8][0][i].picture,new Bid(rest[8][0][i].wusername,rest[8][0][i].time,rest[8][0][i].wamount),rest[8][0][i].finished,rest[8][0][i].accepted)));	
 		    	else
-			    	OrderList.push(new Order(o[i].endingTime,new CreditCard(o[i].cardId,o[i].cardNum,o[i].expMonth,o[i].expYear,o[i].secCode,o[i].name,new Adress(o[i].bline1,o[i].bline2,o[i].bcountry,o[i].bzipCode,o[i].bcity,o[i].bstate)),o[i].accountNum,empty,new Adress(o[i].sline1,o[i].sline2,o[i].scountry,o[i].szipCode,o[i].scity,o[i].sstate),new BidEvent(new product(rest[8][0][i].pname,rest[8][0][i].sellerPId,rest[8][0][i].mname,rest[8][0][i].width,rest[8][0][i].height,rest[8][0][i].depth,rest[8][0][i].dimensions),rest[8][0][i].startingBid,rest[8][0][i].startingTime,rest[8][0][i].endingTime,rest[8][0][i].features,rest[8][0][i].description,rest[8][0][i].minBid,rest[8][0][i].bidEventId,rest[8][0][i].seller, rest[8][0][i].sellerRating,rest[8][0][i].bidTitle,rest[8][0][i].picture,null)));		  
+			    	OrderList.push(new Order(o[i].endingTime,new CreditCard(o[i].cardId,o[i].cardNum,o[i].expMonth,o[i].expYear,o[i].secCode,o[i].name,new Adress(o[i].bline1,o[i].bline2,o[i].bcountry,o[i].bzipCode,o[i].bcity,o[i].bstate)),o[i].accountNum,empty,new Adress(o[i].sline1,o[i].sline2,o[i].scountry,o[i].szipCode,o[i].scity,o[i].sstate),new BidEvent(new product(rest[8][0][i].pname,rest[8][0][i].sellerPId,rest[8][0][i].mname,rest[8][0][i].width,rest[8][0][i].height,rest[8][0][i].depth,rest[8][0][i].dimensions),rest[8][0][i].startingBid,rest[8][0][i].startingTime,rest[8][0][i].endingTime,rest[8][0][i].features,rest[8][0][i].description,rest[8][0][i].minBid,rest[8][0][i].bidEventId,rest[8][0][i].seller, rest[8][0][i].sellerRating,rest[8][0][i].bidTitle,rest[8][0][i].picture,null,rest[8][0][i].finished,rest[8][0][i].accepted)));		  
 
 		    }
 		    
@@ -2069,9 +2140,9 @@ getUserInfo(function(err, result){
 		   for (var i=0;i<rest[3][0].length;i++)
 		   {
 			   if(rest[3][0][i].wusername!=null)
-		    	BidEvents.push(new BidEvent(new product(rest[3][0][i].pname,rest[3][0][i].sellerPId,rest[3][0][i].mname,rest[3][0][i].width,rest[3][0][i].height,rest[3][0][i].depth,rest[3][0][i].dimensions),rest[3][0][i].startingBid,rest[3][0][i].startingTime,rest[3][0][i].endingTime,rest[3][0][i].features,rest[3][0][i].description,rest[3][0][i].minBid,rest[3][0][i].bidEventId,rest[3][0][i].username, rest[3][0][i].rating,rest[3][0][i].bidTitle,rest[3][0][i].picture,new Bid(rest[3][0][i].wusername,rest[3][0][i].time,rest[3][0][i].wamount))); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+		    	BidEvents.push(new BidEvent(new product(rest[3][0][i].pname,rest[3][0][i].sellerPId,rest[3][0][i].mname,rest[3][0][i].width,rest[3][0][i].height,rest[3][0][i].depth,rest[3][0][i].dimensions),rest[3][0][i].startingBid,rest[3][0][i].startingTime,rest[3][0][i].endingTime,rest[3][0][i].features,rest[3][0][i].description,rest[3][0][i].minBid,rest[3][0][i].bidEventId,rest[3][0][i].username, rest[3][0][i].rating,rest[3][0][i].bidTitle,rest[3][0][i].picture,new Bid(rest[3][0][i].wusername,rest[3][0][i].time,rest[3][0][i].wamount),rest[3][0][i].finished,rest[3][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 			   else
-			    	BidEvents.push(new BidEvent(new product(rest[3][0][i].pname,rest[3][0][i].sellerPId,rest[3][0][i].mname,rest[3][0][i].width,rest[3][0][i].height,rest[3][0][i].depth,rest[3][0][i].dimensions),rest[3][0][i].startingBid,rest[3][0][i].startingTime,rest[3][0][i].endingTime,rest[3][0][i].features,rest[3][0][i].description,rest[3][0][i].minBid,rest[3][0][i].bidEventId,rest[3][0][i].username, rest[3][0][i].rating,rest[3][0][i].bidTitle,rest[3][0][i].picture,null)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+			    	BidEvents.push(new BidEvent(new product(rest[3][0][i].pname,rest[3][0][i].sellerPId,rest[3][0][i].mname,rest[3][0][i].width,rest[3][0][i].height,rest[3][0][i].depth,rest[3][0][i].dimensions),rest[3][0][i].startingBid,rest[3][0][i].startingTime,rest[3][0][i].endingTime,rest[3][0][i].features,rest[3][0][i].description,rest[3][0][i].minBid,rest[3][0][i].bidEventId,rest[3][0][i].username, rest[3][0][i].rating,rest[3][0][i].bidTitle,rest[3][0][i].picture,null,rest[3][0][i].finished,rest[3][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 
 		   }
 
@@ -2082,7 +2153,7 @@ getUserInfo(function(err, result){
 		   var CreditCards= new Array();
 		   for (var i=0;i<rest[4][0].length;i++)
 		   {
-			   CreditCards.push(new CreditCard(rest[4][0][i].cardId,rest[4][0][i].cardNum,rest[4][0][i].expMonth,rest[4][0][i].expYear,rest[4][0][i].secCode,rest[4][0][i].name,new Adress(rest[4][0][i].line1,rest[4][0][i].line2,rest[4][0][i].country,rest[4][0][i].zipCode,rest[4][0][i].city,rest[4][0][i].state)));
+			   CreditCards.push(new CreditCard(rest[4][0][i].cardId,rest[4][0][i].cardNum,rest[4][0][i].expMonth,rest[4][0][i].expYear,rest[4][0][i].secCode,rest[4][0][i].name,new Adress(rest[4][0][i].line1,rest[4][0][i].line2,rest[4][0][i].country,rest[4][0][i].zipCode,rest[4][0][i].city,rest[4][0][i].state,rest[4][0][i].AddressId)));
 		   }
 		   //console.log(CreditCards);
 		   
@@ -2095,9 +2166,9 @@ getUserInfo(function(err, result){
 			     var byteArray = new Uint8Array(arrayBuffer);
 			   }
 			   if(rest[5][0][i].winnerName!=null)
-			   sBidEvents.push(new BidEvent(new product(rest[5][0][i].pname,rest[5][0][i].productPId,rest[5][0][i].mname,rest[5][0][i].width,rest[5][0][i].height,rest[5][0][i].depth,rest[5][0][i].dimensions),rest[5][0][i].startingBid,rest[5][0][i].startingTime,rest[5][0][i].endingTime,rest[5][0][i].features,rest[5][0][i].description,rest[5][0][i].minBid,rest[5][0][i].bidEventId,rest[5][0][i].username,rest[5][0][i].rating,rest[5][0][i].bidTitle,rest[5][0][i].picture,new Bid(rest[5][0][i].winnerName,rest[5][0][i].bidTime,rest[5][0][i].amount))); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+			   sBidEvents.push(new BidEvent(new product(rest[5][0][i].pname,rest[5][0][i].productPId,rest[5][0][i].mname,rest[5][0][i].width,rest[5][0][i].height,rest[5][0][i].depth,rest[5][0][i].dimensions),rest[5][0][i].startingBid,rest[5][0][i].startingTime,rest[5][0][i].endingTime,rest[5][0][i].features,rest[5][0][i].description,rest[5][0][i].minBid,rest[5][0][i].bidEventId,rest[5][0][i].username,rest[5][0][i].rating,rest[5][0][i].bidTitle,rest[5][0][i].picture,new Bid(rest[5][0][i].winnerName,rest[5][0][i].bidTime,rest[5][0][i].amount),rest[5][0][i].finished,rest[5][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 			   else
-			   sBidEvents.push(new BidEvent(new product(rest[5][0][i].pname,rest[5][0][i].productPId,rest[5][0][i].mname,rest[5][0][i].width,rest[5][0][i].height,rest[5][0][i].depth,rest[5][0][i].dimensions),rest[5][0][i].startingBid,rest[5][0][i].startingTime,rest[5][0][i].endingTime,rest[5][0][i].features,rest[5][0][i].description,rest[5][0][i].minBid,rest[5][0][i].bidEventId,rest[5][0][i].username,rest[5][0][i].rating,rest[5][0][i].bidTitle,rest[5][0][i].picture,null)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+			   sBidEvents.push(new BidEvent(new product(rest[5][0][i].pname,rest[5][0][i].productPId,rest[5][0][i].mname,rest[5][0][i].width,rest[5][0][i].height,rest[5][0][i].depth,rest[5][0][i].dimensions),rest[5][0][i].startingBid,rest[5][0][i].startingTime,rest[5][0][i].endingTime,rest[5][0][i].features,rest[5][0][i].description,rest[5][0][i].minBid,rest[5][0][i].bidEventId,rest[5][0][i].username,rest[5][0][i].rating,rest[5][0][i].bidTitle,rest[5][0][i].picture,null,rest[5][0][i].finished,rest[5][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 
 		   }
 		   //get sold by
@@ -2171,15 +2242,15 @@ getUserInfo(function(err, result){
 					"currentlyBiddingOn":BidEvents,
 					"currentlySellingOnBid":sBidEvents,
 					"currentlySellingOnBuy":sBuyEvents,	
-					"userOrders":OrderList
+					"userOrders":OrderList,
+					"userId":result[0].userId
 			};
 		  
 		   
 		   
 		   
 		   
-	     for (var i=0;i<BasketList.length;i++)
-	    	 console.log(BasketList[i]);
+	    console.log(billing);
 	     res.json(response);
 	    });
 	
@@ -2272,24 +2343,35 @@ var registrationIds = [];
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-//var myVar=setInterval(function(){myTimer()},30000);
+var myVar=setInterval(function(){myBidEventTimer()},10000);
 //check for completed bidEvents
 
 //var myVar2=setInterval(function(){myBidEventTimer()},60000);
 
-//function myBidEventTimer()
-//{
-//	console.log('Checking for completed Bid Events');
-//	function getFinishedBidEvents () 
-//	{
-//		var defered = Q.defer();
-//		var query='select * from Bid_Events where NOW()>= endingTime';
-//		connection.query(query, defered.makeNodeResolver());
-//		return defered.promise;
-//	};
-//	
-//	
-//};
+function myBidEventTimer()
+{
+	console.log('Checking for completed Bid Events');
+	function getFinishedBidEvents () 
+	{
+		var defered = Q.defer();
+		var query='select bidEventId from Bid_Events where NOW()>= endingTime and finished=false';
+		connection.query(query, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	
+	Q.all([getFinishedBidEvents()]).then(function(rest)
+	{
+		console.log(rest[0][0].length+' events to update');
+		var trans= connection.startTransaction();
+		for (var i=0;i<rest[0][0].length;i++)
+		{
+			trans.query('update bid_events set finished=true where bidEventId='+connection.escape(rest[0][0][i].bidEventId));
+		}
+		trans.commit();
+	});
+	
+	
+};
 
 function myTimer()
 {

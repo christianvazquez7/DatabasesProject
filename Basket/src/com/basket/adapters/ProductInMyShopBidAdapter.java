@@ -35,7 +35,7 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		{
 			BidEvent currentProduct = this.getItem(pos);	
 			convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view3, null);
-			if (currentProduct.isFinalized())
+			if (currentProduct.isFinished())
 				convertView=((FragmentActivity)context).getLayoutInflater().inflate(R.layout.bidproduct_view4, null);			
 			
 		}
@@ -45,7 +45,7 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		((TextView)convertView.findViewById(R.id.bidsupplier)).setText("From "+currentProduct.getProduct().getManufacturer());
 	    final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.bidratingBar1);
 	    minimumRating.setRating(currentProduct.getRating());
-		if(currentProduct.isFinalized())
+		if(currentProduct.isFinished())
 		{
 			convertView.setBackgroundColor(context.getResources().getColor(R.color.orange));
 			if(currentProduct.getWinningBid()==null)

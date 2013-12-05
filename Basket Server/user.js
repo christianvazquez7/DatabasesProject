@@ -3,7 +3,7 @@
 
  */
 module.exports =  { 
-	User : function (email,username, password,billingAdress,shippingAdress,baskets,currentlyBiddingOn,currentlySellingOnBid,currentlySellingOnBuy, creditCards,userOrders,rating,name,lastName)
+	User : function (email,username, password,billingAdress,shippingAdress,baskets,currentlyBiddingOn,currentlySellingOnBid,currentlySellingOnBuy, creditCards,userOrders,rating,name,lastName,userId)
 	{
 		this.billingAdress=billingAdress;
 		this.shippingAdress=shippingAdress;
@@ -19,5 +19,6 @@ module.exports =  {
 		this.rating=rating;
 		this.name=name;
 		this.lastName=lastName;
+		this.userId=userId;
 	}
 }

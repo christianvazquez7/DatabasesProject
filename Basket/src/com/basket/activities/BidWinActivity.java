@@ -27,6 +27,7 @@ public class BidWinActivity extends Activity {
 	private Button mAccept, mDecline;
 	private int position;
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	private BidEvent e;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class BidWinActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(BidWinActivity.this, "Bid accepted", Toast.LENGTH_LONG).show();;
-				removeBid();
+				removeBid(1);
 			}
 		});
 		mDecline = (Button) findViewById(R.id.declineBid);
@@ -48,12 +49,12 @@ public class BidWinActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(BidWinActivity.this, "Bid declined", Toast.LENGTH_LONG).show();;
-				removeBid();
+				removeBid(0);
 			}
 		});
 		
 		
-		BidEvent e = BasketSession.getUser().getCurrentlySellingOnBid().get(position);
+		 e = BasketSession.getUser().getCurrentlySellingOnBid().get(position);
 		
 
 		((TextView)this.findViewById(R.id.bidproduct)).setText(((BidEvent) e).getBidTitle());
@@ -75,11 +76,16 @@ public class BidWinActivity extends Activity {
 	
 	}
 
-	protected void removeBid() {
+	protected void removeBid(int accepted) {
 		if(!spiceManager.isStarted()){
 			spiceManager.start(BidWinActivity.this);
 		}
-		DeleteBidEventRequest JsonSpringAndroidRequest = new DeleteBidEventRequest(position);
+		DeleteBidEventRequest JsonSpringAndroidRequest;
+		if (accepted==1)
+		JsonSpringAndroidRequest = new DeleteBidEventRequest(e.getId(),1,e.getWinningBid().getBidder());
+		else
+			JsonSpringAndroidRequest = new DeleteBidEventRequest(e.getId(),0,e.getWinningBid().getBidder());
+
 		spiceManager.execute(JsonSpringAndroidRequest, "del_bid", DurationInMillis.ALWAYS_EXPIRED, new BidDelListener());
 
 

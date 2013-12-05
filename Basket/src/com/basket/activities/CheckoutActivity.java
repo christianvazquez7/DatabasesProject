@@ -41,15 +41,17 @@ public class CheckoutActivity extends Activity {
 	private Fragment items,selCardFrag,selShipFrag;
 	private Order orderToPlace;
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
+	private double total =0;
+	private int number;
+
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		int number = getIntent().getIntExtra("basketNum", -1);
+		 number = getIntent().getIntExtra("basketNum", -1);
 		List<BuyEvent>pro = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
-		double total =0;
 		for (BuyEvent e :pro)
 		{
 			total+=e.getPrice()*e.getitem_quantity();
@@ -102,9 +104,14 @@ public class CheckoutActivity extends Activity {
 						orderToPlace.setDay(1);
 						orderToPlace.setMonth(5);
 						orderToPlace.setYear(2005);
+						java.util.Date dt = new java.util.Date();
+
+						java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							
+						String currentTime = sdf.format(dt);
 						orderToPlace.setShipAdress(AddressContainer.shippingSelection);
 						spiceManager.start(CheckoutActivity.this);
-						spiceManager.execute(new PlaceOrderRequest(orderToPlace,BasketSession.getUser(),getIntent().getIntExtra("basketNum", 0)), new PlaceOrderListener());
+						spiceManager.execute(new PlaceOrderRequest(orderToPlace,BasketSession.getUser().getUserId(),CreditCardContainer.paymentSelection.getCardId(),CreditCardContainer.paymentSelection.getBilling().getAid(),AddressContainer.shippingSelection.getAid(),currentTime,total,BasketSession.getUser().getBaskets().get(number).getId()), new PlaceOrderListener());
 					}
 				}
 			}

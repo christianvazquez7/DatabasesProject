@@ -9,16 +9,13 @@ import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceReques
 public class PlaceOrderRequest extends SpringAndroidSpiceRequest<Boolean> {
 	
 	private Order newO;
-	private User theUser;
-	private String bPos;
-	private String url=BasketConstants.externalIp+"/Basket.js/PlaceOrder/temp/";
-	public PlaceOrderRequest(Order o, User user,int p) 
+	
+	private String url=BasketConstants.externalIp+"/Basket.js/PlaceOrder/";
+	public PlaceOrderRequest(Order o, int userId,int cardId,int billingId,int shippingId, String df,double total,int basket) 
 	{
 		super(Boolean.class);
 		newO=o;
-		theUser=user;
-		bPos=Integer.toString(p);
-		url+=bPos;
+		url+=userId+"/"+cardId+"/"+basket+"/"+shippingId+"/"+df+"/"+total;
 	}
 
 	@Override

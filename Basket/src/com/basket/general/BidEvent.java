@@ -9,7 +9,13 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BidEvent implements Event
 {
-
+	private boolean accepted;
+	public boolean isAccepted() {
+		return accepted;
+	}
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
 	Product product;
 	byte[] picture;
 
@@ -55,13 +61,14 @@ public class BidEvent implements Event
 	double startingBid;
 	
 	int id;
-	boolean finalized;
+	boolean finished;
 	
-	public boolean isFinalized() {
-		return finalized;
+
+	public boolean isFinished() {
+		return finished;
 	}
-	public void setFinalized(boolean finalized) {
-		this.finalized = finalized;
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 	public int getId() {
 		return id;
@@ -110,7 +117,7 @@ public class BidEvent implements Event
 				+ ", endingTime=" + endingTime + ", rating=" + rating
 				+ ", description=" + description + ", features=" + features
 				+ ", startingBid=" + startingBid + ", id=" + id
-				+ ", finalized=" + finalized + ", minBid=" + minBid
+				+ ", finalized=" + finished + ", minBid=" + minBid
 				+ ", creator=" + creator + ", winningBid=" + winningBid + "]";
 	}
 	public String getCreator() {

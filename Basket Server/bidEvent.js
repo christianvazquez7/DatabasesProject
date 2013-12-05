@@ -3,7 +3,7 @@
  */
 module.exports =
 {
-		BidEvent: function(product,startingBid,startingTime,endingTime,features,description,minBid,id,creator,rating,bTitle,picture,winningBid)
+		BidEvent: function(product,startingBid,startingTime,endingTime,features,description,minBid,id,creator,rating,bTitle,picture,winningBid,finished,accepted)
 		{
 			this.id=id;
 			this.product=product;
@@ -25,5 +25,7 @@ module.exports =
 			
 			this.picture=picture;
 			this.winningBid=winningBid;
+			this.finished=finished;
+			this.accepted=accepted;
 		}
 };
