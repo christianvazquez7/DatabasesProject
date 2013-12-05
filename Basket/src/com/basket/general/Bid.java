@@ -1,10 +1,19 @@
 package com.basket.general;
 
+import java.sql.Date;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bid {
 	private double ammount;
+	private String	date;
 	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	private String bidder;
 	
 	public String getBidTime() {

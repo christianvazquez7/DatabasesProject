@@ -63,6 +63,14 @@
                     android:layout_centerHorizontal="true"
                     android:numStars="5" />
 
+                <ImageView
+                    android:id="@+id/reviewIt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/ratingbar"
+                    android:src="@drawable/plussign_clipped_rev_1" />
+
             </RelativeLayout>
              <View
         android:id="@+id/view1"

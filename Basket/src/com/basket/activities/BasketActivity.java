@@ -120,7 +120,7 @@ public class BasketActivity extends FragmentActivity {
 					{
 						spiceManager.start(BasketActivity.this);	
 					}
-					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket);
+					NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(newBasket,BasketSession.getUser().getUsername());
 					spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
 				}
 			});
@@ -137,7 +137,8 @@ public class BasketActivity extends FragmentActivity {
 			if(!spiceManager.isStarted()){
 			if(BasketSession.getUser().getBaskets().size()>0){
 				currentItem = pager.getCurrentItem();
-				
+				mTabsAdapter.removeTab();
+				pager.removeView(pager.getChildAt(currentItem));
 				temp = 	BasketSession.getUser().getBaskets().get(currentItem);
 				BasketSession.getUser().getBaskets().remove(currentItem);				
 				pager.getAdapter().notifyDataSetChanged();

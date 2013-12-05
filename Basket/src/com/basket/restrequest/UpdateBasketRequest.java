@@ -8,19 +8,21 @@ import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceReques
 
 public class UpdateBasketRequest extends SpringAndroidSpiceRequest<Boolean> {
 	
-	private int position;
+	private int bid;
+	private int eid;
 	private ProductBasket basket;
-	public UpdateBasketRequest(int basketPos,ProductBasket b) 
+	public UpdateBasketRequest(int basketId,int eventId,ProductBasket basket) 
 	{
 		super(Boolean.class);
-		position=basketPos;
-		basket=b;
+		bid=basketId;
+		eid = eventId;
+		this.basket=basket;
 	}
 
 	@Override
 	public Boolean loadDataFromNetwork() throws Exception {
 		String url = BasketConstants.externalIp+"/Basket.js/UpdateBasket/";
-		url+=position;
+		url+=bid+"/"+eid;
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().put(url, basket);
 		return true;

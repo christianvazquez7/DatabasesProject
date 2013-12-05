@@ -105,7 +105,7 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 				if(finished.getToFinish().contains(b.getId()))
 				{
 					Log.d("try","donas");
-					b.setFinalized(true);
+					b.setFinished(true);
 				}
 			}
 
@@ -146,7 +146,7 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 			BasketSession.setBids(bids.getBids());
 			BidEvent e =BasketSession.getUser().getCurrentlySellingOnBid().get(pos);
 			Intent i=null;
-			if (e.isFinalized())
+			if (e.isFinished())
 			{
 				if(e.getWinningBid()!=null)
 					i = new Intent(getActivity(),BidWinActivity.class);

@@ -2,14 +2,29 @@ package com.basket.general;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Adress
 {
 
 	private String line1,line2, country, state, city;
 	private int zipCode;
+	private int aid;
 	
 	
+	
+
+
+	public int getAid() {
+		return aid;
+	}
+
+
+	public void setAid(int aid) {
+		this.aid = aid;
+	}
+
+
 	public Adress(String line1, String line2, String city, 
 			String state,int zipCode, String country) {
 		super();
@@ -71,7 +86,7 @@ public class Adress
 	public String toString() {
 		return "Adress [line1=" + line1 + ", line2=" + line2 + ", country="
 				+ country + ", state=" + state + ", city=" + city
-				+ ", zipCode=" + zipCode + "]";
+				+ ", zipCode=" + zipCode + ", aid=" + aid + "]";
 	}
 	
 	

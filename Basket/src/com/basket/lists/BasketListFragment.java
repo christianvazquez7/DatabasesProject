@@ -59,7 +59,7 @@ public class BasketListFragment extends android.app.ListFragment
 			defaultPB.setName("Default");
 			if(!spiceManager.isStarted())
 				spiceManager.start(getActivity());					
-			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB);
+			NewBasketRequest JsonSpringAndroidRequest = new NewBasketRequest(defaultPB,BasketSession.getUser().getUsername());
 			BasketSession.getUser().getBaskets().add(defaultPB);
 			spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new NewBasketListener());
 
@@ -119,7 +119,15 @@ public class BasketListFragment extends android.app.ListFragment
 			else
 				BasketSession.getUser().getBaskets().get(currentPos).getBuyEvents().add((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0)));
 		}
-		UpdateBasketRequest JsonSpringAndroidRequest = new UpdateBasketRequest(pos,foundBaskets.get(pos));
+		//is this ok?
+		UpdateBasketRequest JsonSpringAndroidRequest;
+		if(this.getActivity().getIntent().getBooleanExtra("fromDeals", false))
+		 JsonSpringAndroidRequest = new UpdateBasketRequest(foundBaskets.get(pos).getId(),((BuyEvent) BasketSession.getDeals().get(getActivity().getIntent().getIntExtra("selected", 0)).getEve()).getId(),foundBaskets.get(pos));
+		else if (this.getActivity().getIntent().getBooleanExtra("fromHP", false))
+			 JsonSpringAndroidRequest = new UpdateBasketRequest(foundBaskets.get(pos).getId(),((BuyEvent) BasketSession.getRecommendations().get(getActivity().getIntent().getIntExtra("selected", 0))).getId(),foundBaskets.get(pos));
+		else
+			 JsonSpringAndroidRequest = new UpdateBasketRequest(foundBaskets.get(pos).getId(),((BuyEvent) BasketSession.getProductSearch().get(getActivity().getIntent().getIntExtra("selected", 0))).getId(),foundBaskets.get(pos));
+
 		spiceManager.execute(JsonSpringAndroidRequest, "Basket_Update", DurationInMillis.ALWAYS_EXPIRED, new BasketUpdateListener());
 	}
 

@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -100,13 +103,22 @@ public class HarvestFragment extends Fragment
 					int day = c.get(Calendar.DAY_OF_MONTH);
 					int month= c.get(Calendar.MONTH);
 					int year = c.get(Calendar.YEAR);
+					int second= c.get(Calendar.SECOND);
+				
+
+					java.util.Date dt = new java.util.Date();
+
+					java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						
+					String currentTime = sdf.format(dt);
+					
 					if(ammount<=event.getMinBid())
 					{
 						Toast.makeText(HarvestFragment.this.getActivity(), "Bid needs to be higher than minumum or current", Toast.LENGTH_LONG).show();
 					}
 					else{
 						newBid = new Bid(ammount, day, month, year, hour, minute, BasketSession.getUser().getUsername());
-
+						newBid.setDate(currentTime);
 						if (!spiceManager.isStarted())
 						{
 							spiceManager.start(getActivity());
@@ -136,19 +148,13 @@ public class HarvestFragment extends Fragment
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
 
-				Toast.makeText(getActivity(), "Bid Placed", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Bid Failed", Toast.LENGTH_SHORT).show();
 				spiceManager.shouldStop();
 			}
-			Toast.makeText(getActivity(), "Bid Placed", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "Bid Failed", Toast.LENGTH_SHORT).show();
 			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
-			boolean found=false;
-			for (BidEvent b: BasketSession.getUser().getCurrentlyBiddingOn()){
-			if (b.getId()==event.getId())
-				found=true;
-			}
-			if (!found)
-			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
+		
 
 
 		}
@@ -157,6 +163,13 @@ public class HarvestFragment extends Fragment
 		public void onRequestSuccess(Boolean bool) 
 		{
 			spiceManager.shouldStop();
+			boolean found=false;
+			for (BidEvent b: BasketSession.getUser().getCurrentlyBiddingOn()){
+			if (b.getId()==event.getId())
+				found=true;
+			}
+			if (!found)
+			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
 			//event.getBids().add(newBid);
 			BasketSession.getUser().getCurrentlyBiddingOn().add(event);
 			Toast.makeText(getActivity(), "Bid Posted", Toast.LENGTH_SHORT).show();
