@@ -25,13 +25,12 @@ public class EditCreditCardListFragment extends ListFragment {
 		View rootView = inflater.inflate(R.layout.creditcard_list, container, false);
 		creditcards = BasketSession.getUser().getCreditCards();
 		setListAdapter(new CreditCardListAdapter(getActivity(), creditcards));
-
-
 		return rootView;
 	}
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
 		final int selectedCC = pos;
 		Intent newIntent = new Intent(this.getActivity(), EditSingleCCActivity.class);
+		newIntent.putExtra("editCard", true);
 		newIntent.putExtra("selectedUser", this.getActivity().getIntent().getIntExtra("selectedUser", 0));
 		newIntent.putExtra("selectedCreditCard", selectedCC);
 		startActivity(newIntent);

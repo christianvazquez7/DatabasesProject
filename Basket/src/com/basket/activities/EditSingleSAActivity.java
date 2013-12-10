@@ -8,11 +8,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.basket.containers.AdminSession;
 import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
+import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
+import com.basket.restrequest.InsertCreditCardRequest;
+import com.basket.restrequest.InsertShipAddRequest;
+import com.basket.restrequest.UpdateAddressRequest;
 import com.example.basket.R;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class EditSingleSAActivity extends Activity {
 
@@ -21,7 +30,8 @@ public class EditSingleSAActivity extends Activity {
 	private String line1, line2, city, state, country;
 
 	private User theUser;
-	private Adress theAddress;
+	private Adress theAddress, oldAddress;
+	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 
 	private Button mSaveButton, mCancelButton;
 	private EditText mLine1, mLine2, mCity, mState, mZipcode, mCountry;
@@ -34,8 +44,10 @@ public class EditSingleSAActivity extends Activity {
 		selectedShipAdd = this.getIntent().getIntExtra("selectedShipAdd", 0);
 
 		theUser = BasketSession.getUser();
-		theAddress = theUser.getShippingAdress().get(selectedShipAdd);
-		if(this.getIntent().getBooleanExtra("createdNewAddress", false)){
+		theAddress = new Adress();
+		oldAddress = theUser.getShippingAdress().get(selectedShipAdd);
+		if(this.getIntent().getBooleanExtra("createdNewAddress", false))
+		{
 			mLine1 = (EditText) findViewById(R.id.etLine1SingleSA);
 			mLine2 = (EditText) findViewById(R.id.etLine2SingleSA);
 			mCity = (EditText) findViewById(R.id.etCitySingleSA);
@@ -45,37 +57,62 @@ public class EditSingleSAActivity extends Activity {
 		}
 		else{
 			mLine1 = (EditText) findViewById(R.id.etLine1SingleSA);
-			mLine1.setText(theAddress.getLine1());
+			mLine1.setText(oldAddress.getLine1());
 			mLine2 = (EditText) findViewById(R.id.etLine2SingleSA);
-			mLine2.setText(theAddress.getLine2());
+			mLine2.setText(oldAddress.getLine2());
 			mCity = (EditText) findViewById(R.id.etCitySingleSA);
-			mCity.setText(theAddress.getCity());
+			mCity.setText(oldAddress.getCity());
 			mState = (EditText) findViewById(R.id.etStateSingleSA);
-			mState.setText(theAddress.getState());
+			mState.setText(oldAddress.getState());
 			mZipcode = (EditText) findViewById(R.id.etZipcodeSingleSA);
-			mZipcode.setText(Integer.toString(theAddress.getZipCode()));
+			mZipcode.setText(Integer.toString(oldAddress.getZipCode()));
 			mCountry = (EditText) findViewById(R.id.etCountrySingleSA);
-			mCountry.setText(theAddress.getCountry());
+			mCountry.setText(oldAddress.getCountry());
 		}
 		mSaveButton = (Button) findViewById(R.id.bSaveSingleSA);
 		mSaveButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				try{
-					theAddress.setLine1(mLine1.getText().toString());
-					theAddress.setLine2(mLine2.getText().toString());
-					theAddress.setCity(mCity.getText().toString());
-					theAddress.setState(mState.getText().toString());
-					theAddress.setZipCode(Integer.parseInt(mZipcode.getText().toString()));
-					theAddress.setCountry(mCountry.getText().toString());
-					theUser.getShippingAdress().set(selectedShipAdd, theAddress);
-					//Toast.makeText(EditSingleSAActivity.this, "Added address", Toast.LENGTH_SHORT).show();;
-					finish();
+				if(EditSingleSAActivity.this.getIntent().getStringExtra("createdNewAddress") == null){
+					try{
+						theAddress.setLine1(mLine1.getText().toString());
+						theAddress.setLine2(mLine2.getText().toString());
+						theAddress.setCity(mCity.getText().toString());
+						theAddress.setState(mState.getText().toString());
+						theAddress.setZipCode(Integer.parseInt(mZipcode.getText().toString()));
+						theAddress.setCountry(mCountry.getText().toString());
+
+					}
+					catch(NumberFormatException e){
+						Toast.makeText(EditSingleSAActivity.this, "Error in the zip code", Toast.LENGTH_SHORT);
+					}
+					if(!spiceManager.isStarted()){
+						spiceManager.start(EditSingleSAActivity.this);
+						UpdateAddressRequest updateReq = new UpdateAddressRequest(theAddress, theUser, oldAddress);
+						spiceManager.execute(updateReq, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new AddressUpdateListner());
+					}
 				}
-				catch(NumberFormatException e){
-					Toast.makeText(EditSingleSAActivity.this, "Error in the zip code", Toast.LENGTH_SHORT);
+				else{
+					try{
+						theAddress.setLine1(mLine1.getText().toString());
+						theAddress.setLine2(mLine2.getText().toString());
+						theAddress.setCity(mCity.getText().toString());
+						theAddress.setState(mState.getText().toString());
+						theAddress.setZipCode(Integer.parseInt(mZipcode.getText().toString()));
+						theAddress.setCountry(mCountry.getText().toString());
+
+					}
+					catch(NumberFormatException e){
+						Toast.makeText(EditSingleSAActivity.this, "Error in the zip code", Toast.LENGTH_SHORT);
+					}
+					if(!spiceManager.isStarted()){
+						spiceManager.start(EditSingleSAActivity.this);
+						InsertShipAddRequest updateReq = new InsertShipAddRequest(theAddress, theUser);
+						spiceManager.execute(updateReq, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new InsertShipAddListner());
+					}
 				}
+
 			}
 		});
 
@@ -107,5 +144,54 @@ public class EditSingleSAActivity extends Activity {
 			}
 		}
 		super.onBackPressed();
+	}
+	private class AddressUpdateListner implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+			Toast.makeText(EditSingleSAActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
+			if(spiceManager.isStarted())
+
+				spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean edit) {
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			theUser.getShippingAdress().set(selectedShipAdd, theAddress);
+			finish();
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
+	}
+	private class InsertShipAddListner implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+			Toast.makeText(EditSingleSAActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean edit) {
+			if(spiceManager.isStarted())
+				spiceManager.shouldStop();
+			theUser.getShippingAdress().set(selectedShipAdd, theAddress);
+			Toast.makeText(EditSingleSAActivity.this, "Success adding new address", Toast.LENGTH_LONG).show();
+
+			EditSingleSAActivity.this.finish();
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
 	}
 }
