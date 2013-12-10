@@ -15,14 +15,17 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.RatingBar;
-import android.widget.Toast;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TabHost;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
+import com.basket.containers.FloatContainer;
 import com.basket.fragments.HarvestFragment;
 import com.basket.fragments.ProductDetailFragment;
 import com.basket.fragments.ProductFragment;
+import com.basket.general.Bid;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.lists.ReviewListFragment;
@@ -124,6 +127,7 @@ public class BidEventPageActivity extends FragmentActivity {
 				}
 				else{
 					ProductFragment temp =new ProductFragment();
+					product=temp; //?@?
 					temp.setEvent(currentEvent);
 					fm.beginTransaction().setCustomAnimations(R.anim.slide, R.anim.slide).replace(R.id.productContainer, temp).commit();
 					tab=false;
@@ -209,7 +213,7 @@ public class BidEventPageActivity extends FragmentActivity {
 
 	}
 	
-	private class RateUserRequestListener implements RequestListener<Boolean>, RequestProgressListener {
+	private class RateUserRequestListener implements RequestListener<FloatContainer>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -223,16 +227,19 @@ public class BidEventPageActivity extends FragmentActivity {
 			Toast.makeText(BidEventPageActivity.this, "Bid Failed", Toast.LENGTH_SHORT).show();
 			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
-		
+			
 
 
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean bool) 
+		public void onRequestSuccess(FloatContainer bool) 
 		{
 			spiceManager.shouldStop();
 			Toast.makeText(BidEventPageActivity.this, "Rating Posted", Toast.LENGTH_SHORT).show();
+			currentEvent.setRating(bool.getValue());
+			final RatingBar minimumRating = (RatingBar)findViewById(R.id.bidratingBar1);
+		    minimumRating.setRating(bool.getValue());
 		}
 
 		@Override
@@ -248,6 +255,17 @@ public class BidEventPageActivity extends FragmentActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.product, menu);
 		return true;
+	}
+
+	public void updateBid(Bid winning) 
+	{
+		ProductFragment now = (ProductFragment) product;
+		((TextView)this.findViewById(R.id.bidprice)).setText("$"+Double.toString(winning.getAmmount()));
+	}
+
+	public void refreshList() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

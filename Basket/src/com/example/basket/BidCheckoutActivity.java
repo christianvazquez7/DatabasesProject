@@ -1,7 +1,6 @@
-package com.basket.activities;
+package com.example.basket;
 
 import java.util.Date;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -15,20 +14,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basket.activities.CheckoutActivity;
 import com.basket.containers.AddressContainer;
 import com.basket.containers.BasketSession;
 import com.basket.containers.CreditCardContainer;
 import com.basket.fragments.CreditCardButton;
 import com.basket.fragments.SelectAddressButton;
-import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Order;
 import com.basket.general.SelectedCreditCard;
 import com.basket.general.SelectedShippingAddress;
+import com.basket.lists.Bid_Order_List;
 import com.basket.lists.Products_In_Checkout_List_View;
+import com.basket.restrequest.BPlaceOrderRequest;
 import com.basket.restrequest.PlaceOrderRequest;
-import com.example.basket.BidCheckoutActivity;
-import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -36,7 +35,7 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
 
-public class CheckoutActivity extends Activity {
+public class BidCheckoutActivity extends Activity {
 	public static boolean changeCreditCard =false;
 	public static boolean changeShippingAddressCard = false;
 	private Fragment items,selCardFrag,selShipFrag;
@@ -51,12 +50,9 @@ public class CheckoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		 number = getIntent().getIntExtra("basketNum", -1);
-		List<BuyEvent>pro = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
-		for (BuyEvent e :pro)
-		{
-			total+=e.getPrice()*e.getitem_quantity();
-		}
+		
+		total=BasketSession.getBidCheckout().getWinningBid().getAmmount();
+		
 		TextView t =(TextView)this.findViewById(R.id.totaltextview);
 		t.setText("$"+Double.toString(total));
 
@@ -74,7 +70,7 @@ public class CheckoutActivity extends Activity {
 		items = fragMan.findFragmentById(R.id.productsForCheckoutPlaceholder);
 
 		if(items==null){
-			items = new Products_In_Checkout_List_View();
+			items = new Bid_Order_List();
 			fragMan.beginTransaction().add(R.id.productsForCheckoutPlaceholder, items).commit();
 		}
 
@@ -85,7 +81,7 @@ public class CheckoutActivity extends Activity {
 
 			public void onClick(View arg0) 
 			{
-				Products_In_Checkout_List_View list = (Products_In_Checkout_List_View) items;
+				Bid_Order_List list = (Bid_Order_List) items;
 				if (CreditCardContainer.paymentSelection==null || AddressContainer.shippingSelection==null || list.getProducts2().size()==0)
 				{
 
@@ -100,7 +96,7 @@ public class CheckoutActivity extends Activity {
 						orderToPlace.setsDate(now.toString());
 
 						orderToPlace.setAccount(1);
-						orderToPlace.setBuyEvents(list.getProducts2());
+						orderToPlace.setBidEvent(BasketSession.getBidCheckout());
 						orderToPlace.setCreditCard(CreditCardContainer.paymentSelection);
 						orderToPlace.setDay(1);
 						orderToPlace.setMonth(5);
@@ -111,8 +107,8 @@ public class CheckoutActivity extends Activity {
 							
 						String currentTime = sdf.format(dt);
 						orderToPlace.setShipAdress(AddressContainer.shippingSelection);
-						spiceManager.start(CheckoutActivity.this);
-						spiceManager.execute(new PlaceOrderRequest(orderToPlace,BasketSession.getUser().getUserId(),CreditCardContainer.paymentSelection.getCardId(),CreditCardContainer.paymentSelection.getBilling().getAid(),AddressContainer.shippingSelection.getAid(),currentTime,total,BasketSession.getUser().getBaskets().get(number).getId()), new PlaceOrderListener());
+						spiceManager.start(BidCheckoutActivity.this);
+						spiceManager.execute(new BPlaceOrderRequest(orderToPlace,BasketSession.getUser().getUserId(),CreditCardContainer.paymentSelection.getCardId(),CreditCardContainer.paymentSelection.getBilling().getAid(),AddressContainer.shippingSelection.getAid(),currentTime,total,BasketSession.getBidCheckout().getId()), new PlaceOrderListener());
 					}
 				}
 			}
@@ -127,6 +123,7 @@ public class CheckoutActivity extends Activity {
 			this.changeCreditCardSelection();
 			CheckoutActivity.changeCreditCard = false;
 			BidCheckoutActivity.changeCreditCard = false;
+
 		}
 		if(changeShippingAddressCard){
 			this.changeShippingAddressSelection();
@@ -163,7 +160,7 @@ public class CheckoutActivity extends Activity {
 			if (!(arg0 instanceof RequestCancelledException)) 
 			{
 
-				Toast.makeText(CheckoutActivity.this, "Order could not be placed", Toast.LENGTH_SHORT).show();
+				Toast.makeText(BidCheckoutActivity.this, "Order could not be placed", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
 		}
@@ -173,9 +170,8 @@ public class CheckoutActivity extends Activity {
 		{
 			spiceManager.shouldStop();
 			BasketSession.getUser().getUserOrders().add(orderToPlace);
-			BasketSession.getUser().getBaskets().remove(getIntent().getIntExtra("basketNum", 0));
-			Toast.makeText(CheckoutActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-			CheckoutActivity.this.finish();
+			Toast.makeText(BidCheckoutActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+			BidCheckoutActivity.this.finish();
 		}
 
 		@Override

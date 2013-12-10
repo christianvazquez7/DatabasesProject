@@ -14,6 +14,7 @@ import com.basket.adapters.CreditCardListAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.containers.CreditCardContainer;
 import com.basket.general.CreditCard;
+import com.example.basket.BidCheckoutActivity;
 import com.example.basket.R;
 
 public class CreditCardListFragment extends ListFragment {
@@ -29,6 +30,8 @@ public class CreditCardListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
 		CreditCardContainer.paymentSelection = BasketSession.getUser().getCreditCards().get(pos);
 		CheckoutActivity.changeCreditCard = true;
+		BidCheckoutActivity.changeCreditCard = true;
+
 		this.getActivity().finish();
 		
 	}

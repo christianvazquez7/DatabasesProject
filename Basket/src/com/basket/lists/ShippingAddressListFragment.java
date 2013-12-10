@@ -14,6 +14,7 @@ import com.basket.adapters.ShippingAddressListAdapter;
 import com.basket.containers.AddressContainer;
 import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
+import com.example.basket.BidCheckoutActivity;
 import com.example.basket.R;
 
 public class ShippingAddressListFragment extends ListFragment {
@@ -29,6 +30,7 @@ public class ShippingAddressListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int pos ,  long id ){
 		AddressContainer.shippingSelection = BasketSession.getUser().getShippingAdress().get(pos);
 		CheckoutActivity.changeShippingAddressCard = true;
+		BidCheckoutActivity.changeShippingAddressCard = true;
 		this.getActivity().finish();
 		
 	}

@@ -16,11 +16,12 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TabHost;
 import android.widget.Toast;
-import android.widget.RatingBar.OnRatingBarChangeListener;
 
 import com.basket.containers.BasketSession;
+import com.basket.containers.FloatContainer;
 import com.basket.fragments.ProductDetailFragment;
 import com.basket.fragments.ProductFragment;
 import com.basket.general.BuyEvent;
@@ -30,16 +31,16 @@ import com.example.basket.R;
 import com.example.basket.ReviewActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
-//import com.basket.fragments.HarvestFragment;
-//import com.example.basket.R.anim;
-//import com.example.basket.R.id;
-//import com.example.basket.R.layout;
-//import com.example.basket.R.menu;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
+//import com.basket.fragments.HarvestFragment;
+//import com.example.basket.R.anim;
+//import com.example.basket.R.id;
+//import com.example.basket.R.layout;
+//import com.example.basket.R.menu;
 
 public class BuyEventPageActivity extends FragmentActivity {
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
@@ -210,7 +211,7 @@ public class BuyEventPageActivity extends FragmentActivity {
 		
 
 	}
-	private class RateUserRequestListener implements RequestListener<Boolean>, RequestProgressListener {
+	private class RateUserRequestListener implements RequestListener<FloatContainer>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -230,10 +231,13 @@ public class BuyEventPageActivity extends FragmentActivity {
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean bool) 
+		public void onRequestSuccess(FloatContainer bool) 
 		{
 			spiceManager.shouldStop();
 			Toast.makeText(BuyEventPageActivity.this, "Rating Posted", Toast.LENGTH_SHORT).show();
+			currentEvent.setRating(bool.getValue());
+			final RatingBar minimumRating = (RatingBar)findViewById(R.id.ratingBar1);
+		    minimumRating.setRating(bool.getValue());
 		}
 
 		@Override

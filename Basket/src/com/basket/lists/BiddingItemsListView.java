@@ -3,6 +3,7 @@ package com.basket.lists;
 import java.util.ArrayList;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,8 @@ import com.basket.adapters.ProductInMyShopBidAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
-import com.basket.restrequest.UpdateBidRequest;
 import com.basket.restrequest.WinBidRequest;
+import com.example.basket.BidCheckoutActivity;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -67,7 +68,7 @@ public class BiddingItemsListView extends ListFragment{
 	
 	public void onListItemClick(ListView l, View v, int position, long id)
 	{
-//		if(BasketSession.getUser().getCurrentlyBiddingOn().get(position).isFinalized()){
+		if(BasketSession.getUser().getCurrentlyBiddingOn().get(position).isAccepted()){
 //		Toast.makeText(getActivity(), "Order Placed", Toast.LENGTH_SHORT).show();
 //		Order orderToPlace = new Order();
 //		orderToPlace.setAccount(1);
@@ -77,7 +78,11 @@ public class BiddingItemsListView extends ListFragment{
 //		orderToPlace.setYear(2005);
 //		BasketSession.getUser().getUserOrders().add(orderToPlace);
 //		BasketSession.getUser().getCurrentlyBiddingOn().remove(position);
-//		}
+		BasketSession.setBidCheckout((BasketSession.getUser().getCurrentlyBiddingOn().get(position)));
+		Intent checkOut = new Intent(this.getActivity(),BidCheckoutActivity.class);
+		startActivity(checkOut);
+		
+		}
 		
 
 

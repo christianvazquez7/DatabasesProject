@@ -298,6 +298,12 @@ public class ProductFragmentActivity extends SlidingFragmentActivity {
 
 
 	}
+	@Override
+	protected void onResume() 
+	{
+	    super.onResume();
+	    ((ArrayAdapter)productList.getListView().getAdapter()).notifyDataSetChanged();
+	}
 	public boolean isHandlingRequest() {
 		// TODO Auto-generated method stub
 		return spiceManager.isStarted();

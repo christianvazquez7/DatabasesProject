@@ -652,7 +652,7 @@ app.put('/Basket.js/addReview/:id/:username/:isBid/:pid',function(req,res)
 
 
 //Add a bid aquiiii!!
-app.put('/Basket.js/addBid/:id',function(req,res){
+app.post('/Basket.js/addBid/:id',function(req,res){
 	
 	console.log('got here');
 	function getEventWinning() 
@@ -674,13 +674,17 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 	};
 	Q.all([getEventWinning(),getBidder()]).then(function(rest)
 	{
+		console.log('JHAASHDBAMNSDBAJ');
 		if (rest[0][0][0].amount>req.body.ammount)
 		{
-			res.json(false);
+			console.log('falseeee');
+			var response ={
+					"state":false
+			};
+			res.json(response);
 		}
 		else
 		{
-			console.log('highest bid '+ rest[1][0][0].userId );
 
 			var trans = connection.startTransaction();
 			console.log('init');
@@ -694,15 +698,18 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 					}
 				else{
 					console.log('trying update');
-					trans.query('update bid_events S set winningBid= (select bidId from bids where amount='+ connection.escape(req.body.ammount)+' and userId=' + connection.escape(rest[1][0][0].userId)+' and S.bidEventId= bids.bidEventId)',
+					trans.query('update bid_events S set winningBid='+connection.escape(info.insertId)+' where bidEventId='+connection.escape(req.params.id),
 							function(err,info){
 						if(err){
 							console.log('error in update');
 							trans.rollback();
 						}
 						else{
+							var response ={
+									"state":true
+							};
 							trans.commit();
-							res.json(false);
+							res.json(response);
 							}
 						
 					});
@@ -821,14 +828,7 @@ app.get('/Basket.js/search/:searchQuery/:cat',function(req,res)
 //Delete bidevent
 app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res)
 {
-	function getWinner() 
-	{
-		var defered = Q.defer();
-		var userquery='select userId from users where userId='+connection.escape(req.params.winner);
-		console.log(userquery);
-		connection.query(userquery, defered.makeNodeResolver());
-		return defered.promise;
-	};
+	
 	var trans = connection.startTransaction();
 	if (req.params.type==1)
 		trans.query('update bid_events set accepted=true where bidEventId='+connection.escape(req.params.id),function(err,info){
@@ -838,17 +838,25 @@ app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res)
 				trans.rollback();
 			else
 			{
-				trans.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(req.params),function(err,info)
-				{
-					if (err)trans.rollback();
-					else
-					{
-						
-					}
-					
-				});
-//				trans.commit();
-//				res.json(true);
+//				trans.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(rest[0][0][0].userId),function(err,info)
+//				{
+//					if (err)trans.rollback();
+//					else
+//					{
+//						trans.query('insert into orders (amount,orderTime,userId,bankAccountId,cardId,withbasketId,type,shipTo) values('
+//								+connection.escape(),function(err,info)
+//						{
+//							if(err)trans.rollback();
+//							else
+//							{
+//								
+//							}
+//						});
+//					}
+//					
+//				});
+				trans.commit();
+				res.json(true);
 			}				
 		});
 	else
@@ -863,6 +871,8 @@ app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res)
 			}				
 		});
 	trans.execute();
+	
+			
 });
 
 //Delete user
@@ -1063,7 +1073,7 @@ app.post('/Basket.js/createAdmin/:id', function(req,res)
 // });
 
 
-//Place an order
+//Place an order buy
 app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
 		{
 	console.log("Placing an Order!");
@@ -1109,6 +1119,61 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 	
 
 });
+
+
+//place a bid order anadir!!!!
+app.post('/Basket.js/BPlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
+		{
+	console.log("Placing a Bid Order!");
+	
+	var transaction = connection.startTransaction();
+	
+	transaction.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(req.params.uId)+')',function(err,info)		
+	{
+		console.log(info.insertId);
+		if(err)transaction.rollback();
+		else
+		{
+			
+			
+			transaction.query('insert into in_bid_basket (basketId,bidEventId) values ('+connection.escape(info.insertId)+','+connection.escape(req.params.basket)+')',function(err,inf)
+			{
+				if(err)transaction.rollback();
+				else
+				{
+					transaction.query('insert into orders (amount,orderTime,userId,bankAccountId,cardId,withbasketId,type,shipTo) values ('+connection.escape(req.params.total)
+							+','+connection.escape(req.params.date)+','+connection.escape(req.params.uId)+','+connection.escape(5)+','+connection.escape(req.params.cId)+
+							','+connection.escape(info.insertId)+','+connection.escape('bid')+','+connection.escape(req.params.sId)+')',function (err,info)
+						{
+						if (err)transaction.rollback();
+						else
+						{
+							transaction.query('update bid_events set ordered=true where bidEventId='+connection.escape(req.params.basket),function(err,info)
+							{
+								if(err)transaction.rollback();
+								else
+								{
+									console.log('inserted value');
+									transaction.commit();
+									res.json(true);
+								}
+							});
+						
+						}
+					});
+				}
+			});
+		
+		}
+	});
+	
+
+	transaction.execute();
+	
+	
+	
+
+});
 //Create a basketWW
 app.post('/Basket.js/NewBasket/:username', function(req,res)
 {
@@ -1147,7 +1212,7 @@ app.post('/Basket.js/NewBasket/:username', function(req,res)
 });
 
 //rate user
-app.put('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res)
+app.post('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res)
 		{
 	function getRatingCount() 
 	{
@@ -1198,8 +1263,11 @@ app.put('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res)
 									trans.rollback();
 								else
 								{
+									var response={
+										"value":total	
+									};
 									trans.commit();
-									res.json(true);
+									res.json(response);
 								}
 							});
 							
@@ -1245,18 +1313,54 @@ app.post('/Basket.js/RemoveBasket', function(req,res)
 //Create a sell bid event
 app.post('/Basket.js/NewBidSell', function(req,res)
 {
-	console.log("Created buy event");
-	var u =users["lukesionkira@hotmail.com"];
 	u.currentlySellingOnBid.push(req.body);
 	res.json(true);
 });
 //Create a sell buy event
-app.post('/Basket.js/NewBuySell', function(req,res)
+app.post('/Basket.js/NewBuySell/:uId/:quantity/:cat', function(req,res)
 {
-	console.log("Created bid event");
-	var u =users["lukesionkira@hotmail.com"];
-	u.currentlySellingOnBuy.push(req.body);
-	res.json(true);
+	var transaction = connection.startTransaction();
+
+	transaction.query('select categoryId from categories where name='+connection.escape(req.params.cat),function(err,info2){
+	
+		if(err)trans.rollback();
+		else{
+		transaction.query('insert into Manufacturers (mname) values ('+connection.escape(req.body.product.manufacturer)+')',function(err,info){
+			if(err)transaction.rollback();
+			else
+			{
+				console.log(req.body);
+				//insert product
+				transaction.query('insert into products (sellerPId,pname,features,dimensions,manufacturerID,categoryId, width,depth,height) values ('+
+						connection.escape(req.body.product.productPId)+','+connection.escape(req.body.pname)+','+connection.escape(req.body.features)+','+
+						connection.escape(req.body.product.dimensions)+','+connection.escape(info.insertId)+','+connection.escape(info2[0].categoryId)+','+connection.escape(req.body.product.width)
+						+','+connection.escape(req.body.product.width)+','+connection.escape(req.body.product.height)+')',function(err,info){
+					if(err)transaction.rollback();
+					else
+					{
+						//insert buy event
+						transaction.query('insert into buy_events (price,description,soldBy,productId,btitle,pic,available,buycategory) values('+
+								connection.escape(req.body.price)+','+connection.escape(req.body.description)+','+connection.escape(req.params.uId)+','
+								+connection.escape(info.insertId)+','+connection.escape(req.body.btitle)+','+connection.escape(req.body.pic)+','+
+								connection.escape(req.params.quantity)+','+connection.escape(info2[0].categoryId)+')',function(err,info)
+							{
+							if (err)transaction.rollback();
+							else
+							{
+								transaction.commit();
+								res.json(true);
+							}
+						});
+					}
+				});
+			}
+		});
+
+		}
+		
+	});
+	transaction.execute();
+	
 });
 
 var products = new Array(
@@ -1916,6 +2020,34 @@ app.get('/Basket.js/SalesReport/:day/:month/:year/:type', function(req,res)
 	}
 });
 
+
+app.get('/Basket.js/CurrentWinning/:id', function(req,res)
+		{
+	console.log('here!!!! ERRR');
+
+	function getCurrent() 
+	{
+		var defered = Q.defer();
+		var query='select Bids.* from bid_events join bids on bidId=winningBid where bid_events.bidEventId='+connection.escape(req.params.id);
+		connection.query(query, defered.makeNodeResolver());
+		return defered.promise;
+	};
+	
+	Q.all([getCurrent()]).then(function(rest)
+			{
+				console.log('here!!!! ERRR');
+				var response =
+				{
+					"ammount": rest[0][0][0].amount,
+					"bidTime": rest[0][0][0].bidTime,
+					"bidder":"dummy"
+				};
+				res.json(response);
+			});
+	
+		});
+
+
 app.get('/Basket.js/WinBid/:id', function(req,res)
 		{
 	function getFinishedBidEvents () 
@@ -1991,7 +2123,6 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	};
 	function getEmptyBaskets (id) 
 	{
-		
 		var defered = Q.defer();
 		var userquery= 'SELECT * FROM Baskets where Baskets.basketId not in (select a.basketId from Baskets as a natural join in_buy_basket natural join Buy_Events) and  Baskets.basketId not in (select b.basketId from Baskets as b natural join in_bid_basket) and userId='+connection.escape(id);
 		connection.query(userquery, defered.makeNodeResolver());
@@ -2018,7 +2149,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	};
 	function getCurrentlyBiddingOn (id) {
 		var defered=Q.defer();
-		var userquery= 'select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,w.bidTime as time,w.amount as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where accepted=false and declined=false and finished=true and wu.userId='+connection.escape(id)+' or finished=false and a.userId='+connection.escape(id);
+		var userquery= 'select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,max(w.bidTime) as time,max(w.amount) as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where ordered=false and declined=false and finished=true and wu.userId='+connection.escape(id)+' or finished=false and a.userId='+connection.escape(id)+' group by Bid_Events.bidEventId ';
 		connection.query(userquery,defered.makeNodeResolver());
 		 return defered.promise;
 	};
@@ -2044,7 +2175,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	};
 	
 	function getOrdersBid (id) {
-		var userquery= '	select shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, wuser.rating as sellerRating,cc.*,Address.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate, Orders.*,Bank_Accounts.*,Bid_Events.*,Products.*,b.*, w.bidTime as time,w.amount as wamount, wu.username as wusername, c.username as seller , c.rating as sellerRating from Users as b natural join Orders join Bank_Accounts on Bank_Accounts.bankAccountId=Orders.bankAccountId join Baskets on withbasketId=basketId natural join in_bid_basket natural join Bid_Events natural join Products join Address on Address.userId=b.userId join Credit_Cards on b.userId=Credit_Cards.userId join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=Credit_Cards.billingId left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId join Users as c on c.userId=Bid_Events.soldBy natural join Manufacturers join Users as wuser on wuser.userId=Bid_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where Address.userId='+connection.escape(id)+' and type="bid" order by orderId';
+		var userquery= 'select shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, wuser.rating as sellerRating,cc.*,Address.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate, Orders.*,Bank_Accounts.*,Bid_Events.*,Products.*,b.*, w.bidTime as time,w.amount as wamount, wu.username as wusername, c.username as seller , c.rating as sellerRating from Users as b natural join Orders join Bank_Accounts on Bank_Accounts.bankAccountId=Orders.bankAccountId join Baskets on withbasketId=basketId natural join in_bid_basket  join Bid_Events on Bid_Events.bidEventId=in_bid_basket.bidEventId natural join Products join Address on Address.userId=b.userId join Credit_Cards on b.userId=Credit_Cards.userId join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=Credit_Cards.billingId left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId join Users as c on c.userId=Bid_Events.soldBy natural join Manufacturers join Users as wuser on wuser.userId=Bid_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where Address.userId='+connection.escape(id)+' and type="bid" order by orderId';
 		var defered= Q.defer();
 		connection.query(userquery, defered.makeNodeResolver());
 		 return defered.promise;

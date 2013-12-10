@@ -12,7 +12,6 @@
         android:paddingTop="40dp" >
 
         <LinearLayout
-           
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,19 +20,48 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/round_corners_black_border"
             android:orientation="vertical" >
+                  <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="Event Name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/eventName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:ems="10" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:paddingLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:textSize="15dp"
+                    android:paddingLeft="10dp"
                     android:text="Product Name"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductNameET"
@@ -42,8 +70,8 @@
                     android:layout_margin="5dp"
                     android:background="@null"
                     android:ems="10" />
-
             </LinearLayout>
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="fill_parent"
@@ -57,13 +85,13 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                                        android:paddingLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Price"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductPrice"
@@ -72,17 +100,71 @@
                     android:layout_margin="5dp"
                     android:background="@null"
                     android:ems="10" />
-
             </LinearLayout>
-            
-             </LinearLayout>
-             
-
-            <LinearLayout
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+               <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="Product Id"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/productId"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:ems="10" />
             </LinearLayout>
-              <LinearLayout
+              <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+               <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="Quantity"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/Quantity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:ems="10" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +173,6 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/round_corners_black_border"
             android:orientation="vertical" >
-            
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,14 +180,14 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                                        android:paddingLeft="10dp"
                     android:id="@+id/TextView03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Height"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductHeight"
@@ -114,9 +195,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:ems="10" 
-                      android:background="@null"/>
+                    android:background="@null"
+                    android:ems="10" />
             </LinearLayout>
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="fill_parent"
@@ -131,14 +213,14 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                                        android:paddingLeft="10dp"
                     android:id="@+id/TextView05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Width"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductWidth"
@@ -146,9 +228,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:ems="10" 
-                      android:background="@null"/>
+                    android:background="@null"
+                    android:ems="10" />
             </LinearLayout>
+
             <View
                 android:id="@+id/view1"
                 android:layout_width="fill_parent"
@@ -163,14 +246,14 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                                        android:paddingLeft="10dp"
                     android:id="@+id/TextView06"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Depth"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductDepth"
@@ -178,12 +261,44 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:ems="10" 
-                      android:background="@null"/>
+                    android:background="@null"
+                    android:ems="10" />
             </LinearLayout>
-            </LinearLayout>
+                        <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/TextView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="Dimensions"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/dimensions"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ems="10" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -192,19 +307,20 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/round_corners_black_border"
             android:orientation="vertical" >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <TextView
-                                        android:paddingLeft="10dp"
                     android:id="@+id/TextView02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Features"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductFeatures"
@@ -212,39 +328,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                      android:background="@null" />
+                    android:background="@null"
+                    android:ems="10" />
             </LinearLayout>
-            <View
-                android:id="@+id/view1"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/darker_gray" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView                    android:paddingLeft="10dp"
-                    android:id="@+id/TextView04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Manufacturer"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
-
-                <EditText
-                    android:id="@+id/buyEventProductManufacturer"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:ems="10" 
-                      android:background="@null"/>
-            </LinearLayout>
             <View
                 android:id="@+id/view1"
                 android:layout_width="fill_parent"
@@ -258,41 +345,80 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                                        android:paddingLeft="10dp"
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:text="Manufacturer"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/buyEventProductManufacturer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ems="10" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
                     android:id="@+id/TextView01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Description"
-                    android:textAppearance="?android:attr/textAppearanceMedium" 
-                    android:textSize="15dp"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="15dp" />
 
                 <EditText
                     android:id="@+id/buyEventProductDescription"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:ems="10"
-                      android:background="@null" >
-                    
+                    android:background="@null"
+                    android:ems="10" >
 
                     <requestFocus />
                 </EditText>
-           
+            </LinearLayout>
         </LinearLayout>
-              </LinearLayout>
 
-                <Button
-                     android:layout_alignParentBottom="true"
-                    android:id="@+id/createBuyEvent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/layer_gradient"
-                    android:text="Sell Product" 
-                    android:textColor="#FFFFFF"/>
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/selectPicture"
+            android:layout_width="283dp"
+            android:layout_height="46dp"
+            android:text="Select picture" />
+
+        <Button
+            android:id="@+id/createBuyEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/layer_gradient"
+            android:text="Sell Product"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
-    
 
 </ScrollView>

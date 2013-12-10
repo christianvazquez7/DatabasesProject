@@ -6,7 +6,6 @@
     android:background="@drawable/wood"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-   
     android:paddingBottom="5dp" >
       
     <LinearLayout
@@ -90,24 +89,6 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/round_corners_black_border" >
 
-                <ImageView
-                    android:id="@+id/ivCatPage"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/monotone_arrow_right" />
-
-                <TextView
-                    android:id="@+id/Seller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="46dp"
-                    android:layout_toLeftOf="@+id/ivCatPage"
-                    android:text="Sinky2006"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
@@ -118,12 +99,22 @@
                     android:text="Seller"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
+                <TextView
+                    android:id="@+id/Seller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="21dp"
+                    android:text="Sinky2006"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/bid_info"
             android:layout_width="match_parent"
-            android:layout_height="103dp"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/round_corners_black_border" >
 
@@ -137,14 +128,6 @@
                 android:layout_marginTop="15dp"
                 android:text="Harvest "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <View
-                android:id="@+id/view1"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/darker_gray" />
 
             <EditText
                 android:id="@+id/etCategoryPage"
@@ -160,27 +143,6 @@
 
                 <requestFocus />
             </EditText>
-
-            <TextView
-                android:id="@+id/TextView03"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView2"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="14dp"
-                android:text="Harvest until"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/EditText01"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/TextView03"
-                android:layout_alignBottom="@+id/TextView03"
-                android:layout_alignLeft="@+id/etCategoryPage"
-                android:background="@null"
-                android:ems="10"
-                android:hint="ammount" />
 
         </RelativeLayout>
         

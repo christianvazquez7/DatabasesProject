@@ -54,18 +54,10 @@
             android:layout_height="wrap_content"
              >
 
-            <ImageView
-                android:id="@+id/ivCatPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/feats"
-                android:src="@drawable/monotone_arrow_right" />
-
             <TextView
                 android:id="@+id/feats"
                 android:layout_width="270dp"
-                android:layout_height="110dp"
-                android:layout_alignBottom="@+id/ivCatPage"
+                android:layout_height="60dp"
                 android:layout_alignLeft="@+id/textView4"
                 android:layout_below="@+id/textView4"
                 android:text="• Intel Core i7 3610QM 
@@ -100,13 +92,6 @@
          <RelativeLayout
              android:layout_width="match_parent"
              android:layout_height="100dp" >
-
-             <ImageView
-                 android:id="@+id/imageView1"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_toRightOf="@+id/description"
-                 android:src="@drawable/monotone_arrow_right" />
 
              <TextView
                  android:id="@+id/description"
