@@ -30,12 +30,12 @@ import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class UserEditActivity extends Activity {
-	
+
 	private User theUser;
 	private int user;
 	private String buffPass,buffEmail,buffUser;
 	private SpiceManager spiceManager= new SpiceManager(CarJsonSpringAndroidSpiceService.class);
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_edit);
@@ -50,7 +50,7 @@ public class UserEditActivity extends Activity {
 		password.setHint(theUser.getPassword());
 		EditText mail = (EditText) findViewById(R.id.editMail);
 		mail.setHint(theUser.getEmail());
-		
+
 		Button userUpdate= (Button) this.findViewById(R.id.usrUpdate);
 		userUpdate.setOnClickListener(new OnClickListener(){
 
@@ -65,7 +65,7 @@ public class UserEditActivity extends Activity {
 					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
 				}
 			}
-			
+
 		});
 		Button passUpdate= (Button) this.findViewById(R.id.passUpdate);
 		passUpdate.setOnClickListener(new OnClickListener(){
@@ -81,9 +81,9 @@ public class UserEditActivity extends Activity {
 					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
 				}
 			}
-			
+
 		});
-		
+
 		Button emailUpdate= (Button) this.findViewById(R.id.emailUpdate);
 		emailUpdate.setOnClickListener(new OnClickListener(){
 
@@ -98,25 +98,25 @@ public class UserEditActivity extends Activity {
 					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserEditListener());
 				}
 			}
-			
+
 		});
-		
+
 		Button deleteAccount = (Button) this.findViewById(R.id.delete_account);
 		deleteAccount.setOnClickListener(new OnClickListener()
 		{
 
-		
+
 			public void onClick(View arg0) 
 			{
 				if (!spiceManager.isStarted())
 				{
 					spiceManager.start(UserEditActivity.this);
-					DeleteUserRequest JsonSpringAndroidRequest = new DeleteUserRequest(user);
+					DeleteUserRequest JsonSpringAndroidRequest = new DeleteUserRequest(theUser);
 					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new UserDeleteListener());
 				}
-				
+
 			}
-			
+
 		});
 	}
 
@@ -130,10 +130,10 @@ public class UserEditActivity extends Activity {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
-			
+
 			Log.d("error",arg0.getMessage());
 			if (!(arg0 instanceof RequestCancelledException)) {
-				
+
 				Toast.makeText(UserEditActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
@@ -154,46 +154,45 @@ public class UserEditActivity extends Activity {
 			EditText mail = (EditText) findViewById(R.id.editMail);
 			mail.setText("");
 			mail.setHint(theUser.getEmail());
-			
-			
+
+
 		}
 
 		@Override
 		public void onRequestProgressUpdate(RequestProgress arg0) 
 		{
-		
+
 		}
 	}
 
-		private class UserDeleteListener implements RequestListener<Boolean>, RequestProgressListener {
+	private class UserDeleteListener implements RequestListener<Boolean>, RequestProgressListener {
 
-			@Override
-			public void onRequestFailure(SpiceException arg0) {
-				
-				Log.d("error",arg0.getMessage());
-				if (!(arg0 instanceof RequestCancelledException)) {
-					
-					Toast.makeText(UserEditActivity.this, "Delete Unsuccesful", Toast.LENGTH_SHORT).show();
-				}
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+				Toast.makeText(UserEditActivity.this, "Delete Unsuccesful", Toast.LENGTH_SHORT).show();
+			}
+			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
-			}
+		}
 
-			@Override
-			public void onRequestSuccess(Boolean edit) {
+		@Override
+		public void onRequestSuccess(Boolean edit) {
+			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
-				AdminSession.getEditUsers().remove(user);
-//				Intent back = new Intent(UserEditActivity.this,SearchAccountActivity.class);
-//				startActivity(back);
-				finish();
-			}
+			AdminSession.getEditUsers().remove(user);
+			finish();
+		}
 
-			@Override
-			public void onRequestProgressUpdate(RequestProgress arg0) 
-			{
-			
-			}
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
 
 
-	
+
 	}
 }

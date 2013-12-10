@@ -54,9 +54,7 @@ public class SearchAccountActivity extends FragmentActivity {
 					Log.d("Username", userName);
 					spiceManager.execute(new AccountRequestForAdmin(userName), new AdminSearchListener());
 				}
-
 			}
-
 		});
 	}
 

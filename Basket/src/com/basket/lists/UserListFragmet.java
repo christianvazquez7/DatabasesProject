@@ -3,19 +3,18 @@ package com.basket.lists;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.basket.activities.UserEditActivity;
-import com.basket.adapters.UserListAdapter;
-import com.basket.containers.AdminSession;
-import com.basket.general.User;
-
 import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ListView;
+
+import com.basket.activities.UserEditActivity;
+import com.basket.adapters.UserListAdapter;
+import com.basket.containers.AdminSession;
+import com.basket.general.User;
 
 public class UserListFragmet extends ListFragment {
 
