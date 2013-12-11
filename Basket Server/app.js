@@ -1063,7 +1063,9 @@ app.post('/Basket.js/TerminateEvent/:id', function(req,res)
 			console.log(req.params.id);
 			var trans = connection.startTransaction();
 			trans.query('update bid_events set declined=true where bidEventId='+connection.escape(req.params.id),function(err,info){
-				if(err)trans.rollback();
+				if(err){
+					trans.rollback();
+				}
 				else
 				{
 					trans.commit();
