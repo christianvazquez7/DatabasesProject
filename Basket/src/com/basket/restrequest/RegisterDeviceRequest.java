@@ -2,6 +2,7 @@ package com.basket.restrequest;
 
 import android.util.Log;
 
+import com.basket.containers.BasketSession;
 import com.basket.general.BasketConstants;
 import com.basket.general.ProductBasket;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
@@ -22,6 +23,7 @@ public class RegisterDeviceRequest extends SpringAndroidSpiceRequest<Boolean> {
 	public Boolean loadDataFromNetwork() throws Exception {
 		
 		String url = BasketConstants.externalIp+"/Basket.js/RegisterDevice/";
+		url+=BasketSession.getUser().getUsername()+"/";
 		url+=regid;
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().put(url, null);

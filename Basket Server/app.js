@@ -439,21 +439,27 @@ app.put('/Basket.js/UserEdit/:id/:usr/:pass/:email',function(req,res){
 	});
 });
 //Register Device
-app.put('/Basket.js/RegisterDevice/:id',function(req,res){
+
+function regDevice(username,id,callback){
+	var userquery = "update users set device_id="+connection.escape(id)+" where username="+connection.escape(username);
+	console.log(userquery);
+	connection.query(userquery,function(err,result){
+		if (err) {
+			console.log(err);
+		}
+		else{
+			callback(err,result);
+		}
+	});
+}
+app.put('/Basket.js/RegisterDevice/:username/:id',function(req,res){
 	console.log("Registering device");
 	console.log(req.params.id);
-	var found = false;
-	for (var i=0; i<registrationIds.length; i++) {
-		console.log(registrationIds[i].localeCompare(req.params.id));
-		if(registrationIds[i].localeCompare(req.params.id)){
-			console.log("Found");
-			found = true;
-		}
-	}
-	if(!found){
-		registrationIds.push(req.params.id);
-	}
-	res.json(true);
+	console.log(req.params.username);
+	regDevice(req.params.username, req.params.id,function(err,result){
+		res.json(true);
+	});
+	
 });
 //Update user shipping adresses
 app.put('/Basket.js/UpdateUser/',function(req,res){
@@ -2005,7 +2011,7 @@ app.get('/Basket.js/UpdateBidSeller/:uId', function(req,res)
 		res.json(response);
 			});
 
-		});
+});
 
 
 
@@ -2869,16 +2875,15 @@ var message = new gcm.Message({
 	timeToLive: 3,
 	data: {
 		key1: 'message1',
-		key2: 'message2'
+		
 	}
 });
 var sender = new gcm.Sender('AIzaSyCTFn1fBSl-7jcUgWIDb6SE17qiaoFpr6o');
-var registrationIds = [];
 //At least one required
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-var myVar=setInterval(function(){myBidEventTimer()},10000);
+var myVar=setInterval(function(){myTimer()},1000);
 //check for completed bidEvents
 
 var myVar2=setInterval(function(){myBidEventTimer()},60000);
@@ -2909,8 +2914,19 @@ function myBidEventTimer()
 
 function myTimer()
 {
-	console.log("Bam");
-	sender.send(message, registrationIds, 4, function (err, result) {console.log(result);});
+	var userquery = 'select device_id from users';
+	connection.query(userquery,function(err,resp){
+		console.log("Bam");
+		for(var i = 0; i<resp.length;i++){
+			console.log(resp[i].device_id);
+			if(resp[i].device_id==''){
+				continue;
+			}
+			else
+			sender.send(message, resp[i].device_id, 4, function (err, result) {console.log(result);});
+		}
+	});
+	
 };
 
 
