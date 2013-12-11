@@ -76,8 +76,14 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		{
 			spiceManager.start(getActivity());
 			this.pos=pos;
+			if(BasketSession.getUser().getCurrentlySellingOnBid().get(pos).isFinished()){
+				TerminateEventRequest ev = new TerminateEventRequest(BasketSession.getUser().getCurrentlySellingOnBid().get(pos),BasketSession.getUser().getCurrentlySellingOnBid().get(pos).getId());	
+				spiceManager.execute(ev, "", DurationInMillis.ALWAYS_EXPIRED, new TerminateListener());
+			}
+			else{	
 			BidOnEventRequest JsonSpringAndroidRequest = new BidOnEventRequest(BasketSession.getUser().getCurrentlySellingOnBid().get(pos).getId());
 			spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new GetBidsListener());
+			}
 		}
 		
 	}

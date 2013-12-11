@@ -114,12 +114,14 @@ public class LoginActivity extends Activity {
 		public void onRequestSuccess(User User) 
 		{
 			Log.d("PROGRESS", "GETU");
+			spiceManager.shouldStop();
 			BasketSession.beginSession(User);
 			Log.d("try",BasketSession.getUser().getShippingAdress().toString());
 
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);
-			GetRecommendationsRequest recommendations = new GetRecommendationsRequest(User);
-			spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
+			startActivity(intent);
+			//GetRecommendationsRequest recommendations = new GetRecommendationsRequest(User);
+			//spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
 		}
 
 		@Override

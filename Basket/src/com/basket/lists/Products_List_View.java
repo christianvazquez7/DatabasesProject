@@ -24,7 +24,7 @@ public class Products_List_View extends ListFragment{
 		int myInt = bundle.getInt("pos", -1);
 		View rootView = inflater.inflate(R.layout.orders_list, container, false);
 		products = BasketSession.getUser().getUserOrders().get(myInt).getBuyEvents();
-		if (products.isEmpty())
+		if (products==null ||products.isEmpty())
 		{
 			bproducts =new ArrayList<BidEvent>();
 			bproducts.add(BasketSession.getUser().getUserOrders().get(myInt).getBidEvent());
