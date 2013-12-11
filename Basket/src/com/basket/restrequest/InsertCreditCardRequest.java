@@ -5,22 +5,22 @@ import com.basket.general.CreditCard;
 import com.basket.general.User;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-public class InsertCreditCardRequest extends SpringAndroidSpiceRequest<Boolean> {
+public class InsertCreditCardRequest extends SpringAndroidSpiceRequest<String> {
 	
 	private CreditCard newCreditCard;
 	private User user;
 	public InsertCreditCardRequest(CreditCard newCreditCard, User user) 
 	{
-		super(Boolean.class);
+		super(String.class);
 		this.newCreditCard=newCreditCard;
 		this.user = user;
 	}
 
 	@Override
-	public Boolean loadDataFromNetwork() throws Exception 
+	public String loadDataFromNetwork() throws Exception 
 	{
-		getRestTemplate().postForObject(BasketConstants.externalIp+"/Basket.js/insertCreditCard/"+user.getEmail()+"/"+user.getUsername(), newCreditCard, Boolean.class);
-		return true;
+		return getRestTemplate().postForObject(BasketConstants.externalIp+"/Basket.js/insertCreditCard/"+user.getEmail()+"/"+user.getUsername(), newCreditCard, String.class);
+		
 	}
 
 }

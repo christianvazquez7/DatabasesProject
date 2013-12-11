@@ -65,4 +65,6 @@
             android:layout_alignLeft="@+id/price"
             android:layout_below="@+id/price" />
 
+        
+
     </RelativeLayout>

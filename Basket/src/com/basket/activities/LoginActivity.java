@@ -243,12 +243,6 @@ public class LoginActivity extends Activity {
 		{
 			Log.d("PROGRESS", "GETDEAL");
 			BasketSession.setDeals(cat.getEvents());
-			//GetDOTDRequest req = new GetDOTDRequest();
-			//spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new DealRequestListener());
-			//			String email =((TextView)findViewById(R.id.email)).getText().toString();
-			//			String password =((TextView)findViewById(R.id.password)).getText().toString();
-			//			UserRequest JsonSpringAndroidRequest = new UserRequest(email,password);
-			//			spiceManager.execute(JsonSpringAndroidRequest, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new UserRequestListener());
 			String email =((TextView)findViewById(R.id.email)).getText().toString().trim();
 			String password =((TextView)findViewById(R.id.password)).getText().toString().trim();
 			if(email.contains("@")){

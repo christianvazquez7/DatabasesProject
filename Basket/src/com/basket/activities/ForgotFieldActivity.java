@@ -102,7 +102,20 @@ public class ForgotFieldActivity extends Activity {
 			if(spiceManager.isStarted()){
 				spiceManager.shouldStop();
 			}
-			Toast.makeText(ForgotFieldActivity.this, "Sent email", Toast.LENGTH_LONG).show();
+			try{
+				if(arg0){
+					Toast.makeText(ForgotFieldActivity.this, "Sent email", Toast.LENGTH_LONG).show();
+
+				}
+				else{
+					Toast.makeText(ForgotFieldActivity.this, "Not registered", Toast.LENGTH_LONG).show();
+
+				}
+			}
+			catch(Exception e){
+				Toast.makeText(ForgotFieldActivity.this, "Not registered", Toast.LENGTH_LONG).show();
+
+			}
 			
 		}
 	}

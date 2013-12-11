@@ -169,7 +169,7 @@ public class EditSingleSAActivity extends Activity {
 
 		}
 	}
-	private class InsertShipAddListner implements RequestListener<Boolean>, RequestProgressListener {
+	private class InsertShipAddListner implements RequestListener<String>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -179,13 +179,26 @@ public class EditSingleSAActivity extends Activity {
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean edit) {
+		public void onRequestSuccess(String insertId) {
 			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
-			theUser.getShippingAdress().set(selectedShipAdd, theAddress);
-			Toast.makeText(EditSingleSAActivity.this, "Success adding new address", Toast.LENGTH_LONG).show();
+			int nid=0;
+			boolean problem = false;
+			try{
+				nid = Integer.parseInt(insertId);
+			}
+			catch(NumberFormatException e){
+				Toast.makeText(EditSingleSAActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
+				problem = true;
+			}
+			if(!problem){
+				theAddress.setAid(nid);
 
-			EditSingleSAActivity.this.finish();
+				theUser.getShippingAdress().set(selectedShipAdd, theAddress);
+				Toast.makeText(EditSingleSAActivity.this, "Success adding new address", Toast.LENGTH_LONG).show();
+
+				EditSingleSAActivity.this.finish();
+			}
 		}
 
 		@Override

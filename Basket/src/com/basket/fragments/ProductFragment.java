@@ -81,10 +81,9 @@ public class ProductFragment extends Fragment
 			((TextView)view.findViewById(R.id.price)).setText("$"+Double.toString(((BuyEvent) theEvent).getPrice()));
 			((TextView)view.findViewById(R.id.supplier)).setText(((BuyEvent) theEvent).getProduct().getManufacturer());
 			
-			
 			Bitmap bm=null;
 			if(((BuyEvent) theEvent).getPic()!=null)
-			 bm = BitmapFactory.decodeByteArray(((BuyEvent) theEvent).getPic(), 0 ,((BuyEvent) theEvent).getPic().length);
+			bm = BitmapFactory.decodeByteArray(((BuyEvent) theEvent).getPic(), 0 ,((BuyEvent) theEvent).getPic().length);
 			
 			ImageView pic =(ImageView)view.findViewById(R.id.ivCatPage);
 			if(pic!=null)

@@ -291,10 +291,10 @@ public class HomePageActivity extends Activity {
 			if(!spiceManager.isStarted())
 				spiceManager.start(HomePageActivity.this);
 			RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
-			spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
+			//spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
 
 			if (regid.length() == 0) {
-				registerInBackground();
+//				registerInBackground();
 			}
 
 
@@ -337,8 +337,8 @@ public class HomePageActivity extends Activity {
 		super.onResume();
 		// Check device for Play Services APK. Se deberia hacer pero enfogona....
 		//checkPlayServices();
-		GetRecommendationsRequest recommendations = new GetRecommendationsRequest(BasketSession.getUser());
-		spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
+//		GetRecommendationsRequest recommendations = new GetRecommendationsRequest(BasketSession.getUser());
+//		spiceManager.execute(recommendations, JSON_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new GetRecommendationsListner());
 
 	}
 	/**
@@ -412,48 +412,48 @@ public class HomePageActivity extends Activity {
 	 * Stores the registration ID and the app versionCode in the application's
 	 * shared preferences.
 	 */
-	private void registerInBackground() {
-		new AsyncTask<Void, Void, String>() {
-			@Override
-			protected String doInBackground(Void... params) {
-				String msg = "";
-				try {
-					if (gcm == null) {
-						gcm = GoogleCloudMessaging.getInstance(context);
-					}
-					regid = gcm.register(SENDER_ID);
-					msg = "Device registered, registration ID=" + regid;
-
-					// You should send the registration ID to your server over HTTP, so it
-					// can use GCM/HTTP or CCS to send messages to your app.
-					// sendRegistrationIdToBackend();
-
-					// For this demo: we don't need to send it because the device will send
-					// upstream messages to a server that echo back the message using the
-					// 'from' address in the message.
-
-					// Persist the regID - no need to register again.
-					if(!spiceManager.isStarted())
-						spiceManager.start(HomePageActivity.this);
-					RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
-					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
-
-					storeRegistrationId(context, regid);
-				} catch (IOException ex) {
-					msg = "Error :" + ex.getMessage();
-					// If there is an error, don't just keep trying to register.
-					// Require the user to click a button again, or perform
-					// exponential back-off.
-				}
-				return msg;
-			}
-
-			@Override
-			protected void onPostExecute(String msg) {
-				//mDisplay.append(msg + "\n");
-			}
-		}.execute(null, null, null);
-	}
+//	private void registerInBackground() {
+//		new AsyncTask<Void, Void, String>() {
+//			@Override
+//			protected String doInBackground(Void... params) {
+//				String msg = "";
+//				try {
+//					if (gcm == null) {
+//						gcm = GoogleCloudMessaging.getInstance(context);
+//					}
+//					regid = gcm.register(SENDER_ID);
+//					msg = "Device registered, registration ID=" + regid;
+//
+//					// You should send the registration ID to your server over HTTP, so it
+//					// can use GCM/HTTP or CCS to send messages to your app.
+//					// sendRegistrationIdToBackend();
+//
+//					// For this demo: we don't need to send it because the device will send
+//					// upstream messages to a server that echo back the message using the
+//					// 'from' address in the message.
+//
+//					// Persist the regID - no need to register again.
+//					if(!spiceManager.isStarted())
+//						spiceManager.start(HomePageActivity.this);
+//					RegisterDeviceRequest JsonSpringAndroidRequest = new RegisterDeviceRequest(regid);
+//					spiceManager.execute(JsonSpringAndroidRequest, "user_edit", DurationInMillis.ALWAYS_EXPIRED, new RegDevListener());
+//
+//					storeRegistrationId(context, regid);
+//				} catch (IOException ex) {
+//					msg = "Error :" + ex.getMessage();
+//					// If there is an error, don't just keep trying to register.
+//					// Require the user to click a button again, or perform
+//					// exponential back-off.
+//				}
+//				return msg;
+//			}
+//
+//			@Override
+//			protected void onPostExecute(String msg) {
+//				//mDisplay.append(msg + "\n");
+//			}
+//		}.execute(null, null, null);
+//	}
 	/**
 	 * @return Application's version code from the {@code PackageManager}.
 	 */
@@ -547,67 +547,67 @@ public class HomePageActivity extends Activity {
 
 
 	}
-	private class GetRecommendationsListner implements RequestListener<EventList>, RequestProgressListener {
-		@Override
-		public void onRequestFailure(SpiceException arg0) {
-			Log.d("error",arg0.getMessage());
-			if (!(arg0 instanceof RequestCancelledException)) {
-				Toast.makeText(HomePageActivity.this, "Could not get recommendations", Toast.LENGTH_SHORT).show();
-			}
-			if(spiceManager.isStarted())
-				spiceManager.shouldStop();
-		}
-		@Override
-		public void onRequestProgressUpdate(RequestProgress arg0) 
-		{
-
-		}
-		@Override
-		public void onRequestSuccess(EventList arg0) {
-			Log.d("PROGRESS", "Getting recomendations");
-			BasketSession.setRecommendations((ArrayList<BuyEvent>) arg0.getBuyEvents());
-			if(spiceManager.isStarted())
-				spiceManager.shouldStop();
-			LayoutInflater inf = LayoutInflater.from(getApplicationContext());
-
-			for(int i = 0;i<BasketSession.getRecommendations().size();i++){
-				BuyEvent e = BasketSession.getRecommendations().get(i);
-				pos = i;
-				View a = inf.inflate(R.layout.blank, null);
-				TextView t = (TextView) a.findViewById(R.id.deal_name);
-				t.setText(e.getTitle());
-				buyevent = e;
-				byte[] K = e.getPic();
-				Bitmap bm=null;
-				if(e.getPic()!=null)
-					bm = BitmapFactory.decodeByteArray(e.getPic(), 0 ,e.getPic().length);
-
-				ImageView pic =(ImageView)a.findViewById(R.id.dpic);
-				pic.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						if (!spiceManager.isStarted())
-						{
-							productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
-							productPage.putExtra("selectedEvent",pos);
-							spiceManager.start(HomePageActivity.this);
-							GetReviewsRequest a;
-							a = new GetReviewsRequest(buyevent.getId(),1);
-							spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
-						}
-					}
-				});
-				if(pic!=null){
-					if(K.length ==0){
-						pic.setImageResource(R.drawable.ic_launcher);
-					}
-					else
-						pic.setImageBitmap(bm);
-				}
-				mVFlipper2.addView(a);
-			}
-		}
-	}
+//	private class GetRecommendationsListner implements RequestListener<EventList>, RequestProgressListener {
+//		@Override
+//		public void onRequestFailure(SpiceException arg0) {
+//			Log.d("error",arg0.getMessage());
+//			if (!(arg0 instanceof RequestCancelledException)) {
+//				Toast.makeText(HomePageActivity.this, "Could not get recommendations", Toast.LENGTH_SHORT).show();
+//			}
+//			if(spiceManager.isStarted())
+//				spiceManager.shouldStop();
+//		}
+//		@Override
+//		public void onRequestProgressUpdate(RequestProgress arg0) 
+//		{
+//
+//		}
+//		@Override
+//		public void onRequestSuccess(EventList arg0) {
+//			Log.d("PROGRESS", "Getting recomendations");
+//			BasketSession.setRecommendations((ArrayList<BuyEvent>) arg0.getBuyEvents());
+//			if(spiceManager.isStarted())
+//				spiceManager.shouldStop();
+//			LayoutInflater inf = LayoutInflater.from(getApplicationContext());
+//
+//			for(int i = 0;i<BasketSession.getRecommendations().size();i++){
+//				BuyEvent e = BasketSession.getRecommendations().get(i);
+//				pos = i;
+//				View a = inf.inflate(R.layout.blank, null);
+//				TextView t = (TextView) a.findViewById(R.id.deal_name);
+//				t.setText(e.getTitle());
+//				buyevent = e;
+//				byte[] K = e.getPic();
+//				Bitmap bm=null;
+//				if(e.getPic()!=null)
+//					bm = BitmapFactory.decodeByteArray(e.getPic(), 0 ,e.getPic().length);
+//
+//				ImageView pic =(ImageView)a.findViewById(R.id.dpic);
+//				pic.setOnClickListener(new View.OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						if (!spiceManager.isStarted())
+//						{
+//							productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
+//							productPage.putExtra("selectedEvent",pos);
+//							spiceManager.start(HomePageActivity.this);
+//							GetReviewsRequest a;
+//							a = new GetReviewsRequest(buyevent.getId(),1);
+//							spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
+//						}
+//					}
+//				});
+//				if(pic!=null){
+//					if(K.length ==0){
+//						pic.setImageResource(R.drawable.ic_launcher);
+//					}
+//					else
+//						pic.setImageBitmap(bm);
+//				}
+//				mVFlipper2.addView(a);
+//			}
+//		}
+//	}
 }
 

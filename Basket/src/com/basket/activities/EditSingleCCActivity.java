@@ -180,7 +180,7 @@ public class EditSingleCCActivity extends Activity {
 
 		}
 	}
-	private class InsertCreditCardListner implements RequestListener<Boolean>, RequestProgressListener {
+	private class InsertCreditCardListner implements RequestListener<String>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -190,13 +190,25 @@ public class EditSingleCCActivity extends Activity {
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean edit) {
+		public void onRequestSuccess(String id) {
 			if(spiceManager.isStarted())
 				spiceManager.shouldStop();
-			theUser.getCreditCards().set(selectedCreditCard, theCreditCard);
-			Toast.makeText(EditSingleCCActivity.this, "Success adding new credit card", Toast.LENGTH_LONG).show();
+			int nid=0;
+			boolean problem = false;
+			try{
+				nid = Integer.parseInt(id);
+			}
+			catch(NumberFormatException e){
+				Toast.makeText(EditSingleCCActivity.this, "Update Unsuccesful", Toast.LENGTH_SHORT).show();
+				problem = true;
+			}
+			if(!problem){
+				theCreditCard.setCardId(nid);
+				theUser.getCreditCards().set(selectedCreditCard, theCreditCard);
+				Toast.makeText(EditSingleCCActivity.this, "Success adding new credit card", Toast.LENGTH_LONG).show();
 
-			EditSingleCCActivity.this.finish();
+				EditSingleCCActivity.this.finish();
+			}
 		}
 
 		@Override

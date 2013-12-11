@@ -2,28 +2,21 @@ package com.basket.general;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import java.util.UUID;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
- * @author arios_000
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Category {
-	@Override
-	public String toString() {
-		return "Category [name=" + name + ", child=" + child + ", parent="
-				+ parent + "]";
-	}
+	
 	//Variable Declaration.
 	private String name; 
 	private ArrayList<Category> child;		
 	private Category parent;
+	private int parentId;
 	public String getName() {
 		return name;
 	}
@@ -78,7 +71,17 @@ public class Category {
 	public void setParent(Category parent) {
 		this.parent = parent;
 	}
-	
+	@Override
+	public String toString() {
+		return "Category [name=" + name + ", child=" + child + ", parent="
+				+ parent + "]";
+	}
+	public int getParentId() {
+		return parentId;
+	}
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
 }
 	
 	

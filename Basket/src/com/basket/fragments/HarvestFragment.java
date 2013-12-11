@@ -281,7 +281,7 @@ public class HarvestFragment extends Fragment
 			FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 			 nextTime.setText(FORMATTER.format(date));
 			
-			
+			//Verificar si winning es nulo o no
 			nextBid.setText(Double.toString(winning.getAmmount()+event.getMinBid()));
 			event.getWinningBid().setAmmount(winning.getAmmount());
 			event.getWinningBid().setBidTime(currentTime);

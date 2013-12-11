@@ -93,6 +93,8 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getBtitle());
 			((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 			((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
+			((TextView)convertView.findViewById(R.id.available)).setText(((BuyEvent) currentProduct).getitem_quantity()+" available");
+
 			 final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);
 			    minimumRating.setRating(currentProduct.getRating());
 			    
