@@ -44,7 +44,7 @@ public class ProductAdapter extends ArrayAdapter<Event>
 
 			((TextView)convertView.findViewById(R.id.bidproduct)).setText(currentProduct.getbTitle()); 
 			if(currentProduct.getWinningBid()==null)
-				((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getMinBid()));
+				((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getStartingBid()));
 			else
 				((TextView)convertView.findViewById(R.id.bidprice)).setText("$"+Double.toString(currentProduct.getWinningBid().getAmmount()));
 			((TextView)convertView.findViewById(R.id.bidsupplier)).setText(currentProduct.getProduct().getManufacturer());

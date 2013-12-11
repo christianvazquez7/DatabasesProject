@@ -32,8 +32,9 @@ public class ProductsInMyShopBuyAdapter extends ArrayAdapter<BuyEvent>
 			
 		}
 		BuyEvent currentProduct = this.getItem(pos);
-		
-		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getProduct().getName());
+		((TextView)convertView.findViewById(R.id.product)).setText(currentProduct.getBtitle());
+
+		((TextView)convertView.findViewById(R.id.theProductb)).setText(currentProduct.getProduct().getName());
 		((TextView)convertView.findViewById(R.id.price)).setText("$"+Double.toString(currentProduct.getPrice()));
 		((TextView)convertView.findViewById(R.id.supplier)).setText(currentProduct.getProduct().getManufacturer());
 		final RatingBar minimumRating = (RatingBar)convertView.findViewById(R.id.ratingBar1);

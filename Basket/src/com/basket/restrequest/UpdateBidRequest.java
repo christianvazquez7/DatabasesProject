@@ -6,20 +6,20 @@ import com.basket.general.BasketConstants;
 import com.basket.lists.BidList;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-public class UpdateBidRequest extends SpringAndroidSpiceRequest<BidList> {
+public class UpdateBidRequest extends SpringAndroidSpiceRequest<BidEventList> {
 	
 	private String url=BasketConstants.externalIp+"/Basket.js/UpdateBidSeller";
 	
-	public UpdateBidRequest() {
-		super(BidList.class);
-		
+	public UpdateBidRequest(int u) {
+		super(BidEventList.class);
+		url+="/"+u;
 	}
 
 	@Override
-	public BidList loadDataFromNetwork() throws Exception 
+	public BidEventList loadDataFromNetwork() throws Exception 
 	{	
 		Log.d( "request", "loading from network" );
-		return getRestTemplate().getForObject( url, BidList.class);
+		return getRestTemplate().getForObject( url, BidEventList.class);
 	}
 
 }

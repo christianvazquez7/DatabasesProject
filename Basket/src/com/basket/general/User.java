@@ -125,6 +125,12 @@ public class User
 	}
 
 	public void setCurrentlySellingOnBid(ArrayList<BidEvent> currentlySellingOnBid) {
+		if(this.currentlySellingOnBid!=null){
+			this.currentlySellingOnBid.clear();
+			for(BidEvent e: currentlySellingOnBid)
+				this.currentlySellingOnBid.add(e);
+		}
+		else
 		this.currentlySellingOnBid = currentlySellingOnBid;
 	}
 

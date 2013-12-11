@@ -1,17 +1,18 @@
 package com.basket.activities;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Category;
 import com.basket.general.Product;
+import com.basket.restrequest.ByteContainer;
 import com.basket.restrequest.NewBuySellEventRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -51,6 +53,9 @@ public class CreateBuyActivity extends Activity {
 	private EditText productId;
 	private EditText dimensions;
 	private EditText quantity;
+	private String imageEncoded;
+	private ByteBuffer buffer;
+	private BuyEvent newBuyEvent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,7 +90,7 @@ public class CreateBuyActivity extends Activity {
 		prodD = (EditText) findViewById(R.id.buyEventProductDepth);
 		prodMan = (EditText) findViewById(R.id.buyEventProductManufacturer);
 
-		final BuyEvent newBuyEvent = new BuyEvent();
+		 newBuyEvent = new BuyEvent();
 		final Product prod = new Product();
 
 		mCreateBuyEventButton= (Button) findViewById(R.id.createBuyEvent);
@@ -126,12 +131,12 @@ public class CreateBuyActivity extends Activity {
 					newBuyEvent.setPrice(Double.parseDouble(prodPrice.getText().toString()));
 					BasketSession.getUser().getCurrentlySellingOnBuy().add(newBuyEvent);
 
-					spiceManager.start(CreateBuyActivity.this);					
-					NewBuySellEventRequest JsonSpringAndroidRequest = new NewBuySellEventRequest(newBuyEvent, BasketSession.getUser().getUserId(),q,(String)mSpinner.getSelectedItem());
+					spiceManager.start(CreateBuyActivity.this);			
+					newBuyEvent.setEndoded(imageEncoded);
+					NewBuySellEventRequest JsonSpringAndroidRequest = new NewBuySellEventRequest(newBuyEvent, BasketSession.getUser().getUserId(),q,(String)mSpinner.getSelectedItem(),imageEncoded);
 					spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBuyEventSellListner());
 
 					
-					CreateBuyActivity.this.finish();
 				}catch (NumberFormatException e){
 					Toast.makeText(CreateBuyActivity.this, "Wrong input on price make sure its number", Toast.LENGTH_LONG).show();
 				}
@@ -153,7 +158,7 @@ public class CreateBuyActivity extends Activity {
 			
 		});
 	}
-	private class NewBuyEventSellListner implements RequestListener<Boolean>, RequestProgressListener {
+	private class NewBuyEventSellListner implements RequestListener<ByteContainer>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -168,13 +173,13 @@ public class CreateBuyActivity extends Activity {
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean bool) 
+		public void onRequestSuccess(ByteContainer bool) 
 		{
 
-
+			newBuyEvent.setId(bool.getValue());
 			spiceManager.shouldStop();
 			Toast.makeText(CreateBuyActivity.this, "Successfully put product on sale", Toast.LENGTH_SHORT).show();
-
+			CreateBuyActivity.this.finish();
 		}
 
 		@Override
@@ -206,9 +211,19 @@ public class CreateBuyActivity extends Activity {
 	            String picturePath = cursor.getString(columnIndex);
 	            cursor.close();
 	            ByteArrayOutputStream outStr = new ByteArrayOutputStream();
+	            
+//	            
+//	            BitmapFactory.Options options = new BitmapFactory.Options();
+//
+//	            options.inSampleSize = 2;
 	             Bitmap picture = BitmapFactory.decodeFile(picturePath);
 	             picture.compress(Bitmap.CompressFormat.PNG, 100, outStr);
-	           blob = outStr.toByteArray();	            
+	             blob = outStr.toByteArray();	 
+	 			Log.d("try",blob+" ");
+	 			
+	 		
+
+	            imageEncoded = Base64.encodeToString(blob,Base64.DEFAULT);
 	        }
 	     
 	     

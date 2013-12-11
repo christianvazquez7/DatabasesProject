@@ -57,7 +57,7 @@ public class HarvestFragment extends Fragment
 		if(event.getWinningBid()!=null)
 		winningBid.setText(Double.toString(event.getWinningBid().getAmmount()));
 		else
-			winningBid.setText(Double.toString(event.getMinBid()));
+			winningBid.setText(Double.toString(event.getStartingBid()));
 
 
 		 nextBid =(TextView)view.findViewById(R.id.TextView02);
@@ -85,7 +85,7 @@ public class HarvestFragment extends Fragment
 
 		}
 		else{
-			nextBid.setText(Double.toString(event.getMinBid()+event.getMinBid()));
+			nextBid.setText(Double.toString(event.getStartingBid()+event.getMinBid()));
 			nextTime.setText("");
 
 		}
@@ -196,9 +196,20 @@ public class HarvestFragment extends Fragment
 				nextBid.setText(Double.toString(newBid.getAmmount()+event.getMinBid()));
 				BidEventPageActivity a =(BidEventPageActivity)getActivity();
 				a.updateBid(newBid);
+				if(event.getWinningBid()!=null)
+				{
 				event.getWinningBid().setAmmount(newBid.getAmmount());
 				event.getWinningBid().setBidTime(currentTime);
 				event.getWinningBid().setDate(currentTime);
+				}
+				else{
+					Bid win = new Bid();
+					win.setAmmount(newBid.getAmmount());
+					win.setBidTime(currentTime);
+					win.setDate(currentTime);
+					event.setWinningBid(win);
+
+				}
 				
 				
 				Toast.makeText(getActivity(), "Bid Posted", Toast.LENGTH_SHORT).show();

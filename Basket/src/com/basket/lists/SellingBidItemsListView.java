@@ -18,8 +18,10 @@ import com.basket.adapters.ProductInMyShopBidAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.restrequest.BidEventList;
 import com.basket.restrequest.BidOnEventList;
 import com.basket.restrequest.BidOnEventRequest;
+import com.basket.restrequest.TerminateEventRequest;
 import com.basket.restrequest.UpdateBidRequest;
 import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
@@ -55,7 +57,7 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 				if(!spiceManager.isStarted()){
 					spiceManager.start(getActivity());
 
-					UpdateBidRequest JsonSpringAndroidRequest = new UpdateBidRequest();
+					UpdateBidRequest JsonSpringAndroidRequest = new UpdateBidRequest(BasketSession.getUser().getUserId());
 					spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new UpdateBidSellerListener());
 				}
 
@@ -73,13 +75,14 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		if (!spiceManager.isStarted())
 		{
 			spiceManager.start(getActivity());
+			this.pos=pos;
 			BidOnEventRequest JsonSpringAndroidRequest = new BidOnEventRequest(BasketSession.getUser().getCurrentlySellingOnBid().get(pos).getId());
 			spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new GetBidsListener());
 		}
 		
 	}
 
-	private class UpdateBidSellerListener implements RequestListener<BidList>, RequestProgressListener {
+	private class UpdateBidSellerListener implements RequestListener<BidEventList>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -93,23 +96,13 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		}
 
 		@Override
-		public void onRequestSuccess(BidList finished) 
+		public void onRequestSuccess(BidEventList finished) 
 		{
 			spiceManager.shouldStop();
-			for (int i:finished.getToFinish()){
-				Log.d("try",Integer.toString(i));
-			}
-			for (BidEvent b :BasketSession.getUser().getCurrentlySellingOnBid())
-			{
-
-				if(finished.getToFinish().contains(b.getId()))
-				{
-					Log.d("try","donas");
-					b.setFinished(true);
-				}
-			}
-
 			ArrayAdapter a =((ArrayAdapter)getListAdapter());
+			
+			BasketSession.getUser().setCurrentlySellingOnBid(finished.getEvents());
+			
 			if (a!=null)
 				a.notifyDataSetChanged();
 
@@ -152,8 +145,9 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 					i = new Intent(getActivity(),BidWinActivity.class);
 				else
 				{
-					Toast.makeText(getActivity(), "No Bidder", Toast.LENGTH_SHORT).show();
-					BasketSession.getUser().getCurrentlySellingOnBid().remove(pos);
+					spiceManager.start(getActivity());
+					TerminateEventRequest ev = new TerminateEventRequest(e,e.getId());	
+					spiceManager.execute(ev, "", DurationInMillis.ALWAYS_EXPIRED, new TerminateListener());
 				}
 			}
 			else
@@ -184,6 +178,36 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 			a.notifyDataSetChanged();
 
 
+
+
+	}
+	
+	private class TerminateListener implements RequestListener<Boolean>, RequestProgressListener {
+
+		@Override
+		public void onRequestFailure(SpiceException arg0) {
+
+			Log.d("error",arg0.getMessage());
+			if (!(arg0 instanceof RequestCancelledException)) {
+
+				Toast.makeText(getActivity(), "No connection to server", Toast.LENGTH_SHORT).show();
+			}
+			spiceManager.shouldStop();
+		}
+
+		@Override
+		public void onRequestSuccess(Boolean bids) 
+		{
+			spiceManager.shouldStop();
+			Toast.makeText(getActivity(), "No Bidder", Toast.LENGTH_SHORT).show();
+			BasketSession.getUser().getCurrentlySellingOnBid().remove(pos);
+		}
+
+		@Override
+		public void onRequestProgressUpdate(RequestProgress arg0) 
+		{
+
+		}
 
 
 	}
