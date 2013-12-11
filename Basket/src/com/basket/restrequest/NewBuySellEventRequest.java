@@ -12,12 +12,15 @@ public class NewBuySellEventRequest extends SpringAndroidSpiceRequest<Boolean> {
 	
 	
 	private BuyEvent buySellProduct;
-	public NewBuySellEventRequest(BuyEvent b) 
+	private int u,quan;
+	private String cat;
+	public NewBuySellEventRequest(BuyEvent b,int uId,int q,String c) 
 	{
 		super(Boolean.class);
 		buySellProduct=b;
-	
-	
+		u=uId;
+		quan=q;
+		cat=c;
 	}
 
 	@Override
@@ -25,7 +28,7 @@ public class NewBuySellEventRequest extends SpringAndroidSpiceRequest<Boolean> {
 	{
 		
 		String url = BasketConstants.externalIp+"/Basket.js/NewBuySell";
-		
+		url+="/"+u+"/"+quan+"/"+cat;
 		Log.d( "request", "loading from network" );	
 		getRestTemplate().postForObject(url,buySellProduct,Boolean.class);
 		return true;

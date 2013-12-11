@@ -3,6 +3,7 @@ package com.basket.containers;
 import java.util.ArrayList;
 
 import com.basket.general.Bid;
+import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.Category;
 import com.basket.general.Event;
@@ -20,9 +21,16 @@ public class BasketSession
 	private static ArrayList<Category> categories;
 	private static ArrayList<Deal>deals;
 	private static ArrayList<BuyEvent>recommendations;
+	private static BidEvent bidCheckout;
 	
 	
 	
+	public static BidEvent getBidCheckout() {
+		return bidCheckout;
+	}
+	public static void setBidCheckout(BidEvent bidCheckout) {
+		BasketSession.bidCheckout = bidCheckout;
+	}
 	public static void beginSession(User user)
 	{
 		loggedUser=user;

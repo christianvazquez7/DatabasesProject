@@ -34,5 +34,6 @@
     <string name="title_activity_admin_sign_up">AdminSignUp</string>
     <string name="title_activity_user_review_list">UserReviewListActivity</string>
     <string name="title_activity_review">ReviewActivity</string>
+    <string name="title_activity_bid_checkout">BidCheckoutActivity</string>
 
 </resources>

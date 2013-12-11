@@ -15,11 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Category {
-	@Override
-	public String toString() {
-		return "Category [name=" + name + ", child=" + child + ", parent="
-				+ parent + "]";
-	}
+	
 	//Variable Declaration.
 	private String name; 
 	private ArrayList<Category> child;		
@@ -78,7 +74,11 @@ public class Category {
 	public void setParent(Category parent) {
 		this.parent = parent;
 	}
-	
+	@Override
+	public String toString() {
+		return "Category [name=" + name + ", child=" + child + ", parent="
+				+ parent + "]";
+	}
 }
 	
 	

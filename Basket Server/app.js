@@ -81,7 +81,9 @@ function getUserInfo(uname, callback) {
 	console.log("In get user info uname is:"+uname);
 	if(uname==""){
 		console.log("Empty");
-		connection.query('SELECT * FROM Users where active_user=1', function(err, response) {
+		var queryadd  = 'SELECT username, password, email FROM Users where active_user=1 union SELECT username, password, email FROM admins WHERE active_user=1';
+
+		connection.query(queryadd, function(err, response) {
 			if (err) throw err;
 			callback(err, response);
 		});
@@ -642,7 +644,8 @@ app.put('/Basket.js/addReview/:id/:username/:isBid/:pid',function(req,res)
 
 
 //Add a bid aquiiii!!
-app.put('/Basket.js/addBid/:id',function(req,res){
+
+app.post('/Basket.js/addBid/:id',function(req,res){
 
 
 	console.log('got here');
@@ -663,15 +666,18 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
-	Q.all([getEventWinning(),getBidder()]).then(function(rest)
-			{
+	Q.all([getEventWinning(),getBidder()]).then(function(rest){
+		console.log('JHAASHDBAMNSDBAJ');
 		if (rest[0][0][0].amount>req.body.ammount)
 		{
-			res.json(false);
+			console.log('falseeee');
+			var response ={
+					"state":false
+			};
+			res.json(response);
 		}
 		else
 		{
-			console.log('highest bid '+ rest[1][0][0].userId );
 
 			var trans = connection.startTransaction();
 			console.log('init');
@@ -685,15 +691,19 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 				}
 				else{
 					console.log('trying update');
-					trans.query('update bid_events S set winningBid= (select bidId from bids where amount='+ connection.escape(req.body.ammount)+' and userId=' + connection.escape(rest[1][0][0].userId)+' and S.bidEventId= bids.bidEventId)',
+					trans.query('update bid_events S set winningBid='+connection.escape(info.insertId)+' where bidEventId='+connection.escape(req.params.id),
 							function(err,info){
 						if(err){
 							console.log('error in update');
 							trans.rollback();
 						}
 						else{
+							var response ={
+									"state":true
+							};
 							trans.commit();
-							res.json(false);
+
+							res.json(response);
 						}
 
 					});
@@ -703,7 +713,7 @@ app.put('/Basket.js/addBid/:id',function(req,res){
 			});
 			trans.execute();
 		}
-			});	
+	});	
 });
 //Search for something
 app.get('/Basket.js/search/:searchQuery',function(req,res)
@@ -740,8 +750,6 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 		{
 			console.log(rest[1][0][i].amount);
 			if(rest[1][0][i].wusername!=null)
-				bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount),rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
-			else
 				bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null,rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 
 		}
@@ -819,6 +827,7 @@ app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res){
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
+
 	var trans = connection.startTransaction();
 	if (req.params.type==1)
 		trans.query('update bid_events set accepted=true where bidEventId='+connection.escape(req.params.id),function(err,info){
@@ -826,18 +835,73 @@ app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res){
 
 			if(err)
 				trans.rollback();
-			else{
-				trans.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(req.params),function(err,info){
-					if (err)trans.rollback();
-					else
-					{
 
-					}
+			else
+			{
+                trans.query('select * from bid_events natural join products, bids where winningBid = bidId and bid_events.bidEventId='+connection.escape(req.params.id),function(err,bideventInfo){
 
-				});
-//				trans.commit();
-//				res.json(true);
-			}				
+                    trans.query('select email from users where username ='+connection.escape(req.params.winner),function(err,winneremail){
+                        if(err)
+                            trans.rollback();
+                        else{
+                            var smtpTransport = nodemailer.createTransport("SMTP",
+                                {
+                                    service: "Gmail",
+                                    auth: {
+                                        user: "basketservices@gmail.com",
+                                        pass: "tito12@@"
+                                    }
+                                });
+                            var mailOptions = {
+                                from: "Basket Services <basketservices@gmail.com>", // sender address
+                                to: req.params.email, // list of receivers
+                                subject: "Your basket account ", // Subject line
+                                text: 'Hello,\nYou have won the following bid!:\n'+bideventInfo[0].pname+'\nDescription:'+bideventInfo[0].description+'\nFor '+bideventInfo[0].amount+'\nHave a basketful day!'//, // plaintext body
+                                // html: "<b>Hello world ✔</b>" // html body
+                            }
+
+                            // send mail with defined transport object
+                            smtpTransport.sendMail(mailOptions, function(error, response)
+                            {
+                                if(error)
+                                {
+                                    console.log(error);
+                                }
+                                else{
+                                    console.log("Message sent: " + response.message);
+                                }
+
+                                // if you don't want to use this transport object anymore, uncomment following line
+                                smtpTransport.close(); // shut down the connection pool, no more messages
+                            });
+
+                            console.log('Sent email!!');
+                        }
+                    });
+
+                });
+
+
+//				trans.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(rest[0][0][0].userId),function(err,info)
+//				{
+//				if (err)trans.rollback();
+//				else
+//				{
+//				trans.query('insert into orders (amount,orderTime,userId,bankAccountId,cardId,withbasketId,type,shipTo) values('
+//				+connection.escape(),function(err,info)
+//				{
+//				if(err)trans.rollback();
+//				else
+//				{
+
+//				}
+//				});
+//				}
+
+//				});
+				trans.commit();
+				res.json(true);
+			}			
 		});
 	else
 		trans.query('update bid_events set declined=true where bidEventId='+connection.escape(req.params.id),function(err,info){
@@ -851,6 +915,8 @@ app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res){
 			}				
 		});
 	trans.execute();
+
+
 });
 //Query for deletion
 
@@ -865,11 +931,119 @@ function deleteUser (userId , callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log("Problem in query");
 			});
 		}
 		else
 			callback(err, response);
+	});
+};
+function removeWinningBids (userId , callback) 
+{
+
+	// console.log(callback);
+	// var defered = Q.defer();
+	var userquery=' select bidId,bid_events.bidEventId from bids, bid_events where bidId=winningBid and userId ='+connection.escape(userId);
+
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+		if (err){
+			connection.rollback(function() {
+				console.log("Problem in query");
+				console.log(err);
+			});
+		}
+		else{
+			console.log(err);
+			console.log(response);
+			if(response.length==0){
+				callback(err, response);
+			}
+			else{
+				for(var i=0;i<response.length;i++){
+					console.log(response[i]);
+					var result1 = response;
+					var bidEventId = response[0].bidEventId;
+					var bidId = response[0].bidId;
+					console.log(response);
+					var userquery2 = 'select bidId, amount from bids natural join bid_events where bid_events.bidEventId ='+connection.escape(bidEventId)+' and amount >= (select max(amount) from bids where bidEventId = '+connection.escape(bidEventId)+')'      ;
+					console.log(userquery2);
+					connection.query(userquery2,function(err,response1){
+						console.log(err);
+						console.log(response1);
+						var userquery3='select bidId, amount \
+						from (select * from bids where bidEventId = '+bidEventId+' and amount <> (select max(amount) from bids where bidEventId = '+bidEventId+'))as bds natural join bid_events \
+						where bid_events.bidEventId = '+bidEventId+' \
+						and amount = \
+						(select max(amount) \
+						from bids \
+						where bidEventId = '+bidEventId+' and amount <> (select max(amount) from bids where bidEventId = '+bidEventId+'))';
+						connection.query(userquery3,function(err,response1){
+							console.log(err) ;
+							console.log(response1);
+							if(response1.length==0){
+								var userquery4 = 'update  bid_events set winningBid = NULL where bidEventId='+connection.escape(bidEventId);
+								console.log(userquery4);
+								connection.query(userquery4, function(err,response2){
+									if(err){
+										console.log(err) ;
+
+									}
+									else
+										callback(err, response);
+								});
+
+							}
+							else{
+								var nextBidId = response1[0].bidId;
+								var userquery4 = 'update  bid_events set winningBid= '+connection.escape(nextBidId)+' where bidEventId='+connection.escape(bidEventId);
+								console.log(userquery4);
+								connection.query(userquery4, function(err,response2){
+									console.log(err) ;
+									console.log("Success");
+									if(err){
+
+									}
+									else
+										callback(err, response);
+								});
+							}
+						});
+
+
+					});
+				}
+			}
+
+		}
+
+	});
+};
+function removeEvents (userId , callback) 
+{
+	var userquery=' UPDATE bid_events set accepted = 0, declined =1, finished=1 where soldBy ='+connection.escape(userId);
+	var userquery2=' UPDATE buy_events set available=0 where soldBy ='+connection.escape(userId);
+
+	console.log(userquery);
+	console.log(userquery2);
+	connection.query(userquery, function(err, response) {
+		if (err){
+			connection.rollback(function() {
+				console.log("Problem in query");
+			});
+		}
+		else{
+			connection.query(userquery2, function(err,response){
+				if (err){
+					connection.rollback(function() {
+						console.log("Problem in query");
+					});
+				}
+				else{
+					callback(err, response);
+				}
+			});
+		}
 	});
 };
 //Delete user
@@ -881,9 +1055,10 @@ app.post('/Basket.js/UserDelete/', function(req,res){
 				console.log(response);
 				var userId = response[0].userId;
 				deleteUser(userId, function(err, response){
-					removeBids(userId, function(err, response){
+					removeWinningBids(userId, function(err, response){
 						removeEvents(userId, function(err,response){
-							
+							console.log("Wiii");
+							res.json(true);
 						});
 					});
 				});
@@ -891,8 +1066,8 @@ app.post('/Basket.js/UserDelete/', function(req,res){
 		});
 	}
 	catch(error){
-		console.log("Error"+error)
-		res.json(false)
+		console.log("Error"+error);
+		res.json(false);
 	}
 });
 
@@ -1134,8 +1309,10 @@ app.post('/Basket.js/createAdmin/:id', function(req,res){
 });
 
 
-//Place an order
-app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res){
+
+//Place an order buy
+app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
+		{
 	console.log("Placing an Order!");
 	var trans= connection.startTransaction();
 	for(var i = 0; i < req.body.buyEvents.length; i++){
@@ -1178,7 +1355,62 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 
 
 
-});
+		});
+
+
+//place a bid order anadir!!!!
+app.post('/Basket.js/BPlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
+		{
+	console.log("Placing a Bid Order!");
+
+	var transaction = connection.startTransaction();
+
+	transaction.query('insert into baskets (bname,userId) values("won bid",'+connection.escape(req.params.uId)+')',function(err,info)		
+			{
+		console.log(info.insertId);
+		if(err)transaction.rollback();
+		else
+		{
+
+
+			transaction.query('insert into in_bid_basket (basketId,bidEventId) values ('+connection.escape(info.insertId)+','+connection.escape(req.params.basket)+')',function(err,inf)
+					{
+				if(err)transaction.rollback();
+				else
+				{
+					transaction.query('insert into orders (amount,orderTime,userId,bankAccountId,cardId,withbasketId,type,shipTo) values ('+connection.escape(req.params.total)
+							+','+connection.escape(req.params.date)+','+connection.escape(req.params.uId)+','+connection.escape(5)+','+connection.escape(req.params.cId)+
+							','+connection.escape(info.insertId)+','+connection.escape('bid')+','+connection.escape(req.params.sId)+')',function (err,info)
+							{
+						if (err)transaction.rollback();
+						else
+						{
+							transaction.query('update bid_events set ordered=true where bidEventId='+connection.escape(req.params.basket),function(err,info)
+									{
+								if(err)transaction.rollback();
+								else
+								{
+									console.log('inserted value');
+									transaction.commit();
+									res.json(true);
+								}
+									});
+
+						}
+							});
+				}
+					});
+
+		}
+			});
+
+
+	transaction.execute();
+
+
+
+
+		});
 //Create a basketWW
 app.post('/Basket.js/NewBasket/:username', function(req,res)
 		{
@@ -1217,8 +1449,10 @@ app.post('/Basket.js/NewBasket/:username', function(req,res)
 		});
 
 //rate user
-app.put('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res){
-	function getRatingCount() 
+
+app.post('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res)
+		{
+	function getRatingCount()
 	{
 		var defered = Q.defer();
 		var userquery='select count(*) as total,sum(user_reviews.rating) as result from user_reviews join users on userReviewedId=users.userId where username='
@@ -1259,21 +1493,39 @@ app.put('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res){
 				var total = (num+newR)/(t);
 				console.log(total);
 				console.log(rest[0][0][0].total+1);
-				trans.query('update users set rating='+connection.escape(total)+' where userId='+
-						connection.escape(rest[2][0][0].userId),function(err,info)
+				trans.query('update users set rating='+connection.escape(total)+' where userId='+ connection.escape(rest[2][0][0].userId),function(err,info){
+
+					console.log(req.params.rating);
+					console.log(rest[0][0][0].result+req.params.rating);
+					var num=parseFloat(req.params.rating);
+					var newR= parseFloat(rest[0][0][0].result);
+					var t= parseFloat(rest[0][0][0].total);
+					t=t+1;
+					var total = (num+newR)/(t);
+					console.log(total);
+					console.log(rest[0][0][0].total+1);
+					trans.query('update users set rating='+connection.escape(total)+' where userId='+
+							connection.escape(rest[2][0][0].userId),function(err,info)
+							{
+						if(err)
+							trans.rollback();
+						else
 						{
-					if(err)
-						trans.rollback();
-					else
-					{
-						trans.commit();
-						res.json(true);
-					}
-						});
+							var response={
+									"value":total	
+							};
+							trans.commit();
+							res.json(response);
+						}
+							});
+
+				});
 
 			}
-
+			trans.execute();
 		});
+
+
 		trans.execute();
 	});
 
@@ -1281,7 +1533,7 @@ app.put('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res){
 
 
 
-});
+		});
 //Remove a basket
 app.post('/Basket.js/RemoveBasket', function(req,res)
 		{
@@ -1480,19 +1732,58 @@ app.post('/Basket.js/RemoveBasket', function(req,res)
 //Create a sell bid event
 app.post('/Basket.js/NewBidSell', function(req,res)
 		{
-	console.log("Created buy event");
-	var u =users["lukesionkira@hotmail.com"];
+
 	u.currentlySellingOnBid.push(req.body);
 	res.json(true);
 		});
 //Create a sell buy event
-app.post('/Basket.js/NewBuySell', function(req,res)
+
+app.post('/Basket.js/NewBuySell/:uId/:quantity/:cat', function(req,res)
 		{
-	console.log("Created bid event");
-	var u =users["lukesionkira@hotmail.com"];
-	u.currentlySellingOnBuy.push(req.body);
-	res.json(true);
+	var transaction = connection.startTransaction();
+
+	transaction.query('select categoryId from categories where name='+connection.escape(req.params.cat),function(err,info2){
+
+		if(err)trans.rollback();
+		else{
+			transaction.query('insert into Manufacturers (mname) values ('+connection.escape(req.body.product.manufacturer)+')',function(err,info){
+				if(err)transaction.rollback();
+				else
+				{
+					console.log(req.body);
+					//insert product
+					transaction.query('insert into products (sellerPId,pname,features,dimensions,manufacturerID,categoryId, width,depth,height) values ('+
+							connection.escape(req.body.product.productPId)+','+connection.escape(req.body.pname)+','+connection.escape(req.body.features)+','+
+							connection.escape(req.body.product.dimensions)+','+connection.escape(info.insertId)+','+connection.escape(info2[0].categoryId)+','+connection.escape(req.body.product.width)
+							+','+connection.escape(req.body.product.width)+','+connection.escape(req.body.product.height)+')',function(err,info){
+						if(err)transaction.rollback();
+						else
+						{
+							//insert buy event
+							transaction.query('insert into buy_events (price,description,soldBy,productId,btitle,pic,available,buycategory) values('+
+									connection.escape(req.body.price)+','+connection.escape(req.body.description)+','+connection.escape(req.params.uId)+','
+									+connection.escape(info.insertId)+','+connection.escape(req.body.btitle)+','+connection.escape(req.body.pic)+','+
+									connection.escape(req.params.quantity)+','+connection.escape(info2[0].categoryId)+')',function(err,info)
+									{
+								if (err)transaction.rollback();
+								else
+								{
+									transaction.commit();
+									res.json(true);
+								}
+									});
+						}
+					});
+				}
+			});
+
+		}
+
+	});
+	transaction.execute();
+
 		});
+
 
 var products = new Array(
 		new product("Alienware M17x", 1204054932,"Dell Inc.",20,15,40),
@@ -1537,8 +1828,7 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res){
 
 });
 
-app.get('/Basket.js/UpdateBidSeller', function(req,res)
-		{
+app.get('/Basket.js/UpdateBidSeller', function(req,res){
 	function getFinishedBidEvents () 
 	{
 		var defered = Q.defer();
@@ -1964,8 +2254,38 @@ app.get('/Basket.js/SalesReport/:day/:month/:year/:type', function(req,res){
 	}
 });
 
-app.get('/Basket.js/WinBid/:id', function(req,res){
-	function getFinishedBidEvents () 
+
+
+app.get('/Basket.js/CurrentWinning/:id', function(req,res)
+		{
+	console.log('here!!!! ERRR');
+
+	function getCurrent() 
+	{
+		var defered = Q.defer();
+		var query='select Bids.* from bid_events join bids on bidId=winningBid where bid_events.bidEventId='+connection.escape(req.params.id);
+		connection.query(query, defered.makeNodeResolver());
+		return defered.promise;
+	};
+
+	Q.all([getCurrent()]).then(function(rest)
+			{
+		console.log('here!!!! ERRR');
+		var response =
+		{
+				"ammount": rest[0][0][0].amount,
+				"bidTime": rest[0][0][0].bidTime,
+				"bidder":"dummy"
+		};
+		res.json(response);
+			});
+
+		});
+
+
+app.get('/Basket.js/WinBid/:id', function(req,res)
+		{
+	function getFinishedBidEvents ()
 	{
 		var defered = Q.defer();
 		var query='select Bid_Events.bidEventId from Bids natural join Users join Bid_Events on Bid_Events.bidEventId=Bids.bidEventId where NOW()>= endingTime and accepted=true and username='+connection.escape(req.params.id);
@@ -1989,7 +2309,7 @@ app.get('/Basket.js/WinBid/:id', function(req,res){
 		res.json(response);
 			});
 
-});
+		});
 
 function getAdminList (uname, upass, callback) {
 	var userquery= 'SELECT * FROM admins where username='+connection.escape(uname)+' and password='+connection.escape(upass)+' and active_user=1';
@@ -2060,7 +2380,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res) {
 	};
 	function getCurrentlyBiddingOn (id) {
 		var defered=Q.defer();
-		var userquery= 'select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,w.bidTime as time,w.amount as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where accepted=false and declined=false and finished=true and wu.userId='+connection.escape(id)+' or finished=false and a.userId='+connection.escape(id);
+		var userquery= 'select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,max(w.bidTime) as time,max(w.amount) as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where ordered=false and declined=false and finished=true and wu.userId='+connection.escape(id)+' or finished=false and a.userId='+connection.escape(id)+' group by Bid_Events.bidEventId ';
 		connection.query(userquery,defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -2085,7 +2405,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res) {
 	};
 
 	function getOrdersBid (id) {
-		var userquery= '	select shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, wuser.rating as sellerRating,cc.*,Address.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate, Orders.*,Bank_Accounts.*,Bid_Events.*,Products.*,b.*, w.bidTime as time,w.amount as wamount, wu.username as wusername, c.username as seller , c.rating as sellerRating from Users as b natural join Orders join Bank_Accounts on Bank_Accounts.bankAccountId=Orders.bankAccountId join Baskets on withbasketId=basketId natural join in_bid_basket natural join Bid_Events natural join Products join Address on Address.userId=b.userId join Credit_Cards on b.userId=Credit_Cards.userId join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=Credit_Cards.billingId left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId join Users as c on c.userId=Bid_Events.soldBy natural join Manufacturers join Users as wuser on wuser.userId=Bid_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where Address.userId='+connection.escape(id)+' and type="bid" order by orderId';
+		var userquery= 'select shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, wuser.rating as sellerRating,cc.*,Address.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate, Orders.*,Bank_Accounts.*,Bid_Events.*,Products.*,b.*, w.bidTime as time,w.amount as wamount, wu.username as wusername, c.username as seller , c.rating as sellerRating from Users as b natural join Orders join Bank_Accounts on Bank_Accounts.bankAccountId=Orders.bankAccountId join Baskets on withbasketId=basketId natural join in_bid_basket  join Bid_Events on Bid_Events.bidEventId=in_bid_basket.bidEventId natural join Products join Address on Address.userId=b.userId join Credit_Cards on b.userId=Credit_Cards.userId join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=Credit_Cards.billingId left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId join Users as c on c.userId=Bid_Events.soldBy natural join Manufacturers join Users as wuser on wuser.userId=Bid_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where Address.userId='+connection.escape(id)+' and type="bid" order by orderId';
 		var defered= Q.defer();
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
@@ -2502,19 +2822,19 @@ app.get('/Basket.js/ForgetCreds/:email',function(req,res)
 	getForgottenUserAccount(req.params.email, function(err, result)
 			{
 		console.log(err || JSON.stringify(result));
-		// var smtpTransport = nodemailer.createTransport("SMTP",
-		// {
-		//     service: "Gmail",
-		//     auth: {
-		//         user: "basketservices@gmail.com",
-		//         pass: "tito12@@"
-		//     }
-		// });
+		var smtpTransport = nodemailer.createTransport("SMTP",
+		{
+		     service: "Gmail",
+		     auth: {
+		         user: "basketservices@gmail.com",
+		         pass: "tito12@@"
+		     }
+		});
 		var mailOptions = {
 				from: "Basket Services <basketservices@gmail.com>", // sender address
 				to: req.params.email, // list of receivers
 				subject: "Your basket account ", // Subject line
-				text: JSON.stringify(result)//, // plaintext body
+				text: 'Hello,\nYour account details are:\nusername:'+result[0].username+'\npassword:'+result[0].password+'\nHave a basketful day!'//, // plaintext body
 				// html: "<b>Hello world ✔</b>" // html body
 		}
 
@@ -2539,3 +2859,91 @@ app.get('/Basket.js/ForgetCreds/:email',function(req,res)
 			});
 
 		});
+
+function createCategory (req , parId, callback)
+{
+    if(parId=undefined){
+        var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+','+parId+');';
+    }
+    else{
+        var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+',NULL);'
+    }
+
+    console.log(userquery);
+    connection.query(userquery, function(err, response) {
+        if (err){
+
+                console.log("Problem in query");
+
+        }
+        callback(err,response);
+    });
+
+};
+//Delete user
+app.post('/Basket.js/AdminCreateCategory/', function(req,res){
+    console.log(req.body);
+    try{
+        connection.beginTransaction(function(err) {
+            createCategory(req, function(err,response){
+                console.log(err);
+                console.log(response);
+                console.log("In here");
+                res.json(true);
+            });
+        });
+    }
+    catch(error){
+        console.log("Error"+error);
+        res.json(false);
+    }
+});
+
+function getCategoryParent (name , callback)
+{
+    var userquery='select parentCategoryId from categories where name='+connection.escape(name);
+
+    console.log(userquery);
+    connection.query(userquery, function(err, response) {
+        if (err){
+            console.log("Problem in query");
+        }
+        console.log(response);
+
+        if(response[0].parentCategoryId == undefined|| response[0].parentCategoryId == null){
+            var resp1 = new Array();
+            var resp = {
+                "parentCategoryId":""
+            };
+            resp1.push(resp)   ;
+            callback(err,resp1);
+        }
+        else{
+//            var userquery2='select name from categories where categoryId='+connection.escape(response[0].parentCategoryId);
+//            connection.query(userquery2,function(err,response){
+//                if (err){
+//                    console.log("Problem in query");
+//                    console.log(err);
+//                }
+                callback(err,response);
+//            });
+        }
+
+    });
+
+};
+//Delete user
+app.post('/Basket.js/GetCatParent/', function(req,res){
+    console.log(req.body);
+    try{
+        getCategoryParent(req.body.name, function(err,response){
+            console.log(err);
+            console.log(response);
+            console.log("In here");
+            res.json(JSON.stringify(response[0].parentCategoryId));
+        });
+    }
+    catch(error){
+        console.log("Error"+error);
+    }
+});

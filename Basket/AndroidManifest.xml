@@ -239,6 +239,10 @@
             android:name="com.example.basket.ReviewActivity"
             android:label="@string/title_activity_review" >
         </activity>
+        <activity
+            android:name="com.example.basket.BidCheckoutActivity"
+            android:label="@string/title_activity_bid_checkout" >
+        </activity>
     </application>
 
 </manifest>
