@@ -57,7 +57,7 @@ public class HarvestFragment extends Fragment
 		if(event.getWinningBid()!=null)
 		winningBid.setText(Double.toString(event.getWinningBid().getAmmount()));
 		else
-			winningBid.setText(Double.toString(event.getMinBid()));
+			winningBid.setText(Double.toString(event.getStartingBid()));
 
 
 		 nextBid =(TextView)view.findViewById(R.id.TextView02);
@@ -85,7 +85,7 @@ public class HarvestFragment extends Fragment
 
 		}
 		else{
-			nextBid.setText(Double.toString(event.getMinBid()+event.getMinBid()));
+			nextBid.setText(Double.toString(event.getStartingBid()+event.getMinBid()));
 			nextTime.setText("");
 
 		}

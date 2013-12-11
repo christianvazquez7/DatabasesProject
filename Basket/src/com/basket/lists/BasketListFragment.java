@@ -325,8 +325,9 @@ public class BasketListFragment extends android.app.ListFragment
 		public void onRequestSuccess(ByteContainer bool) 
 		{
 
-
+			
 			spiceManager.shouldStop();
+			defaultPB.setId(bool.getValue());
 			//BasketSession.getUser().getBaskets().add(defaultPB);
 			Toast.makeText(getActivity(), "Basket Created", Toast.LENGTH_SHORT).show();
 			test = false;
