@@ -94,8 +94,9 @@ public class AdminCreateCategory extends Activity {
 		@Override
 		public void onRequestSuccess(Boolean newCat) 
 		{
+			spiceManager.shouldStop();
 			if(newCat){
-				spiceManager.shouldStop();
+				
 				Toast.makeText(AdminCreateCategory.this, "Success", Toast.LENGTH_SHORT).show();
 				BasketSession.getCategory().add(c);
 			}
@@ -136,6 +137,7 @@ public class AdminCreateCategory extends Activity {
 			else{
 				Category parent1 = new Category();
 				parent1.setName(catParent);
+				c.setParent(parent1);
 				spiceManager.execute(new GetCatParent(parent1), new GetCatParentListner2P());
 			}
 
@@ -166,9 +168,8 @@ public class AdminCreateCategory extends Activity {
 		@Override
 		public void onRequestSuccess(String catParent) 
 		{
-			if(spiceManager.isStarted())
-				spiceManager.shouldStop();
-			if(catParent==null||catParent.equals(""))
+			
+			if(catParent==null||catParent.equals("")||catParent.equals("null"))
 			{
 				spiceManager.execute(new AdminCreateCatReq(c), new AdminCreateCategoryListner());
 			}

@@ -18,7 +18,7 @@
      Creates a custom permission so only this app can receive its messages.
 
      NOTE: the permission *must* be called PACKAGE.permission.C2D_MESSAGE,
-           where PACKAGE is the application's package name.
+           where PACKAGE is the application's package name.
     -->
     <permission
         android:name="com.basket.activities.permission.C2D_MESSAGE"
@@ -213,10 +213,10 @@
             android:label="@string/title_activity_admin_sign_up" >
         </activity>
 
-         <meta-data
+      <!--    <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" /> 
-
+ -->
         <receiver
             android:name="com.basket.notifications.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

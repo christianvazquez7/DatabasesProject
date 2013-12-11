@@ -1359,12 +1359,71 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 	transaction.query('insert into orders (amount,orderTime,userId,cardId,withbasketId,type,shipTo) values ('+connection.escape(req.params.total)
 			+','+connection.escape(req.params.date)+','+connection.escape(req.params.uId)+','+connection.escape(req.params.cId)+
 			','+connection.escape(req.params.basket)+','+connection.escape('buy')+','+connection.escape(req.params.sId)+')',function (err,info){
-		if (err)transaction.rollback();
+		if (err){
+            console.log(err)
+            transaction.rollback();
+        }
 		else
 		{
-			console.log('inserted value');
-			transaction.commit();
-			res.json(true);
+            var email = 'Hello,\n\n' +
+                'You have just placed an order!\n' +
+                'Your order details:\n' +
+                'Shipping address:\n' +
+                req.body.shipAdress.line1+
+                '\n'+req.body.shipAdress.line2+
+                '\n'+req.body.shipAdress.country+
+                '\n'+req.body.shipAdress.state+
+                '\n'+req.body.shipAdress.city+'\n' +
+                'Credit Card number:\n' +
+                req.body.creditCard.cardNum+'\n' +
+                'And the items:\n';
+            var products ='';
+            var totalammount = 0;
+            for(var i=0;i<req.body.buyEvents.length;i++){
+                products+=req.body.buyEvents[i].btitle+' Amount:'+req.body.buyEvents[i].item_quantity+'\n'
+                totalammount+=req.body.buyEvents[i].price*req.body.buyEvents[i].item_quantity;
+            }
+            var total = 'Totaling in: $'+totalammount;
+            console.log('inserted value');
+            transaction.commit();
+            transaction.query('select * from users where userId ='+connection.escape(req.params.uId),function(err, uinfo){
+                console.log(err);
+                var smtpTransport = nodemailer.createTransport("SMTP",
+                    {
+                        service: "Gmail",
+                        auth: {
+                            user: "basketservices@gmail.com",
+                            pass: "tito12@@"
+                        }
+                    });
+                var mailOptions = {
+                    from: "Basket Services <basketservices@gmail.com>", // sender address
+                    to: uinfo[0].email, // list of receivers
+                    subject: "Your basket account ", // Subject line
+                    text: email+products+total//, // plaintext body
+                }
+
+                // send mail with defined transport object
+                smtpTransport.sendMail(mailOptions, function(error, response)
+                {
+                    if(error)
+                    {
+                        console.log(error);
+                    }
+                    else{
+                        console.log("Message sent: " + response.message);
+                    }
+
+                    // if you don't want to use this transport object anymore, uncomment following line
+                    smtpTransport.close(); // shut down the connection pool, no more messages
+                });
+
+                console.log('Sent email!!');
+                res.json(true);
+            });
+
+
+
 		}
 	});
 	transaction.execute();
@@ -1373,7 +1432,6 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 
 
 		});
-
 
 //place a bid order anadir!!!!
 app.post('/Basket.js/BPlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
@@ -2957,16 +3015,16 @@ app.get('/Basket.js/ForgetCreds/:email',function(req,res)
 
 		});
 
-function createCategory (req , parId, callback)
+function createCategory (req, callback)
 {
-    if(parId=undefined){
-        var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+','+parId+');';
-    }
-    else{
-        var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+',NULL);'
-    }
-
-    console.log(userquery);
+	console.log("Request body of create cate");
+	console.log(req.body);
+    if(req.body.parent!=null){
+        getCategoryId(req.body.parent.name, function(err,response){
+        	console.log("Creating category with parent");
+        	console.log(response);
+            var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+','+response[0].categoryId+');';
+            console.log(userquery);
     connection.query(userquery, function(err, response) {
         if (err){
 
@@ -2975,11 +3033,28 @@ function createCategory (req , parId, callback)
         }
         callback(err,response);
     });
+        });
+    }
+    else{
+        var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+',NULL);'
+        console.log(userquery);
+    connection.query(userquery, function(err, response) {
+        if (err){
+
+                console.log("Problem in query");
+
+        }
+        callback(err,response);
+    });
+    }
+
+    
 
 };
 //Delete user
 app.post('/Basket.js/AdminCreateCategory/', function(req,res){
     console.log(req.body);
+    console.log("Going into create category");
     try{
         connection.beginTransaction(function(err) {
             createCategory(req, function(err,response){
@@ -2996,10 +3071,27 @@ app.post('/Basket.js/AdminCreateCategory/', function(req,res){
     }
 });
 
-function getCategoryParent (name , callback)
+function getCategoryId (name , callback)
 {
-    var userquery='select parentCategoryId from categories where name='+connection.escape(name);
+    console.log("Geting cat id");
+    var userquery='select categoryId from categories where name='+connection.escape(name);
+    console.log(userquery);
+    connection.query(userquery, function(err, response) {
+        if (err){
+            console.log("Problem in query");
+        }
+        console.log(response);
+        console.log(err);
+        callback(err,response);
+        
 
+    });
+
+};
+function getCategoryParentId (name , callback)
+{
+    console.log("Geting parent id")
+    var userquery='select parentCategoryId from categories where name='+connection.escape(name);
     console.log(userquery);
     connection.query(userquery, function(err, response) {
         if (err){
@@ -3007,37 +3099,63 @@ function getCategoryParent (name , callback)
         }
         console.log(response);
 
-        if(response[0].parentCategoryId == undefined|| response[0].parentCategoryId == null){
+        if(typeof response == 'undefined'){
             var resp1 = new Array();
             var resp = {
                 "parentCategoryId":""
             };
             resp1.push(resp)   ;
+            console.log(resp1);
             callback(err,resp1);
         }
         else{
-//            var userquery2='select name from categories where categoryId='+connection.escape(response[0].parentCategoryId);
-//            connection.query(userquery2,function(err,response){
-//                if (err){
-//                    console.log("Problem in query");
-//                    console.log(err);
-//                }
-                callback(err,response);
-//            });
+            callback(err,response);
         }
 
     });
 
 };
 //Delete user
+function getCategory (id , callback) {
+    var userquery='select name from categories where categoryId='+connection.escape(id);
+    console.log(userquery);
+    connection.query(userquery, function(err, response) {
+        if (err){
+            console.log("Problem in query");
+        }
+        console.log(response);
+        if(typeof response[0] == 'undefined'){
+            var resp1 = new Array();
+            var resp = {
+                "name":""
+            };
+            resp1.push(resp)   ;
+            callback(err,resp1);
+        }
+        else{
+            callback(err,response);
+        }
+    }      );
+}
+
 app.post('/Basket.js/GetCatParent/', function(req,res){
     console.log(req.body);
+    console.log("Getting parent");
     try{
-        getCategoryParent(req.body.name, function(err,response){
+        getCategoryParentId(req.body.name, function(err,response){
             console.log(err);
             console.log(response);
-            console.log("In here");
-            res.json(JSON.stringify(response[0].parentCategoryId));
+            if(typeof response[0].parentCategoryId == 'undefined'|| response[0].parentCategoryId ==""){
+                console.log("In here");
+                res.json(response[0].parentCategoryId);
+            }
+            else{
+            	console.log("Out here");
+                var id = response[0].parentCategoryId;
+                getCategory(response[0].parentCategoryId,function(err,response){
+                    res.json(response[0].name);
+                });
+            }
         });
     }
     catch(error){
