@@ -1,64 +1,138 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/Relative_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/wood_light2" >
 
-    <LinearLayout
+    <Button
+        android:id="@+id/Button03"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/Button02"
+        android:layout_alignBottom="@+id/Button02"
+        android:layout_alignLeft="@+id/button1"
+        android:background="@drawable/round_corners_black_border"
+        android:text="My Shop" />
+
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_alignLeft="@+id/Button01"
+        android:layout_below="@+id/Button01"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_corners_black_border"
+        android:text="My Orders" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/button1"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="28dp" >
+    </RelativeLayout>
 
-        <LinearLayout
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout1"
+        android:layout_toRightOf="@+id/relativeLayout1" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/black"
+        android:paddingBottom="10dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-          >
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/bbasket" />
 
-            <TextView
-                android:id="@+id/tvDeals"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/black"
-                android:padding="5dp"
-                android:text="Hot Deals of the Day"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp" />
+        <TextView
+            android:textColor="@color/orange"
+            android:textSize="80dp"
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="90dp"
+            android:text="B"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <ViewFlipper
-                android:background="@drawable/wood_light2"
-                android:id="@+id/vfDeals"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:layout_weight="5.33"
-                android:inAnimation="@anim/left_to_right"
-                android:outAnimation="@anim/right_to_left"
-                android:padding="20dp" >
+        <TextView
+            android:textSize="60dp"
+            android:id="@+id/textView2"
+            android:textColor="#FFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_toRightOf="@+id/textView1"
+            android:text="asket"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            </ViewFlipper>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView1"
+            android:layout_alignRight="@+id/textView2"
+            android:text="Shop your way"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/orange" />
 
-            <TextView
-                android:textColor="#FFFFFF"
-                android:background="@color/black"
-                android:id="@+id/tvRecom"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Recommended for You!"
-                android:textSize="15dp" />
+    </RelativeLayout>
 
-            <ViewFlipper
-                android:background="@drawable/wood_light2"
-                android:id="@+id/vfRecom"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:layout_weight="5.33"
-                android:inAnimation="@anim/left_to_right"
-                android:outAnimation="@anim/right_to_left"
-                android:padding="20dp" >
+    <Button
+        android:textColor="#ffffff"
+        android:id="@+id/Button05"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/black"
+        android:text="Log Out" />
 
-            </ViewFlipper>
-        </LinearLayout>
-    </LinearLayout>
+    <Button
+        
+        android:id="@+id/Button04"
+        android:layout_width="265dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/Button03"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:background="@drawable/round_corners_black_border"
+        android:text="Browse..." />
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignRight="@+id/Button04"
+        android:background="@drawable/round_corners_black_border"
+        android:text="My Profile" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_alignLeft="@+id/Button04"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/round_corners_black_border"
+        android:text="My Baskets" />
 
 </RelativeLayout>

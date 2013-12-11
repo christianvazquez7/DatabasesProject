@@ -16,6 +16,7 @@ import com.basket.adapters.ProductInMyShopBidAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.restrequest.BidEventList;
 import com.basket.restrequest.WinBidRequest;
 import com.example.basket.BidCheckoutActivity;
 import com.example.basket.R;
@@ -52,7 +53,7 @@ public class BiddingItemsListView extends ListFragment{
 			    	if(!spiceManager.isStarted()){
 						spiceManager.start(getActivity());
 						
-						WinBidRequest JsonSpringAndroidRequest = new WinBidRequest(BasketSession.getUser().getUsername());
+						WinBidRequest JsonSpringAndroidRequest = new WinBidRequest(BasketSession.getUser().getUserId());
 						spiceManager.execute(JsonSpringAndroidRequest, "", DurationInMillis.ALWAYS_EXPIRED, new UpdateBidSellerListener());
 			    	}
 
@@ -87,7 +88,7 @@ public class BiddingItemsListView extends ListFragment{
 
 
 	}
-	private class UpdateBidSellerListener implements RequestListener<BidList>, RequestProgressListener {
+	private class UpdateBidSellerListener implements RequestListener<BidEventList>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -98,19 +99,15 @@ public class BiddingItemsListView extends ListFragment{
 				Toast.makeText(getActivity(), "No connection to server", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
+			listView.refreshDrawableState();
+			listView.onRefreshComplete();
 		}
 
 		@Override
-		public void onRequestSuccess(BidList User) 
+		public void onRequestSuccess(BidEventList User) 
 		{
 			spiceManager.shouldStop();
-			for (int i =1 ; i<BasketSession.getUser().getCurrentlyBiddingOn().size()+1;i++)
-			{	
-				if(User.getToFinish().contains(BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).getId()))
-				listView.getChildAt(i).findViewById(R.id.won).setVisibility(View.VISIBLE);
-				//BasketSession.getUser().getCurrentlyBiddingOn().get(i-1).setFinalized(true);			
-			}
-			
+			BasketSession.getUser().setCurrentlyBiddingOn(User.getEvents());
 			listView.refreshDrawableState();
 			listView.onRefreshComplete();
 		

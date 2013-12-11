@@ -20,15 +20,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.basket.containers.BasketSession;
-import com.basket.containers.Deal;
 import com.basket.containers.EventList;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
@@ -114,96 +113,174 @@ public class HomePageActivity extends Activity {
 		mIVRecom[1].setBackground(this.getResources().getDrawable(R.drawable.tennis_image));
 		mIVRecom[2].setBackground(this.getResources().getDrawable(R.drawable.tv_image));*/
 
-		animIn = AnimationUtils.loadAnimation(getApplicationContext(),
-				R.anim.slide_up); 
-		animOut = AnimationUtils.loadAnimation(getApplicationContext(),
-				R.anim.slide_down); 
+//		animIn = AnimationUtils.loadAnimation(getApplicationContext(),
+//				R.anim.slide_up); 
+//		animOut = AnimationUtils.loadAnimation(getApplicationContext(),
+//				R.anim.slide_down); 
 
 
 		LayoutInflater inf = LayoutInflater.from(getApplicationContext());
-		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
-		mVFlipper2 = (ViewFlipper) findViewById(R.id.vfRecom);
-		for(i =0; i<BasketSession.getDeals().size();i++)
-			//		for (Deal d : BasketSession.getDeals())
-		{
-			Deal d = BasketSession.getDeals().get(i);
-			View a = inf.inflate(R.layout.blank, null);
-			TextView t = (TextView) a.findViewById(R.id.deal_name);
-			t.setText(d.getTitle());
+//		mVFlipper1 = (ViewFlipper) findViewById(R.id.vfDeals);
+//		mVFlipper2 = (ViewFlipper) findViewById(R.id.vfRecom);
+//		for(i =0; i<BasketSession.getDeals().size();i++)
+//			//		for (Deal d : BasketSession.getDeals())
+//		{
+//			Deal d = BasketSession.getDeals().get(i);
+//			View a = inf.inflate(R.layout.blank, null);
+//			TextView t = (TextView) a.findViewById(R.id.deal_name);
+//			t.setText(d.getTitle());
+//
+//			Bitmap bm=null;
+//			if(((BuyEvent)d.getEve()).getPic()!=null)
+//				bm = BitmapFactory.decodeByteArray(((BuyEvent)d.getEve()).getPic(), 0 ,((BuyEvent)d.getEve()).getPic().length);
+//
+//			ImageView pic =(ImageView)a.findViewById(R.id.dpic);
+//			temp = d.getEve();
+//			if(pic!=null){
+//				pic.setImageBitmap(bm);
+//				pic.setOnClickListener(new View.OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						if (!spiceManager.isStarted())
+//						{
+//							productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
+//							productPage.putExtra("selectedEvent",i);
+//							spiceManager.start(HomePageActivity.this);
+//							productPage.putExtra("fromDeals", true);
+//							GetReviewsRequest a;
+//							a = new GetReviewsRequest(temp.getId(),1);
+//							spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
+//						}
+//					}
+//				});
+//			}
+//
+//			mVFlipper1.addView(a);
 
-			Bitmap bm=null;
-			if(((BuyEvent)d.getEve()).getPic()!=null)
-				bm = BitmapFactory.decodeByteArray(((BuyEvent)d.getEve()).getPic(), 0 ,((BuyEvent)d.getEve()).getPic().length);
+	//	}
+//		for(int i = 0;i<BasketSession.getRecommendations().size();i++){
+//			BuyEvent e = BasketSession.getRecommendations().get(i);
+//			pos = i;
+//			View a = inf.inflate(R.layout.blank, null);
+//			TextView t = (TextView) a.findViewById(R.id.deal_name);
+//			t.setText(e.getTitle());
+//			buyevent = e;
+//			byte[] K = e.getPic();
+//			Bitmap bm=null;
+//			if(e.getPic()!=null)
+//				bm = BitmapFactory.decodeByteArray(e.getPic(), 0 ,e.getPic().length);
+//
+//			ImageView pic =(ImageView)a.findViewById(R.id.dpic);
+//			pic.setOnClickListener(new View.OnClickListener() {
+//
+//				@Override
+//				public void onClick(View v) {
+//					if (!spiceManager.isStarted())
+//					{
+//						productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
+//						productPage.putExtra("selectedEvent",pos);
+//						spiceManager.start(HomePageActivity.this);
+//						GetReviewsRequest a;
+//						a = new GetReviewsRequest(buyevent.getId(),1);
+//						spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
+//					}
+//				}
+//			});
+//			if(pic!=null){
+//				if(K.length ==0){
+//					pic.setImageResource(R.drawable.ic_launcher);
+//				}
+//				else
+//					pic.setImageBitmap(bm);
+//			}
+//			mVFlipper2.addView(a);
+//		}
+//
+//
+//		mVFlipper1.setFlipInterval(6000);
+//		mVFlipper2.setFlipInterval(6000);
+//
+//		mVFlipper1.startFlipping();
+//		mVFlipper2.startFlipping();
+		
+		View baskets =findViewById(R.id.button1);
+		baskets.setOnClickListener(new OnClickListener(){
 
-			ImageView pic =(ImageView)a.findViewById(R.id.dpic);
-			temp = d.getEve();
-			if(pic!=null){
-				pic.setImageBitmap(bm);
-				pic.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						if (!spiceManager.isStarted())
-						{
-							productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
-							productPage.putExtra("selectedEvent",i);
-							spiceManager.start(HomePageActivity.this);
-							productPage.putExtra("fromDeals", true);
-							GetReviewsRequest a;
-							a = new GetReviewsRequest(temp.getId(),1);
-							spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
-						}
-					}
-				});
+			@Override
+			public void onClick(View arg0) 
+			{
+				Intent i = new Intent(HomePageActivity.this,BasketActivity.class);
+				startActivity(i);
 			}
+			
+		});
+		
+		View profile =findViewById(R.id.Button01);
+		profile.setOnClickListener(new OnClickListener(){
 
-			mVFlipper1.addView(a);
-
-		}
-		for(int i = 0;i<BasketSession.getRecommendations().size();i++){
-			BuyEvent e = BasketSession.getRecommendations().get(i);
-			pos = i;
-			View a = inf.inflate(R.layout.blank, null);
-			TextView t = (TextView) a.findViewById(R.id.deal_name);
-			t.setText(e.getTitle());
-			buyevent = e;
-			byte[] K = e.getPic();
-			Bitmap bm=null;
-			if(e.getPic()!=null)
-				bm = BitmapFactory.decodeByteArray(e.getPic(), 0 ,e.getPic().length);
-
-			ImageView pic =(ImageView)a.findViewById(R.id.dpic);
-			pic.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					if (!spiceManager.isStarted())
-					{
-						productPage =  new Intent(HomePageActivity.this,BuyEventPageActivity.class);
-						productPage.putExtra("selectedEvent",pos);
-						spiceManager.start(HomePageActivity.this);
-						GetReviewsRequest a;
-						a = new GetReviewsRequest(buyevent.getId(),1);
-						spiceManager.execute(a, "", DurationInMillis.ALWAYS_EXPIRED, new GetReviewsListener());
-					}
-				}
-			});
-			if(pic!=null){
-				if(K.length ==0){
-					pic.setImageResource(R.drawable.ic_launcher);
-				}
-				else
-					pic.setImageBitmap(bm);
+			@Override
+			public void onClick(View arg0) 
+			{
+				Intent i = new Intent(HomePageActivity.this,EditUserActivity.class);
+				startActivity(i);
 			}
-			mVFlipper2.addView(a);
-		}
+			
+		});
+		
+		View myShop =findViewById(R.id.Button03);
+		myShop.setOnClickListener(new OnClickListener(){
 
+			@Override
+			public void onClick(View arg0) 
+			{
+				Intent i = new Intent(HomePageActivity.this,MyShopActivity.class);
+				startActivity(i);
+			}
+			
+		});
+		
+		View myOrder =findViewById(R.id.Button02);
+		myOrder.setOnClickListener(new OnClickListener(){
 
-		mVFlipper1.setFlipInterval(6000);
-		mVFlipper2.setFlipInterval(6000);
+			@Override
+			public void onClick(View arg0) 
+			{
+				Intent i = new Intent(HomePageActivity.this,OrdersActivity.class);
+				startActivity(i);
+			}
+			
+		});
+		View logout =findViewById(R.id.Button05);
 
-		mVFlipper1.startFlipping();
-		mVFlipper2.startFlipping();
+		logout.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) 
+			{
+				finish();
+			}
+			
+		});
+		
+		View search =findViewById(R.id.Button04);
+		search.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) 
+			{
+				Intent i = new Intent(HomePageActivity.this,ProductFragmentActivity.class);
+				startActivity(i);
+			}
+			
+		});
+		
+		
+		
+		
+		
+		
+		
 
 
 		context = getApplicationContext();

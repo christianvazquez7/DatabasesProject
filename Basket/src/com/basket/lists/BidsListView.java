@@ -79,6 +79,7 @@ public class BidsListView extends ListFragment{
 				Toast.makeText(getActivity(), "No connection to server", Toast.LENGTH_SHORT).show();
 			}
 			spiceManager.shouldStop();
+			listView.onRefreshComplete();
 		}
 
 		@Override

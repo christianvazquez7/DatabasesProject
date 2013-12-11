@@ -58,6 +58,8 @@ var connection = mysql.createConnection({
 	database: "myFirstSql"
 });
 
+process.env.TZ = 'US/Eastern';
+
 queues(connection,true);
 connection.connect();
 
@@ -1340,28 +1342,36 @@ app.post('/Basket.js/createAdmin/:id', function(req,res){
 app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(req,res)
 		{
 	console.log("Placing an Order!");
-	var trans= connection.startTransaction();
+	var transaction= connection.startTransaction();
 	for(var i = 0; i < req.body.buyEvents.length; i++){
 
-
 		var quan =req.body.buyEvents[i].item_quantity;
-		trans.query("select available from buy_events where buyEventId="+ connection.escape(req.body.buyEvents[i].id), quan,function(err,info){
+	    transaction.query("select available from buy_events where buyEventId="+ connection.escape(req.body.buyEvents[i].id), quan,function(err,info){
 			console.log('checking');
 			console.log(info[0]<this.values);
-			if(err && trans.rollback) {trans.rollback(); console.log(err);}
-			else if(info[0].available<this.values) {console.log(info[0].available); console.log(this.values); trans.rollback(); console.log(err);}
-		});
-	}
-	trans.commit();
-
-	var transaction = connection.startTransaction();
+	    	if(err && trans.rollback) {transaction.rollback(); 
+	    	var rr={
+	    		"state":false	
+	    	};
+	    	res.json(rr);
+	    	}
+		    else if(info[0].available<this.values) {console.log(info[0].available); console.log(this.values); transaction.rollback(); var rr={
+	    		"state":false	
+	    	};
+	    	res.json(rr);}
+	    });
+		}
+	
 	for(var i = 0; i < req.body.buyEvents.length; i++)
 	{
 		var quan =req.body.buyEvents[i].item_quantity;
-		transaction.query('update buy_events set available=available-'+connection.escape(quan)+' where buyEventId='+connection.escape(req.body.buyEvents[i].id),quan,function(err,info){
-			console.log('updating');
-			if(err && trans.rollback) {trans.rollback(); console.log(err);}	    
-		});
+	transaction.query('update buy_events set available=available-'+connection.escape(quan)+' where buyEventId='+connection.escape(req.body.buyEvents[i].id),quan,function(err,info){
+		console.log('updating');
+		if(err && transaction.rollback) {transaction.rollback(); var rr={
+	    		"state":false	
+    	};
+    	res.json(rr);}	    
+	});
 	}
 
 		
@@ -1374,6 +1384,7 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
         }
 		else
 		{
+			console.log('inserted value');
             var email = 'Hello,\n\n' +
                 'You have just placed an order!\n' +
                 'Your order details:\n' +
@@ -1428,14 +1439,20 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
                 });
 
                 console.log('Sent email!!');
-                res.json(true);
+                var rr={
+                    "state":true
+                };
+                res.json(rr);
+
             });
-
-
 
 		}
 	});
 	transaction.execute();
+	transaction.commit();
+	
+	
+	
 
 
 
@@ -2466,24 +2483,27 @@ app.get('/Basket.js/WinBid/:id', function(req,res)
 	function getFinishedBidEvents ()
 	{
 		var defered = Q.defer();
-		var query='select Bid_Events.bidEventId from Bids natural join Users join Bid_Events on Bid_Events.bidEventId=Bids.bidEventId where NOW()>= endingTime and accepted=true and username='+connection.escape(req.params.id);
+		var query='select distinct a.*,Bids.*,Bid_Events.*,Products.*,Manufacturers.*,b.*,max(w.bidTime) as time,max(w.amount) as wamount, wu.username as wusername from Users as a natural join Bids natural join Bid_events natural join Products natural join Manufacturers join Users as b on b.userId=soldBy left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId   where ordered=false and declined=false and finished=true and wu.userId='+connection.escape(req.params.id)+' or finished=false and a.userId='+connection.escape(req.params.id)+' group by Bid_Events.bidEventId';
 		connection.query(query, defered.makeNodeResolver());
 		return defered.promise;
 	};
 
 	Q.all([getFinishedBidEvents()]).then(function(rest)
 			{
-		var finished = new Array();
-		for (var i = 0; i<rest[0][0].length;i++)
-		{
-			finished.push(rest[0][0][i].bidEventId);
-		}
+		 var BidEvents= new Array();
+		   for (var i=0;i<rest[0][0].length;i++)
+		   {
+			   if(rest[0][0][i].wusername!=null)
+		    	BidEvents.push(new BidEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].startingBid,rest[0][0][i].startingTime,rest[0][0][i].endingTime,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].minBid,rest[0][0][i].bidEventId,rest[0][0][i].username, rest[0][0][i].rating,rest[0][0][i].bidTitle,rest[0][0][i].picture,new Bid(rest[0][0][i].wusername,rest[0][0][i].time,rest[0][0][i].wamount),rest[0][0][i].finished,rest[0][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+			   else
+			    	BidEvents.push(new BidEvent(new product(rest[0][0][i].pname,rest[0][0][i].sellerPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].startingBid,rest[0][0][i].startingTime,rest[0][0][i].endingTime,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].minBid,rest[0][0][i].bidEventId,rest[0][0][i].username, rest[0][0][i].rating,rest[0][0][i].bidTitle,rest[0][0][i].picture,null,rest[0][0][i].finished,rest[0][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+
+		   }
 		var response=
 		{
-				"toFinish":finished
+				"events":BidEvents
 		};
 
-		console.log(finished);
 		res.json(response);
 			});
 
