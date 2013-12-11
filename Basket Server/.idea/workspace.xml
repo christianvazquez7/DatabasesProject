@@ -4,7 +4,7 @@
     <list default="true" id="a0d3bf2a-74f5-42e4-b3ce-4d560b5709a7" name="Default" comment="" />
     <ignored path="Basket Server.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/app.js" changelist="a0d3bf2a-74f5-42e4-b3ce-4d560b5709a7" time="1386783102206" ignored="false" />
+    <file path="/app.js" changelist="a0d3bf2a-74f5-42e4-b3ce-4d560b5709a7" time="1386784288883" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +27,7 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1664" column="87" selection-start="55439" selection-end="55439" vertical-scroll-proportion="0.9254808">
+            <state line="3182" column="104" selection-start="116887" selection-end="116887" vertical-scroll-proportion="0.26442307">
               <folding />
             </state>
           </provider>
@@ -148,7 +148,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -274,7 +274,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1664" column="87" selection-start="55439" selection-end="55439" vertical-scroll-proportion="0.9254808">
+        <state line="3182" column="104" selection-start="116887" selection-end="116887" vertical-scroll-proportion="0.26442307">
           <folding />
         </state>
       </provider>

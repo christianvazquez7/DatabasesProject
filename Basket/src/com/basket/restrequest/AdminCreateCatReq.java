@@ -8,7 +8,7 @@ public class AdminCreateCatReq extends SpringAndroidSpiceRequest<Boolean> {
 	
 	private String un;
 	private Category newCat;
-	public AdminCreateCatReq( Category category) {
+	public AdminCreateCatReq(Category category) {
 		super(Boolean.class);
 		this.newCat=category;
 

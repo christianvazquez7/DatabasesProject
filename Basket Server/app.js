@@ -68,7 +68,7 @@ function getForgottenUserAccount(umail, callback)
 	console.log("In get user info uname is:"+umail);
 	connection.query('SELECT * FROM users WHERE email=\''+umail+'\'', function(err, response) {
 		if (err) 
-			throw err;
+			console.log(err);
 		callback(err, response);
 	});
 };
@@ -84,7 +84,7 @@ function getUserInfo(uname, callback) {
 		var queryadd  = 'SELECT username, password, email FROM Users where active_user=1 union SELECT username, password, email FROM admins WHERE active_user=1';
 
 		connection.query(queryadd, function(err, response) {
-			if (err) throw err;
+			if (err) console.log(err);
 			callback(err, response);
 		});
 	}
@@ -92,7 +92,7 @@ function getUserInfo(uname, callback) {
 		console.log("Not empty");
 		console.log(uname);
 		connection.query('SELECT username, password, email FROM Users WHERE active_user=1 and username like '+connection.escape("%"+uname+"%")+' union SELECT username, password, email FROM admins WHERE active_user=1 and username like '+connection.escape("%"+uname+"%")+';', function(err, response) {
-			if (err) throw err;
+			if (err) console.log(err);
 			callback(err, response);
 		});
 	}
@@ -237,7 +237,7 @@ function getrecommendations(username, callback) {
 	var query = 'select * from buy_events natural join products natural join manufacturers natural join Users where soldBy = userId and buycategory in (select buycategory as boughtcategories from users natural join orders, baskets natural join buy_events natural join in_buy_basket where basketId = withbasketId and username = \''+username+'\') and buyEventId not in (select buyEventId as boughtIds from users natural join orders, baskets natural join buy_events natural join in_buy_basket where basketId = withbasketId and username = \''+username+'\')';
 	console.log(query);
 	connection.query(query  , function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -411,7 +411,7 @@ function editUser (userId, req , callback)
 	var userquery='UPDATE `myfirstsql`.`users` SET `email` = \''+req.params.email+'\', password = \''+req.params.pass+'\', username = \''+req.params.usr+'\' WHERE `users`.`userId` = \''+userId+'\';';
 	console.log(userquery);
 	connection.query(userquery, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -421,7 +421,7 @@ function getUserId (req , callback)
 	var userquery='select userId from users where username= \''+req.body.username+'\' and email = \''+req.body.email+'\'';
 	console.log(userquery);
 	connection.query(userquery, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };	
@@ -1110,7 +1110,7 @@ function insertUser (req , callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1123,7 +1123,7 @@ function getInsertedUserId (req , callback)
 	var userquery='select userId from users where username= '+connection.escape(req.body.username)+' and firstName = '+connection.escape(req.body.firstName)+' and lastName = '+connection.escape(req.body.lastName)+' and email = '+connection.escape(req.body.email);
 	console.log(userquery);
 	connection.query(userquery, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };	
@@ -1136,7 +1136,7 @@ function insertShipAddress (userId, req  ,callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1151,7 +1151,7 @@ function getInsertedShipAddress (req,callback)
 	var userquery='select AddressId from address where userId= \''+userId+'\' and line1 = \''+req.body.shippingAdress[0].line1+'\'';
 	console.log(userquery);
 	connection.query(userquery, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };	
@@ -1165,7 +1165,7 @@ function insertBillAddress (userId, req,callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1182,7 +1182,7 @@ function insertAddress (userId, req,callback)
 	connection.query(userquery, function(err, response) {
 		if (err) {
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1214,7 +1214,7 @@ function getInsertedBillAddress (userId, req,callback)
 	var userquery='select AddressId from address where userId= \''+userId+'\' and line1 = '+connection.escape(req.body.billingAdress[0].line1);
 	console.log(userquery);
 	connection.query(userquery, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };	
@@ -1227,7 +1227,7 @@ function getInsertedAddress (userId, req,callback)
 	var userquery='select AddressId from address where userId= '+connection.escape(userId)+' and line1 = '+connection.escape(req.body.billing.line1);
 	console.log(userquery);
 	connection.query(userquery, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };	
@@ -1241,7 +1241,7 @@ function insertCreditCards (userId, billId, req,callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1274,7 +1274,7 @@ app.post('/Basket.js/create/:id', function(req,res){
 									connection.commit(function(err) {
 										if (err) { 
 											connection.rollback(function() {
-												throw err;
+												console.log(err);
 											});
 										}
 
@@ -1307,7 +1307,7 @@ function insertAdmin (req , callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1322,7 +1322,7 @@ app.post('/Basket.js/createAdmin/:id', function(req,res){
 			connection.commit(function(err) {
 				if (err) { 
 					connection.rollback(function() {
-						throw err;
+						console.log(err);
 					});
 				}
 
@@ -1348,8 +1348,8 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 		trans.query("select available from buy_events where buyEventId="+ connection.escape(req.body.buyEvents[i].id), quan,function(err,info){
 			console.log('checking');
 			console.log(info[0]<this.values);
-			if(err && trans.rollback) {trans.rollback(); throw err;}
-			else if(info[0].available<this.values) {console.log(info[0].available); console.log(this.values); trans.rollback(); throw err;}
+			if(err && trans.rollback) {trans.rollback(); console.log(err);}
+			else if(info[0].available<this.values) {console.log(info[0].available); console.log(this.values); trans.rollback(); console.log(err);}
 		});
 	}
 	trans.commit();
@@ -1360,7 +1360,7 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 		var quan =req.body.buyEvents[i].item_quantity;
 		transaction.query('update buy_events set available=available-'+connection.escape(quan)+' where buyEventId='+connection.escape(req.body.buyEvents[i].id),quan,function(err,info){
 			console.log('updating');
-			if(err && trans.rollback) {trans.rollback(); throw err;}	    
+			if(err && trans.rollback) {trans.rollback(); console.log(err);}	    
 		});
 	}
 
@@ -1631,12 +1631,12 @@ app.post('/Basket.js/RemoveBasket', function(req,res)
 
 
 	function error(err) {
-		if(err && trans.rollback) {trans.rollback(); throw err;}
+		if(err && trans.rollback) {trans.rollback(); console.log(err);}
 
 	}
 
 	function error2(err) {
-		if(err && trans.rollback) {trans.rollback(); throw err;}
+		if(err && trans.rollback) {trans.rollback(); console.log(err);}
 		else{
 			trans.commit();
 			res.json(true);
@@ -2036,7 +2036,7 @@ app.get('/Basket.js/UpdateBidSeller/:uId', function(req,res)
 function getadminproducts(query, callback) {
 	console.log("Loading admin products "+query);
 	connection.query('select * from products natural join manufacturers where pname like \'%'+query+'%\''  , function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -2082,7 +2082,7 @@ function getproductsales(weekStart,type, reqdate, pid, callback) {
 	var query = 'select sum(price*item_quantity) as result from in_buy_basket natural join buy_events natural join baskets, orders where basketId = withbasketId and productId = ' +pid+' and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
 	console.log(query);
 	connection.query(query, function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -2110,7 +2110,7 @@ function getproductsalescount(weekStart,type, reqdate, pid, callback) {
 	console.log(query);
 
 	connection.query(query  , function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -2138,7 +2138,7 @@ function gettotalsales(weekStart, type, reqdate, callback) {
 	var query = 'select sum(amount) as result from orders where DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
 	console.log(query);
 	connection.query(query  , function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -2171,7 +2171,7 @@ function gettotalsalescount(weekStart, type, reqdate, callback) {
 	var query = 'select sum(item_quantity) as result from baskets natural join in_buy_basket natural join buy_events, orders where basketId = withbasketId and DATE_FORMAT(orderTime, \'%Y-%m-%d\') like '+ queryadd;
 	console.log(query);
 	connection.query(query  , function(err, response) {
-		if (err) throw err;
+		if (err) console.log(err);
 		callback(err, response);
 	});
 };
@@ -2493,7 +2493,7 @@ function getAdminList (uname, upass, callback) {
 	var userquery= 'SELECT * FROM admins where username='+connection.escape(uname)+' and password='+connection.escape(upass)+' and active_user=1';
 	connection.query(userquery, function(err, response) {
 		if (err) 
-			throw err;
+			console.log(err);
 		callback(err, response);
 	});
 };
@@ -2517,7 +2517,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res) {
 	function getUserInfo (callback) {
 		var userquery= 'SELECT * FROM Users where username='+connection.escape(req.params.id)+' and password='+connection.escape(req.params.password)+' and active_user=1';
 		connection.query(userquery, function(err, response) {
-			if (err) throw err;
+			if (err) console.log(err);
 			callback(err, response);
 		});
 	};
@@ -3009,6 +3009,15 @@ app.get('/Basket.js/ForgetCreds/:email',function(req,res)
 		{
 	getForgottenUserAccount(req.params.email, function(err, result)
 			{
+				    if(typeof result != undefined || result!=null){
+				    	console.log("No email found")
+				    	res.json("false");
+
+				    }
+				    else{
+
+
+
 		console.log(err || JSON.stringify(result));
 		var smtpTransport = nodemailer.createTransport("SMTP",
 		{
@@ -3044,7 +3053,9 @@ app.get('/Basket.js/ForgetCreds/:email',function(req,res)
 		console.log('Sent email!!');
 
 		res.json(true);	
+	}
 			});
+
 
 		});
 
@@ -3052,33 +3063,33 @@ function createCategory (req, callback)
 {
 	console.log("Request body of create cate");
 	console.log(req.body);
-    if(req.body.parent!=null){
+    if(typeof req.body.parent != undefined || req.body.parent!=null){
         getCategoryId(req.body.parent.name, function(err,response){
         	console.log("Creating category with parent");
         	console.log(response);
             var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+','+response[0].categoryId+');';
             console.log(userquery);
-    connection.query(userquery, function(err, response) {
-        if (err){
+		    connection.query(userquery, function(err, response) {
+		        if (err){
 
-                console.log("Problem in query");
+		                console.log("Problem in query");
 
-        }
-        callback(err,response);
-    });
+		        }
+		        callback(err,response);
+		    });
         });
     }
     else{
         var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+',NULL);'
         console.log(userquery);
-    connection.query(userquery, function(err, response) {
-        if (err){
+	    connection.query(userquery, function(err, response) {
+	        if (err){
 
-                console.log("Problem in query");
+	                console.log("Problem in query");
 
-        }
-        callback(err,response);
-    });
+	        }
+	        callback(err,response);
+	    });
     }
 
     
@@ -3091,6 +3102,9 @@ app.post('/Basket.js/AdminCreateCategory/', function(req,res){
     try{
         connection.beginTransaction(function(err) {
             createCategory(req, function(err,response){
+            	if(err){
+            		res.json("false");
+            	}
                 console.log(err);
                 console.log(response);
                 console.log("In here");
@@ -3100,7 +3114,7 @@ app.post('/Basket.js/AdminCreateCategory/', function(req,res){
     }
     catch(error){
         console.log("Error"+error);
-        res.json(false);
+        res.json("false");
     }
 });
 
@@ -3155,6 +3169,7 @@ function getCategory (id , callback) {
     connection.query(userquery, function(err, response) {
         if (err){
             console.log("Problem in query");
+            console.log(err);
         }
         console.log(response);
         if(typeof response[0] == 'undefined'){
@@ -3168,7 +3183,7 @@ function getCategory (id , callback) {
         else{
             callback(err,response);
         }
-    }      );
+    });
 }
 
 app.post('/Basket.js/GetCatParent/', function(req,res){
@@ -3180,7 +3195,7 @@ app.post('/Basket.js/GetCatParent/', function(req,res){
             console.log(response);
             if(typeof response[0].parentCategoryId == 'undefined'|| response[0].parentCategoryId ==""){
                 console.log("In here");
-                res.json(response[0].parentCategoryId);
+                res.json(response[0].parentCategoryId.toString());
             }
             else{
             	console.log("Out here");

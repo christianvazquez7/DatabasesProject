@@ -117,7 +117,6 @@ public class EditUserActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent editSAIntent = new Intent(EditUserActivity.this, EditSAddressesActivity.class);
 				editSAIntent.putExtra("selectedUser", user);
 				startActivity(editSAIntent);
@@ -127,8 +126,6 @@ public class EditUserActivity extends Activity {
 		Button deleteAccount = (Button) this.findViewById(R.id.doneButton);
 		deleteAccount.setOnClickListener(new OnClickListener()
 		{
-
-
 			public void onClick(View arg0) 
 			{
 				finish();

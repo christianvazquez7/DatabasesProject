@@ -31,6 +31,7 @@ public class AdminCreateCategory extends Activity {
 	private EditText catNameET,subCatName;
 	private Button catBut, subCatBut;
 	private Category c;
+	ArrayList<String> catName;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -65,12 +66,13 @@ public class AdminCreateCategory extends Activity {
 					c.setName(subCatName.getText().toString());
 					Category temp = new  Category();
 					temp.setName((String)mSpinner.getSelectedItem());
+					c.setParent(temp);
 					spiceManager.execute(new GetCatParent(temp), new GetCatParentListner1P());
 				}
 			}
 		});
 		mSpinner = (Spinner) findViewById(R.id.maincatspin);
-		ArrayList<String> catName = new ArrayList<String>();
+		catName = new ArrayList<String>();
 		for(Category c:BasketSession.getCategory()){
 			catName.add(c.getName());
 		}
@@ -96,9 +98,9 @@ public class AdminCreateCategory extends Activity {
 		{
 			spiceManager.shouldStop();
 			if(newCat){
-				
 				Toast.makeText(AdminCreateCategory.this, "Success", Toast.LENGTH_SHORT).show();
 				BasketSession.getCategory().add(c);
+				catName.add(c.getName());
 			}
 		}
 
@@ -128,8 +130,7 @@ public class AdminCreateCategory extends Activity {
 		public void onRequestSuccess(String catParent) 
 		{
 			
-			//			Toast.makeText(AdminCreateCategory.this, "Success", Toast.LENGTH_SHORT).show();
-			//			BasketSession.getCategory().add(catParent);
+			//Gets parent's parent
 			if(catParent==null||catParent.equals(""))
 			{
 				spiceManager.execute(new AdminCreateCatReq(c), new AdminCreateCategoryListner());
@@ -137,7 +138,6 @@ public class AdminCreateCategory extends Activity {
 			else{
 				Category parent1 = new Category();
 				parent1.setName(catParent);
-				c.setParent(parent1);
 				spiceManager.execute(new GetCatParent(parent1), new GetCatParentListner2P());
 			}
 
@@ -174,6 +174,7 @@ public class AdminCreateCategory extends Activity {
 				spiceManager.execute(new AdminCreateCatReq(c), new AdminCreateCategoryListner());
 			}
 			else{
+				spiceManager.shouldStop();
 				Toast.makeText(AdminCreateCategory.this, "Could not create sub category", Toast.LENGTH_LONG).show();
 			}
 
