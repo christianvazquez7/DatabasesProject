@@ -753,12 +753,14 @@ app.get('/Basket.js/search/:searchQuery',function(req,res)
 		}
 
 		for (var i=0;i<rest[1][0].length;i++)
-		{
-			console.log(rest[1][0][i].amount);
-			if(rest[1][0][i].wusername!=null)
-				bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null,rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+         {
+                 console.log(rest[1][0][i].amount);
+                 if(rest[1][0][i].wusername!=null)
+                 bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,new Bid(rest[1][0][i].wusername,rest[1][0][i].time,rest[1][0][i].amount),rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+                 else
+                     bidList.push(new BidEvent(new product(rest[1][0][i].pname,rest[1][0][i].sellerPId,rest[1][0][i].mname,rest[1][0][i].width,rest[1][0][i].height,rest[1][0][i].depth,rest[1][0][i].dimensions),rest[1][0][i].startingBid,rest[1][0][i].startingTime,rest[1][0][i].endingTime,rest[1][0][i].features,rest[1][0][i].description,rest[1][0][i].minBid,rest[1][0][i].bidEventId,rest[1][0][i].username, rest[1][0][i].rating,rest[1][0][i].bidTitle,rest[1][0][i].picture,null,rest[1][0][i].finished,rest[1][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
 
-		}
+         }
 		console.log('sali');
 		var response =
 		{
@@ -1197,12 +1199,13 @@ function insertShippingAddress (userId, req,callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
-		else
-
+		else  {
 			callback(err, response);
+            console.log(response);
+        }
 	});
 };
 function getInsertedBillAddress (userId, req,callback) 
@@ -1658,7 +1661,7 @@ function insertCreditCard (userId, billId, req,callback)
 	connection.query(userquery, function(err, response) {
 		if (err){
 			connection.rollback(function() {
-				throw err;
+				console.log(err);
 			});
 		}
 		else
@@ -1697,13 +1700,13 @@ app.post('/Basket.js/insertCreditCard/:email/:uname', function(req,res){
 						connection.commit(function(err) {
 							if (err) { 
 								connection.rollback(function() {
-									throw err;
+									console.log(err)       ;
 								});
 							}
 
 							console.log("Success adding admin");
 
-							res.json(true);
+							res.json(result.insertId.toString());
 						});
 					});
 				});
@@ -1754,17 +1757,31 @@ app.post('/Basket.js/insertShippingAddress/:email/:uname', function(req,res){
 	console.log(user);
 	console.log("Body");
 	console.log(req.body);
-	getUserId(user,function(err,result){
-		console.log(result);
-		var userId = result[0].userId;
-		console.log(userId);
-		insertShippingAddress(userId, req, function(err,response){
-			console.log("Updated succesfully");
-			res.json(true);
-		});
+    connection.beginTransaction(function(err) {
+
+        getUserId(user,function(err,result){
+            console.log(result);
+            var userId = result[0].userId;
+            console.log(userId);
+            insertShippingAddress(userId, req, function(err,response){
+                connection.commit(function(err) {
+                    if (err) {
+                        connection.rollback(function() {
+                            console.log(err);
+                        });
+                    }
+
+                    console.log("SUCESS");
+                    console.log(response);
+                    res.json(response.insertId.toString());
+                });
+
+            });
 
 
-	});	
+	    });
+    } );
+
 });
 function updateAddress (billId, newAddress , callback) 
 {
@@ -2883,10 +2900,10 @@ var sender = new gcm.Sender('AIzaSyCTFn1fBSl-7jcUgWIDb6SE17qiaoFpr6o');
 /**
  * Parameters: message-literal, registrationIds-array, No. of retries, callback-function
  */
-var myVar=setInterval(function(){myTimer()},1000);
+//var myVar=setInterval(function(){myTimer()},10000);
 //check for completed bidEvents
 
-var myVar2=setInterval(function(){myBidEventTimer()},60000);
+//var myVar2=setInterval(function(){myBidEventTimer()},60000);
 
 function myBidEventTimer()
 {
