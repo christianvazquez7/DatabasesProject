@@ -20,6 +20,7 @@ import com.basket.containers.BasketSession;
 import com.basket.containers.CreditCardContainer;
 import com.basket.fragments.CreditCardButton;
 import com.basket.fragments.SelectAddressButton;
+import com.basket.general.BooleanContainer;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Order;
@@ -154,7 +155,7 @@ public class CheckoutActivity extends Activity {
 		selShipFrag = new SelectedShippingAddress();
 		fragMan.beginTransaction().replace(R.id.shippingaddressfieldplaceholder, selShipFrag).commit();
 	}
-	private class PlaceOrderListener implements RequestListener<Boolean>, RequestProgressListener {
+	private class PlaceOrderListener implements RequestListener<BooleanContainer>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -169,13 +170,19 @@ public class CheckoutActivity extends Activity {
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean CreatedUser) 
+		public void onRequestSuccess(BooleanContainer bool) 
 		{
 			spiceManager.shouldStop();
+			if(bool.getState())
+			{
 			BasketSession.getUser().getUserOrders().add(orderToPlace);
 			BasketSession.getUser().getBaskets().remove(getIntent().getIntExtra("basketNum", 0));
 			Toast.makeText(CheckoutActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
 			CheckoutActivity.this.finish();
+			}else
+			{
+				Toast.makeText(CheckoutActivity.this, "Error in baskets, please verify available quantities", Toast.LENGTH_SHORT).show();
+			}
 		}
 
 		@Override

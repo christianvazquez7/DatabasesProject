@@ -1,9 +1,10 @@
 package com.basket.adapters;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.TimeZone;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -51,11 +52,12 @@ public class ProductAdapter extends ArrayAdapter<Event>
 			
 			java.util.Date date = null;
 			
-			SimpleDateFormat formatter, FORMATTER;
-			formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			DateFormat formatter, FORMATTER=null;
+			formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			formatter.setTimeZone(TimeZone.getTimeZone("GMT-0500"));
 			String oldDate = currentProduct.getEndingTime();
 			 try {
-				date = formatter.parse(oldDate);
+				date = formatter.parse(oldDate.substring(0, 19));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
