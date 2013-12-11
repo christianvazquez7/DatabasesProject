@@ -52,7 +52,7 @@ public class CheckoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkout);
-		 number = getIntent().getIntExtra("basketNum", -1);
+		number = getIntent().getIntExtra("basketNum", -1);
 		List<BuyEvent>pro = BasketSession.getUser().getBaskets().get(number).getBuyEvents();
 		for (BuyEvent e :pro)
 		{
@@ -96,7 +96,7 @@ public class CheckoutActivity extends Activity {
 					if(!spiceManager.isStarted())
 					{
 						Date now = new Date();
-						
+
 						orderToPlace = new Order();
 						orderToPlace.setsDate(now.toString());
 
@@ -109,7 +109,7 @@ public class CheckoutActivity extends Activity {
 						java.util.Date dt = new java.util.Date();
 
 						java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-							
+
 						String currentTime = sdf.format(dt);
 						orderToPlace.setShipAdress(AddressContainer.shippingSelection);
 						spiceManager.start(CheckoutActivity.this);
@@ -175,10 +175,10 @@ public class CheckoutActivity extends Activity {
 			spiceManager.shouldStop();
 			if(bool.getState())
 			{
-			BasketSession.getUser().getUserOrders().add(orderToPlace);
-			BasketSession.getUser().getBaskets().remove(getIntent().getIntExtra("basketNum", 0));
-			Toast.makeText(CheckoutActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
-			CheckoutActivity.this.finish();
+				BasketSession.getUser().getUserOrders().add(orderToPlace);
+				BasketSession.getUser().getBaskets().remove(getIntent().getIntExtra("basketNum", 0));
+				Toast.makeText(CheckoutActivity.this, "Order placed", Toast.LENGTH_SHORT).show();
+				CheckoutActivity.this.finish();
 			}else
 			{
 				Toast.makeText(CheckoutActivity.this, "Error in baskets, please verify available quantities", Toast.LENGTH_SHORT).show();

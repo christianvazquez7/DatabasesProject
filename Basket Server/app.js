@@ -1387,11 +1387,64 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
 		{
 
 			console.log('inserted value');
-			
-			var rr={
+			var email = 'Hello,\n\n' +
+                'You have just placed an order!\n' +
+                'Your order details:\n' +
+                'Shipping address:\n' +
+                req.body.shipAdress.line1+
+                '\n'+req.body.shipAdress.line2+
+                '\n'+req.body.shipAdress.country+
+                '\n'+req.body.shipAdress.state+
+                '\n'+req.body.shipAdress.city+'\n' +
+                'Credit Card number:\n' +
+                req.body.creditCard.cardNum+'\n' +
+                'And the items:\n';
+            var products ='';
+            var totalammount = 0;
+            for(var i=0;i<req.body.buyEvents.length;i++){
+                products+=req.body.buyEvents[i].btitle+' Amount:'+req.body.buyEvents[i].item_quantity+'\n'
+                totalammount+=req.body.buyEvents[i].price*req.body.buyEvents[i].item_quantity;
+            }
+            var total = 'Totaling in: $'+totalammount;
+            console.log('inserted value');
+            //transaction.commit();
+            transaction.query('select * from users where userId ='+connection.escape(req.params.uId),function(err, uinfo){
+                console.log(err);
+                var smtpTransport = nodemailer.createTransport("SMTP",
+                    {
+                        service: "Gmail",
+                        auth: {
+                            user: "basketservices@gmail.com",
+                            pass: "tito12@@"
+                        }
+                    });
+                var mailOptions = {
+                    from: "Basket Services <basketservices@gmail.com>", // sender address
+                    to: uinfo[0].email, // list of receivers
+                    subject: "Your basket account ", // Subject line
+                    text: email+products+total//, // plaintext body
+                }
+
+                // send mail with defined transport object
+                smtpTransport.sendMail(mailOptions, function(error, response)
+                {
+                    if(error)
+                    {
+                        console.log(error);
+                    }
+                    else{
+                        console.log("Message sent: " + response.message);
+                    }
+
+                    // if you don't want to use this transport object anymore, uncomment following line
+                    smtpTransport.close(); // shut down the connection pool, no more messages
+                    var rr={
 		    		"state":true	
 		    	};
 		    	res.json(rr);
+                });
+            });
+			
 		}
 	});
 	transaction.execute();
@@ -2701,7 +2754,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res) {
 			var billing= new Array();
 			for (var i=0;i<rest[1][0].length;i++)
 			{
-				billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state,rest[0][0][i].AddressId));
+				billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state,rest[1][0][i].AddressId));
 			}
 			//console.log(billing);
 
