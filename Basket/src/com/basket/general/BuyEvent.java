@@ -1,5 +1,6 @@
 package com.basket.general;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -10,6 +11,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class BuyEvent implements Event
 {
 	float rating;
+	String endoded;
+	ByteBuffer buffer;
+	public ByteBuffer getBuffer() {
+		return buffer;
+	}
+	public void setBuffer(ByteBuffer buffer) {
+		this.buffer = buffer;
+	}
+	public String getEndoded() {
+		return endoded;
+	}
+	public void setEndoded(String endoded) {
+		this.endoded = endoded;
+	}
 	public float getRating() {
 		return rating;
 	}

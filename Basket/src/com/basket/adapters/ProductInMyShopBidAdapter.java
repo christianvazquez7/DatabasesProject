@@ -1,15 +1,13 @@
 package com.basket.adapters;
 
-import java.text.ParseException;
+import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 
 import com.basket.general.BidEvent;
 import com.example.basket.R;
-import com.example.basket.R.color;
 
 public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 {
@@ -74,6 +71,12 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		if(currentProduct.getPicture()!=null)
 		 bm = BitmapFactory.decodeByteArray(currentProduct.getPicture(), 0 ,currentProduct.getPicture().length);
 		
+		if(bm==null&&currentProduct.getPicture()!=null){
+
+			ByteArrayInputStream imageStream = new ByteArrayInputStream(currentProduct.getPicture());
+			bm= BitmapFactory.decodeStream(imageStream);
+		}
+		
 		ImageView pic =(ImageView)convertView.findViewById(R.id.bidthumb);
 		if(pic!=null)
 		pic.setImageBitmap(bm);
@@ -94,6 +97,8 @@ public class ProductInMyShopBidAdapter extends ArrayAdapter<BidEvent>
 		FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 		if(date!=null)
 		 ((TextView)convertView.findViewById(R.id.endDate)).setText(FORMATTER.format(date));
+		else
+			 ((TextView)convertView.findViewById(R.id.endDate)).setText(currentProduct.getEndingTime());
 
 		
 		

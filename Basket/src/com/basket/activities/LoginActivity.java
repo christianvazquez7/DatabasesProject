@@ -115,7 +115,7 @@ public class LoginActivity extends Activity {
 		{
 			Log.d("PROGRESS", "GETU");
 			BasketSession.beginSession(User);
-			Log.d("try",BasketSession.getUser().getBillingAdress().toString());
+			Log.d("try",BasketSession.getUser().getShippingAdress().toString());
 
 			intent = new Intent(LoginActivity.this,HomePageActivity.class);
 			GetRecommendationsRequest recommendations = new GetRecommendationsRequest(User);

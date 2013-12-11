@@ -26,6 +26,7 @@ import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
 import com.basket.lists.ProductsInBuyBasketsList;
+import com.basket.restrequest.ByteContainer;
 import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.RemoveBasketRequest;
 import com.example.basket.R;
@@ -47,6 +48,8 @@ public class BasketActivity extends FragmentActivity {
 	private SpiceManager spiceManager = new SpiceManager(CarJsonSpringAndroidSpiceService.class);
 	private ProductBasket temp;
 	private int currentItem;
+	private ProductBasket newBasket;
+	private ActionBar bar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,8 @@ public class BasketActivity extends FragmentActivity {
 			final EditText input = new EditText(this);
 			alert.setView(input);
 			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				
+
 				public void onClick(DialogInterface dialog, int whichButton) {
 					String name = input.getText().toString();
 					if(name =="")
@@ -103,18 +108,18 @@ public class BasketActivity extends FragmentActivity {
 						name = "Basket "+mTabsAdapter.getCount();
 					}
 
-					Bundle args = new Bundle();
-					ProductsInBuyBasketsList.basketnum++;
-					args.putInt("pos", ProductsInBuyBasketsList.basketnum);
+//					Bundle args = new Bundle();
+//					ProductsInBuyBasketsList.basketnum++;
+//					args.putInt("pos", ProductsInBuyBasketsList.basketnum);
 
-					final ActionBar bar = getActionBar();
+					 bar = getActionBar();
 					//bar.setBackgroundDrawable(Resources.getSystem().getDrawable(R.drawable.layer_gradient));
-					ProductBasket newBasket=new ProductBasket(name);
-					BasketSession.getUser().getBaskets().add(new ProductBasket(name));
-					Tab newTab =bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName());
-					//newTab.getCustomView().setBackgroundColor(color.black);
-					mTabsAdapter.notifyDataSetChanged();
-					mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
+					newBasket=new ProductBasket(name);
+//					BasketSession.getUser().getBaskets().add(new ProductBasket(name));
+//					Tab newTab =bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName());
+//					//newTab.getCustomView().setBackgroundColor(color.black);
+//					mTabsAdapter.notifyDataSetChanged();
+//					mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
 
 					if (!spiceManager.isStarted())
 					{
@@ -163,7 +168,7 @@ public class BasketActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.user_baskets, menu);
 		return super.onCreateOptionsMenu(menu); 
 	}
-	private class NewBasketListener implements RequestListener<Boolean>, RequestProgressListener {
+	private class NewBasketListener implements RequestListener<ByteContainer>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -178,11 +183,19 @@ public class BasketActivity extends FragmentActivity {
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean bool) 
+		public void onRequestSuccess(ByteContainer bool) 
 		{
 
-
+			Bundle args = new Bundle();
+			ProductsInBuyBasketsList.basketnum++;
+			args.putInt("pos", ProductsInBuyBasketsList.basketnum);
 			spiceManager.shouldStop();
+			newBasket.setId(bool.getValue());
+			BasketSession.getUser().getBaskets().add(newBasket);
+			Tab newTab =bar.newTab().setText(BasketSession.getUser().getBaskets().get(BasketSession.getUser().getBaskets().size()-1).getName());
+			//newTab.getCustomView().setBackgroundColor(color.black);
+			mTabsAdapter.notifyDataSetChanged();
+			mTabsAdapter.addTab(newTab, ProductsInBuyBasketsList.class, args);
 			Toast.makeText(BasketActivity.this, "Basket Created", Toast.LENGTH_SHORT).show();
 
 		}

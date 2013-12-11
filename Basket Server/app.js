@@ -880,6 +880,23 @@ app.post('/Basket.js/remBid/:id/:type/:winner', function(req,res)
 			
 });
 
+
+app.post('/Basket.js/TerminateEvent/:id', function(req,res)
+		{
+			console.log('heereeeeee');
+			console.log(req.params.id);
+			var trans = connection.startTransaction();
+			trans.query('update bid_events set declined=true where bidEventId='+connection.escape(req.params.id),function(err,info){
+				if(err)trans.rollback();
+				else
+				{
+					trans.commit();
+					res.json(true);
+				}
+			});
+			trans.execute();	
+		});
+
 //Delete user
 app.del('/Basket.js/UserDelete/:id', function(req,res)
 		{
@@ -1186,7 +1203,11 @@ app.post('/Basket.js/NewBasket/:username', function(req,res)
 			else{
 				console.log('successfull!!');
 				trans.commit();
-				res.json(true);
+				var rp=
+				{
+						"value":info.insertId
+				}
+				res.json(rp);
 				}
 				
 		
@@ -1444,16 +1465,9 @@ app.post('/Basket.js/RemoveBasket', function(req,res)
 	res.json(true);
 		});
 //Create a sell bid event
-app.post('/Basket.js/NewBidSell', function(req,res)
+app.post('/Basket.js/NewBidSell/:uId/:cat', function(req,res)
 {
-
-	u.currentlySellingOnBid.push(req.body);
-	res.json(true);
-		});
-//Create a sell buy event
-
-app.post('/Basket.js/NewBuySell/:uId/:quantity/:cat', function(req,res)
-{
+	var bitmap = new Buffer(req.body.picture,"base64");
 	var transaction = connection.startTransaction();
 
 	transaction.query('select categoryId from categories where name='+connection.escape(req.params.cat),function(err,info2){
@@ -1467,7 +1481,74 @@ app.post('/Basket.js/NewBuySell/:uId/:quantity/:cat', function(req,res)
 				console.log(req.body);
 				//insert product
 				transaction.query('insert into products (sellerPId,pname,features,dimensions,manufacturerID,categoryId, width,depth,height) values ('+
-						connection.escape(req.body.product.productPId)+','+connection.escape(req.body.pname)+','+connection.escape(req.body.features)+','+
+						connection.escape(req.body.product.productPId)+','+connection.escape(req.body.product.pname)+','+connection.escape(req.body.features)+','+
+						connection.escape(req.body.product.dimensions)+','+connection.escape(info.insertId)+','+connection.escape(info2[0].categoryId)+','+connection.escape(req.body.product.width)
+						+','+connection.escape(req.body.product.width)+','+connection.escape(req.body.product.height)+')',function(err,info){
+					if(err)transaction.rollback();
+					else
+					{
+						//insert buy event
+						transaction.query('insert into bid_events (startingBid,endingTime,description,soldBy,productId,minBid,bidTitle,picture,bidcategory) values('+
+								connection.escape(req.body.startingBid)+','+connection.escape(req.body.endingTime)+','+connection.escape(req.body.description)+','+connection.escape(req.params.uId)+','
+								+connection.escape(info.insertId)+','+connection.escape(req.body.minBid)+','+connection.escape(req.body.bidTitle)+',?,'+connection.escape(info2[0].categoryId)+')',[bitmap],function(err,info)
+							{
+							if (err)transaction.rollback();
+							else
+							{
+								transaction.commit();
+								res.json(true);
+							}
+						});
+					}
+				});
+			}
+		});
+
+		}
+		
+	});
+	transaction.execute();
+	
+	
+});
+//Create a sell buy event
+String.prototype.getBytes = function () {
+	  var bytes = [];
+	  for (var i = 0; i < this.length; ++i) {
+	    bytes.push(this.charCodeAt(i));
+	  }
+	  return bytes;
+	};
+	function createHexString(arr) {
+	    var result = "";
+	    for (var i = 0; i < arr.length; i++) {
+	        var str = arr[i].toString(16);
+
+	        z = 8 - str.length + 1;
+	        str = Array(z).join("0") + str;
+
+	        result += str;
+	    }
+
+	    return result;
+	}
+	
+app.post('/Basket.js/NewBuySell/:uId/:quantity/:cat', function(req,res)
+{
+	var bitmap = new Buffer(req.body.pic,"base64");
+	console.log(bitmap);
+	var transaction = connection.startTransaction();
+	transaction.query('select categoryId from categories where name='+connection.escape(req.params.cat),function(err,info2){
+	
+		if(err)trans.rollback();
+		else{
+		transaction.query('insert into Manufacturers (mname) values ('+connection.escape(req.body.product.manufacturer)+')',function(err,info){
+			if(err)transaction.rollback();
+			else
+			{
+				//insert product
+				transaction.query('insert into products (sellerPId,pname,features,dimensions,manufacturerID,categoryId, width,depth,height) values ('+
+						connection.escape(req.body.product.productPId)+','+connection.escape(req.body.product.pname)+','+connection.escape(req.body.features)+','+
 						connection.escape(req.body.product.dimensions)+','+connection.escape(info.insertId)+','+connection.escape(info2[0].categoryId)+','+connection.escape(req.body.product.width)
 						+','+connection.escape(req.body.product.width)+','+connection.escape(req.body.product.height)+')',function(err,info){
 					if(err)transaction.rollback();
@@ -1476,14 +1557,18 @@ app.post('/Basket.js/NewBuySell/:uId/:quantity/:cat', function(req,res)
 						//insert buy event
 						transaction.query('insert into buy_events (price,description,soldBy,productId,btitle,pic,available,buycategory) values('+
 								connection.escape(req.body.price)+','+connection.escape(req.body.description)+','+connection.escape(req.params.uId)+','
-								+connection.escape(info.insertId)+','+connection.escape(req.body.btitle)+','+connection.escape(req.body.pic)+','+
-								connection.escape(req.params.quantity)+','+connection.escape(info2[0].categoryId)+')',function(err,info)
+								+connection.escape(info.insertId)+','+connection.escape(req.body.btitle)+',?,'+
+								connection.escape(req.params.quantity)+','+connection.escape(info2[0].categoryId)+')',[bitmap],function(err,info)
 							{
 							if (err)transaction.rollback();
 							else
 							{
 								transaction.commit();
-								res.json(true);
+								var resp = {
+										"value":info.isertId
+								}
+								
+								res.json(resp);
 							}
 						});
 					}
@@ -1543,25 +1628,33 @@ app.get('/Basket.js/Product/:searchQuery', function(req,res)
 
 });
 
-app.get('/Basket.js/UpdateBidSeller', function(req,res)
+app.get('/Basket.js/UpdateBidSeller/:uId', function(req,res)
 		{
+	console.log(req.params.uId);
 	function getFinishedBidEvents () 
 	{
 		var defered = Q.defer();
-		var query='select * from Bid_Events where NOW()>= endingTime';
+		var query='SELECT Users.*,Bid_Events.*,Products.*,Manufacturers.*,Bids.bidTime,Bids.amount,b.username as winnerName FROM  Users join Bid_Events on soldBy=userId natural join Products natural join Manufacturers left outer join Bids on bidId=winningBid left outer join Users as b on b.userId=Bids.userId where accepted=false and declined=false and Users.userId='+connection.escape(req.params.uId);
 		connection.query(query, defered.makeNodeResolver());
 		return defered.promise;
 	};
 
 	Q.all([getFinishedBidEvents()]).then(function(rest)
 			{
-		var finished = new Array();
-		for (var i = 0; i<rest[0][0].length;i++)
-		{
-			finished.push(rest[0][0][i].bidEventId);
-		}
+	
+		
+		 var sBidEvents= new Array();
+		   for (var i=0;i<rest[0][0].length;i++)
+		   {
+			  
+			   if(rest[0][0][i].winnerName!=null)
+			   sBidEvents.push(new BidEvent(new product(rest[0][0][i].pname,rest[0][0][i].productPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].startingBid,rest[0][0][i].startingTime,rest[0][0][i].endingTime,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].minBid,rest[0][0][i].bidEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].bidTitle,rest[0][0][i].picture,new Bid(rest[0][0][i].winnerName,rest[0][0][i].bidTime,rest[0][0][i].amount),rest[0][0][i].finished,rest[0][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+			   else
+			   sBidEvents.push(new BidEvent(new product(rest[0][0][i].pname,rest[0][0][i].productPId,rest[0][0][i].mname,rest[0][0][i].width,rest[0][0][i].height,rest[0][0][i].depth,rest[0][0][i].dimensions),rest[0][0][i].startingBid,rest[0][0][i].startingTime,rest[0][0][i].endingTime,rest[0][0][i].features,rest[0][0][i].description,rest[0][0][i].minBid,rest[0][0][i].bidEventId,rest[0][0][i].username,rest[0][0][i].rating,rest[0][0][i].bidTitle,rest[0][0][i].picture,null,rest[0][0][i].finished,rest[0][0][i].accepted)); //must change dimension to char and sql date to corresponding, eliminae reviews from here!!!
+
+		   }
 		var response={
-				"toFinish":finished
+				"events":sBidEvents
 		};
 		res.json(response);
 			});
@@ -2086,7 +2179,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 	};
 	function getSoldByBid (id) {
 		var defered=Q.defer();
-		var userquery= 'SELECT Users.*,Bid_Events.*,Products.*,Manufacturers.*,Bids.*,b.username as winnerName FROM  Users join Bid_Events on soldBy=userId natural join Products natural join Manufacturers left outer join Bids on bidId=winningBid left outer join Users as b on b.userId=Bids.userId where accepted=false and declined=false and Users.userId='+connection.escape(id);
+		var userquery= 'SELECT Users.*,Bid_Events.*,Products.*,Manufacturers.*,Bids.bidTime,Bids.amount,b.username as winnerName FROM  Users join Bid_Events on soldBy=userId natural join Products natural join Manufacturers left outer join Bids on bidId=winningBid left outer join Users as b on b.userId=Bids.userId where accepted=false and declined=false and Users.userId='+connection.escape(id);
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -2168,7 +2261,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 			var shipping= new Array();
 			for (var i=0;i<rest[0][0].length;i++)
 			{
-				shipping.push(new Adress(rest[0][0][i].line1,rest[0][0][i].line2,rest[0][0][i].country,rest[0][0][i].zipCode,rest[0][0][i].city,rest[0][0][i].state));
+				shipping.push(new Adress(rest[0][0][i].line1,rest[0][0][i].line2,rest[0][0][i].country,rest[0][0][i].zipCode,rest[0][0][i].city,rest[0][0][i].state,rest[0][0][i].AddressId));
 			}
 			//console.log(shipping);
 
@@ -2176,7 +2269,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 			var billing= new Array();
 			for (var i=0;i<rest[1][0].length;i++)
 			{
-				billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state));
+				billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state,rest[0][0][i].AddressId));
 			}
 			//console.log(billing);
 
@@ -2291,6 +2384,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		   var sBidEvents= new Array();
 		   for (var i=0;i<rest[5][0].length;i++)
 		   {
+			   console.log(rest[5][0]);
 			   var arrayBuffer = rest[5][0][i]; 
 			   if (arrayBuffer) {
 			     var byteArray = new Uint8Array(arrayBuffer);
@@ -2380,7 +2474,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res)
 		   
 		   
 		   
-	    console.log(billing);
+	    //console.log(sBuyEvents[0].pic);
 	     res.json(response);
 	    });
 	

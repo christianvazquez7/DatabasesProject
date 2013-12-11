@@ -13,7 +13,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.provider.CalendarContract.Events;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -28,6 +27,7 @@ import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Event;
 import com.basket.general.ProductBasket;
+import com.basket.restrequest.ByteContainer;
 import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.UpdateBasketRequest;
 import com.example.basket.R;
@@ -307,7 +307,7 @@ public class BasketListFragment extends android.app.ListFragment
 
 		}
 	}
-	private class NewBasketListener implements RequestListener<Boolean>, RequestProgressListener {
+	private class NewBasketListener implements RequestListener<ByteContainer>, RequestProgressListener {
 
 		@Override
 		public void onRequestFailure(SpiceException arg0) {
@@ -322,7 +322,7 @@ public class BasketListFragment extends android.app.ListFragment
 		}
 
 		@Override
-		public void onRequestSuccess(Boolean bool) 
+		public void onRequestSuccess(ByteContainer bool) 
 		{
 
 
