@@ -76,7 +76,7 @@ public class SellingBidItemsListView extends android.app.ListFragment{
 		{
 			spiceManager.start(getActivity());
 			this.pos=pos;
-			if(BasketSession.getUser().getCurrentlySellingOnBid().get(pos).isFinished()){
+			if(BasketSession.getUser().getCurrentlySellingOnBid().get(pos).isFinished() && BasketSession.getUser().getCurrentlySellingOnBid().get(pos).getWinningBid()!=null){
 				TerminateEventRequest ev = new TerminateEventRequest(BasketSession.getUser().getCurrentlySellingOnBid().get(pos),BasketSession.getUser().getCurrentlySellingOnBid().get(pos).getId());	
 				spiceManager.execute(ev, "", DurationInMillis.ALWAYS_EXPIRED, new TerminateListener());
 			}
