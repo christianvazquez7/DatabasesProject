@@ -14,11 +14,10 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.basket.general.Bid;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.Event;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 
 public class ProductFragment extends Fragment

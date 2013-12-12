@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.basket.general.Product;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class AdminProductAdapter extends ArrayAdapter<Product>
 {

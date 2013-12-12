@@ -3,23 +3,16 @@ package com.basket.adapters;
 import java.util.List;
 import java.util.Map;
 
-import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.basket.icom.dbclass.R;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	 
     private Activity context;

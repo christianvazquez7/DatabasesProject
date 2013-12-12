@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.basket"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.basket.icom.dbclass"
+    android:versionCode="30"
+    android:versionName="30.0" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- GCM connects to Google Services. -->
@@ -172,7 +172,7 @@
             android:label="@string/title_activity_create_buy" >
         </activity>
         <activity
-            android:name="com.example.basket.SellingBid"
+            android:name="com.basket.additional.SellingBid"
             android:label="@string/title_activity_selling_bid" >
         </activity>
         <activity
@@ -232,15 +232,15 @@
         <service android:name="com.basket.notifications.GcmIntentService" />
 
         <activity
-            android:name="com.example.basket.UserReviewListActivity"
+            android:name="com.basket.additional.UserReviewListActivity"
             android:label="@string/title_activity_user_review_list" >
         </activity>
         <activity
-            android:name="com.example.basket.ReviewActivity"
+            android:name="com.basket.additional.ReviewActivity"
             android:label="@string/title_activity_review" >
         </activity>
         <activity
-            android:name="com.example.basket.BidCheckoutActivity"
+            android:name="com.basket.additional.BidCheckoutActivity"
             android:label="@string/title_activity_bid_checkout" >
         </activity>
     </application>

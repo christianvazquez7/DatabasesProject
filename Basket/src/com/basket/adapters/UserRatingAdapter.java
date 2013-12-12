@@ -10,9 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.basket.general.User;
 import com.basket.general.UserRating;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 
 public class UserRatingAdapter extends ArrayAdapter<UserRating>

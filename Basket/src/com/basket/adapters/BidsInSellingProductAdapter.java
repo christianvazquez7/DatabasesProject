@@ -9,12 +9,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.Bid;
-import com.example.basket.R;
-import com.example.basket.R.id;
+import com.basket.icom.dbclass.R;
 
 public class BidsInSellingProductAdapter extends ArrayAdapter<Bid>
 {
@@ -46,12 +44,12 @@ public class BidsInSellingProductAdapter extends ArrayAdapter<Bid>
 				e.printStackTrace();
 			}
 			FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-			((TextView)convertView.findViewById(id.bidamount)).setText("$"+Double.toString(currentBid.getAmmount()));
-			((TextView)convertView.findViewById(id.bidderName)).setText(currentBid.getBidder());
+			((TextView)convertView.findViewById(R.id.bidamount)).setText("$"+Double.toString(currentBid.getAmmount()));
+			((TextView)convertView.findViewById(R.id.bidderName)).setText(currentBid.getBidder());
 			if(date!=null)
-				((TextView)convertView.findViewById(id.bidDate)).setText(FORMATTER.format(date));
+				((TextView)convertView.findViewById(R.id.bidDate)).setText(FORMATTER.format(date));
 			else
-			((TextView)convertView.findViewById(id.bidDate)).setText(currentBid.getBidTime());
+			((TextView)convertView.findViewById(R.id.bidDate)).setText(currentBid.getBidTime());
 		
 
 		}

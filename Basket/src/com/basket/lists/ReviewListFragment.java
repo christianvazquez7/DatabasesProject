@@ -2,15 +2,13 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+
 import com.basket.adapters.ReviewAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.Review;
-import com.example.basket.R;
-import com.example.basket.R.drawable;
-
-import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.widget.ListView;
+import com.basket.icom.dbclass.R;
 
 public class ReviewListFragment extends ListFragment
 {

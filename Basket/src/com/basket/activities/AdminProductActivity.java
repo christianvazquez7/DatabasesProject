@@ -16,16 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.AdminSession;
-import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Event;
-import com.basket.general.EventComparator;
 import com.basket.general.Product;
 import com.basket.general.ProductComparator;
 import com.basket.general.ProductList;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.AdminProductListFragment;
 import com.basket.restrequest.AdminProductSearchRequest;
-import com.example.basket.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.octo.android.robospice.SpiceManager;

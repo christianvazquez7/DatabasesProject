@@ -6,34 +6,18 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.basket.activities.AdminProductDateSaleActivity;
-import com.basket.activities.BidEventPageActivity;
-import com.basket.activities.BuyEventPageActivity;
 import com.basket.adapters.AdminProductAdapter;
 import com.basket.containers.AdminSession;
-import com.basket.containers.BasketSession;
-import com.basket.general.BidEvent;
-import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Product;
-import com.basket.general.ReviewList;
-import com.basket.restrequest.GetReviewsRequest;
-import com.basket.restrequest.ProductReportRequest;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 import com.octo.android.robospice.SpiceManager;
-import com.octo.android.robospice.exception.RequestCancelledException;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
-import com.octo.android.robospice.request.listener.RequestProgress;
-import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 public class AdminProductListFragment extends android.app.ListFragment
 {

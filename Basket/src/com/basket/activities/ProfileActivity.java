@@ -1,12 +1,10 @@
 package com.basket.activities;
 
-import com.example.basket.R;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+
+import com.basket.icom.dbclass.R;
 
 public class ProfileActivity extends Activity {
 

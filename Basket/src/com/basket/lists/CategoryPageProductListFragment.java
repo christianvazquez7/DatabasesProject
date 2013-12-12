@@ -2,13 +2,6 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
-import com.basket.activities.BidEventPageActivity;
-import com.basket.adapters.ProductAdapter;
-import com.basket.general.BuyEvent;
-import com.basket.general.Event;
-import com.example.basket.R;
-import com.example.basket.R.layout;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -18,13 +11,17 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import com.basket.activities.BidEventPageActivity;
+import com.basket.adapters.ProductAdapter;
+import com.basket.general.Event;
+import com.basket.icom.dbclass.R;
 
 public class CategoryPageProductListFragment extends android.app.ListFragment
 {

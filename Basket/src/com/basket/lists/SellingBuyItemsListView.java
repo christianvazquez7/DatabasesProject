@@ -2,20 +2,18 @@ package com.basket.lists;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.app.ListFragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.basket.activities.BidsOnProductActivity;
 import com.basket.adapters.ProductsInMyShopBuyAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BuyEvent;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class SellingBuyItemsListView extends ListFragment{
 	private ArrayList<BuyEvent> sellingItems;

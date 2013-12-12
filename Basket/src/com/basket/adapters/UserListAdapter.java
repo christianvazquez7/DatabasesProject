@@ -2,17 +2,15 @@ package com.basket.adapters;
 
 import java.util.List;
 
-import com.basket.general.User;
-import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.basket.general.User;
+import com.basket.icom.dbclass.R;
 
 public class UserListAdapter extends ArrayAdapter<User>
 {private Context context;

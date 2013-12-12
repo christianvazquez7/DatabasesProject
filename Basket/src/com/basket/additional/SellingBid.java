@@ -1,8 +1,10 @@
-package com.example.basket;
+package com.basket.additional;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+
+import com.basket.icom.dbclass.R;
 
 public class SellingBid extends Activity {
 

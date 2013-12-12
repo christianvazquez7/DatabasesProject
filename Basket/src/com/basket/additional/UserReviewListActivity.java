@@ -1,13 +1,11 @@
-package com.example.basket;
+package com.basket.additional;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.Window;
 
-import com.basket.lists.BasketListFragment;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.basket.icom.dbclass.R;
 
 public class UserReviewListActivity extends FragmentActivity {
 	

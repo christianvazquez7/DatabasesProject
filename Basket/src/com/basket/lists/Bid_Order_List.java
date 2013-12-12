@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.basket.adapters.BidProductInOrderAdapter;
-import com.basket.adapters.ProductInCheckoutAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class Bid_Order_List extends ListFragment{
 	//private String[] list_items;

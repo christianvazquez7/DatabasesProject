@@ -1,7 +1,5 @@
 package com.basket.general;
 
-import java.sql.Date;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bid {

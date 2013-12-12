@@ -1,7 +1,5 @@
 package com.basket.activities;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,16 +12,12 @@ import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
 import com.basket.containers.CategoryList;
-import com.basket.containers.DealList;
-import com.basket.containers.EventList;
-import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.AdminRequest;
 import com.basket.restrequest.GetCategoriesRequest;
-import com.basket.restrequest.GetDOTDRequest;
 import com.basket.restrequest.UserRequest;
-import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

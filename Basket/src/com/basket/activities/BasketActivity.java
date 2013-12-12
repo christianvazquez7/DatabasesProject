@@ -2,22 +2,16 @@ package com.basket.activities;
 
 import java.util.ArrayList;
 
-import android.R.color;
-import android.animation.LayoutTransition;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog.Builder;
-import android.app.Fragment;
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,11 +19,11 @@ import com.basket.adapters.TabsAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.ProductBasket;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.ProductsInBuyBasketsList;
 import com.basket.restrequest.ByteContainer;
 import com.basket.restrequest.NewBasketRequest;
 import com.basket.restrequest.RemoveBasketRequest;
-import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

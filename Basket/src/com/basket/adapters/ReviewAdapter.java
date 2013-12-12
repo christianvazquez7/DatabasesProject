@@ -11,7 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.Review;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class ReviewAdapter extends ArrayAdapter<Review> {
 	private Context context;

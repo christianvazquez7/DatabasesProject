@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class ChooseSubSubCategoryActivity extends Activity {
 

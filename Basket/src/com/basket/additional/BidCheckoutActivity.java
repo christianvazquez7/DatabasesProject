@@ -1,4 +1,4 @@
-package com.example.basket;
+package com.basket.additional;
 
 import java.util.Date;
 
@@ -24,10 +24,9 @@ import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Order;
 import com.basket.general.SelectedCreditCard;
 import com.basket.general.SelectedShippingAddress;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.Bid_Order_List;
-import com.basket.lists.Products_In_Checkout_List_View;
 import com.basket.restrequest.BPlaceOrderRequest;
-import com.basket.restrequest.PlaceOrderRequest;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;

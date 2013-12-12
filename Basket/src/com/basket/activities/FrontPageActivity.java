@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
+import com.basket.icom.dbclass.R;
 
 public class FrontPageActivity extends Activity {
 

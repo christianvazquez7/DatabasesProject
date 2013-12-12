@@ -11,11 +11,11 @@ import android.widget.ListView;
 
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.CreditCardListAdapter;
+import com.basket.additional.BidCheckoutActivity;
 import com.basket.containers.BasketSession;
 import com.basket.containers.CreditCardContainer;
 import com.basket.general.CreditCard;
-import com.example.basket.BidCheckoutActivity;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class CreditCardListFragment extends ListFragment {
 	private ArrayList<CreditCard> creditcards;

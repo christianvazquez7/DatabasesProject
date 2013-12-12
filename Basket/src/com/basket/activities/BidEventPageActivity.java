@@ -20,6 +20,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basket.additional.ReviewActivity;
 import com.basket.containers.BasketSession;
 import com.basket.containers.FloatContainer;
 import com.basket.fragments.HarvestFragment;
@@ -28,9 +29,8 @@ import com.basket.fragments.ProductFragment;
 import com.basket.general.Bid;
 import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.ReviewListFragment;
-import com.example.basket.R;
-import com.example.basket.ReviewActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

@@ -13,7 +13,7 @@ import com.basket.adapters.ProductInOrderAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class Products_List_View extends ListFragment{
 	public static int ordernum =0;

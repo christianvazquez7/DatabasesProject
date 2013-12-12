@@ -10,8 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.basket.general.Adress;
-import com.basket.general.CreditCard;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class ShippingAddressListAdapter extends ArrayAdapter<Adress>
 {

@@ -26,7 +26,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.basket.activities.LoginActivity;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 /**

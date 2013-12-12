@@ -1,13 +1,12 @@
 package com.basket.fragments;
 
-import com.example.basket.R;
-import com.example.basket.R.layout;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.basket.icom.dbclass.R;
 
 public class BarFragment extends Fragment
 {

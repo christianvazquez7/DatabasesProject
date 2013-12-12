@@ -1,9 +1,5 @@
 package com.basket.general;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

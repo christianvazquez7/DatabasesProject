@@ -10,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.basket.activities.CheckoutActivity;
-import com.basket.activities.EditSAddressesActivity;
 import com.basket.activities.EditSingleSAActivity;
 import com.basket.adapters.ShippingAddressListAdapter;
-import com.basket.containers.AddressContainer;
 import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class EditShippingAddressListFragment extends ListFragment {
 	private ArrayList<Adress> availableaddresses;

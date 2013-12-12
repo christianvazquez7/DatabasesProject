@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basket.additional.UserReviewListActivity;
 import com.basket.containers.BasketSession;
 import com.basket.general.BidEvent;
 import com.basket.general.BuyEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Event;
 import com.basket.general.UserRatingList;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.GetURatingRequest;
-import com.example.basket.R;
-import com.example.basket.UserReviewListActivity;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

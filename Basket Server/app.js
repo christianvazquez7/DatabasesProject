@@ -1270,6 +1270,18 @@ function getInsertedAddress (userId, req,callback)
 		callback(err, response);
 	});
 };	
+function getInsertedAddresses (userId, req,callback) 
+{
+	console.log(req);
+
+	// var defered = Q.defer();
+	var userquery='select AddressId from address where userId= '+connection.escape(userId)+' and line1 = '+connection.escape(req.line1);
+	console.log(userquery);
+	connection.query(userquery, function(err, response) {
+		if (err) console.log(err);
+		callback(err, response);
+	});
+};	
 function insertCreditCards (userId, billId, req,callback) 
 {
 	// var defered = Q.defer();
@@ -1791,7 +1803,7 @@ app.post('/Basket.js/updateAddress/:email/:uname', function(req,res){
 		var userId = result[0].userId;
 		console.log(userId);
 
-		getInsertedAddress(userId, req.body[1],function(err,response){
+		getInsertedAddresses(userId, req.body[1],function(err,response){
 			console.log(response);
 			var billId = response[0].AddressId;
 

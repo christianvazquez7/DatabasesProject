@@ -25,7 +25,7 @@ import com.basket.adapters.SectionListAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.Category;
 import com.basket.general.Section;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class SlidingMenuFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 

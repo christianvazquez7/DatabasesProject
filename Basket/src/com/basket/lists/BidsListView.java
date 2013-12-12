@@ -4,7 +4,6 @@ package com.basket.lists;
 import java.util.ArrayList;
 
 import android.app.ListFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.basket.activities.BidWinActivity;
-import com.basket.activities.BidsOnProductActivity;
 import com.basket.adapters.BidsInSellingProductAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.Bid;
-import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.BidOnEventList;
 import com.basket.restrequest.BidOnEventRequest;
-import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

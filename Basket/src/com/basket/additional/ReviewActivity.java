@@ -1,4 +1,4 @@
-package com.example.basket;
+package com.basket.additional;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basket.containers.BasketSession;
-import com.basket.general.BidEvent;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.Review;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.AddReviewRequest;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;

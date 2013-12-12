@@ -15,7 +15,7 @@ import com.basket.activities.BasketActivity;
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.ProductBuyAdapter;
 import com.basket.containers.BasketSession;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class ProductsInBuyBasketsList extends ListFragment{
 	public static int basketnum =0;

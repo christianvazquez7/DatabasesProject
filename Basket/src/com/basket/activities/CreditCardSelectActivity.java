@@ -1,17 +1,14 @@
 package com.basket.activities;
 
-import com.basket.containers.CreditCardContainer;
-import com.basket.lists.CreditCardListFragment;
-import com.example.basket.R;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
-
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+
+import com.basket.containers.CreditCardContainer;
+import com.basket.icom.dbclass.R;
+import com.basket.lists.CreditCardListFragment;
 
 public class CreditCardSelectActivity extends FragmentActivity {
 

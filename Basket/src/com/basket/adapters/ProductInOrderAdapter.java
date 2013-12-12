@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,8 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.BuyEvent;
-import com.basket.general.Event;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 
 public class ProductInOrderAdapter extends ArrayAdapter<BuyEvent>

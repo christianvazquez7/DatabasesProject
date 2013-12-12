@@ -8,12 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.basket.containers.BasketSession;
-import com.basket.containers.CategoryList;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
-import com.basket.restrequest.GetDOTDRequest;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.SendForgotFieldEmailRequest;
-import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

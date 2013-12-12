@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.basket.containers.CreditCardContainer;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class SelectedCreditCard extends Fragment {
 	private TextView billingAddress, ccNumber, secNum, expMonth, expYear, ccName;

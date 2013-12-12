@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class PicknickActivity extends Activity {
 	private Button mProfile, mBasketList, mFaqButton, mShopButton,mOrders;

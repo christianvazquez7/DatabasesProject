@@ -12,8 +12,8 @@ import com.basket.adapters.TabsAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.fragments.InvoiceFragment;
 import com.basket.general.Order;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.Products_List_View;
-import com.example.basket.R;
 
 public class OrdersActivity extends FragmentActivity {
 	

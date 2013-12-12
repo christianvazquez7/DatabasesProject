@@ -1,16 +1,15 @@
 package com.basket.fragments;
 
-import com.basket.activities.CreditCardSelectActivity;
-import com.example.basket.R;
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
+
+import com.basket.activities.CreditCardSelectActivity;
+import com.basket.icom.dbclass.R;
 
 public class CreditCardButton extends Fragment {
 	private Button mCreditCardSelectButton;

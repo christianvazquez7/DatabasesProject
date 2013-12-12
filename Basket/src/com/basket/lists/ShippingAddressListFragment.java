@@ -11,11 +11,11 @@ import android.widget.ListView;
 
 import com.basket.activities.CheckoutActivity;
 import com.basket.adapters.ShippingAddressListAdapter;
+import com.basket.additional.BidCheckoutActivity;
 import com.basket.containers.AddressContainer;
 import com.basket.containers.BasketSession;
 import com.basket.general.Adress;
-import com.example.basket.BidCheckoutActivity;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class ShippingAddressListFragment extends ListFragment {
 	private ArrayList<Adress> availableaddresses;

@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.basket.containers.BasketSession;
-import com.basket.general.BidEvent;
-import com.basket.general.BuyEvent;
 import com.basket.general.Event;
 import com.basket.general.Order;
-import com.basket.lists.ProductListFragment;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.Products_List_View;
-import com.example.basket.R;
 
 public class InvoiceFragment extends Fragment 
 {

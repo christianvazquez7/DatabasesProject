@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.basket.general.BuyEvent;
 import com.basket.general.ProductBasket;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class BasketAdapter extends ArrayAdapter<ProductBasket>
 {

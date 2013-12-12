@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.basket.adapters.ProductInCheckoutAdapter;
 import com.basket.containers.BasketSession;
 import com.basket.general.BuyEvent;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class Products_In_Checkout_List_View extends ListFragment{
 	//private String[] list_items;

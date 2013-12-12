@@ -2,13 +2,6 @@ package com.basket.adapters;
 
 import java.util.List;
 
-import com.basket.general.Section;
-import com.basket.general.SectionItem;
-import com.example.basket.R;
-import com.example.basket.R.color;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -17,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.basket.general.Section;
+import com.basket.general.SectionItem;
+import com.basket.icom.dbclass.R;
 
 public class SectionListAdapter extends BaseExpandableListAdapter {
 

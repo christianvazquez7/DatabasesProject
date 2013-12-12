@@ -14,7 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.basket.general.BuyEvent;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class ProductsInMyShopBuyAdapter extends ArrayAdapter<BuyEvent>
 {

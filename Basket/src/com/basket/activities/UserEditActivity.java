@@ -1,7 +1,6 @@
 package com.basket.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,12 +14,9 @@ import android.widget.Toast;
 import com.basket.containers.AdminSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.DeleteUserRequest;
 import com.basket.restrequest.EditRequest;
-import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-import com.example.basket.R.menu;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.basket.containers.AdminSession;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class AdminPageActivity extends Activity {
 

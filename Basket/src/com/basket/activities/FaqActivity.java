@@ -4,19 +4,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.basket.adapters.ExpandableListAdapter;
-import com.example.basket.R;
-import com.example.basket.R.id;
-import com.example.basket.R.layout;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
+
+import com.basket.adapters.ExpandableListAdapter;
+import com.basket.icom.dbclass.R;
 public class FaqActivity extends Activity {
 	List<String> groupList;
 	List<String> childList;

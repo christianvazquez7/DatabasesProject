@@ -10,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.basket.activities.CheckoutActivity;
-import com.basket.activities.EditCreditCardsActivity;
 import com.basket.activities.EditSingleCCActivity;
 import com.basket.adapters.CreditCardListAdapter;
 import com.basket.containers.BasketSession;
-import com.basket.containers.CreditCardContainer;
 import com.basket.general.CreditCard;
-import com.example.basket.R;
+import com.basket.icom.dbclass.R;
 
 public class EditCreditCardListFragment extends ListFragment {
 	private ArrayList<CreditCard> creditcards;

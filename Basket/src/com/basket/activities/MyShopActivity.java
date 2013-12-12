@@ -17,10 +17,10 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 
 import com.basket.adapters.TabsAdapter;
+import com.basket.icom.dbclass.R;
 import com.basket.lists.BiddingItemsListView;
 import com.basket.lists.SellingBidItemsListView;
 import com.basket.lists.SellingBuyItemsListView;
-import com.example.basket.R;
 
 public class MyShopActivity extends FragmentActivity {
 

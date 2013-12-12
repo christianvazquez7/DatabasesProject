@@ -3,8 +3,8 @@ package com.basket.activities;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.basket.icom.dbclass.R;
 import com.basket.lists.BasketListFragment;
-import com.example.basket.R;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BasketFragmentActivity extends SlidingFragmentActivity {

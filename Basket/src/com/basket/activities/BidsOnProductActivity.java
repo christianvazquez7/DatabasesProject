@@ -3,8 +3,8 @@ package com.basket.activities;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.basket.icom.dbclass.R;
 import com.basket.lists.BidsListView;
-import com.example.basket.R;
 
 public class BidsOnProductActivity extends Activity {
 	@Override

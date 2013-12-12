@@ -12,13 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.basket.containers.AdminSession;
 import com.basket.containers.BasketSession;
 import com.basket.general.CarJsonSpringAndroidSpiceService;
 import com.basket.general.User;
-import com.basket.restrequest.DeleteUserRequest;
+import com.basket.icom.dbclass.R;
 import com.basket.restrequest.EditRequest;
-import com.example.basket.R;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;
