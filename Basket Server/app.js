@@ -3269,7 +3269,8 @@ function createCategory (req, callback)
 {
 	console.log("Request body of create cate");
 	console.log(req.body);
-    if(typeof req.body.parent != undefined || req.body.parent!=null){
+	if(!(req.body.parent==null)){
+    if(typeof req.body.parent.name != 'object'&& typeof req.body.parent.name != 'undefined' || req.body.parent!=null ||req.body.parent!="null"){
         getCategoryId(req.body.parent.name, function(err,response){
         	console.log("Creating category with parent");
         	console.log(response);
@@ -3284,7 +3285,7 @@ function createCategory (req, callback)
 		        callback(err,response);
 		    });
         });
-    }
+    }}
     else{
         var userquery='insert into categories values(NULL,'+connection.escape(req.body.name)+',NULL);'
         console.log(userquery);
