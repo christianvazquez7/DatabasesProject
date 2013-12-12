@@ -1405,7 +1405,7 @@ app.post('/Basket.js/PlaceOrder/:uId/:cId/:basket/:sId/:date/:total', function(r
                 products+=req.body.buyEvents[i].btitle+' Amount:'+req.body.buyEvents[i].item_quantity+'\n'
                 totalammount+=req.body.buyEvents[i].price*req.body.buyEvents[i].item_quantity;
             }
-            var total = 'Totaling in: $'+totalammount;
+            var total = 'Totaling in: $'+totalammount+"\nHave a basketful day!";
             console.log('inserted value');
             //transaction.commit();
             transaction.query('select * from users where userId ='+connection.escape(req.params.uId),function(err, uinfo){
