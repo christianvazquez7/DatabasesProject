@@ -2740,15 +2740,14 @@ app.get('/Basket.js/User/:id/:password', function(req, res) {
 	};
 	//fix user
 	function getOrders (id) {
-		var userquery= 'select wuser.rating as sellerRating, cc.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate,shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, Orders.*,Buy_Events.*,Products.*,b.*,in_buy_basket.item_quantity from Users as b natural join Orders join Baskets on withbasketId=basketId natural join in_buy_basket natural join Buy_Events natural join Products join Credit_Cards on b.userId=Credit_Cards.userId join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=Credit_Cards.billingId natural join Manufacturers join Users as wuser on wuser.userId=Buy_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where b.userId='+connection.escape(id)+' and type="buy" order by orderId';
+		var userquery= 'select wuser.rating as sellerRating, cc.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate,shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, Orders.*,Buy_Events.*,Products.*,b.*,in_buy_basket.item_quantity from Users as b natural join Orders join Baskets on withbasketId=basketId natural join in_buy_basket natural join Buy_Events natural join Products  join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=cc.billingId natural join Manufacturers join Users as wuser on wuser.userId=Buy_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where b.userId='+connection.escape(id)+' and type="buy" order by orderId';
 		var defered= Q.defer();
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
 
 	function getOrdersBid (id) {
-		var userquery= 'select shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, wuser.rating as sellerRating,cc.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate, Orders.*,Bid_Events.*,Products.*,b.*, w.bidTime as time,w.amount as wamount, wu.username as wusername, c.username as seller , c.rating as sellerRating from Users as b natural join Orders join Baskets on withbasketId=basketId natural join in_bid_basket  join Bid_Events on Bid_Events.bidEventId=in_bid_basket.bidEventId natural join Products join Credit_Cards on b.userId=Credit_Cards.userId join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=Credit_Cards.billingId left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId join Users as c on c.userId=Bid_Events.soldBy natural join Manufacturers join Users as wuser on wuser.userId=Bid_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where b.userId='+connection.escape(id)+' and type="bid" order by orderId';
-		var defered= Q.defer();
+var userquery= 'select shipTo.line1 as sline1, shipTo.line2 as sline2 , shipTo.country as scountry, shipTo.zipCode as szipCode, shipTo.city as scity, shipTo.state as sstate, wuser.rating as sellerRating,cc.*,Manufacturers.*, bAddress.line1 as bline1, bAddress.line2 as bline2 , bAddress.country as bcountry, bAddress.zipCode as bzipCode, bAddress.city as bcity, bAddress.state as bstate, Orders.*,Bid_Events.*,Products.*,b.*, w.bidTime as time,w.amount as wamount, wu.username as wusername, c.username as seller , c.rating as sellerRating from Users as b natural join Orders join Baskets on withbasketId=basketId natural join in_bid_basket  join Bid_Events on Bid_Events.bidEventId=in_bid_basket.bidEventId natural join Products join Credit_Cards as cc on cc.cardId=Orders.cardId join Address as bAddress on bAddress.AddressId=cc.billingId left outer join Bids as w on Bid_Events.winningBid=w.bidId left outer join Users as wu on wu.userId=w.userId join Users as c on c.userId=Bid_Events.soldBy natural join Manufacturers join Users as wuser on wuser.userId=Bid_Events.soldBy join Address as shipTo on shipTo.AddressId=Orders.shipTo where b.userId='+connection.escape(id)+' and type="bid" order by orderId';		var defered= Q.defer();
 		connection.query(userquery, defered.makeNodeResolver());
 		return defered.promise;
 	};
@@ -2796,7 +2795,7 @@ app.get('/Basket.js/User/:id/:password', function(req, res) {
 			var billing= new Array();
 			for (var i=0;i<rest[1][0].length;i++)
 			{
-				billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state,rest[0][0][i].AddressId));
+				billing.push(new Adress(rest[1][0][i].line1,rest[1][0][i].line2,rest[1][0][i].country,rest[1][0][i].zipCode,rest[1][0][i].city,rest[1][0][i].state,rest[1][0][i].AddressId));
 			}
 			//console.log(billing);
 
@@ -3068,7 +3067,7 @@ var sender = new gcm.Sender('AIzaSyCTFn1fBSl-7jcUgWIDb6SE17qiaoFpr6o');
 //var myVar=setInterval(function(){myTimer()},10000);
 //check for completed bidEvents
 
-var myVar2=setInterval(function(){myBidEventTimer()},60000);
+var myVar2=setInterval(function(){myBidEventTimer()},600);
 
 function myBidEventTimer()
 {
@@ -3083,15 +3082,57 @@ function myBidEventTimer()
 	};
 
 	Q.all([getFinishedBidEvents()]).then(function(rest)
-			{
-		console.log(rest[0][0].length+' events to update');
-		var trans= connection.startTransaction();
-		for (var i=0;i<rest[0][0].length;i++)
-		{
-			trans.query('update bid_events set finished=true where bidEventId='+connection.escape(rest[0][0][i].bidEventId));
-		}
-		trans.commit();
-			});
+            {
+        console.log(rest[0][0].length+' events to update');
+        var trans= connection.startTransaction();
+        for (var i=0;i<rest[0][0].length;i++)
+        {
+            trans.query('update bid_events set finished=true where bidEventId='+connection.escape(rest[0][0][i].bidEventId),rest[0][0][i].bidEventId,function(err,info){
+                trans.query('select distinct email from users join bids on bids.userId=users.userId join bid_events on bids.bidEventId=bid_events.bidEventId where bid_events.bidEventId='+connection.escape(this.values),
+                        function(err,info2){
+                    for(var j=0;j<info2.length;j++)
+                    {
+                    	//trans.query('select btitle, description from bid_events where bidEventId ='connection.escape())
+                        var smtpTransport = nodemailer.createTransport("SMTP",
+                                {
+                                    service: "Gmail",
+                                    auth: {
+                                        user: "basketservices@gmail.com",
+                                        pass: "tito12@@"
+                                    }
+                                });
+                            var mailOptions = {
+                                from: "Basket Services <basketservices@gmail.com>", // sender address
+                                to: info2[j].email, // list of receivers
+                                subject: "Your basket account ", // Subject line
+                                text: 'Hello, a bid event that you were participating in has ended\nTry with another item!\nHave a basketful day!'//, // plaintext body
+                                // html: "<b>Hello world ✔</b>" // html body
+                            }
+
+                            // send mail with defined transport object
+                            smtpTransport.sendMail(mailOptions, function(error, response)
+                            {
+                                if(error)
+                                {
+                                    console.log(error);
+                                }
+                                else{
+                                    console.log("Message sent: " + response.message);
+                                }
+
+                                // if you don't want to use this transport object anymore, uncomment following line
+                                smtpTransport.close(); // shut down the connection pool, no more messages
+
+                            });
+
+                            console.log('Sent email!!');
+			
+                    }
+                });
+            });
+        }
+        trans.commit();
+            });
 };
 
 function myTimer()
