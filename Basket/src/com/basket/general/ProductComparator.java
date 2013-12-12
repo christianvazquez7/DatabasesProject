@@ -12,22 +12,22 @@ public class ProductComparator implements Comparator<Product>
 		{
 			if(compareBy==2)
 			{
-				return arg1.getName().compareTo(arg0.getName());
+				return arg1.getManufacturer().compareTo(arg0.getManufacturer());
 			}
 			else
 			{
-				return arg1.getManufacturer().compareTo(arg0.getManufacturer());
+				return arg1.getName().compareTo(arg0.getName());
 			}
 		}
 		else	
 		{
 			if(compareBy==2)
 			{
-				return arg0.getName().compareTo(arg1.getName());
+				return arg0.getManufacturer().compareTo(arg1.getManufacturer());
 			}
 			else
 			{
-				return arg0.getManufacturer().compareTo(arg1.getManufacturer());
+				return arg0.getName().compareTo(arg1.getName());
 			}
 		}
 	}

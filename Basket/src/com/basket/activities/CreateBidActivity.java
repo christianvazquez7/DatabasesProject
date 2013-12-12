@@ -51,7 +51,7 @@ public class CreateBidActivity extends Activity {
 	private DatePicker date;
 	private TimePicker time;
 	private byte[] blob;
-    private static int RESULT_LOAD_IMAGE = 1;
+	private static int RESULT_LOAD_IMAGE = 1;
 
 
 
@@ -67,16 +67,16 @@ public class CreateBidActivity extends Activity {
 		prodH = (EditText) findViewById(R.id.buyEventProductHeight);
 		prodD = (EditText) findViewById(R.id.buyEventProductDepth);
 		prodMan = (EditText) findViewById(R.id.buyEventProductManufacturer);
-		
-		
+
+
 		eventName= (EditText) findViewById(R.id.eventName);
 		productId= (EditText) findViewById(R.id.productId);
 		dimensions= (EditText) findViewById(R.id.dimensions);
 		minBid= (EditText) findViewById(R.id.minBid);
-		
+
 		date= (DatePicker) findViewById(R.id.datePicker1);
 		time= (TimePicker) findViewById(R.id.timePicker1);
-	
+
 
 		mSpinner=(Spinner) this.findViewById(R.id.spinner1);
 		ArrayList<String>cats=new ArrayList<String>();
@@ -86,12 +86,12 @@ public class CreateBidActivity extends Activity {
 				cats.add(c.getName());
 			}
 		}
-		
-		
+
+
 		ArrayAdapter<String> catNameAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item,cats);
 		catNameAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
 		mSpinner.setAdapter(catNameAdapter);
-		
+
 
 		final BidEvent newBidEvent = new BidEvent();
 		final Product prod = new Product();
@@ -107,18 +107,18 @@ public class CreateBidActivity extends Activity {
 					return;
 				}
 				try{
-						M = date.getMonth()+1;
-						
-						Y = date.getYear();
-						
-						D = date.getDayOfMonth();
+					M = date.getMonth()+1;
 
-						int hour = time.getCurrentHour();
-						int minute = time.getCurrentMinute();
-						String date = Y+"-"+M+"-"+D+" "+hour+":"+minute+":00";
-						prod.setDimensions(dimensions.getText().toString());
-						prod.setProductPId(Integer.parseInt(productId.getText().toString()));
-						
+					Y = date.getYear();
+
+					D = date.getDayOfMonth();
+
+					int hour = time.getCurrentHour();
+					int minute = time.getCurrentMinute();
+					String date = Y+"-"+M+"-"+D+" "+hour+":"+minute+":00";
+					prod.setDimensions(dimensions.getText().toString());
+					prod.setProductPId(Integer.parseInt(productId.getText().toString()));
+
 					prod.setManufacturer(prodMan.getText().toString());
 					prod.setDepth(Integer.parseInt(prodD.getText().toString()));
 					prod.setWidth(Integer.parseInt(prodW.getText().toString()));
@@ -133,17 +133,17 @@ public class CreateBidActivity extends Activity {
 					newBidEvent.setBidTitle(eventName.getText().toString());
 					newBidEvent.setRating(BasketSession.getUser().getRating());
 					newBidEvent.setMinBid(Double.parseDouble(minBid.getText().toString()));
-				
+
 					BasketSession.getUser().getCurrentlySellingOnBid().add(newBidEvent);
-					
-					spiceManager.start(CreateBidActivity.this);					
-					NewBidSellEventRequest JsonSpringAndroidRequest = new NewBidSellEventRequest(newBidEvent,BasketSession.getUser().getUserId(),(String)mSpinner.getSelectedItem());
-					spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBidEventSellListner());
+					if(!spiceManager.isStarted()){
+						spiceManager.start(CreateBidActivity.this);					
+						NewBidSellEventRequest JsonSpringAndroidRequest = new NewBidSellEventRequest(newBidEvent,BasketSession.getUser().getUserId(),(String)mSpinner.getSelectedItem());
+						spiceManager.execute(JsonSpringAndroidRequest, "Bid_Sell_Create", DurationInMillis.ALWAYS_EXPIRED, new NewBidEventSellListner());}
 				}
 				catch (NumberFormatException e){
-					Toast.makeText(CreateBidActivity.this, "Wrong input on dimensions or in price.  Make sure its a number", Toast.LENGTH_LONG);
+					Toast.makeText(CreateBidActivity.this, "Wrong input on dimensions or in price.  Make sure its a number", Toast.LENGTH_LONG).show();;
 				}
-				
+
 			}
 		});
 
@@ -152,38 +152,38 @@ public class CreateBidActivity extends Activity {
 
 			public void onClick(View arg0) 
 			{
-				   Intent i = new Intent(
-	                        Intent.ACTION_PICK,
-	                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	                 
-	                startActivityForResult(i, RESULT_LOAD_IMAGE);
+				Intent i = new Intent(
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+				startActivityForResult(i, RESULT_LOAD_IMAGE);
 			}
-			
+
 		});
 	}
-	  protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	  {
-	        super.onActivityResult(requestCode, resultCode, data);
-	         
-	        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-	            Uri selectedImage = data.getData();
-	            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-	 
-	            Cursor cursor = getContentResolver().query(selectedImage,
-	                    filePathColumn, null, null, null);
-	            cursor.moveToFirst();
-	 
-	            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-	            String picturePath = cursor.getString(columnIndex);
-	            cursor.close();
-	            ByteArrayOutputStream outStr = new ByteArrayOutputStream();
-	             Bitmap picture = BitmapFactory.decodeFile(picturePath);
-	             picture.compress(Bitmap.CompressFormat.JPEG, 100, outStr);
-	           blob = outStr.toByteArray();	            
-	        }
-	     
-	     
-	    }
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+			Uri selectedImage = data.getData();
+			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+			Cursor cursor = getContentResolver().query(selectedImage,
+					filePathColumn, null, null, null);
+			cursor.moveToFirst();
+
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			String picturePath = cursor.getString(columnIndex);
+			cursor.close();
+			ByteArrayOutputStream outStr = new ByteArrayOutputStream();
+			Bitmap picture = BitmapFactory.decodeFile(picturePath);
+			picture.compress(Bitmap.CompressFormat.JPEG, 100, outStr);
+			blob = outStr.toByteArray();	            
+		}
+
+
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
