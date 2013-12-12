@@ -1540,19 +1540,23 @@ app.post('/Basket.js/RateUser/:rater/:ratee/:rating', function(req,res)
 				var num=parseFloat(req.params.rating);
 				var newR= parseFloat(rest[0][0][0].result);
 				var t= parseFloat(rest[0][0][0].total);
-				console.log(t);
 				if(t==0)
 					newR=0;
 				t=t+1;
-				var total = (num+newR)/(t);
+				console.log(t);
+				console.log(num);
+				console.log(newR);
+
+				var total = (num+newR)/t;
 				
 				trans.query('update users set rating='+connection.escape(total)+' where userId='+ connection.escape(rest[2][0][0].userId),function(err,info){
 
-					console.log(req.params.rating);
-					console.log(rest[0][0][0].result+req.params.rating);
+				
 					var num=parseFloat(req.params.rating);
 					var newR= parseFloat(rest[0][0][0].result);
 					var t= parseFloat(rest[0][0][0].total);
+					if(t==0)
+						newR=0;
 					t=t+1;
 					var total = (num+newR)/(t);
 					console.log(total);
